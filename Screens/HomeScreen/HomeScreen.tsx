@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
-import CustomButton from '../../AppButton/Button';
+import CustomButton from '../../Components/Button/Button';
 
 const HomeScreen = () => {
   return (
