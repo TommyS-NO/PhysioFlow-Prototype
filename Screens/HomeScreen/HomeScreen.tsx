@@ -1,20 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
-import CustomButton from '../../Components/Button/Button';
+import { View, StyleSheet, Text } from 'react-native';
+
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <CustomButton
-        title="Registrer"
-        onPress={() => Alert.alert('Registrer Knapp Trykket')}
-        iconName="react"
-      />
-      <CustomButton
-        title="Logg Inn"
-        onPress={() => Alert.alert('Logg Inn Knapp Trykket')}
-        iconName="login"
-      />
+      <Text style={styles.title}>HomeScreen</Text>
+      {/*Skal vi legge til Knapper her ? Logg Inn og Register?*/}
+      {/*Logo ?*/}
+      {/*Innhold*/}
+      {/*en Hjelpeknapp?(?)*/}
     </View>
   );
 };
@@ -24,7 +19,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#26807C'
   },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#1D576C'
+  }
 });
 
 export default HomeScreen;
