@@ -10,10 +10,17 @@ import {
 	View,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../Navigation/navigationTypes";
+import { StackNavigationProp } from "@react-navigation/stack";
+
 import CustomButton from "../Components/Button/Button";
 import { theme } from "../theme";
 
+type NavigationProp = StackNavigationProp<RootStackParamList, "Front">;
+
 const FrontScreen: React.FC = () => {
+	const navigation = useNavigation<NavigationProp>();
 	const [username, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
@@ -32,7 +39,7 @@ const FrontScreen: React.FC = () => {
 	};
 
 	const handleRegister = () => {
-		Alert.alert("Under utvikling", "Denne siden er under utvikling.");
+		navigation.navigate("Register");
 	};
 
 	const handleHelp = () => {
@@ -49,7 +56,6 @@ const FrontScreen: React.FC = () => {
 					source={require("../Assets/logoReact.png")}
 					style={styles.logo}
 				/>
-
 				<Text style={styles.titleText}>Tittel</Text>
 			</View>
 

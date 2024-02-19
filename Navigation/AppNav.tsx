@@ -1,20 +1,25 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../Screens/HomeScreen/HomeScreen";
-import ProfileScreen from "../Screens/ProfileScreen/ProfileScreen";
-import AboutScreen from "../Screens/AboutScreen/AboutScreen";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import FrontScreen from "../Screens/FrontScreen";
+import RegisterScreen from "../Screens/RegisterScreen";
+const Stack = createStackNavigator();
 
-const Tab = createBottomTabNavigator();
-
-const AppNav = () => {
-    return (
-        <Tab.Navigator>
-            <Tab.Screen name="Hjem" component={HomeScreen} />
-            <Tab.Screen name="Profil" component={ ProfileScreen} />
-            <Tab.Screen name="Om oss" component={ AboutScreen} />
-
-        </Tab.Navigator>
-    );
-};
+const AppNav: React.FC = () => (
+	<NavigationContainer>
+		<Stack.Navigator initialRouteName="Front">
+			<Stack.Screen
+				name="Front"
+				component={FrontScreen}
+				options={{ title: "Hjem" }}
+			/>
+			<Stack.Screen
+				name="Register"
+				component={RegisterScreen}
+				options={{ title: "Registrer" }}
+			/>
+		</Stack.Navigator>
+	</NavigationContainer>
+);
 
 export default AppNav;
