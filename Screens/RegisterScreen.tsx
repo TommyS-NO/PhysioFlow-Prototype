@@ -3,23 +3,22 @@ import {
 	View,
 	Text,
 	TextInput,
-	StyleSheet,
-	ScrollView,
-	Alert,
 	TouchableOpacity,
+	StyleSheet,
+	Alert,
+	Switch,
+	Image,
 	ImageBackground,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import CustomButton from "../Components/Button/Button";
-import { Picker } from "@react-native-picker/picker";
-import { RootStackParamList } from "../Navigation/navigationTypes";
+import { useNavigation } from "@react-navigation/native";
 import { theme } from "../theme";
+import { RootStackParamList } from "../Navigation/navigationTypes";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 type RegisterScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
-	"Front"
+	"Register"
 >;
 
 interface User {
@@ -27,91 +26,98 @@ interface User {
 	email: string;
 	password: string;
 	confirmPassword: string;
-	gender: string;
-	birthYear: number;
-	height: number;
-	focusAreas: string[];
+	termsAccepted: boolean;
 }
 
 const RegisterScreen: React.FC = () => {
 	const navigation = useNavigation<RegisterScreenNavigationProp>();
-	const [step, setStep] = useState<number>(1);
 	const [user, setUser] = useState<User>({
 		name: "",
 		email: "",
 		password: "",
 		confirmPassword: "",
-		gender: "",
-		birthYear: new Date().getFullYear(),
-		height: 160,
-		focusAreas: [],
+		termsAccepted: false,
 	});
 
-	const handleNextStep = async () => {
-		if (step === 1) {
-			// Validering av trinn 1 data
-			if (user.name && user.email && user.password && user.confirmPassword) {
-				if (user.password === user.confirmPassword) {
-					setStep(step + 1); // Går til neste trinn
-				} else {
-					Alert.alert("Feil", "Passordene matcher ikke.");
-				}
-			} else {
-				Alert.alert("Feil", "Alle feltene må fylles ut.");
-			}
+	const handleRegister = async () => {
+		if (!user.termsAccepted) {
+			Alert.alert("Error", "Du må Akseptere Terms of Service");
+			return;
 		}
-		// Legg til logikk for neste steg
+
+		if (user.password !== user.confirmPassword) {
+			Alert.alert("Error", "Passord matcher ikke");
+			return;
+		}
+
+		try {
+			await AsyncStorage.setItem("user", JSON.stringify(user));
+			navigation.navigate("InfoScreen");
+		} catch (error) {
+			Alert.alert("Error", "Noe gikk galt under lagringen");
+		}
 	};
 
-	const onValueChange = (key: keyof User, value: string | number) => {
+	const onValueChange = (key: keyof User, value: string | boolean) => {
 		setUser({ ...user, [key]: value });
 	};
 
-	const renderStepContent = () => {
-		if (step === 1) {
-			return (
-				<>
-					<TextInput
-						style={styles.input}
-						placeholder="Navn"
-						value={user.name}
-						onChangeText={(text) => onValueChange("name", text)}
-					/>
-					<TextInput
-						style={styles.input}
-						placeholder="E-post"
-						value={user.email}
-						onChangeText={(text) => onValueChange("email", text)}
-					/>
-					<TextInput
-						style={styles.input}
-						placeholder="Passord"
-						secureTextEntry
-						value={user.password}
-						onChangeText={(text) => onValueChange("password", text)}
-					/>
-					<TextInput
-						style={styles.input}
-						placeholder="Bekreft passord"
-						secureTextEntry
-						value={user.confirmPassword}
-						onChangeText={(text) => onValueChange("confirmPassword", text)}
-					/>
-					<CustomButton title="Neste" onPress={handleNextStep} iconName={""} />
-				</>
-			);
-		}
-		// Legg til rendring for andre steg
+	const toggleTermsAccepted = () => {
+		setUser({ ...user, termsAccepted: !user.termsAccepted });
 	};
 
 	return (
 		<ImageBackground
-			style={styles.container}
 			source={require("../Assets/mountain.jpg")}
+			style={styles.container}
 		>
-			<ScrollView contentContainerStyle={styles.scrollContainer}>
-				{renderStepContent()}
-			</ScrollView>
+			<View style={styles.logoContainer}>
+				<Image
+					source={require("../Assets/logoReact.png")}
+					style={styles.logo}
+				/>
+			</View>
+			<TextInput
+				style={styles.input}
+				placeholder="Navn"
+				onChangeText={(text) => onValueChange("name", text)}
+				value={user.name}
+			/>
+			<TextInput
+				style={styles.input}
+				placeholder="E-post"
+				onChangeText={(text) => onValueChange("email", text)}
+				value={user.email}
+			/>
+			<TextInput
+				style={styles.input}
+				placeholder="Passord"
+				onChangeText={(text) => onValueChange("password", text)}
+				secureTextEntry
+				value={user.password}
+			/>
+			<TextInput
+				style={styles.input}
+				placeholder="Bekreft Passord"
+				onChangeText={(text) => onValueChange("confirmPassword", text)}
+				secureTextEntry
+				value={user.confirmPassword}
+			/>
+			<Switch
+				trackColor={{ false: "#767577", true: "#81b0ff" }}
+				thumbColor={user.termsAccepted ? "#f5dd4b" : "#f4f3f4"}
+				onValueChange={toggleTermsAccepted}
+				value={user.termsAccepted}
+			/>
+			<Text
+				style={styles.termsText}
+				onPress={() => navigation.navigate("TermsScreen")}
+			>
+				Jeg godtar vilkårene
+			</Text>
+			<TouchableOpacity style={styles.button} onPress={handleRegister}>
+				<Text style={styles.buttonText}>Opprett bruker</Text>
+			</TouchableOpacity>
 		</ImageBackground>
 	);
 };
@@ -119,21 +125,42 @@ const RegisterScreen: React.FC = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-	},
-	scrollContainer: {
-		flexGrow: 1,
 		justifyContent: "center",
-		padding: theme.spacing.large,
+		alignItems: "center",
+		backgroundColor: theme.colors.primary,
+	},
+	logoContainer: {
+		marginBottom: theme.spacing.large,
+	},
+	logo: {
+		height: 100,
+		width: 100,
+		resizeMode: "contain",
 	},
 	input: {
-		borderWidth: 1,
-		borderColor: theme.colors.primary,
-		backgroundColor: "rgba(255, 255, 255, 0.9)",
+		backgroundColor: "rgba(255, 255, 255, 0.7)",
+		width: "80%",
 		padding: theme.spacing.medium,
-		marginBottom: theme.spacing.medium,
 		borderRadius: theme.borderRadius.medium,
-		color: theme.colors.text,
 		fontSize: theme.fontSize.regular,
+		marginVertical: theme.spacing.small,
+		color: theme.colors.text,
+		borderColor: theme.colors.primary,
+		borderWidth: 1,
+	},
+	button: {
+		backgroundColor: theme.colors.button,
+		paddingVertical: theme.spacing.medium,
+		paddingHorizontal: theme.spacing.large,
+		borderRadius: theme.borderRadius.medium,
+	},
+	buttonText: {
+		color: theme.colors.text,
+		fontSize: theme.fontSize.title,
+	},
+	termsText: {
+		color: theme.colors.text,
+		marginTop: theme.spacing.small,
 	},
 });
 
