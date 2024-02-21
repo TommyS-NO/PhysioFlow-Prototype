@@ -1,6 +1,6 @@
 export type RootStackParamList = {
 	Front: undefined;
-	Register: undefined;
+	Register: { termsAccepted?: boolean };
 	TermsScreen: undefined;
 	InfoScreen: undefined;
 };

@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	View,
 	Text,
+	Switch,
 	StyleSheet,
 	ScrollView,
-	TouchableOpacity,
+	Alert,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../theme";
+import CustomButton from "../Components/Button/Button";
 
 const TermsScreen: React.FC = () => {
 	const navigation = useNavigation();
+	const [isAccepted, setIsAccepted] = useState(false);
+
+	const handleAcceptTerms = async () => {
+		if (isAccepted) {
+			await AsyncStorage.setItem("termsAccepted", "true");
+			navigation.goBack();
+		} else {
+			Alert.alert(
+				"Vilkår må aksepteres",
+				"Du må godta vilkårene for å fortsette.",
+			);
+		}
+	};
 
 	return (
 		<ScrollView contentContainerStyle={styles.container}>
@@ -439,12 +455,23 @@ const TermsScreen: React.FC = () => {
 					us:
 				</Text>
 			</Text>
-			<TouchableOpacity
-				style={styles.button}
-				onPress={() => navigation.goBack()}
-			>
-				<Text style={styles.buttonText}>Gå tilbake</Text>
-			</TouchableOpacity>
+			<View style={styles.switchContainer}>
+				<Switch
+					trackColor={{ false: "#767577", true: theme.colors.primary }}
+					thumbColor={isAccepted ? theme.colors.secondary : "#f4f3f4"}
+					ios_backgroundColor="#3e3e3e"
+					onValueChange={setIsAccepted}
+					value={isAccepted}
+				/>
+			</View>
+
+			<CustomButton
+				title="Godta og Fortsett"
+				onPress={handleAcceptTerms}
+				iconName="check"
+				buttonStyle={isAccepted ? styles.button : styles.disabledButton}
+				titleStyle={isAccepted ? {} : { color: theme.colors.disabledText }}
+			/>
 		</ScrollView>
 	);
 };
@@ -452,7 +479,7 @@ const TermsScreen: React.FC = () => {
 const styles = StyleSheet.create({
 	container: {
 		flexGrow: 1,
-		padding: 20,
+		padding: theme.spacing.large,
 	},
 	title: {
 		fontSize: theme.fontSize.title,
@@ -461,14 +488,17 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: theme.fontSize.regular,
+		color: theme.colors.text,
 		marginBottom: theme.spacing.medium,
 	},
-	button: {
-		marginTop: theme.spacing.medium,
-		backgroundColor: theme.colors.button,
-		padding: theme.spacing.medium,
-		borderRadius: theme.borderRadius.medium,
+	switchContainer: {
+		flexDirection: "row",
 		alignItems: "center",
+		justifyContent: "center",
+		marginTop: theme.spacing.medium,
+	},
+	buttonDisabled: {
+		backgroundColor: theme.colors.disabled,
 	},
 	buttonText: {
 		color: theme.colors.text,

@@ -5,7 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import FrontScreen from "./Screens/FrontScreen";
 import RegisterScreen from "./Screens/RegisterScreen";
-import TermsScreen from "./Screens/TermsScreen"; 
+import TermsScreen from "./Screens/TermsScreen";
+import InfoScreen from "./Screens/InfoScreen";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,11 @@ export default function App() {
 					name="TermsScreen"
 					component={TermsScreen}
 					options={{ title: "Vilkår og Betingelser" }}
+				/>
+				<Stack.Screen
+					name="InfoScreen"
+					component={InfoScreen}
+					options={{ title: "Informasjon" }}
 				/>
 				{/* Legg til andre skjermer her */}
 			</Stack.Navigator>

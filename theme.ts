@@ -1,9 +1,12 @@
 interface Theme {
 	colors: {
 		primary: string;
+		secondary: string;
 		text: string;
 		button: string;
 		icon: string;
+		disabled: string;
+		disabledText: string;
 	};
 	fontSize: {
 		regular: number;
@@ -28,9 +31,12 @@ interface Theme {
 export const theme: Theme = {
 	colors: {
 		primary: "#26807C",
-		text: "#FFF",
+		text: "#000000",
 		button: "#26807C",
 		icon: "#FFF",
+		secondary: "#000000",
+		disabled: "#cccccc",
+		disabledText: "#666666",
 	},
 	fontSize: {
 		regular: 16,
@@ -41,13 +47,13 @@ export const theme: Theme = {
 		h4: 16,
 	},
 	spacing: {
-		small: 4,
-		medium: 10,
-		large: 15,
+		small: 8,
+		medium: 16,
+		large: 24,
 	},
 	borderRadius: {
-		small: 40,
-		medium: 40,
-		large: 40,
+		small: 4,
+		medium: 8,
+		large: 12,
 	},
 };

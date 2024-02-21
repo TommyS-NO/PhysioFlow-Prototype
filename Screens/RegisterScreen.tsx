@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	View,
 	Text,
@@ -6,7 +6,6 @@ import {
 	TouchableOpacity,
 	StyleSheet,
 	Alert,
-	Switch,
 	Image,
 	ImageBackground,
 } from "react-native";
@@ -39,31 +38,52 @@ const RegisterScreen: React.FC = () => {
 		termsAccepted: false,
 	});
 
-	const handleRegister = async () => {
-		if (!user.termsAccepted) {
-			Alert.alert("Error", "Du må Akseptere Terms of Service");
-			return;
-		}
+	useEffect(() => {
+		const unsubscribe = navigation.addListener("focus", async () => {
+			const termsAccepted = await AsyncStorage.getItem("termsAccepted");
+			if (termsAccepted === "true") {
+				setUser((currentUser) => ({ ...currentUser, termsAccepted: true }));
+			}
+		});
 
+		return unsubscribe;
+	}, [navigation]);
+
+	const validateInput = () => {
+		if (!user.name || !user.email || !user.password || !user.confirmPassword) {
+			Alert.alert("Error", "Alle felt må fylles ut");
+			return false;
+		}
 		if (user.password !== user.confirmPassword) {
 			Alert.alert("Error", "Passord matcher ikke");
-			return;
+			return false;
 		}
+		if (!user.termsAccepted) {
+			Alert.alert("Error", "Du må akseptere Terms of Service");
+			return false;
+		}
+		return true;
+	};
 
-		try {
-			await AsyncStorage.setItem("user", JSON.stringify(user));
-			navigation.navigate("InfoScreen");
-		} catch (error) {
-			Alert.alert("Error", "Noe gikk galt under lagringen");
+	const handleRegister = async () => {
+		if (validateInput()) {
+			try {
+				await AsyncStorage.setItem(
+					"user",
+					JSON.stringify({ ...user, termsAccepted: undefined }),
+				);
+				await AsyncStorage.setItem("newUserCreated", "true");
+
+				await AsyncStorage.removeItem("termsAccepted");
+				navigation.navigate("InfoScreen");
+			} catch (error) {
+				Alert.alert("Error", "Noe gikk galt under lagringen");
+			}
 		}
 	};
 
-	const onValueChange = (key: keyof User, value: string | boolean) => {
+	const onValueChange = <K extends keyof User>(key: K, value: User[K]) => {
 		setUser({ ...user, [key]: value });
-	};
-
-	const toggleTermsAccepted = () => {
-		setUser({ ...user, termsAccepted: !user.termsAccepted });
 	};
 
 	return (
@@ -103,17 +123,12 @@ const RegisterScreen: React.FC = () => {
 				secureTextEntry
 				value={user.confirmPassword}
 			/>
-			<Switch
-				trackColor={{ false: "#767577", true: "#81b0ff" }}
-				thumbColor={user.termsAccepted ? "#f5dd4b" : "#f4f3f4"}
-				onValueChange={toggleTermsAccepted}
-				value={user.termsAccepted}
-			/>
+
 			<Text
 				style={styles.termsText}
 				onPress={() => navigation.navigate("TermsScreen")}
 			>
-				Jeg godtar vilkårene
+				Våres Vilkår og betingelser
 			</Text>
 			<TouchableOpacity style={styles.button} onPress={handleRegister}>
 				<Text style={styles.buttonText}>Opprett bruker</Text>

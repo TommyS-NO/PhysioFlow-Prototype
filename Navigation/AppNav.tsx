@@ -1,3 +1,4 @@
+// AppNav.tsx
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -5,6 +6,7 @@ import FrontScreen from "../Screens/FrontScreen";
 import RegisterScreen from "../Screens/RegisterScreen";
 import TermsScreen from "../Screens/TermsScreen";
 import InfoScreen from "../Screens/InfoScreen";
+
 const Stack = createStackNavigator();
 
 const AppNav: React.FC = () => (
@@ -26,10 +28,11 @@ const AppNav: React.FC = () => (
 				options={{ title: "Vilkår og Betingelser" }}
 			/>
 			<Stack.Screen
-				name="Info"
+				name="InfoScreen"
 				component={InfoScreen}
-				options={{ title: "Registrer" }}
-			/>
+				options={{ title: "Informasjon" }}
+			/>{" "}
+			{/* Oppdatert navn til InfoScreen */}
 		</Stack.Navigator>
 	</NavigationContainer>
 );
