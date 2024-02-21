@@ -1,37 +1,72 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import {
+	View,
+	Text,
+	StyleSheet,
+	ImageBackground,
+	Image,
+	TouchableOpacity,
+	Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../theme";
 
 const InfoScreen: React.FC = () => {
 	const navigation = useNavigation();
 
+	const handleStartExtraInfo = () => {
+		Alert.alert("Neste side er under utvikling");
+	};
+
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Flott!</Text>
-			<Text style={styles.description}>
-				Nå trenger vi å vite litt mer om deg for å gi deg best mulig utbytte av
-				denne tjenesten. Nå kommer det noen spørsmål vi ønsker at du besvarer så
-				korrekt som mulig. Du kan alltid gjøre endringer på dette senere.
-			</Text>
-			<View style={styles.imageContainer}>{/*legge inn bildet */}</View>
-			{/* <Button title="Kom i gang!" onPress={() => navigation.navigate("")} /> */}
-		</View>
+		<ImageBackground
+			source={require("../Assets/mountain.jpg")}
+			style={styles.container}
+		>
+			<View style={styles.topContainer}>
+				<Image
+					source={require("../Assets/logoReact.png")}
+					style={styles.logo}
+				/>
+				<Text style={styles.title}>Flott!</Text>
+				<Text style={styles.description}>
+					Nå trenger vi å vite litt mer om deg for å gi deg best mulig utbytte
+					av denne tjenesten. Nå kommer det noen spørsmål vi ønsker at du
+					besvarer så korrekt som mulig. Du kan alltid gjøre endringer på dette
+					senere.
+				</Text>
+			</View>
+			<Image
+				source={{ uri: "file:///mnt/data/image.png" }}
+				style={styles.avatarImage}
+			/>
+			<TouchableOpacity style={styles.button} onPress={handleStartExtraInfo}>
+				<Text style={styles.buttonText}>Kom i gang!</Text>
+			</TouchableOpacity>
+		</ImageBackground>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		justifyContent: "flex-start",
 		alignItems: "center",
-		justifyContent: "center",
-		padding: theme.spacing.large,
-		// backgroundColor: theme.colors.background,
+	},
+	topContainer: {
+		marginTop: theme.spacing.large,
+		alignItems: "center",
+	},
+	logo: {
+		height: 100,
+		width: 100,
+		resizeMode: "contain",
 	},
 	title: {
 		fontSize: theme.fontSize.title,
 		fontWeight: "bold",
 		color: theme.colors.text,
+		marginVertical: theme.spacing.small,
 	},
 	description: {
 		fontSize: theme.fontSize.regular,
@@ -39,7 +74,22 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		marginVertical: theme.spacing.medium,
 	},
-	imageContainer: {},
+	avatarImage: {
+		height: 200,
+		width: 200,
+		marginVertical: theme.spacing.medium,
+	},
+	button: {
+		backgroundColor: theme.colors.button,
+		paddingVertical: theme.spacing.medium,
+		paddingHorizontal: theme.spacing.large,
+		borderRadius: theme.borderRadius.medium,
+		marginBottom: theme.spacing.large,
+	},
+	buttonText: {
+		color: theme.colors.text,
+		fontSize: theme.fontSize.title,
+	},
 });
 
 export default InfoScreen;
