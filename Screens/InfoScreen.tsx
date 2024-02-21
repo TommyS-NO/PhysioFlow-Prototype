@@ -24,11 +24,15 @@ const InfoScreen: React.FC = () => {
 			style={styles.container}
 		>
 			<View style={styles.topContainer}>
-				<Image
+				{/* <Image
 					source={require("../Assets/logoReact.png")}
 					style={styles.logo}
-				/>
+				/> */}
 				<Text style={styles.title}>Flott!</Text>
+				<Image
+					source={require("../Assets/Robot_3.png")}
+					style={styles.avatarImage}
+				/>
 				<Text style={styles.description}>
 					Nå trenger vi å vite litt mer om deg for å gi deg best mulig utbytte
 					av denne tjenesten. Nå kommer det noen spørsmål vi ønsker at du
@@ -36,10 +40,7 @@ const InfoScreen: React.FC = () => {
 					senere.
 				</Text>
 			</View>
-			<Image
-				source={{ uri: "file:///mnt/data/image.png" }}
-				style={styles.avatarImage}
-			/>
+
 			<TouchableOpacity style={styles.button} onPress={handleStartExtraInfo}>
 				<Text style={styles.buttonText}>Kom i gang!</Text>
 			</TouchableOpacity>
