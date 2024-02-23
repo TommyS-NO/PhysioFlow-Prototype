@@ -10,12 +10,19 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../theme";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../Navigation/navigationTypes";
+
+type InfoScreenNavigationProp = StackNavigationProp<
+	RootStackParamList,
+	"InfoScreen"
+>;
 
 const InfoScreen: React.FC = () => {
-	const navigation = useNavigation();
+	const navigation = useNavigation<InfoScreenNavigationProp>();
 
 	const handleStartExtraInfo = () => {
-		Alert.alert("Neste side er under utvikling");
+		navigation.navigate("GenderSelectionScreen");
 	};
 
 	return (

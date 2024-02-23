@@ -3,4 +3,5 @@ export type RootStackParamList = {
 	Register: { termsAccepted?: boolean };
 	TermsScreen: undefined;
 	InfoScreen: undefined;
+	GenderSelectionScreen: undefined;
 };

@@ -1,42 +1,14 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import FrontScreen from "./Screens/FrontScreen";
-import RegisterScreen from "./Screens/RegisterScreen";
-import TermsScreen from "./Screens/TermsScreen";
-import InfoScreen from "./Screens/InfoScreen";
-
-const Stack = createStackNavigator();
+import { StyleSheet, View } from "react-native";
+import AppNav from "./Navigation/AppNav";
 
 export default function App() {
 	return (
-		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Front">
-				<Stack.Screen
-					name="Front"
-					component={FrontScreen}
-					options={{ headerShown: false }}
-				/>
-				<Stack.Screen
-					name="Register"
-					component={RegisterScreen}
-					// options={{ headerShown: false }}
-				/>
-				<Stack.Screen
-					name="TermsScreen"
-					component={TermsScreen}
-					options={{ title: "Vilkår og Betingelser" }}
-				/>
-				<Stack.Screen
-					name="InfoScreen"
-					component={InfoScreen}
-					options={{ title: "Informasjon" }}
-				/>
-				{/* Legg til andre skjermer her */}
-			</Stack.Navigator>
-		</NavigationContainer>
+		<View style={styles.container}>
+			<AppNav />
+			<StatusBar style="auto" />
+		</View>
 	);
 }
 
