@@ -9,18 +9,18 @@ export const frontScreenStyles = StyleSheet.create({
 	},
 	topContainer: {
 		position: "absolute",
-		top: 0,
+		top: theme.spacing.large,
 		alignItems: "center",
 		width: "100%",
 	},
 	logo: {
-		height: 50,
-		width: 50,
-		marginTop: 50,
+		height: 80,
+		width: 80,
+		marginTop: theme.spacing.large,
 	},
 	titleText: {
 		color: theme.colors.primary,
-		fontSize: theme.fontSize.h1,
+		fontSize: theme.fontSize.h2,
 		fontWeight: "bold",
 		marginVertical: theme.spacing.small,
 	},
@@ -33,18 +33,33 @@ export const frontScreenStyles = StyleSheet.create({
 	},
 	loginContainer: {
 		backgroundColor: "rgba(255, 255, 255, 0.9)",
-		padding: theme.spacing.medium,
-		borderRadius: theme.borderRadius.medium,
-		width: "80%",
+		padding: theme.spacing.large,
+		borderRadius: theme.borderRadius.large,
+		width: "90%",
 		alignItems: "center",
+		marginTop: theme.spacing.large,
 	},
 	loginText: {
-		fontSize: theme.fontSize.title,
+		fontSize: theme.fontSize.h4,
 		marginBottom: theme.spacing.medium,
 	},
 	registerText: {
 		marginTop: theme.spacing.medium,
 		fontSize: theme.fontSize.regular,
 	},
-	// ...andre stiler som tilhører FrontScreen...
+	input: {
+		height: 50,
+		width: "100%",
+		marginVertical: theme.spacing.small,
+		borderColor: "gray",
+		borderWidth: 1,
+		paddingHorizontal: theme.spacing.medium,
+		borderRadius: theme.borderRadius.small,
+	},
+	loginButton: {
+		marginTop: theme.spacing.medium,
+	},
+	registerButton: {
+		marginTop: theme.spacing.medium,
+	},
 });
