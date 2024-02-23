@@ -6,12 +6,14 @@ import {
 	Image,
 	TouchableOpacity,
 	Alert,
+	ScrollView,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../theme";
 import { RootStackParamList } from "../Navigation/navigationTypes";
 import { StackNavigationProp } from "@react-navigation/stack";
+import CustomButton from "../Components/Button/Button";
 
 type GenderSelectionScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
@@ -33,10 +35,6 @@ const GenderSelectionScreen: React.FC = () => {
 			const userData = userDataJson ? JSON.parse(userDataJson) : {};
 			const updatedUserData = { ...userData, gender };
 			await AsyncStorage.setItem("user", JSON.stringify(updatedUserData));
-
-			Alert.alert("Suksess", "Kjønn valgt. Navigerer til neste skjerm...", [
-				{ text: "OK", onPress: () => console.log("OK Pressed") },
-			]);
 		} catch (error) {
 			Alert.alert(
 				"Feil",
@@ -45,53 +43,68 @@ const GenderSelectionScreen: React.FC = () => {
 		}
 	};
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Velg kjønn</Text>
-			<View style={styles.genderOptions}>
+		<ScrollView contentContainerStyle={styles.container}>
+			<View style={styles.content}>
+				<Text style={styles.title}>Velg kjønn</Text>
+				<View style={styles.genderOptions}>
+					<TouchableOpacity
+						onPress={() => handleSelectGender("male")}
+						style={[
+							styles.genderOption,
+							selectedGender === "male" && styles.selected,
+						]}
+					>
+						<Image
+							source={require("../Assets/Mann.png")}
+							style={styles.genderImage}
+						/>
+						<Text>Mann</Text>
+					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => handleSelectGender("female")}
+						style={[
+							styles.genderOption,
+							selectedGender === "female" && styles.selected,
+						]}
+					>
+						<Image
+							source={require("../Assets/Dame.png")}
+							style={styles.genderImage}
+						/>
+						<Text>Kvinne</Text>
+					</TouchableOpacity>
+				</View>
 				<TouchableOpacity
-					onPress={() => handleSelectGender("male")}
+					onPress={() => handleSelectGender("unspecified")}
 					style={[
 						styles.genderOption,
-						selectedGender === "male" && styles.selected,
+						selectedGender === "unspecified" && styles.selected,
+						styles.unspecifiedOption,
 					]}
 				>
-					<Image
-						source={require("../Assets/Mann.png")}
-						style={styles.genderImage}
-					/>
-					<Text>Mann</Text>
+					<Text style={styles.unspecifiedText}>Ønsker ikke å oppgi</Text>
 				</TouchableOpacity>
-				<TouchableOpacity
-					onPress={() => handleSelectGender("female")}
-					style={[
-						styles.genderOption,
-						selectedGender === "female" && styles.selected,
-					]}
-				>
-					<Image
-						source={require("../Assets/Dame.png")}
-						style={styles.genderImage}
-					/>
-					<Text>Kvinne</Text>
-				</TouchableOpacity>
+				<CustomButton
+					title="Neste"
+					onPress={() =>
+						Alert.alert("Under utvikling", "Følg med for mer innhold 😄 ")
+					}
+					iconName="arrow-right"
+				/>
 			</View>
-			<TouchableOpacity
-				onPress={() => handleSelectGender("unspecified")}
-				style={styles.unspecifiedOption}
-			>
-				<Text style={styles.unspecifiedText}>Ønsker ikke å oppgi</Text>
-			</TouchableOpacity>
-		</View>
+		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		alignItems: "center",
+		flexGrow: 1,
 		justifyContent: "center",
-		padding: 20,
 		backgroundColor: theme.colors.background,
+	},
+	content: {
+		alignItems: "center",
+		padding: 20,
 	},
 	title: {
 		fontSize: 22,
@@ -106,10 +119,12 @@ const styles = StyleSheet.create({
 	genderOption: {
 		alignItems: "center",
 		justifyContent: "center",
+		padding: 10,
 	},
 	selected: {
 		borderColor: theme.colors.primary,
 		borderWidth: 2,
+		borderRadius: 10,
 	},
 	genderImage: {
 		width: 100,
