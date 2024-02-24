@@ -2,101 +2,99 @@ import React from "react";
 import {
 	View,
 	Text,
-	StyleSheet,
-	ImageBackground,
-	Image,
 	TouchableOpacity,
-	Alert,
+	StyleSheet,
+	Image,
+	ImageBackground,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { theme } from "../theme";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../Navigation/navigationTypes";
 
-type InfoScreenNavigationProp = StackNavigationProp<
-	RootStackParamList,
-	"InfoScreen"
->;
+type InfoScreenRouteProp = RouteProp<RootStackParamList, "InfoScreen">;
 
-const InfoScreen: React.FC = () => {
-	const navigation = useNavigation<InfoScreenNavigationProp>();
+const InfoScreen = () => {
+	const navigation = useNavigation();
+	const route = useRoute<InfoScreenRouteProp>();
+	const { title, message, onContinue } = route.params;
 
-	const handleStartExtraInfo = () => {
-		navigation.navigate("GenderSelectionScreen");
+	const defaultContinue = () => {
+		navigation.goBack();
 	};
 
 	return (
 		<ImageBackground
 			source={require("../Assets/mountain.jpg")}
-			style={styles.container}
+			style={styles.background}
 		>
-			<View style={styles.topContainer}>
-				{/* <Image
-					source={require("../Assets/logoReact.png")}
-					style={styles.logo}
-				/> */}
-				<Text style={styles.title}>Flott!</Text>
-				<Image
-					source={require("../Assets/Robot_3.png")}
-					style={styles.avatarImage}
-				/>
-				<Text style={styles.description}>
-					Nå trenger vi å vite litt mer om deg for å gi deg best mulig utbytte
-					av denne tjenesten. Nå kommer det noen spørsmål vi ønsker at du
-					besvarer så korrekt som mulig. Du kan alltid gjøre endringer på dette
-					senere.
-				</Text>
+			<View style={styles.centeredView}>
+				<View style={styles.infoScreenView}>
+					<Text style={styles.infoScreenTitle}>{title}</Text>
+					<Image
+						source={require("../Assets/Robot_3.png")}
+						style={styles.avatarStyle}
+					/>
+					<Text style={styles.infoScreenText}>{message}</Text>
+					<TouchableOpacity
+						style={styles.button}
+						onPress={onContinue || defaultContinue}
+					>
+						<Text style={styles.textStyle}>Fortsett</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
-
-			<TouchableOpacity style={styles.button} onPress={handleStartExtraInfo}>
-				<Text style={styles.buttonText}>Kom i gang!</Text>
-			</TouchableOpacity>
 		</ImageBackground>
 	);
 };
 
 const styles = StyleSheet.create({
-	container: {
+	background: {
 		flex: 1,
-		justifyContent: "flex-start",
+		justifyContent: "center",
+	},
+	centeredView: {
+		flex: 1,
+		justifyContent: "center",
 		alignItems: "center",
 	},
-	topContainer: {
-		marginTop: theme.spacing.large,
+	infoScreenView: {
+		backgroundColor: "white",
+		borderRadius: 20,
+		padding: 35,
 		alignItems: "center",
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 4,
+		elevation: 5,
 	},
-	logo: {
-		height: 100,
-		width: 100,
-		resizeMode: "contain",
-	},
-	title: {
-		fontSize: theme.fontSize.title,
-		fontWeight: "bold",
-		color: theme.colors.text,
-		marginVertical: theme.spacing.small,
-	},
-	description: {
-		fontSize: theme.fontSize.regular,
-		color: theme.colors.text,
+	infoScreenTitle: {
+		marginBottom: 15,
 		textAlign: "center",
-		marginVertical: theme.spacing.medium,
+		fontWeight: "bold",
+		fontSize: 18,
 	},
-	avatarImage: {
-		height: 200,
-		width: 200,
-		marginVertical: theme.spacing.medium,
+	avatarStyle: {
+		width: 100,
+		height: 100,
+		marginBottom: 15,
+	},
+	infoScreenText: {
+		marginBottom: 15,
+		textAlign: "center",
 	},
 	button: {
-		backgroundColor: theme.colors.button,
-		paddingVertical: theme.spacing.medium,
-		paddingHorizontal: theme.spacing.large,
-		borderRadius: theme.borderRadius.medium,
-		marginBottom: theme.spacing.large,
+		borderRadius: 20,
+		padding: 10,
+		elevation: 2,
+		backgroundColor: "#2196F3",
 	},
-	buttonText: {
-		color: theme.colors.text,
-		fontSize: theme.fontSize.title,
+	textStyle: {
+		color: "white",
+		fontWeight: "bold",
+		textAlign: "center",
 	},
 });
 
