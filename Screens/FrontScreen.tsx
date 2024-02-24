@@ -37,7 +37,8 @@ const FrontScreen: React.FC = () => {
 	};
 
 	const handleRegister = () => {
-		navigation.navigate("Register");
+		navigation.navigate("Register", { termsAccepted: true });
+		// navigation.navigate("Register");
 	};
 
 	const handleHelp = () => {
