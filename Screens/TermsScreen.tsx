@@ -10,7 +10,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../theme";
-import CustomButton from "../Components/Button/Button";
+import CustomButton from "../Components/CustomButton/CustomButton";
 
 const TermsScreen: React.FC = () => {
 	const navigation = useNavigation();
