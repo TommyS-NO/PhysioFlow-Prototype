@@ -4,10 +4,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import FrontScreen from "../Screens/FrontScreen";
 import RegisterScreen from "../Screens/RegisterScreen";
 import TermsScreen from "../Screens/TermsScreen";
+import TBA from "../Screens/TBA";
+import UserGuideScreen from "../Screens/UserGuideScreen";
 import InfoScreen from "../Screens/InfoScreen";
-import GenderSelectionScreen from "../Screens/GenderSelectionScreen";
+import { RootStackParamList } from "./navigationTypes";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNav: React.FC = () => (
 	<NavigationContainer>
@@ -15,7 +17,7 @@ const AppNav: React.FC = () => (
 			<Stack.Screen
 				name="Front"
 				component={FrontScreen}
-				options={{ title: "Hjem" }}
+				options={{ headerShown: false }}
 			/>
 			<Stack.Screen
 				name="Register"
@@ -27,15 +29,16 @@ const AppNav: React.FC = () => (
 				component={TermsScreen}
 				options={{ title: "Vilkår og Betingelser" }}
 			/>
+			<Stack.Screen name="TBA" component={TBA} options={{ title: "TBA" }} />
+			<Stack.Screen
+				name="UserGuideScreen"
+				component={UserGuideScreen}
+				options={{ title: "Brukerveiledning" }}
+			/>
 			<Stack.Screen
 				name="InfoScreen"
 				component={InfoScreen}
-				options={{ title: "Informasjon" }}
-			/>
-			<Stack.Screen
-				name="GenderSelectionScreen"
-				component={GenderSelectionScreen}
-				options={{ title: "Valg av Kjønn" }}
+				options={{ headerShown: false }}
 			/>
 		</Stack.Navigator>
 	</NavigationContainer>
