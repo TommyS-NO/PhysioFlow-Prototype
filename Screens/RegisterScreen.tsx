@@ -29,7 +29,7 @@ interface User {
 	email: string;
 	password: string;
 	confirmPassword: string;
-	termsAccepted: boolean;
+	// termsAccepted: boolean;
 	gender: "male" | "female" | "unspecified" | undefined;
 	height: number;
 	weight: number;
@@ -43,7 +43,7 @@ const RegisterScreen: React.FC = () => {
 		email: "",
 		password: "",
 		confirmPassword: "",
-		termsAccepted: false,
+		// termsAccepted: false,
 		gender: undefined,
 		height: 170,
 		weight: 70,
@@ -51,17 +51,17 @@ const RegisterScreen: React.FC = () => {
 	});
 	const [currentStep, setCurrentStep] = useState<number>(1);
 
-	useEffect(() => {
-		const checkTermsAccepted = async () => {
-			const termsAccepted = await AsyncStorage.getItem("termsAccepted");
-			setUser((currentUser) => ({
-				...currentUser,
-				termsAccepted: termsAccepted === "true",
-			}));
-		};
+	// useEffect(() => {
+	// 	const checkTermsAccepted = async () => {
+	// 		const termsAccepted = await AsyncStorage.getItem("termsAccepted");
+	// 		setUser((currentUser) => ({
+	// 			...currentUser,
+	// 			termsAccepted: termsAccepted === "true",
+	// 		}));
+	// 	};
 
-		checkTermsAccepted();
-	}, []);
+	// 	checkTermsAccepted();
+	// }, []);
 
 	const validateInput = async (step: number): Promise<boolean> => {
 		if (step === 1) {
@@ -77,10 +77,10 @@ const RegisterScreen: React.FC = () => {
 				);
 				return false;
 			}
-			if (!user.termsAccepted) {
-				Alert.alert("Feil", "Du må akseptere vilkårene for å fortsette.");
-				return false;
-			}
+			// if (!user.termsAccepted) {
+			// 	Alert.alert("Feil", "Du må akseptere vilkårene for å fortsette.");
+			// 	return false;
+			// }
 		} else if (step === 3 && !user.gender) {
 			Alert.alert("Feil", "Vennligst velg et kjønn.");
 			return false;
