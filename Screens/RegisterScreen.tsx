@@ -33,7 +33,7 @@ interface User {
 	gender: "male" | "female" | "unspecified" | undefined;
 	height: number;
 	weight: number;
-	age: number;
+	birthday: Date;
 }
 
 const RegisterScreen: React.FC = () => {
@@ -47,7 +47,7 @@ const RegisterScreen: React.FC = () => {
 		gender: undefined,
 		height: 170,
 		weight: 70,
-		age: 25,
+		birthday: new Date(),
 	});
 	const [currentStep, setCurrentStep] = useState<number>(1);
 
@@ -87,7 +87,10 @@ const RegisterScreen: React.FC = () => {
 		}
 		return true;
 	};
-	const handleChange = <T extends keyof User>(key: T, value: User[T]) => {
+	const handleChange = <K extends keyof User>(
+		key: K,
+		value: User[K] | Date,
+	) => {
 		setUser((prevUser) => ({
 			...prevUser,
 			[key]: value,
@@ -132,6 +135,7 @@ const RegisterScreen: React.FC = () => {
 								setUser({ ...user, confirmPassword: text })
 							}
 						/>
+						{/*Vi legger til en CheckBox på første side, vi dropper videre navigering.https://docs.expo.dev/versions/latest/sdk/checkbox/ */}
 						<View style={styles.termsContainer}>
 							<Text style={styles.termsText}>Våre vilkår og betingelser</Text>
 							<TouchableOpacity
@@ -170,26 +174,31 @@ const RegisterScreen: React.FC = () => {
 				return (
 					<>
 						<PickerComponent
-							selectedValue={user.age}
-							onValueChange={(value) => handleChange("age", value)}
-							label="Hvor gammel er du?"
-							values={Array.from({ length: 100 }, (_, i) => i + 1)}
+							mode="date"
+							selectedValue={user.birthday}
+							onValueChange={(value) => {
+								if (value instanceof Date) {
+									handleChange("birthday", value);
+								}
+							}}
+							label="Fødselsdato"
 						/>
-
 						<View style={styles.buttonContainer}>
 							<CustomButton title="Tilbake" onPress={handlePreviousStep} />
 							<CustomButton title="Neste" onPress={handleNextStep} />
 						</View>
 					</>
 				);
+
 			case 5:
 				return (
 					<>
 						<PickerComponent
+							mode="picker"
 							selectedValue={user.height}
-							onValueChange={(value) => handleChange("height", value)}
+							onValueChange={(value) => handleChange("height", value as number)}
 							label="Høyde (cm)"
-							values={Array.from({ length: 220 }, (_, i) => i + 100)} // Anta 100cm til 220cm for høyde
+							values={Array.from({ length: 121 }, (_, i) => 100 + i)}
 						/>
 						<View style={styles.buttonContainer}>
 							<CustomButton title="Tilbake" onPress={handlePreviousStep} />
@@ -201,10 +210,11 @@ const RegisterScreen: React.FC = () => {
 				return (
 					<>
 						<PickerComponent
+							mode="picker"
 							selectedValue={user.weight}
-							onValueChange={(value) => handleChange("weight", value)}
+							onValueChange={(value) => handleChange("weight", value as number)}
 							label="Vekt (kg)"
-							values={Array.from({ length: 200 }, (_, i) => i + 30)} // Anta 30kg til 230kg for vekt
+							values={Array.from({ length: 171 }, (_, i) => 30 + i)} //30kg to 200kg
 						/>
 						<View style={styles.buttonContainer}>
 							<CustomButton title="Tilbake" onPress={handlePreviousStep} />
