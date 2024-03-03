@@ -5,7 +5,7 @@ import { customButtonStyles } from "../../Styles/CustomButton_Style";
 import { theme } from "../../theme";
 
 interface CustomButtonProps {
-	title: string;
+	title?: string;
 	onPress: () => void;
 	iconName?: string;
 	buttonStyle?: ViewStyle;

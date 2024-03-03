@@ -8,6 +8,7 @@ import TBA from "../Screens/TBA";
 import UserGuideScreen from "../Screens/UserGuideScreen";
 import InfoScreen from "../Screens/InfoScreen";
 import { RootStackParamList } from "./navigationTypes";
+import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -39,6 +40,11 @@ const AppNav: React.FC = () => (
 				name="InfoScreen"
 				component={InfoScreen}
 				options={{ headerShown: false }}
+			/>
+			<Stack.Screen
+				name="ExerciseSession"
+				component={ExerciseOverviewScreen}
+				options={{ title: "Mitt Treningsprogram" }}
 			/>
 		</Stack.Navigator>
 	</NavigationContainer>
