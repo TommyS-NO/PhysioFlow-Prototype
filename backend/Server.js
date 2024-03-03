@@ -1,12 +1,34 @@
 const express = require("express");
 const cors = require("cors");
-const { authenticateUser } = require("./Auth/authController");
+const {
+	authenticateUser,
+	isUsernameTaken,
+	registerUser,
+} = require("./Auth/authController");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.post("/register", (req, res) => {
+	const { username, password, email, gender, height, weight, birthday } =
+		req.body;
+	if (isUsernameTaken(username)) {
+		res.status(400).json({ message: "Brukernavnet er allerede tatt" });
+	} else {
+		const newUser = registerUser(
+			username,
+			password,
+			email,
+			gender,
+			height,
+			weight,
+			birthday,
+		);
+		res.json({ message: "Suksess", user: newUser });
+	}
+});
 
 app.post("/login", (req, res) => {
 	const { username, password } = req.body;
