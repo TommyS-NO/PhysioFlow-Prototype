@@ -32,12 +32,12 @@ app.post("/register", (req, res) => {
 
 app.post("/login", (req, res) => {
 	const { username, password } = req.body;
-	const user = authenticateUser(username, password);
+	const result = authenticateUser(username, password);
 
-	if (user) {
-		res.json({ message: "Suksess", token: "en-tilfeldig-token-her" }); // Token kan implementeres senere
+	if (result.success) {
+		res.json({ message: "Suksess", token: "en-tilfeldig-token-her" });
 	} else {
-		res.status(401).json({ message: "Feil brukernavn eller passord" });
+		res.status(404).json({ message: result.message });
 	}
 });
 

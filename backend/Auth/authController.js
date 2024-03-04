@@ -17,9 +17,16 @@ const saveUsers = (users) => {
 // Funksjon for å autentisere en bruker
 const authenticateUser = (username, password) => {
 	const users = getUsers();
-	return users.find(
-		(user) => user.username === username && user.password === password,
+	const user = users.find(
+		(u) => u.username === username && u.password === password,
 	);
+	if (user) {
+		return { success: true, user };
+	}
+	return {
+		success: false,
+		message: "Ingen bruker funnet med dette brukernavnet.",
+	};
 };
 
 // Funksjon for å sjekke om et brukernavn allerede eksisterer

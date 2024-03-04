@@ -24,15 +24,22 @@ const FrontScreen: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleLogin = async () => {
+const handleLogin = async () => {
+  try {
     const response = await apiService.login(username, password);
-    if ('token' in response) {
-      Alert.alert("Suksess", "Du er nå logget inn!");
-      // Naviger til neste skjerm eller utfør annen logikk her
+    if (response.message === 'Suksess' && response.data?.token) {
+      Alert.alert("Vellykket innlogging", "Du er nå logget inn.");
+      navigation.navigate("TBA");
     } else {
-      Alert.alert("Feil", response.message);
+      // Feil ved innlogging, viser tilbakemeldingen fra serveren
+      Alert.alert("Feil", response.message || "En ukjent feil oppsto.");
     }
-  };
+  } catch (error) {
+    Alert.alert("Feil", "Noe gikk galt med innloggingen. Vennligst prøv igjen.");
+    console.error('Login Error:', error);
+  }
+};
+
 
   const handleRegister = () => {
     navigation.navigate("Register", { termsAccepted: true });
