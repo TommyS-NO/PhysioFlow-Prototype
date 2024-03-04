@@ -13,15 +13,5 @@
     "id": 3,
     "username": "mina",
     "password": "mina"
-  },
-  {
-    "id": 4,
-    "username": "a",
-    "password": "a"
-  },
-  {
-    "id": 5,
-    "username": "b",
-    "password": "b"
   }
 ]
