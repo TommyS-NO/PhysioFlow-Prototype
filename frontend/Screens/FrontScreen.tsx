@@ -15,30 +15,50 @@ import CustomButton from "../Components/CustomButton/CustomButton";
 import { InputField } from "../Components/CustomInput/CustomInput";
 import { theme } from "../theme";
 import { frontScreenStyles } from "../Styles/FrontScreen_Style";
-import { apiService } from "../Services/APIService";
+import { apiService } from "../Services/APIService"; 
 
 type NavigationProp = StackNavigationProp<RootStackParamList, "Front">;
+
+interface ApiResponse<T> {
+  message: string;
+  data?: T;
+}
+
+interface LoginData {
+  token: string;
+}
+type LoginResponse = ApiResponse<{ data: LoginData; } | null>;
+
+
 
 const FrontScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+
 const handleLogin = async () => {
   try {
-    const response = await apiService.login(username, password);
-    if (response.message === 'Suksess' && response.data?.token) {
-      Alert.alert("Vellykket innlogging", "Du er nå logget inn.");
+    const response = await apiService.login(username, password) as LoginResponse;
+    console.log('Login response:', response);
+
+    if (response.message === 'Suksess' && response.data?.data.token) {
+      Alert.alert("Suksess", "Du er nå logget inn.");
       navigation.navigate("TBA");
     } else {
-      // Feil ved innlogging, viser tilbakemeldingen fra serveren
-      Alert.alert("Feil", response.message || "En ukjent feil oppsto.");
+      // Håndterer feilrespons med en beskjed, men uten token
+      Alert.alert("Feil ved innlogging", response.message);
     }
   } catch (error) {
-    Alert.alert("Feil", "Noe gikk galt med innloggingen. Vennligst prøv igjen.");
+    const errorMessage = (error instanceof Error) ? error.message : "Noe gikk galt med innloggingen. Vennligst prøv igjen.";
+    Alert.alert("Feil", errorMessage);
     console.error('Login Error:', error);
   }
-};
+};;
+
+
+
+
 
 
   const handleRegister = () => {

@@ -25,16 +25,22 @@ export const PickerComponent: React.FC<PickerComponentProps> = ({
 
   useEffect(() => {
     if (mode === "date" && selectedValue instanceof Date) {
-      setPickerString(selectedValue.toLocaleDateString());
+      const dateString = selectedValue.toLocaleDateString();
+      console.log("Date string:", dateString);
+      setPickerString(dateString);
     } else if (mode === "picker" && typeof selectedValue === "number" && values) {
-      setPickerString(`${selectedValue} ${unit}`);
+      const pickerValueString = `${selectedValue} ${unit}`;
+      console.log("Picker value string:", pickerValueString);
+      setPickerString(pickerValueString);
     }
   }, [selectedValue, values, unit, mode]);
 
   const togglePicker = () => setShowPicker(!showPicker);
 
   const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    console.log("Date changed event:", event);
     if (selectedDate) {
+      console.log("Date changed:", selectedDate);
       onValueChange(selectedDate);
       setShowPicker(Platform.OS === "ios");
     }
@@ -58,7 +64,7 @@ export const PickerComponent: React.FC<PickerComponentProps> = ({
               mode="date"
               display={Platform.OS === "android" ? "spinner" : "default"}
               onChange={handleDateChange}
-              maximumDate={new Date()} 
+              maximumDate={new Date()}
             />
           )}
         </>
@@ -80,33 +86,29 @@ export const PickerComponent: React.FC<PickerComponentProps> = ({
 };
 
 const styles = StyleSheet.create({
-	container: {
-		alignItems: "center",
-		justifyContent: "center",
-		padding: 16,
-	},
-	label: {
-		fontSize: 16,
-		color: "#000",
-		marginBottom: 8,
-	},
-	valueText: {
-		fontSize: 16,
-		color: "#000",
-		padding: 8,
-		marginTop: 4,
-		marginBottom: 4,
-		borderColor: "#000",
-		borderWidth: 1,
-		borderRadius: 4,
-		textAlign: "center",
-		minWidth: 120,
-	},
-	selectionContainer: {
-		marginBottom: 10,
-	},
-	picker: {
-		width: "100%",
-		height: 150,
-	},
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 16,
+  },
+  label: {
+    fontSize: 16,
+    color: "#000",
+    marginBottom: 8,
+  },
+  valueText: {
+    fontSize: 16,
+    color: "#000",
+    padding: 8,
+    marginTop: 4,
+    marginBottom: 4,
+    borderColor: "#000",
+    borderWidth: 1,
+    borderRadius: 4,
+    textAlign: "center",
+    minWidth: 120,
+  },
+  selectionContainer: {
+    marginBottom: 10,
+  },
 });
