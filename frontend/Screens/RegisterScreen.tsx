@@ -57,7 +57,7 @@ const handleRegistration = async () => {
     Alert.alert("Feil", "Vennligst oppgi en gyldig e-postadresse.");
     return;
   }
-  if (formData.password.length < 6) {
+  if (formData.password.length < 1) {
     Alert.alert("Feil", "Passordet må være minst 6 tegn langt.");
     return;
   }
@@ -82,7 +82,7 @@ const handleRegistration = async () => {
   const validateCurrentStep = (): boolean => {
     switch (currentStep) {
       case 1:
-        if (!formData.username || !formData.email.includes('@') || formData.password.length < 6 || formData.password !== formData.confirmPassword || !formData.acceptTerms) {
+        if (!formData.username || !formData.email.includes('@') || formData.password.length < 1 || formData.password !== formData.confirmPassword || !formData.acceptTerms) {
           Alert.alert('Feil', 'Vennligst fyll ut alle feltene korrekt og godta vilkårene.');
           return false;
         }
