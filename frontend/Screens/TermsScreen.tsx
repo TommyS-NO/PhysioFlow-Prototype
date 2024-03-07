@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
 	View,
 	Text,
-	Switch,
 	StyleSheet,
 	ScrollView,
 	Alert,
@@ -10,7 +9,6 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../theme";
-import CustomButton from "../Components/CustomButton/CustomButton";
 
 const TermsScreen: React.FC = () => {
 	const navigation = useNavigation();
@@ -455,23 +453,7 @@ const TermsScreen: React.FC = () => {
 					us:
 				</Text>
 			</Text>
-			<View style={styles.switchContainer}>
-				<Switch
-					trackColor={{ false: "#767577", true: theme.colors.primary }}
-					thumbColor={isAccepted ? theme.colors.secondary : "#f4f3f4"}
-					ios_backgroundColor="#3e3e3e"
-					onValueChange={setIsAccepted}
-					value={isAccepted}
-				/>
-			</View>
 
-			<CustomButton
-				title="Godta og Fortsett"
-				onPress={handleAcceptTerms}
-				iconName="check"
-				buttonStyle={isAccepted ? styles.button : styles.disabledButton}
-				titleStyle={isAccepted ? {} : { color: theme.colors.disabledText }}
-			/>
 		</ScrollView>
 	);
 };

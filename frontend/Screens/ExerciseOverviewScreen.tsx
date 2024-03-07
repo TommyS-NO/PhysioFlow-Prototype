@@ -46,7 +46,7 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		title: "Bein og Gluteus Maximus Styrke",
 		description:
 			"Dette programmet fokuserer på nedre del av kroppen, spesielt bein og rumpe. Perfekt for å bygge styrke og utholdenhet.",
-		image: {uri: "https://bobay.blob.core.windows.net/mediastorage/12501301.gif"},
+		 image: require('../Assets/12501301.gif'),
 		datetime: "2024-01-01T08:00:00Z",
 	},
 	{
@@ -54,7 +54,7 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		title: "Kjerne og Abs Kondisjonering",
 		description:
 			"Intensiv kjerne- og magetrening for å forbedre stabilitet og bygge muskeldefinisjon.",
-		image: {uri: "https://bobay.blob.core.windows.net/mediastorage/12501301.gif"},
+		image: require('../Assets/12501301.gif'),
 		datetime: "2024-01-01T08:00:00Z",
 	},
 	{
@@ -62,7 +62,7 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		title: "Fullkropps HIIT",
 		description:
 			"Høy intensitets intervalltrening som dekker hele kroppen. Forbrenn kalorier og bygg muskler effektivt.",
-		image: {uri: "https://bobay.blob.core.windows.net/mediastorage/12501301.gif"},
+		image: require('../Assets/12501301.gif'),
 		datetime: "2024-01-01T08:00:00Z",
 	},
 ];
