@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '63%', // endrer plassering av touch
     left: '52%',
-    width: 30,
-    height: 30,
-    
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    width: 28,
+    height: 28,
+    borderRadius: 100,
+    backgroundColor: 'rgba(253,0,0,0.9)',
   },
   shoulderArea: {
     position: 'absolute',
