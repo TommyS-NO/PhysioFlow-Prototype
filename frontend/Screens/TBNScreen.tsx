@@ -10,10 +10,10 @@ const TBNScreen: React.FC = () => {
   const navigation = useNavigation<TBNScreenNavigationProp>();
 
   const handleAreaPress = (areaName: string) => {
-    // Handle the press event for the specific area (e.g., navigate to a details screen)
+
     console.log(`User pressed ${areaName}`);
     Alert.alert("neste trinn er under utvikling")
-    // Navigate to the recommended exercises screen
+   
     // navigation.navigate("RecommendedExercises", { focusArea: areaName });
   };
 
@@ -28,10 +28,9 @@ const TBNScreen: React.FC = () => {
         onPress={() => handleAreaPress('Kne')}
       />
       <TouchableOpacity
-        style={styles.skulderArea}
+        style={styles.shoulderArea}
         onPress={() => handleAreaPress('Skulder')}
       />
-      {/* Add more touchable areas as needed */}
     </View>
   );
 };
@@ -48,13 +47,14 @@ const styles = StyleSheet.create({
   },
   kneArea: {
     position: 'absolute',
-    top: '62%', // endrer plassering av touch
-    left: '50%',
-    width: 50,
-    height: 50,
+    top: '63%', // endrer plassering av touch
+    left: '52%',
+    width: 30,
+    height: 30,
+    
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  skulderArea: {
+  shoulderArea: {
     position: 'absolute',
     top: '24%', // endre plassering av touch
     left: '28%',
