@@ -2,12 +2,10 @@
   "name": "project_x",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-"scripts": {
-  "start": "concurrently \"npm run start --prefix backend\" \"npm run start --prefix frontend\""
-},
-
-
+  "main": "Server.js",
+  "scripts": {
+    "start": "concurrently \"npm run start --prefix backend\" \"npm run start --prefix frontend\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
