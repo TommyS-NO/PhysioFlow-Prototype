@@ -5,6 +5,7 @@ import FrontScreen from "../Screens/FrontScreen";
 import RegisterScreen from "../Screens/RegisterScreen";
 import TermsScreen from "../Screens/TermsScreen";
 import TBA from "../Screens/TBA";
+import TBNScreen from "../Screens/TBNScreen";
 import UserGuideScreen from "../Screens/UserGuideScreen";
 import InfoScreen from "../Screens/InfoScreen";
 import { RootStackParamList } from "./navigationTypes";
@@ -45,6 +46,11 @@ const AppNav: React.FC = () => (
 				name="ExerciseSession"
 				component={ExerciseOverviewScreen}
 				options={{ title: "Mitt Treningsprogram" }}
+			/>
+			<Stack.Screen
+				name="TBNScreen"
+				component={TBNScreen}
+				options={{ title: "TBN" }}
 			/>
 		</Stack.Navigator>
 	</NavigationContainer>

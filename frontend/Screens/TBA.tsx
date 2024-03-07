@@ -17,6 +17,10 @@ const TBA: React.FC = () => {
 				title="Gå til Mitt Treningsprogram"
 				onPress={() => navigation.navigate("ExerciseSession")}
 			/>
+			<CustomButton
+				title="TBN"
+				onPress={() => navigation.navigate("TBNScreen")}
+			/>
 		</View>
 	);
 };
