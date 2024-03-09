@@ -3,6 +3,7 @@ import { View, Image, TouchableOpacity, StyleSheet, Alert, Text, ImageStyle, Vie
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../Navigation/navigationTypes';
+import CustomButton from '../Components/CustomButton/CustomButton';
 
 type TBNScreenNavigationProp = StackNavigationProp<RootStackParamList, 'TBNScreen'>;
 
@@ -33,13 +34,25 @@ const TBNScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+       <Text>Bodychart Fokusområde</Text> 
+      {bodySide === 'front' ? (
+        <CustomButton
+          onPress={handleToggleBodySide}
+          iconName='arrow-right'
+          title='Bakside'
+          buttonStyle={styles.switchButton}
+        />
+      ) : (
+        <CustomButton
+          onPress={handleToggleBodySide}
+          iconName='arrow-left'
+          title='Forside'
+          buttonStyle={styles.switchButton}
+        />
+      )}
       <Image
-        source={
-          bodySide === 'front'
-            ? require('../Assets/bodyChartFront.png')
-            : require('../Assets/bodyChartBack.png')
-        }
-        style={styles.bodyChart as ImageStyle}
+        source={bodySide === 'front' ? require('../Assets/bodyChartFront.png') : require('../Assets/bodyChartBack.png')}
+        style={styles.bodyChart}
       />
       {bodySide === 'front' ? (
         <>
@@ -60,22 +73,26 @@ const TBNScreen: React.FC = () => {
           <TouchableOpacity style={styles.neckArea} onPress={() => handleAreaPress('Hode/Nakke')} />
         </>
       )}
-      <TouchableOpacity style={styles.toggleButton as ViewStyle} onPress={handleToggleBodySide}>
-        <Text>Bytt side</Text>
-      </TouchableOpacity>
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start', 
     alignItems: 'center',
+    marginTop: 50, 
   },
   bodyChart: {
     width: 300,
     height: 600,
+    marginTop: 20, 
+  },
+  switchButton: {
+    width: 150,
+   backgroundColor: 'rgba(0,0,0,0.3)'
   },
   //Forside!!
    shoulderArea: {
