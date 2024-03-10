@@ -1,5 +1,5 @@
 // biome-ignore lint/style/useImportType: <explanation>
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	View,
 	StyleSheet,
@@ -8,22 +8,13 @@ import {
 	KeyboardAvoidingView,
 	Platform,
 	Text,
+	TouchableOpacity,
 } from "react-native";
+import { CheckBox } from "react-native-elements";
 import CustomButton from "../Components/CustomButton/CustomButton";
 import CustomModal from "../Components/CustomModal/CustomModal";
-import { CheckBox } from "react-native-elements";
 import BodyChart from "../Components/BodyChart/bodyChart";
 import FollowUpQuestion from "../Components/Follow-Up/followUpQuestionProps";
-import { useNavigation } from "@react-navigation/native";
-// biome-ignore lint/style/useImportType: <explanation>
-import { RootStackParamList } from "../Navigation/navigationTypes";
-// biome-ignore lint/style/useImportType: <explanation>
-import { StackNavigationProp } from "@react-navigation/stack";
-
-type FocusAreaScreenNavigationProp = StackNavigationProp<
-	RootStackParamList,
-	"FocusAreaScreen"
->;
 
 type FocusAreaKey =
 	| "Hode/Nakke"
@@ -39,11 +30,11 @@ type FocusAreaKey =
 interface InjuryState {
 	isNewInjury: boolean;
 	isOldInjury: boolean;
-	sliderValue: number;
+	isRehabilitation: boolean;
+	isOther: boolean;
 }
 
 const FocusAreaRegister: React.FC = () => {
-	// const navigation = useNavigation<FocusAreaScreenNavigationProp>();
 	const [bodySide, setBodySide] = useState<"front" | "back">("front");
 	const [currentStep, setCurrentStep] = useState<number>(1);
 	const [selectedAreas, setSelectedAreas] = useState<{
@@ -52,9 +43,14 @@ const FocusAreaRegister: React.FC = () => {
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 	const [currentArea, setCurrentArea] = useState<FocusAreaKey | null>(null);
 
-	// |-------------|
-	// | Handle Area |
-	// |-------------|
+	useEffect(() => {
+		if (currentStep === 1) {
+			Alert.alert(
+				"Instruksjoner",
+				"Velg minst ett og maks tre fokusområder. Trykk på et område på kroppen for å velge.",
+			);
+		}
+	}, [currentStep]);
 
 	const handleAreaPress = (area: FocusAreaKey): void => {
 		setCurrentArea(area);
@@ -62,43 +58,48 @@ const FocusAreaRegister: React.FC = () => {
 		if (!selectedAreas[area]) {
 			setSelectedAreas((prevAreas) => ({
 				...prevAreas,
-				[area]: { isNewInjury: false, isOldInjury: false, sliderValue: 0 },
-			}));
-		}
-	};
-
-	const handleInjuryChange = (
-		type: keyof InjuryState,
-		value: boolean | number,
-	): void => {
-		if (currentArea) {
-			setSelectedAreas((prevState) => ({
-				...prevState,
-				[currentArea]: {
-					...prevState[currentArea],
-					[type]: value,
+				[area]: {
+					isNewInjury: false,
+					isOldInjury: false,
+					isRehabilitation: false,
+					isOther: false,
 				},
 			}));
 		}
 	};
 
-	// |-------------|
-	// | Close Modal |
-	// |-------------|
+	const handleFocusChange = (key: keyof InjuryState, value: boolean): void => {
+		if (currentArea && selectedAreas[currentArea] !== undefined) {
+			setSelectedAreas((prevState) => ({
+				...prevState,
+				[currentArea]: {
+					...prevState[currentArea],
+					[key]: value,
+				},
+			}));
+		}
+	};
+
 	const closeModal = (): void => {
 		setIsModalVisible(false);
 	};
 
-	// |-------------|
-	// |  Next Step |
-	// |-------------|
-
 	const handleNextStep = (): void => {
-		if (currentStep < 3) {
-			setCurrentStep(currentStep + 1);
+		const selectedCount = Object.values(selectedAreas).filter(
+			(area) =>
+				area &&
+				(area.isNewInjury ||
+					area.isOldInjury ||
+					area.isRehabilitation ||
+					area.isOther),
+		).length;
+		if (selectedCount >= 1 && selectedCount <= 3) {
+			setCurrentStep((prevStep) => prevStep + 1);
 		} else {
-			console.log("Complete data:", selectedAreas);
-			Alert.alert("Fullført", "Dine valg er registrert.");
+			Alert.alert(
+				"Feil valg",
+				"Du må velge minst ett og maks tre fokusområder før du kan fortsette.",
+			);
 		}
 	};
 
@@ -153,7 +154,11 @@ const FocusAreaRegister: React.FC = () => {
 	};
 	const isAnyCheckboxChecked = () => {
 		return Object.values(selectedAreas).some(
-			(area) => area?.isNewInjury || area?.isOldInjury,
+			(area) =>
+				area?.isNewInjury ||
+				area?.isOldInjury ||
+				area?.isRehabilitation ||
+				area?.isOther,
 		);
 	};
 
@@ -192,7 +197,7 @@ const FocusAreaRegister: React.FC = () => {
 									title="Ny skade"
 									checked={selectedAreas[currentArea]?.isNewInjury || false}
 									onPress={() =>
-										handleInjuryChange(
+										handleFocusChange(
 											"isNewInjury",
 											!(selectedAreas[currentArea]?.isNewInjury || false),
 										)
@@ -202,7 +207,7 @@ const FocusAreaRegister: React.FC = () => {
 									title="Gammel skade"
 									checked={selectedAreas[currentArea]?.isOldInjury || false}
 									onPress={() =>
-										handleInjuryChange(
+										handleFocusChange(
 											"isOldInjury",
 											!(selectedAreas[currentArea]?.isOldInjury || false),
 										)
@@ -212,10 +217,26 @@ const FocusAreaRegister: React.FC = () => {
 							<View style={styles.checkBoxRow}>
 								<CheckBox
 									title="Rehabilitering?"
-									checked={false}
-									onPress={() => {}}
+									checked={
+										selectedAreas[currentArea]?.isRehabilitation || false
+									}
+									onPress={() =>
+										handleFocusChange(
+											"isRehabilitation",
+											!(selectedAreas[currentArea]?.isRehabilitation || false),
+										)
+									}
 								/>
-								<CheckBox title="Annet" checked={false} onPress={() => {}} />
+								<CheckBox
+									title="Annet"
+									checked={selectedAreas[currentArea]?.isOther || false}
+									onPress={() =>
+										handleFocusChange(
+											"isOther",
+											!(selectedAreas[currentArea]?.isOther || false),
+										)
+									}
+								/>
 							</View>
 						</View>
 					</>
