@@ -18,8 +18,8 @@ const TBA: React.FC = () => {
 				onPress={() => navigation.navigate("ExerciseSession")}
 			/>
 			<CustomButton
-				title="TBN"
-				onPress={() => navigation.navigate("TBNScreen")}
+				title="Fokus område"
+				onPress={() => navigation.navigate("FocusAreaScreen")}
 			/>
 		</View>
 	);

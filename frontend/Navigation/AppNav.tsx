@@ -5,7 +5,7 @@ import FrontScreen from "../Screens/FrontScreen";
 import RegisterScreen from "../Screens/RegisterScreen";
 import TermsScreen from "../Screens/TermsScreen";
 import TBA from "../Screens/TBA";
-import TBNScreen from "../Screens/TBNScreen";
+import FocusAreaScreen from "../Screens/FocusAreaScreen";
 import UserGuideScreen from "../Screens/UserGuideScreen";
 import InfoScreen from "../Screens/InfoScreen";
 import { RootStackParamList } from "./navigationTypes";
@@ -48,9 +48,9 @@ const AppNav: React.FC = () => (
 				options={{ title: "Mitt Treningsprogram" }}
 			/>
 			<Stack.Screen
-				name="TBNScreen"
-				component={TBNScreen}
-				options={{ title: "TBN" }}
+				name="FocusAreaScreen"
+				component={FocusAreaScreen}
+				options={{ title: "Fokus område" }}
 			/>
 		</Stack.Navigator>
 	</NavigationContainer>
