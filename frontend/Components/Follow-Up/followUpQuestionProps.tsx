@@ -5,6 +5,7 @@ import CustomButton from "../CustomButton/CustomButton";
 import CustomSlider from "../CustomSlider/CustomSlider";
 
 interface FollowUpQuestProps {
+	selectedAreas: { [key in FocusAreaKey]?: InjuryState };
 	onContinue: (rehabTime: number, intensityLevel: number) => void;
 }
 

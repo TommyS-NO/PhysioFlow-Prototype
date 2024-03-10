@@ -8,9 +8,7 @@ import {
 	KeyboardAvoidingView,
 	Platform,
 	Text,
-	TouchableOpacity,
 } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import CustomButton from "../Components/CustomButton/CustomButton";
 import CustomModal from "../Components/CustomModal/CustomModal";
 import { CheckBox } from "react-native-elements";
@@ -45,7 +43,7 @@ interface InjuryState {
 }
 
 const FocusAreaRegister: React.FC = () => {
-	const navigation = useNavigation<FocusAreaScreenNavigationProp>();
+	// const navigation = useNavigation<FocusAreaScreenNavigationProp>();
 	const [bodySide, setBodySide] = useState<"front" | "back">("front");
 	const [currentStep, setCurrentStep] = useState<number>(1);
 	const [selectedAreas, setSelectedAreas] = useState<{
@@ -53,11 +51,11 @@ const FocusAreaRegister: React.FC = () => {
 	}>({});
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 	const [currentArea, setCurrentArea] = useState<FocusAreaKey | null>(null);
-	const [skipForNow, setSkipForNow] = useState<boolean>(false);
 
 	// |-------------|
 	// | Handle Area |
 	// |-------------|
+
 	const handleAreaPress = (area: FocusAreaKey): void => {
 		setCurrentArea(area);
 		setIsModalVisible(true);
@@ -109,13 +107,6 @@ const FocusAreaRegister: React.FC = () => {
 			prevBodySide === "front" ? "back" : "front",
 		);
 	};
-	const isAnyCheckboxChecked = () => {
-		if (currentArea) {
-			const area = selectedAreas[currentArea];
-			return area?.isNewInjury || area?.isOldInjury;
-		}
-		return false;
-	};
 
 	// |-------------|
 	// | Render  |
@@ -124,7 +115,20 @@ const FocusAreaRegister: React.FC = () => {
 	const renderStepContent = (): JSX.Element | null => {
 		switch (currentStep) {
 			case 1:
-				return <BodyChart bodySide={bodySide} onAreaPress={handleAreaPress} />;
+				return (
+					<>
+						<BodyChart
+							bodySide={bodySide}
+							onAreaPress={handleAreaPress}
+							toggleBodySide={toggleBodySide}
+						/>
+						<CustomButton
+							title="Neste"
+							onPress={handleProceed}
+							disabled={!isAnyCheckboxChecked()}
+						/>
+					</>
+				);
 			case 2:
 				return (
 					<FollowUpQuestion
@@ -147,12 +151,14 @@ const FocusAreaRegister: React.FC = () => {
 				return null;
 		}
 	};
-	const handleProceed = () => {
-		const anyInjuriesSelected = Object.values(selectedAreas).some((area) => {
-			return area.isNewInjury || area.isOldInjury;
-		});
+	const isAnyCheckboxChecked = () => {
+		return Object.values(selectedAreas).some(
+			(area) => area?.isNewInjury || area?.isOldInjury,
+		);
+	};
 
-		if (anyInjuriesSelected) {
+	const handleProceed = () => {
+		if (isAnyCheckboxChecked()) {
 			handleNextStep();
 		} else {
 			Alert.alert(
@@ -171,31 +177,7 @@ const FocusAreaRegister: React.FC = () => {
 			style={styles.container}
 		>
 			<ScrollView contentContainerStyle={styles.content}>
-				<View style={styles.toggleBodyContainer}>
-					<MaterialCommunityIcons
-						name="chevron-left"
-						size={30}
-						color="#000"
-						onPress={toggleBodySide}
-					/>
-					<Text style={styles.bodySideText}>
-						{bodySide === "front" ? "Forsiden" : "Baksiden"}
-					</Text>
-					<MaterialCommunityIcons
-						name="chevron-right"
-						size={30}
-						color="#000"
-						onPress={toggleBodySide}
-					/>
-				</View>
 				{renderStepContent()}
-				{currentStep === 1 && (
-					<CustomButton
-						title="Neste"
-						onPress={handleProceed}
-						disabled={!isAnyCheckboxChecked()}
-					/>
-				)}
 			</ScrollView>
 			<CustomModal
 				visible={isModalVisible}
