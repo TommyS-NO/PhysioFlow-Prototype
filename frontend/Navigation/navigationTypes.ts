@@ -6,5 +6,6 @@ export type RootStackParamList = {
 	FocusScreen: undefined;
 	ExerciseSession: undefined;
 	UserGuideScreen: undefined;
+	nils: undefined;
 	InfoScreen: { title: string; message: string; onContinue?: () => void };
 };

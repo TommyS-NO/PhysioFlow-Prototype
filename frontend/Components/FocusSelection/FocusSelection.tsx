@@ -4,7 +4,6 @@ import CustomModal from "../CustomModal/CustomModal";
 import CustomCheckBox from "../CustomCheckBox/CustomCheckBox";
 import CustomButton from "../CustomButton/CustomButton";
 
-
 interface FocusSelectionProps {
 	visible: boolean;
 	onClose: () => void;
@@ -21,7 +20,6 @@ const options = [
 ];
 
 const FocusSelection: React.FC<FocusSelectionProps> = ({
-
 	visible,
 	onClose,
 	onUpdate,
