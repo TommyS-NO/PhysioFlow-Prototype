@@ -1,9 +1,9 @@
 import React from "react";
-import { ScrollView, View, Text, Image, StyleSheet } from "react-native";
+import { ScrollView, Text, Image, StyleSheet } from "react-native";
 
 const AboutScreen: React.FC = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
       <Text style={styles.heading}>FysioGO!</Text>
       <Text style={styles.text}>
         Velkommen til FysioGO - din digitale partner for fysioterapi og
@@ -52,11 +52,17 @@ const AboutScreen: React.FC = () => {
       </Text>
       <Text style={styles.heading}>Vårt team</Text>
       <Text style={styles.text}>Bak FysioGO står et dedikert team av fysioterapeuter, dataforskere og teknologientusiaster, alle med et felles mål om å gjøre rehabilitering så tilgjengelig og effektiv som mulig. Vi er stolte av å kunne tilby en tjeneste som ikke bare leder an i teknologisk innovasjon, men som også er dypt forankret i profesjonell fysioterapipraksis.</Text>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+
   container: {
     flex: 1,
    
@@ -65,6 +71,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 20,
+    alignItems: 'center',
 
   },
   title: {
