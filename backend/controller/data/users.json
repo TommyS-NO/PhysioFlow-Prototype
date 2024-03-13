@@ -58,5 +58,15 @@
     "height": 170,
     "weight": 70,
     "birthday": "2024-03-08"
+  },
+  {
+    "id": 7,
+    "username": "Mina",
+    "password": "Test",
+    "email": "Test@test.no",
+    "gender": "female",
+    "height": 170,
+    "weight": 70,
+    "birthday": "2024-03-05"
   }
 ]
