@@ -19,7 +19,7 @@ const TBA: React.FC = () => {
 			/>
 			<CustomButton
 				title="Fokus område"
-				onPress={() => navigation.navigate("FocusAreaScreen")}
+				onPress={() => navigation.navigate("FocusScreen")}
 			/>
 		</View>
 	);

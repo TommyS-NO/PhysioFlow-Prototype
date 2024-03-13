@@ -29,13 +29,13 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 				buttonStyle,
 				disabled ? customButtonStyles.disabled : null,
 			]}
-			disabled={disabled} // Bruk disabled propen her
+			disabled={disabled}
 		>
 			{iconName && (
 				<Icon
 					name={iconName}
 					size={20}
-					color={disabled ? theme.colors.disabledIcon : theme.colors.icon} // Endre ikonfarge basert på om knappen er deaktivert
+					color={disabled ? theme.colors.disabledIcon : theme.colors.icon}
 					style={customButtonStyles.icon}
 				/>
 			)}
