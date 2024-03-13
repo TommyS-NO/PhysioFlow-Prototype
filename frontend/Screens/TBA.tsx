@@ -23,7 +23,7 @@ const TBA: React.FC = () => {
 			/>
 			<CustomButton
 				title="MINA område"
-				onPress={() => navigation.navigate("nils")}
+				onPress={() => navigation.navigate("MinaScreen")}
 			/>
 		</View>
 	);
