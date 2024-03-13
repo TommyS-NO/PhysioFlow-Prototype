@@ -13,10 +13,14 @@ const AboutScreen: React.FC = () => {
         personlig tilpasset veiledning og støtte gjennom din
         rehabiliteringsreise.
       </Text>
+      <Image
+						source={require("../Assets/Robot_1.png")}
+						style={styles.image}
+					/>
       <Text style={styles.heading}>Vår visjon</Text>
       <Text style={styles.text}>
         I en verden hvor tilgangen til helsehjelp stadig utfordres av både tid
-        og geografi, er vår visjon å bringe fysioterapien hjem til deg. FysioGO
+        og sted, er vår visjon å bringe fysioterapien hjem til deg. FysioGO
         ble grunnlagt med troen på at alle fortjener tilgang til kvalitetsmessig
         fysioterapi, uavhengig av hvor de befinner seg. Vi ønsker å bryte ned
         barrierene som holder mennesker fra å oppnå optimal fysisk helse ved å
@@ -55,9 +59,13 @@ const AboutScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+   
+    alignItems: 'center',
+    padding: 20, 
   },
   contentContainer: {
     padding: 20,
+
   },
   title: {
     fontSize: 24,
@@ -65,13 +73,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   image: {
-    width: '100%',
+    width: 200,
     height: 200,
     borderRadius: 10,
     marginBottom: 20,
   },
   text: {
     fontSize: 16,
+  
     marginBottom: 20,
   },
   heading: {
