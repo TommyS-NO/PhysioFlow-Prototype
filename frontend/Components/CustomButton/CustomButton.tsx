@@ -35,7 +35,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 				<Icon
 					name={iconName}
 					size={20}
-					color={disabled ? theme.colors.disabledIcon : theme.colors.icon}
+					color={disabled ? theme.colors.disabled : theme.colors.disabled}
 					style={customButtonStyles.icon}
 				/>
 			)}

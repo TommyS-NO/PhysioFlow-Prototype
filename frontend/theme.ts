@@ -7,6 +7,7 @@ interface Theme {
 		icon: string;
 		disabled: string;
 		disabledText: string;
+		
 	};
 	fontSize: {
 		regular: number;
