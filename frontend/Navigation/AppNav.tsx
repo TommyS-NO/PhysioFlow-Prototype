@@ -11,6 +11,7 @@ import InfoScreen from "../Screens/InfoScreen";
 import { RootStackParamList } from "./navigationTypes";
 import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen";
 import MinaScreen from "../Screens/MinaScreen";
+import AboutScreen from "../Screens/AboutScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -57,6 +58,11 @@ const AppNav: React.FC = () => (
 				name="MinaScreen"
 				component={MinaScreen}
 				options={{ title: "In Progress" }}
+			/>
+			<Stack.Screen
+				name="AboutScreen"
+				component={AboutScreen}
+				options={{ title: "Om oss" }}
 			/>
 		</Stack.Navigator>
 	</NavigationContainer>

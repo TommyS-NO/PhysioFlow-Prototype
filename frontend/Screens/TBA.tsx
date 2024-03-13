@@ -25,6 +25,10 @@ const TBA: React.FC = () => {
 				title="MINA område"
 				onPress={() => navigation.navigate("MinaScreen")}
 			/>
+			<CustomButton
+				title="Om oss"
+				onPress={() => navigation.navigate("AboutScreen")}
+			/>
 		</View>
 	);
 };

@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const MinaScreen: React.FC = () => {
+const OmOss: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>MINA</Text>
+      <Text style={styles.text}>Om oss</Text>
     </View>
   );
 };
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MinaScreen;
+export default OmOss;
