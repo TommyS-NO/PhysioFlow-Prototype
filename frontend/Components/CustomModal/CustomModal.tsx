@@ -1,6 +1,4 @@
-// biome-ignore lint/style/useImportType: <explanation>
 import React from "react";
-// biome-ignore lint/style/useImportType: <explanation>
 import {
 	Modal,
 	StyleSheet,
