@@ -1,4 +1,3 @@
-// biome-ignore lint/style/useImportType: <explanation>
 import React, { useState, useEffect } from "react";
 import {
 	View,
@@ -14,7 +13,7 @@ import { CheckBox } from "react-native-elements";
 import CustomButton from "../Components/CustomButton/CustomButton";
 import CustomModal from "../Components/CustomModal/CustomModal";
 import BodyChart from "../Components/BodyChart/bodyChart";
-import FollowUpQuestion from "../Components/Follow-Up/followUpQuestionProps";
+import FollowUpQuestion from "../Components/FollowUP/FollowUP";
 
 type FocusAreaKey =
 	| "Hode/Nakke"

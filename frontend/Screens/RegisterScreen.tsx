@@ -1,4 +1,3 @@
-// biome-ignore lint/style/useImportType: <explanation>
 import React, { useState } from "react";
 import {
 	Alert,
@@ -11,14 +10,14 @@ import {
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-// biome-ignore lint/style/useImportType: <explanation>
+
 import { RootStackParamList } from "../Navigation/navigationTypes";
 import { InputField } from "../Components/CustomInput/CustomInput";
 import GenderSelection from "../Components/GenderSelection/GenderSelection";
 import { PickerComponent } from "../Components/Picker/PickerComponent";
 import CustomButton from "../Components/CustomButton/CustomButton";
 import { apiService } from "../Services/APIService";
-// biome-ignore lint/style/useImportType: <explanation>
+
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import { registerScreenStyles as styles } from "../Styles/Register_Style";
@@ -135,7 +134,6 @@ const RegisterScreen: React.FC = () => {
 					return false;
 				}
 				break;
-			// Legg til flere valideringer her om nødvendig
 		}
 		return true;
 	};
