@@ -24,7 +24,6 @@ const DeleteUserScreen: React.FC = () => {
   };
 
   //Sett opp kulepunkter og hev ut de ulike punktene i hvert avsnitt
-  //Burde DeletePress en kobling inn mot custom button, eller har ikke det noen sammenheng?
   return (
     <View style={styles.container}>
       <Text style={styles.text}>

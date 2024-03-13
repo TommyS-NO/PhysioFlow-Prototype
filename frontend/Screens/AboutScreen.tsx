@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
   },
-  //Husk å justere alle bildene hver for seg slik at det blir riktig
+  //Husk å justere alle bildene hver for seg slik at det blir riktige størrelser på de ulike
   image: {
     width: 200,
     height: 200,
