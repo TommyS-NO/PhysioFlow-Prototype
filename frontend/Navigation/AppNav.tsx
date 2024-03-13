@@ -10,7 +10,7 @@ import UserGuideScreen from "../Screens/UserGuideScreen";
 import InfoScreen from "../Screens/InfoScreen";
 import { RootStackParamList } from "./navigationTypes";
 import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen";
-import MinaScreen from "../Screens/MinaScreen";
+import DeleteUserScreen from "../Screens/DeleteUserScreen";
 import AboutScreen from "../Screens/AboutScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -55,8 +55,8 @@ const AppNav: React.FC = () => (
 				options={{ title: "Fokus område" }}
 			/>
 			<Stack.Screen
-				name="MinaScreen"
-				component={MinaScreen}
+				name="DeleteUserScreen"
+				component={DeleteUserScreen}
 				options={{ title: "In Progress" }}
 			/>
 			<Stack.Screen

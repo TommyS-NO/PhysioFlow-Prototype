@@ -22,8 +22,8 @@ const TBA: React.FC = () => {
 				onPress={() => navigation.navigate("FocusScreen")}
 			/>
 			<CustomButton
-				title="MINA område"
-				onPress={() => navigation.navigate("MinaScreen")}
+				title="Slett bruker"
+				onPress={() => navigation.navigate("DeleteUserScreen")}
 			/>
 			<CustomButton
 				title="Om oss"

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const MinaScreen: React.FC = () => {
+const DeleteUserScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>MINA</Text>
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MinaScreen;
+export default DeleteUserScreen;
