@@ -3,6 +3,8 @@
 # dependencies
 node_modules/
 
+/frontend/Services/APIService.ts
+
 # Expo
 .expo/
 dist/

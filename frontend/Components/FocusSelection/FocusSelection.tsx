@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet } from "react-native";
 import CustomModal from "../CustomModal/CustomModal";
 import CustomCheckBox from "../CustomCheckBox/CustomCheckBox";
 import CustomButton from "../CustomButton/CustomButton";
@@ -34,14 +34,15 @@ const FocusSelection: React.FC<FocusSelectionProps> = ({
 	};
 
 	const handleModalClose = () => {
-		if (!selectedOption) {
-			Alert.alert(
-				"Velg et alternativ",
-				"Du må velge minst ett alternativ for dette fokusområdet.",
-			);
-			return;
+		// Om brukeren ikke har gjort et valg, lukkes modalen uten advarsler.
+		onClose();
+	};
+
+	const handleUpdate = () => {
+		// Brukeren må ha gjort et valg for at onUpdate skal kalles.
+		if (selectedOption) {
+			onUpdate(area, selectedOption);
 		}
-		onUpdate(area, selectedOption);
 		onClose();
 	};
 
@@ -63,7 +64,11 @@ const FocusSelection: React.FC<FocusSelectionProps> = ({
 			title={`Velg alternativ for ${area}`}
 		>
 			<View style={styles.checkBoxContainer}>{renderCheckBoxes()}</View>
-			<CustomButton title="Lukk" onPress={handleModalClose} />
+			<CustomButton
+				title="Bekreft"
+				onPress={handleUpdate}
+				disabled={!selectedOption}
+			/>
 		</CustomModal>
 	);
 };

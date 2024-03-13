@@ -20,4 +20,10 @@ export const customButtonStyles = StyleSheet.create({
 	icon: {
 		marginRight: theme.spacing.small,
 	},
+	disabled: {
+		backgroundColor: theme.colors.disabled,
+	},
+	disabledTitle: {
+		color: theme.colors.disabledText,
+	},
 });
