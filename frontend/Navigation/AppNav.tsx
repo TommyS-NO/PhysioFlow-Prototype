@@ -12,6 +12,7 @@ import { RootStackParamList } from "./navigationTypes";
 import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen";
 import DeleteUserScreen from "../Screens/DeleteUserScreen";
 import AboutScreen from "../Screens/AboutScreen";
+import SearchScreen from "../Screens/SearchScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -63,6 +64,11 @@ const AppNav: React.FC = () => (
 				name="AboutScreen"
 				component={AboutScreen}
 				options={{ title: "Om oss" }}
+			/>
+			<Stack.Screen
+				name="SearchScreen"
+				component={SearchScreen}
+				options={{ title: "Søk etter øvelser" }}
 			/>
 		</Stack.Navigator>
 	</NavigationContainer>
