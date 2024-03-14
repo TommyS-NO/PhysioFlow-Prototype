@@ -68,6 +68,15 @@
     "height": 170,
     "weight": 70,
     "birthday": "2024-03-05"
+  },
+  {
+    "id": 8,
+    "username": "ad",
+    "password": "11",
+    "email": "ad@ad.no",
+    "gender": "male",
+    "height": 170,
+    "weight": 70,
+    "birthday": "2024-01-14"
   }
-  
 ]

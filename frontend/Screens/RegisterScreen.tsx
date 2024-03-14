@@ -307,6 +307,5 @@ export default RegisterScreen;
 {
 	/*TODO!  VI MÅ Refaktorere denne koden!
 - Bruk customCheckbox
-- Dele koden mer opp
-*/
+- Dele koden mer opp*/
 }
