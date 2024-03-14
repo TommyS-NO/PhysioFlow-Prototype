@@ -12,14 +12,15 @@ const SearchScreen: React.FC = () => {
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
-    // Implementer søkelogikk her...
+    // Her må vi implementer søkelogikk 
   };
 
   const handleSearchSubmit = () => {
     console.log("Søker etter:", searchQuery);
-    // Her må vi implementere API/innhold så fort vi har det på plass
+    // Her må vi implementere hva som skal skje når vi gjør et API-kall. Skal denne bare stå tom så lenge? 
   };
 
+//Skal knappen her egentlig hentes fra CustomButton, eller kan vi ha oppsettet slik?
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
@@ -30,6 +31,7 @@ const SearchScreen: React.FC = () => {
           onChangeText={handleSearchChange}
           onSubmitEditing={handleSearchSubmit}
         />
+
         <TouchableOpacity
           style={styles.searchButton}
           onPress={handleSearchSubmit}
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   searchButton: {
-    backgroundColor: "#007bff",
+    backgroundColor: "#26807b",
     padding: 10,
     borderRadius: 10,
   },
