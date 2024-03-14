@@ -5,7 +5,7 @@ import { ViewStyle } from "react-native";
 interface CustomCheckBoxProps {
 	title: string;
 	checked: boolean;
-	onPress: () => void;
+	onPress: (title: string) => void;
 	containerStyle?: ViewStyle;
 }
 
@@ -16,13 +16,7 @@ const CustomCheckBox: React.FC<CustomCheckBoxProps> = ({
 	containerStyle,
 }) => {
 	return (
-		<CheckBox
-			title={title}
-			checked={checked}
-			onPress={onPress}
-			containerStyle={containerStyle}
-			// legge til flere stiler eller props for å tilpasse
-		/>
+		<CheckBox title={title} checked={checked} onPress={() => onPress(title)} />
 	);
 };
 
