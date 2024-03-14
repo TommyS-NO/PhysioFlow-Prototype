@@ -13,7 +13,9 @@ interface User {
   birthday?: string; 
 }
 
-const BASE_URL = 'http://localhost:3000'; //192.168.10.182
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
+
 
 const apiService = {
   login: async (username: string, password: string): Promise<ApiResponse<{ token: string }>> => {
