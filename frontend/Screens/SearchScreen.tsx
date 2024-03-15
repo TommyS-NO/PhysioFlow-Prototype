@@ -6,6 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  KeyboardAvoidingView,
+  Platform,
   Image,
 } from "react-native";
 import CustomModal from "../Components/CustomModal/CustomModal";
@@ -43,7 +45,10 @@ const SearchScreen: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <View style={styles.searchBar}>
         <TextInput
           placeholder="Søk etter øvelser..."
@@ -64,7 +69,7 @@ const SearchScreen: React.FC = () => {
             <Image source={item.image} style={styles.sessionImage} />
           </TouchableOpacity>
         )}
-        numColumns={2} //Denne la jeg til for å dele opp listevisningen.
+        numColumns={2} // Denne la jeg til for å dele opp listevisningen.
       />
       {selectedSession && (
         <CustomModal
@@ -83,7 +88,7 @@ const SearchScreen: React.FC = () => {
           <Text style={styles.modalText}>{selectedSession.description}</Text>
         </CustomModal>
       )}
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -93,6 +98,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "#fff",
     flex: 1,
+  },
+  contentContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
   },
   searchBar: {
     flexDirection: "row",
@@ -107,10 +116,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   sessionItem: {
-    flex: 1, 
-    flexDirection: "column", 
-    margin: 5, 
-    alignItems: "center", 
+    flex: 1,
+    flexDirection: "column",
+    margin: 5,
+    alignItems: "center",
     maxWidth: "50%",
     padding: 10,
     borderBottomWidth: 1,
