@@ -19,12 +19,14 @@ const SearchScreen: React.FC = () => {
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
-    setFilteredSessions(EXERCISE_SESSIONS.filter((session) =>
-      session.title.toLowerCase().includes(query.toLowerCase())
-    ));
+    setFilteredSessions(
+      EXERCISE_SESSIONS.filter((session) =>
+        session.title.toLowerCase().includes(query.toLowerCase())
+      )
+    );
   };
 
-  //Hvorfor og hva er feil med session? Koden fungerer greit?  
+  //Hvorfor og hva er feil med session? Koden fungerer greit?
   const openModal = (session) => {
     setSelectedSession(session);
     setIsModalVisible(true);
@@ -35,7 +37,7 @@ const SearchScreen: React.FC = () => {
   };
 
   const handleAddToProgram = () => {
-    console.log('Legger til øvelse i program:', selectedSession?.title);
+    console.log("Legger til øvelse i program:", selectedSession?.title);
     // Her må vi huske å implementere logikk for å faktisk legge til øvelsene i brukerens treningsprogram
     closeModal();
   };
@@ -54,11 +56,15 @@ const SearchScreen: React.FC = () => {
         data={filteredSessions}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.sessionItem} onPress={() => openModal(item)}>
+          <TouchableOpacity
+            style={styles.sessionItem}
+            onPress={() => openModal(item)}
+          >
             <Text style={styles.sessionTitle}>{item.title}</Text>
             <Image source={item.image} style={styles.sessionImage} />
           </TouchableOpacity>
         )}
+        numColumns={2} //Denne la jeg til for å dele opp listevisningen.
       />
       {selectedSession && (
         <CustomModal
@@ -66,8 +72,11 @@ const SearchScreen: React.FC = () => {
           onClose={closeModal}
           title={selectedSession.title}
           buttons={[
-            { title: 'Legg til i treningsprogram', onPress: handleAddToProgram },
-            { title: 'Lukk', onPress: closeModal },
+            {
+              title: "Legg til i treningsprogram",
+              onPress: handleAddToProgram,
+            },
+            { title: "Lukk", onPress: closeModal },
           ]}
         >
           <Image source={selectedSession.image} style={styles.modalImage} />
@@ -98,8 +107,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   sessionItem: {
-    flexDirection: "row",
-    alignItems: "center",
+    flex: 1, 
+    flexDirection: "column", 
+    margin: 5, 
+    alignItems: "center", 
+    maxWidth: "50%",
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
@@ -114,13 +126,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   modalImage: {
-    width: '100%',
+    width: "100%",
     height: 200,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     marginBottom: 20,
   },
   modalText: {
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 20,
   },
 });

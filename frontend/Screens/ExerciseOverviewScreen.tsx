@@ -65,6 +65,47 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		image: require('../Assets/12501301.gif'),
 		datetime: "2024-01-01T08:00:00Z",
 	},
+	{
+		id: "4",
+		title: "Pushups",
+		description:
+			"Ligg på gulvet med ansiktet ned og plasser hendene omtrent 90 cm fra hverandre mens du holder overkroppen oppe i armlengde.",
+		image: require('../Assets/12501301.gif'),
+		datetime: "2024-01-01T08:00:00Z",
+		
+	},
+	{
+		id: "5",
+		title: "Hantelbenkpress",
+		description:
+			"Ligg på en flat benk med en hantel i hver hånd som hviler på toppen av lårene dine.",
+		image: require('../Assets/12501301.gif'),
+		datetime: "2024-01-01T08:00:00Z",
+	},
+	{
+		id: "6",
+		title: "Smal-grip benkpress",
+		description:
+			"Ligg tilbake på en flat benk. Bruk et smalt grep (rundt skulderbredde), løft stangen fra stativet og hold den rett over deg med armene låst.",
+		image: require('../Assets/12501301.gif'),
+		datetime: "2024-01-01T08:00:00Z",
+	},
+	{
+		id: "7",
+		title: "Kettlebell thruster",
+		description:
+			"Roter håndleddene mens du gjør dette. Dette vil være din startposisjon. Begynn å knebøy ved å bøye i hoftene og knærne, senk hoftene mellom beina dine. Oppretthold en oppreist, rett rygg mens du synker så lavt du kan. ",
+		image: require('../Assets/12501301.gif'),
+		datetime: "2024-01-01T08:00:00Z",
+	},
+	{
+		id: "8",
+		title: "Knelende knebøy",
+		description:
+			"Still stangen til riktig høyde i en power rack. Knel bak stangen; det kan være nyttig å legge ned en matte for å polstre knærne dine.",
+		image: require('../Assets/12501301.gif'),
+		datetime: "2024-01-01T08:00:00Z",
+	},
 ];
 
 const ExerciseOverviewScreen: React.FC<ExerciseOverviewScreenProps> = ({
