@@ -183,4 +183,6 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 	},
 });
+
+export { EXERCISE_SESSIONS };
 export default ExerciseOverviewScreen;

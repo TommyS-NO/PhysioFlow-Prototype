@@ -5,22 +5,41 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  FlatList,
+  Image,
 } from "react-native";
+import CustomModal from "../Components/CustomModal/CustomModal";
+import { EXERCISE_SESSIONS } from "../Screens/ExerciseOverviewScreen";
 
 const SearchScreen: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [filteredSessions, setFilteredSessions] = useState(EXERCISE_SESSIONS);
+  const [selectedSession, setSelectedSession] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
-    // Her må vi implementer søkelogikk 
+    setFilteredSessions(EXERCISE_SESSIONS.filter((session) =>
+      session.title.toLowerCase().includes(query.toLowerCase())
+    ));
   };
 
-  const handleSearchSubmit = () => {
-    console.log("Søker etter:", searchQuery);
-    // Her må vi implementere hva som skal skje når vi gjør et API-kall. Skal denne bare stå tom så lenge? 
+  //Hvorfor og hva er feil med session? Koden fungerer greit?  
+  const openModal = (session) => {
+    setSelectedSession(session);
+    setIsModalVisible(true);
   };
 
-//Skal knappen her egentlig hentes fra CustomButton, eller kan vi ha oppsettet slik?
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleAddToProgram = () => {
+    console.log('Legger til øvelse i program:', selectedSession?.title);
+    // Her må vi huske å implementere logikk for å faktisk legge til øvelsene i brukerens treningsprogram
+    closeModal();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
@@ -29,16 +48,32 @@ const SearchScreen: React.FC = () => {
           style={styles.searchInput}
           value={searchQuery}
           onChangeText={handleSearchChange}
-          onSubmitEditing={handleSearchSubmit}
         />
-
-        <TouchableOpacity
-          style={styles.searchButton}
-          onPress={handleSearchSubmit}
-        >
-          <Text style={styles.searchButtonText}>Søk</Text>
-        </TouchableOpacity>
       </View>
+      <FlatList
+        data={filteredSessions}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.sessionItem} onPress={() => openModal(item)}>
+            <Text style={styles.sessionTitle}>{item.title}</Text>
+            <Image source={item.image} style={styles.sessionImage} />
+          </TouchableOpacity>
+        )}
+      />
+      {selectedSession && (
+        <CustomModal
+          visible={isModalVisible}
+          onClose={closeModal}
+          title={selectedSession.title}
+          buttons={[
+            { title: 'Legg til i treningsprogram', onPress: handleAddToProgram },
+            { title: 'Lukk', onPress: closeModal },
+          ]}
+        >
+          <Image source={selectedSession.image} style={styles.modalImage} />
+          <Text style={styles.modalText}>{selectedSession.description}</Text>
+        </CustomModal>
+      )}
     </View>
   );
 };
@@ -55,21 +90,38 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 10,
-    padding: 5,
+    padding: 10,
+    marginBottom: 10,
   },
   searchInput: {
     flex: 1,
-    padding: 10,
     fontSize: 16,
   },
-  searchButton: {
-    backgroundColor: "#26807b",
+  sessionItem: {
+    flexDirection: "row",
+    alignItems: "center",
     padding: 10,
-    borderRadius: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
   },
-  searchButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
+  sessionTitle: {
+    flex: 1,
+    fontSize: 18,
+  },
+  sessionImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  modalImage: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain',
+    marginBottom: 20,
+  },
+  modalText: {
+    textAlign: 'center',
+    marginBottom: 20,
   },
 });
 
