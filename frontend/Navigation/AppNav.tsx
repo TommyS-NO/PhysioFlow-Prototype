@@ -13,6 +13,7 @@ import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen";
 import DeleteUserScreen from "../Screens/DeleteUserScreen";
 import AboutScreen from "../Screens/AboutScreen";
 import SearchScreen from "../Screens/SearchScreen";
+import ProfileScreen from "../Screens/ProfileScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -70,6 +71,11 @@ const AppNav: React.FC = () => (
 				component={SearchScreen}
 				options={{ title: "Søk etter øvelser" }}
 			/>
+			<Stack.Screen
+			name="ProfileScreen"
+			component={ProfileScreen}
+			options={{ title: "Velkommen til din profilside!" }}
+		/>
 		</Stack.Navigator>
 	</NavigationContainer>
 );

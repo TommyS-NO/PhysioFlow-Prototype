@@ -9,5 +9,6 @@ export type RootStackParamList = {
   DeleteUserScreen: undefined;
   AboutScreen: undefined;
   SearchScreen: undefined;
+  ProfileScreen: undefined;
   InfoScreen: { title: string; message: string; onContinue?: () => void };
 };
