@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
 	Alert,
 	ImageBackground,
@@ -16,6 +16,7 @@ import { InputField } from "../Components/CustomInput/CustomInput";
 import { theme } from "../theme";
 import { frontScreenStyles } from "../Styles/FrontScreen_Style";
 import { apiService } from "../Services/APIService";
+import { useUser } from "../Context/UserContext";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, "Front">;
 
@@ -31,22 +32,19 @@ type LoginResponse = ApiResponse<{ data: LoginData } | null>;
 
 const FrontScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>();
+	const { dispatch } = useUser();
 	const [username, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
 	const handleLogin = async () => {
 		try {
-			const response = (await apiService.login(
-				username,
-				password,
-			)) as unknown as LoginResponse;
-			console.log("Login response:", response);
+			const response = await apiService.login(username, password);
+			if (response.message === "Suksess" && response.data) {
+				dispatch({ type: "LOGIN", token: response.data.token });
 
-			if (response.message === "Suksess" && response.data?.data.token) {
 				Alert.alert("Suksess", "Du er nå logget inn.");
 				navigation.navigate("TBA");
 			} else {
-				// Håndterer feilrespons med en beskjed, men uten token
 				Alert.alert("Feil ved innlogging", response.message);
 			}
 		} catch (error) {
