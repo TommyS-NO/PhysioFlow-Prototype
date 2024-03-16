@@ -23,7 +23,7 @@ const InfoScreen = () => {
 
 	return (
 		<ImageBackground
-			source={require("../Assets/mountain.jpg")}
+			// source={require("../Assets/mountain.jpg")}
 			style={styles.background}
 		>
 			<View style={styles.centeredView}>

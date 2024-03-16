@@ -25,7 +25,7 @@ const registerValidation = (values: UserFormData): ValidationErrors => {
   if (!values.email || !values.email.includes('@')) {
     errors.email = 'Vennligst oppgi en gyldig e-postadresse.';
   }
-  // ... Legg til flere valideringsregler etter behov ...
+  
 
   return errors;
 };
