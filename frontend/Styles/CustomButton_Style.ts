@@ -10,7 +10,8 @@ export const customButtonStyles = StyleSheet.create({
 		paddingHorizontal: theme.spacing.medium,
 		borderRadius: theme.borderRadius.small,
 		backgroundColor: theme.colors.button,
-		width: 250,
+		width: null,
+		alignSelf: "center",
 		margin: theme.spacing.small,
 	},
 	title: {

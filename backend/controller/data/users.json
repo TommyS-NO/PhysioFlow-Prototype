@@ -78,5 +78,15 @@
     "height": 170,
     "weight": 70,
     "birthday": "2024-01-14"
+  },
+  {
+    "id": 9,
+    "username": "Trinelise",
+    "password": "Trine",
+    "email": "Trine@lise.no",
+    "gender": "female",
+    "height": 170,
+    "weight": 70,
+    "birthday": "2024-03-05"
   }
 ]
