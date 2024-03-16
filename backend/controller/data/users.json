@@ -88,5 +88,35 @@
     "height": 170,
     "weight": 70,
     "birthday": "2024-03-05"
+  },
+  {
+    "id": 10,
+    "username": "arne",
+    "password": "arne123",
+    "email": "arne@arne.com",
+    "gender": "female",
+    "height": 170,
+    "weight": 70,
+    "birthday": "2024-03-10"
+  },
+  {
+    "id": 11,
+    "username": "Snurt",
+    "password": "admin1234",
+    "email": "Snurt@sb.no",
+    "gender": "male",
+    "height": 130,
+    "weight": 49,
+    "birthday": "2024-03-11"
+  },
+  {
+    "id": 12,
+    "username": "bb",
+    "password": "admin1234",
+    "email": "bb@bb.no",
+    "gender": "female",
+    "height": 170,
+    "weight": 70,
+    "birthday": "2024-03-09"
   }
 ]
