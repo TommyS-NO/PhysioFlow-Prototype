@@ -3,7 +3,7 @@
 # dependencies
 node_modules/
 
-/frontend/Services/APIService.ts
+babel.config.js
 
 # Expo
 .expo/
