@@ -6,9 +6,8 @@ import React, {
 	ReactNode,
 } from "react";
 
-
 type UserProviderProps = {
-	children: ReactNode; 
+	children: ReactNode;
 };
 
 // Define types for the state

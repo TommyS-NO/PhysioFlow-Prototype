@@ -6,6 +6,7 @@ export const frontScreenStyles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
+		backgroundColor: theme.colors.primary, 
 	},
 	topContainer: {
 		position: "absolute",

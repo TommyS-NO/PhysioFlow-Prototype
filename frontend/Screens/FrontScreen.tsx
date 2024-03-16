@@ -1,60 +1,58 @@
-import React, { useState, useContext } from "react";
-import {
-	Alert,
-	ImageBackground,
-	Image,
-	View,
-	Text,
-	TouchableOpacity,
-} from "react-native";
+import React from "react";
+import { Alert, Image, View, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../Navigation/navigationTypes";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../Navigation/navigationTypes";
 import CustomButton from "../Components/CustomButton/CustomButton";
 import { InputField } from "../Components/CustomInput/CustomInput";
 import { theme } from "../theme";
 import { frontScreenStyles } from "../Styles/FrontScreen_Style";
 import { apiService } from "../Services/APIService";
 import { useUser } from "../Context/UserContext";
+import useFormValidation from "../Hooks/useFormValidation";
+import loginValidation from "../Validation/loginValidation";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, "Front">;
 
-interface ApiResponse<T> {
-	message: string;
-	data?: T;
+interface LoginFormData {
+	username: string;
+	password: string;
 }
 
-interface LoginData {
-	token: string;
-}
-type LoginResponse = ApiResponse<{ data: LoginData } | null>;
+const initialState: LoginFormData = {
+	username: "",
+	password: "",
+};
 
 const FrontScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>();
 	const { dispatch } = useUser();
-	const [username, setUsername] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
+	const { values, errors, handleChange, handleSubmit } =
+		useFormValidation<LoginFormData>(initialState, loginValidation);
 
 	const handleLogin = async () => {
-		try {
-			const response = await apiService.login(username, password);
-			if (response.message === "Suksess" && response.data) {
-				dispatch({ type: "LOGIN", token: response.data.token });
-
-				Alert.alert("Suksess", "Du er nå logget inn.");
-				navigation.navigate("TBA");
-			} else {
-				Alert.alert("Feil ved innlogging", response.message);
+		handleSubmit(async () => {
+			try {
+				const response = await apiService.login(
+					values.username,
+					values.password,
+				);
+				if (response.message === "Suksess" && response.data) {
+					dispatch({ type: "LOGIN", token: response.data.token });
+					Alert.alert("Suksess", "Du er nå logget inn.");
+					navigation.navigate("TBA");
+				} else {
+					Alert.alert("Feil ved innlogging", response.message || "Ukjent feil");
+				}
+			} catch (error) {
+				const errorMessage =
+					error instanceof Error
+						? error.message
+						: "Noe gikk galt med innloggingen. Vennligst prøv igjen.";
+				Alert.alert("Feil", errorMessage);
 			}
-		} catch (error) {
-			const errorMessage =
-				error instanceof Error
-					? error.message
-					: "Noe gikk galt med innloggingen. Vennligst prøv igjen.";
-			Alert.alert("Feil", errorMessage);
-			console.error("Login Error:", error);
-		}
+		});
 	};
 
 	const handleRegister = () => {
@@ -64,12 +62,8 @@ const FrontScreen: React.FC = () => {
 	const handleHelp = () => {
 		Alert.alert("Brukerveiledning", "Brukerveiledningen er under utvikling.");
 	};
-
 	return (
-		<ImageBackground
-			source={require("../Assets/mountain.jpg")}
-			style={frontScreenStyles.container}
-		>
+		<View style={frontScreenStyles.container}>
 			<View style={frontScreenStyles.topContainer}>
 				<Image
 					source={require("../Assets/logoReact.png")}
@@ -77,31 +71,31 @@ const FrontScreen: React.FC = () => {
 				/>
 				<Text style={frontScreenStyles.titleText}>Tittel</Text>
 			</View>
-
 			<TouchableOpacity
 				onPress={handleHelp}
 				style={frontScreenStyles.helpButton}
 			>
 				<Icon name="help-circle" size={24} color={theme.colors.text} />
 			</TouchableOpacity>
-
 			<View style={frontScreenStyles.loginContainer}>
 				<Text style={frontScreenStyles.loginText}>Logg inn</Text>
 				<InputField
 					style={frontScreenStyles.input}
 					placeholder="Epost"
-					value={username}
-					onChangeText={setUsername}
+					value={values.username}
+					onChangeText={(value) => handleChange("username", value)}
 					autoCapitalize="none"
 				/>
+				<Text style={frontScreenStyles.errorText}>{errors.username}</Text>
 				<InputField
 					style={frontScreenStyles.input}
 					placeholder="Passord"
 					secureTextEntry
-					value={password}
-					onChangeText={setPassword}
+					value={values.password}
+					onChangeText={(value) => handleChange("password", value)}
 					autoCapitalize="none"
 				/>
+				<Text style={frontScreenStyles.errorText}>{errors.password}</Text>
 				<CustomButton
 					title="Logg inn"
 					onPress={handleLogin}
@@ -118,7 +112,7 @@ const FrontScreen: React.FC = () => {
 					buttonStyle={frontScreenStyles.registerButton}
 				/>
 			</View>
-		</ImageBackground>
+		</View>
 	);
 };
 
