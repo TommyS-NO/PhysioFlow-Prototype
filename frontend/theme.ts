@@ -32,7 +32,7 @@ interface Theme {
 
 export const theme: Theme = {
   colors: {
-    primary: "#26807C",
+    primary: "#F0F0F0",
     buttonText: "#ffffff",
     infoText: "#000000",
     button: "#26807C",
