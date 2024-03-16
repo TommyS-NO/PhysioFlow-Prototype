@@ -14,7 +14,7 @@ const TBA: React.FC = () => {
 		<View style={styles.container}>
 			<Text style={styles.text}>Under utvikling...</Text>
 			<CustomButton
-				title="Gå til Mitt Treningsprogram"
+				title="Gå til mitt treningsprogram"
 				onPress={() => navigation.navigate("ExerciseSession")}
 			/>
 			<CustomButton

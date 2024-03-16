@@ -16,7 +16,7 @@ export const customButtonStyles = StyleSheet.create({
 	},
 	title: {
 		fontSize: theme.fontSize.regular,
-		color: theme.colors.text,
+		color: theme.colors.buttonText,
 	},
 	icon: {
 		marginRight: theme.spacing.small,
