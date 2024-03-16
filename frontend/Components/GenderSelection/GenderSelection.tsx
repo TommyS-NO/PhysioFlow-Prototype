@@ -70,8 +70,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
+    borderWidth: 1,
+    borderColor: "#D3D3D3",
+    borderRadius: 10,
     marginBottom: 20,
-    borderWidth: 0.5,
+    backgroundColor: "#F5F5F9",
   },
   selected: {
     borderColor: theme.colors.primary,
@@ -82,6 +85,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginBottom: 10,
+    resizeMode: "contain",
   },
 
   genderOptionsContainer: {
