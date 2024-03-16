@@ -74,7 +74,7 @@ const AppNav: React.FC = () => (
 			<Stack.Screen
 			name="ProfileScreen"
 			component={ProfileScreen}
-			options={{ title: "Velkommen til din profilside!" }}
+			options={{ title: "Min profil" }}
 		/>
 		</Stack.Navigator>
 	</NavigationContainer>
