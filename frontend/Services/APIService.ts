@@ -37,6 +37,23 @@ const apiService = {
       return { message: 'Noe gikk galt med innloggingen.' };
     }
   },
+
+checkUsernameAvailability: async (username: string): Promise<ApiResponse<{ isAvailable: boolean }>> => {
+  try {
+    const response = await fetch(`${BASE_URL}/username_availability/${username}`, {
+      method: 'GET'
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return { message: 'Suksess', data: { isAvailable: data.isAvailable } };
+    }
+    return { message: data.message, data: { isAvailable: false } };
+  } catch (error) {
+    console.error('Username Availability Error:', error);
+    return { message: 'Noe gikk galt under sjekking av brukernavn.', data: { isAvailable: false } };
+  }
+},
+
 //POST
   register: async (user: User): Promise<ApiResponse<null>> => {
     try {
