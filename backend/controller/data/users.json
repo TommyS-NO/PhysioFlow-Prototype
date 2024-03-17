@@ -38,5 +38,15 @@
     "height": 183,
     "weight": 113,
     "birthday": "1999-11-13"
+  },
+  {
+    "id": 5,
+    "username": "arne",
+    "password": "arne",
+    "email": "arne@pst.no",
+    "gender": "male",
+    "height": 170,
+    "weight": 70,
+    "birthday": "2024-02-17"
   }
 ]
