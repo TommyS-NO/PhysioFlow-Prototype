@@ -1,6 +1,4 @@
-
-
-interface UserFormData {
+export interface UserFormData {
   username: string;
   email: string;
   password: string;
@@ -25,8 +23,16 @@ const registerValidation = (values: UserFormData): ValidationErrors => {
   if (!values.email || !values.email.includes('@')) {
     errors.email = 'Vennligst oppgi en gyldig e-postadresse.';
   }
-  
-
+  if (values.password.length < 1) {
+    errors.password = 'Passordet må være minst 6 tegn langt.';
+  }
+  if (values.password !== values.confirmPassword) {
+    errors.confirmPassword = 'Passordene stemmer ikke overens.';
+  }
+  if (!values.acceptTerms) {
+    errors.acceptTerms = 'Du må akseptere vilkårene for å fortsette.';
+  }
+ 
   return errors;
 };
 
