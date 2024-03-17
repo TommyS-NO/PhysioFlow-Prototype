@@ -10,28 +10,31 @@ type UserProviderProps = {
 	children: ReactNode;
 };
 
-// Define types for the state
+//  types for the state
+type UserDetails = {
+	username: string;
+	email: string;
+	password: string;
+	confirmPassword: string;
+	gender?: "male" | "female" | "unspecified";
+	height?: number;
+	weight?: number;
+	birthday?: string;
+	acceptTerms?: boolean;
+};
+
 type UserState = {
 	isLoggedIn: boolean;
 	token: string | null;
-	userDetails: {
-		username: string;
-		email: string;
-		password: string;
-		gender: "male" | "female" | "unspecified" | undefined;
-		height: number;
-		weight: number;
-		birthday: string; // Format: YYYY-MM-DD
-		acceptTerms: boolean;
-	} | null;
+	userDetails: UserDetails | null;
 };
 
-// Define action types
+//  action types
 type UserAction =
 	| { type: "LOGIN"; token: string }
 	| { type: "LOGOUT" }
-	| { type: "REGISTER"; userDetails: UserState["userDetails"] }
-	| { type: "UPDATE_USER_DETAILS"; details: Partial<UserState["userDetails"]> };
+	| { type: "REGISTER"; userDetails: UserDetails }
+	| { type: "UPDATE_USER_DETAILS"; details: Partial<UserDetails> };
 
 // Initial state
 const initialState: UserState = {
