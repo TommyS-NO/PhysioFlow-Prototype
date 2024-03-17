@@ -9,8 +9,10 @@ import {
 } from "../Picker/PickerComponent";
 import NumberSpinner, { NumberSpinnerProps } from "../Picker/NumberSpinner";
 
+type ExtendedInputFieldProps = InputFieldProps & { errorMessage?: string };
+
 type FormFieldProps =
-	| ({ type: "text" } & InputFieldProps)
+	| ({ type: "text" } & ExtendedInputFieldProps)
 	| ({ type: "gender" } & GenderSelectionProps)
 	| ({ type: "picker" } & PickerComponentProps)
 	| ({ type: "number" } & NumberSpinnerProps);
