@@ -58,19 +58,6 @@ const RegisterScreen: React.FC = () => {
 	const navigateToTerms = () => navigation.navigate("TermsScreen");
 
 	const handleRegistration = async () => {
-		if (!formData.email.includes("@")) {
-			Alert.alert("Feil", "Vennligst oppgi en gyldig e-postadresse.");
-			return;
-		}
-		if (formData.password.length < 1) {
-			Alert.alert("Feil", "Passordet må være minst 6 tegn langt.");
-			return;
-		}
-		if (formData.password !== formData.confirmPassword) {
-			Alert.alert("Feil", "Passordene stemmer ikke overens.");
-			return;
-		}
-
 		// logikk for å sende data til backend
 		try {
 			const response = await apiService.register({ ...formData });
@@ -84,6 +71,7 @@ const RegisterScreen: React.FC = () => {
 			Alert.alert("Feil under registrering", error.message || "Noe gikk galt");
 		}
 	};
+
 	const validateCurrentStep = (): boolean => {
 		switch (currentStep) {
 			case 1:
@@ -175,6 +163,7 @@ const RegisterScreen: React.FC = () => {
 							onPress={() =>
 								handleInputChange("acceptTerms", !formData.acceptTerms)
 							}
+							title={""}
 						/>
 
 						<Text onPress={navigateToTerms}>Aksepter Terms of Service</Text>
@@ -235,7 +224,6 @@ const RegisterScreen: React.FC = () => {
 					</>
 				);
 			case 6:
-				// Velg vekt
 				return (
 					<>
 						<FormField
@@ -246,26 +234,7 @@ const RegisterScreen: React.FC = () => {
 							label="Vekt (kg)"
 							values={Array.from({ length: 171 }, (_, i) => 30 + i)}
 						/>
-
-						<CustomButton
-							title="Neste"
-							onPress={() => {
-								// Siste validering før fullføring
-								if (
-									!formData.weight ||
-									!formData.height ||
-									!formData.birthday ||
-									!formData.gender
-								) {
-									Alert.alert(
-										"Feil",
-										"Alle felt må være fylt ut før du kan fortsette.",
-									);
-									return;
-								}
-								handleNextStep();
-							}}
-						/>
+						<CustomButton title="Neste" onPress={handleNextStep} />
 					</>
 				);
 			case 7:
