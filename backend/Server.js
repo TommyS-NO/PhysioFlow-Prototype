@@ -29,6 +29,15 @@ app.post("/register", (req, res) => {
 		res.status(400).json({ message: result.message });
 	}
 });
+app.get("/check-username/:username", (req, res) => {
+	const { username } = req.params;
+	const result = userController.checkUsernameAvailability(username);
+	if (result.success) {
+		res.json({ message: "Sjekk fullført", isAvailable: result.isAvailable });
+	} else {
+		res.status(400).json({ message: "Kunne ikke sjekke brukernavn" });
+	}
+});
 
 // CRUD-operasjoner for bruker
 app.get("/users/:id", (req, res) => {
