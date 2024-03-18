@@ -40,6 +40,9 @@ const ProfileScreen = () => {
         <TouchableOpacity style={styles.menuItem}>
           <Text style={styles.messageText}>Send melding til din behandler</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.menuItem}>
+          <Text style={styles.messageText}>FAQ</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.logoutButton}>
           <Text style={styles.logoutButtonText}>Logg ut</Text>
         </TouchableOpacity>
