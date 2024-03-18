@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { ScrollView, View, Text, Image, TouchableOpacity } from "react-native";
 import { styles } from "../Styles/ProfileScreen_Style";
+import CustomModal from "../Components/CustomModal/CustomModal";
 
 const ProfileScreen = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -40,13 +42,27 @@ const ProfileScreen = () => {
         <TouchableOpacity style={styles.menuItem}>
           <Text style={styles.messageText}>Send melding til din behandler</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem} onPress={() => setModalVisible(true)}>
           <Text style={styles.messageText}>FAQ</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.logoutButton}>
           <Text style={styles.logoutButtonText}>Logg ut</Text>
         </TouchableOpacity>
       </View>
+      <CustomModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        title="Ofte stilte spørsmål"
+        children={
+          //Husk å legge til punkter og riktig tekst her
+          <View>
+            <Text style={{marginBottom: 10}}>Hvordan endrer jeg mitt treningsprogram?</Text>
+            <Text style={{marginBottom: 20}}>Du kan endre ditt treningsprogram ved å gå til 'Mitt treningsprogram' og velge 'Endre'.</Text>
+            <Text style={{marginBottom: 10}}>Hvordan kontakter jeg min behandler?</Text>
+            <Text style={{marginBottom: 20}}>Du kan sende en melding til din behandler ved å bruke 'Send melding til din behandler'-funksjonen i appen.</Text>
+          </View>
+        }
+      />
     </ScrollView>
   );
 };
