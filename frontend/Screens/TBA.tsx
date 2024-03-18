@@ -21,10 +21,7 @@ const TBA: React.FC = () => {
 				title="Fokusområde"
 				onPress={() => navigation.navigate("FocusScreen")}
 			/>
-			<CustomButton
-				title="Slett profil"
-				onPress={() => navigation.navigate("DeleteUserScreen")}
-			/>
+
 			<CustomButton
 				title="Om oss"
 				onPress={() => navigation.navigate("AboutScreen")}
