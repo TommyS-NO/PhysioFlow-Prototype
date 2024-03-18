@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -8,7 +9,7 @@ type SettingsNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Settings"
 >;
-
+//Husk å legge til riktig navigeringer til de punktene under som ikke har noen "koblinger"
 const SettingsScreen: React.FC = () => {
   const navigation = useNavigation<SettingsNavigationProp>();
 
@@ -20,7 +21,7 @@ const SettingsScreen: React.FC = () => {
           style={styles.profileImage}
         />
         <TouchableOpacity style={styles.editButton}>
-          <Text>Endre bilde</Text>
+          <Text style={styles.editText}>Endre bilde</Text>
         </TouchableOpacity>
       </View>
 
@@ -29,26 +30,38 @@ const SettingsScreen: React.FC = () => {
           style={styles.menuItem}
           onPress={() => navigation.navigate("EditProfile")}
         >
-          <Text style={styles.menuText}>Rediger profil</Text>
+          <Text style={styles.menuText}>Endre vekt</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate("EditProfile")}
+        >
+          <Text style={styles.menuText}>Endre høyde</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate("Settings")}
+        >
+          <Text style={styles.menuText}>Endre alder</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate("EditProfile")}
+        >
+          <Text style={styles.menuText}>Endre kjønn</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuItem}
           onPress={() => navigation.navigate("FocusScreen")}
         >
-          <Text style={styles.menuText}>Fokusområder</Text>
+          <Text style={styles.menuText}>Endre fokusområder</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate("Settings")}
-        >
-          <Text style={styles.menuText}>Innstillinger</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.menuItem}
+          style={[styles.menuItem, styles.deleteButton]}
           onPress={() => navigation.navigate("DeleteUserScreen")}
         >
-          <Text style={styles.menuText}>Slett profil</Text>
+          <Text style={styles.deleteButtonText}>Slett profil</Text>
         </TouchableOpacity>
       </View>
     </View>

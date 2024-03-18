@@ -92,6 +92,8 @@ const SearchScreen: React.FC = () => {
   );
 };
 
+
+//Husk å legge denne stylingen i en egen Styles-fil
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
