@@ -26,6 +26,7 @@ export const frontScreenStyles = StyleSheet.create({
     marginVertical: theme.spacing.small,
   },
   helpButton: {
+
     position: "absolute",
     right: theme.spacing.medium,
     top: theme.spacing.large,

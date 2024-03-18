@@ -10,5 +10,7 @@ export type RootStackParamList = {
   AboutScreen: undefined;
   SearchScreen: undefined;
   ProfileScreen: undefined;
+  SettingsScreen: undefined;
+
   InfoScreen: { title: string; message: string; onContinue?: () => void };
 };

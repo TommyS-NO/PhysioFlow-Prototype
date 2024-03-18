@@ -5,6 +5,7 @@ interface Theme {
     text: string;
     button: string;
 	buttonText: string;
+	helpButton: string;
 	infoText: string;
     icon: string;
     disabled: string;
@@ -36,6 +37,7 @@ export const theme: Theme = {
     buttonText: "#ffffff",
     infoText: "#000000",
     button: "#26807C",
+	helpButton: "#000000",
     icon: "#FFF",
     secondary: "#000000",
     disabled: "#cccccc",
