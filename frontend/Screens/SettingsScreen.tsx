@@ -9,7 +9,7 @@ type SettingsNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Settings"
 >;
-//Husk å legge til riktig navigeringer til de punktene under som ikke har noen "koblinger"
+//Husk å legge til riktig "" navigeringer til de punktene under som ikke har noen "koblinger"
 const SettingsScreen: React.FC = () => {
   const navigation = useNavigation<SettingsNavigationProp>();
 
