@@ -60,7 +60,7 @@ export const frontScreenStyles = StyleSheet.create({
     borderRadius: theme.borderRadius.small,
   },
   loginButton: {
-    marginTop: theme.spacing.medium,
+    marginTop: 0,
   },
   registerButton: {
     marginTop: theme.spacing.medium,
@@ -77,5 +77,9 @@ export const frontScreenStyles = StyleSheet.create({
     color: theme.colors.secondary, 
     fontSize: theme.fontSize.regular,
     padding: theme.spacing.small, 
+  },
+  registerLinkText: {
+    color: "black", 
+    textDecorationLine: 'underline', 
   },
 });

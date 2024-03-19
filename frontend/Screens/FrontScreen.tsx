@@ -122,7 +122,9 @@ const FrontScreen: React.FC = () => {
             iconName="login"
             buttonStyle={frontScreenStyles.loginButton}
           />
-          <Text style={frontScreenStyles.registerText}>
+          {/* Oppsett med registreringsknapp:
+		  
+		  <Text style={frontScreenStyles.registerText}>
             Ikke medlem? Registrer deg her
           </Text>
           <CustomButton
@@ -130,7 +132,16 @@ const FrontScreen: React.FC = () => {
             onPress={handleRegister}
             iconName="account-plus"
             buttonStyle={frontScreenStyles.registerButton}
-          />
+          /> */}
+
+<Text style={frontScreenStyles.registerText}>
+  Ikke medlem?{" "}
+  <Text
+    style={frontScreenStyles.registerLinkText}
+    onPress={handleRegister}>
+    Registrer deg her
+  </Text>
+</Text>
         </View>
         <View style={frontScreenStyles.bottomLinksContainer}>
           <TouchableOpacity onPress={handleAboutPress}>

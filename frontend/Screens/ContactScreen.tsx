@@ -3,8 +3,6 @@ import {
   View,
   TextInput,
   Text,
-  StyleSheet,
-  TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
   Platform,
@@ -21,7 +19,7 @@ const ContactScreen = () => {
 
 
   const handleSendPress = () => {
-  //  Her må vi legge til logikk for mottak av informasjon 
+  //  NB NB Her må vi legge til logikk for mottak av informasjon som bruker skriver inn!
   };
 
   return (
