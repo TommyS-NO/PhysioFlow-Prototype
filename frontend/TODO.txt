@@ -8,6 +8,7 @@ Frontend:
 -Endre styling av logoer på "Kontakt oss" siden.
 -Flytte alt over til Profilsiden 
 -Justere designoppsett på Profilsiden. Juster visning. 
+-Flytt send-knapp til høyre under "kontakt oss"
 -Design:
 
 
