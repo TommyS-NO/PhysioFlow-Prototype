@@ -72,17 +72,13 @@ const FrontScreen: React.FC = () => {
 
   //----------------------------------------------------------------
 
-
-
   const handleAboutPress = () => {
-	navigation.navigate("AboutScreen"); // Bruk den faktiske navigasjonsnøkkelen for din Om oss skjerm
-};
+    navigation.navigate("AboutScreen"); // Bruk den faktiske navigasjonsnøkkelen for din Om oss skjerm
+  };
 
-const handleContactPress = () => {
-	// Her skal du implementere hva som skjer når brukeren trykker på "Kontakt oss"
-};
-
-
+  const handleContactPress = () => {
+    // Her skal du implementere hva som skjer når brukeren trykker på "Kontakt oss"
+  };
 
   //----------------------------------------------------------------
 
@@ -140,23 +136,18 @@ const handleContactPress = () => {
             buttonStyle={frontScreenStyles.registerButton}
           />
         </View>
-
-		   <View style={frontScreenStyles.bottomLinksContainer}>
-                    <TouchableOpacity onPress={handleAboutPress}>
-                        <Text style={frontScreenStyles.bottomLinkText}>Om oss</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={handleContactPress}>
-                        <Text style={frontScreenStyles.bottomLinkText}>Kontakt oss</Text>
-                    </TouchableOpacity>
-                </View>
+        <View style={frontScreenStyles.bottomLinksContainer}>
+          <TouchableOpacity onPress={handleAboutPress}>
+            <Text style={frontScreenStyles.bottomLinkText}>Om oss</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleContactPress}>
+            <Text style={frontScreenStyles.bottomLinkText}>Kontakt oss</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <KeyboardAvoidingView />
     </>
   );
 };
-
-
-
-
 
 export default FrontScreen;
