@@ -23,10 +23,6 @@ const TBA: React.FC = () => {
       />
 
       <CustomButton
-        title="Om oss"
-        onPress={() => navigation.navigate("AboutScreen")}
-      />
-      <CustomButton
         title="Søk etter øvelser"
         onPress={() => navigation.navigate("SearchScreen")}
       />

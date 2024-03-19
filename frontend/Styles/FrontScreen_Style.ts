@@ -65,4 +65,17 @@ export const frontScreenStyles = StyleSheet.create({
   registerButton: {
     marginTop: theme.spacing.medium,
   },
+  bottomLinksContainer: {
+    position: 'absolute', 
+    bottom: theme.spacing.large, 
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: theme.spacing.large, 
+  },
+  bottomLinkText: {
+    color: theme.colors.secondary, 
+    fontSize: theme.fontSize.regular,
+    padding: theme.spacing.small, 
+  },
 });
