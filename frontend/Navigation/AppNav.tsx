@@ -51,7 +51,7 @@ const AppNav: React.FC = () => (
       <Stack.Screen
         name="ExerciseSession"
         component={ExerciseOverviewScreen}
-        options={{ title: "Mitttreningsprogram" }}
+        options={{ title: "Mitt treningsprogram" }}
       />
       <Stack.Screen
         name="FocusScreen"

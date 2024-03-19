@@ -5,7 +5,9 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from "../Styles/ContactScreen_Style";
@@ -23,6 +25,10 @@ const ContactScreen = () => {
   };
 
   return (
+    <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
     <ScrollView style={styles.container}>
       <Text style={styles.headerText}>Kontakt oss</Text>
       <TextInput
@@ -68,6 +74,7 @@ const ContactScreen = () => {
         <Icon name="twitter-square" size={30} style={styles.icon} />
       </View>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
