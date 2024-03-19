@@ -70,17 +70,13 @@ const FrontScreen: React.FC = () => {
     Alert.alert("Brukerveiledning", "Brukerveiledningen er under utvikling.");
   };
 
-  //----------------------------------------------------------------
-
   const handleAboutPress = () => {
-    navigation.navigate("AboutScreen"); // Bruk den faktiske navigasjonsnøkkelen for din Om oss skjerm
+    navigation.navigate("AboutScreen");
   };
 
   const handleContactPress = () => {
-    // Her skal du implementere hva som skjer når brukeren trykker på "Kontakt oss"
+    //Husk å legge til navigasjon for riktig side her
   };
-
-  //----------------------------------------------------------------
 
   return (
     <>
