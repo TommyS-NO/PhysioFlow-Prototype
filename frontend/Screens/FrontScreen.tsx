@@ -87,7 +87,7 @@ const FrontScreen: React.FC = () => {
 					onPress={handleHelp}
 					style={frontScreenStyles.helpButton}
 				>
-					<Icon name="help-circle" size={24} color={theme.colors.buttonText} />
+					<Icon name="help-circle" size={24} color={theme.colors.helpButton} />
 				</TouchableOpacity>
 				<View style={frontScreenStyles.loginContainer}>
 					<Text style={frontScreenStyles.loginText}>Logg inn</Text>
