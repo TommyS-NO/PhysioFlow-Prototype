@@ -15,6 +15,7 @@ import AboutScreen from "../Screens/AboutScreen";
 import SearchScreen from "../Screens/SearchScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import SettingsScreen from "../Screens/SettingsScreen";
+import ContactScreen from "../Screens/ContactScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -81,6 +82,11 @@ const AppNav: React.FC = () => (
         name="SettingsScreen"
         component={SettingsScreen}
         options={{ title: "Settings" }}
+      />
+      <Stack.Screen
+        name="ContactScreen"
+        component={ContactScreen}
+        options={{ title: "Kontakt oss" }}
       />
     </Stack.Navigator>
   </NavigationContainer>

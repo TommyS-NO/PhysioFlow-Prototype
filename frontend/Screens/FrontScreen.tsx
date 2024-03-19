@@ -71,11 +71,11 @@ const FrontScreen: React.FC = () => {
   };
 
   const handleAboutPress = () => {
-    navigation.navigate("AboutScreen");
+    navigation.navigate("AboutScreen"); //Navigasjon til "Om oss"
   };
 
   const handleContactPress = () => {
-    //Husk å legge til navigasjon for riktig side her
+    navigation.navigate("ContactScreen");//Navigasjon til "Kontakt oss"
   };
 
   return (
