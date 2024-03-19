@@ -32,12 +32,19 @@ export const styles = StyleSheet.create({
     height: 150, 
   },
   iconContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+    position: 'absolute', 
+    bottom: -150, 
+    left: 0, 
+    right: 0, 
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     paddingVertical: 20,
+
+    
   },
   icon: {
     width: 30,
     height: 30,
+    color: "#000",
   },
 });
