@@ -16,6 +16,7 @@ import { apiService } from "../Services/APIService";
 import { registerScreenStyles as styles } from "../Styles/Register_Style";
 import CustomCheckBox from "../Components/CustomCheckBox/CustomCheckBox";
 
+
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Register"
@@ -127,7 +128,8 @@ const RegisterScreen: React.FC = () => {
     switch (currentStep) {
       case 1:
         return (
-          <>
+          <ScrollView style={styles.container}>
+            <View style={styles.formContainer}>
             <FormField
               type="text"
               label="Navn"
@@ -168,7 +170,8 @@ const RegisterScreen: React.FC = () => {
 
             <Text onPress={navigateToTerms}>Aksepter Terms of Service</Text>
             <CustomButton title="Neste" onPress={handleNextStep} />
-          </>
+            </View>
+            </ScrollView>
         );
       case 2:
         // Steg for informasjonsvisning

@@ -24,4 +24,19 @@ export const registerScreenStyles = StyleSheet.create({
     color: theme.colors.text, 
   },
  
+  formContainer: {
+    backgroundColor: '#FFFFFF', 
+    padding: 20,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+
+
 });

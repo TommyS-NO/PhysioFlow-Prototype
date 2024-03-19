@@ -28,7 +28,6 @@ const SearchScreen: React.FC = () => {
     );
   };
 
-  //Hvorfor og hva er feil med session? Koden fungerer greit?
   const openModal = (session) => {
     setSelectedSession(session);
     setIsModalVisible(true);
