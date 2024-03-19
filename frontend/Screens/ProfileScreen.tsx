@@ -33,7 +33,10 @@ const ProfileScreen: React.FC = () => {
           />
           <Text style={styles.welcomeText}>Velkommen, [Brukernavn!]!</Text>
         </View>
+      
         <View style={styles.menuContainer}>
+          
+          
           <TouchableOpacity
             style={styles.menuItem}
             onPress={() => navigation.navigate("SettingsScreen")}
@@ -41,19 +44,29 @@ const ProfileScreen: React.FC = () => {
             <Text style={styles.menuText}>Profilinnstillinger</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity 
+          style={styles.menuItem}
+      
+        onPress={() => navigation.navigate("ExerciseSession")}
+      >
+            <Text style={styles.menuText}>Mitt treningsprogram</Text>
+          </TouchableOpacity>
+
+
           <TouchableOpacity style={styles.menuItem}>
             <Text style={styles.menuText}>Mine treningsøkter</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuText}>Mitt treningsprogram</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuText}>Reward</Text>
-          </TouchableOpacity>
+
           <TouchableOpacity style={styles.menuItem}>
             <Text style={styles.menuText}>Treningsprogresjon</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Reward</Text>
+          </TouchableOpacity>
+
         </View>
+
         <TouchableOpacity style={styles.menuItem}>
           <Text style={styles.bobText}>BobAI</Text>
           <Image
@@ -61,19 +74,24 @@ const ProfileScreen: React.FC = () => {
             style={styles.bobImage}
           />
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.menuItem}>
           <Text style={styles.messageText}>Send melding til din behandler</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.menuItem}
           onPress={() => setModalVisible(true)}
         >
           <Text style={styles.messageText}>FAQ</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.logoutButton}>
           <Text style={styles.logoutButtonText}>Logg ut</Text>
         </TouchableOpacity>
+
       </View>
+
       <CustomModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}

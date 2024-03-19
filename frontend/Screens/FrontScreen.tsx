@@ -48,7 +48,7 @@ const FrontScreen: React.FC = () => {
         if (response.message === "Suksess" && response.data) {
           dispatch({ type: "LOGIN", token: response.data.token });
           Alert.alert("Suksess", "Du er nå logget inn.");
-          navigation.navigate("TBA");
+          navigation.navigate("TBA"); //Endre til og fra TBA / Profilsiden her.
         } else {
           Alert.alert("Feil ved innlogging", response.message || "Ukjent feil");
         }

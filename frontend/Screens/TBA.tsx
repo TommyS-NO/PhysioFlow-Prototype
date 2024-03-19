@@ -13,10 +13,10 @@ const TBA: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Under utvikling...</Text>
-      <CustomButton
+      {/* <CustomButton
         title="Gå til mitt treningsprogram"
         onPress={() => navigation.navigate("ExerciseSession")}
-      />
+      /> */}
       <CustomButton
         title="Fokusområde"
         onPress={() => navigation.navigate("FocusScreen")}
