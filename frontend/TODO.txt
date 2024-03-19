@@ -7,6 +7,7 @@ Frontend:
 -Sett opp logikk for lagring av informasjon som bruker har lagret ved registrering. Må vises under innstillinger. 
 -Endre styling av logoer på "Kontakt oss" siden.
 -Flytte alt over til Profilsiden 
+-Justere designoppsett på Profilsiden. Juster visning. 
 -Design:
 
 
