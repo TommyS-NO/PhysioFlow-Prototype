@@ -1,0 +1,18 @@
+Husk! 
+
+Frontend:
+
+-Flytte "Terms"-tekst ved siden av boks
+-Endre oppsett for 
+-Sett opp logikk for lagring av informasjon som bruker har lagret ved registrering. Må vises under innstillinger. 
+-Endre styling av logoer på "Kontakt oss" siden.
+-Flytte alt over til Profilsiden 
+-Design:
+
+
+
+
+
+
+
+Backend:
