@@ -1,7 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const authController = require("./controller/authController");
-const userController = require("./controller/userController");
+const { admin, db } = require("./firebase/firebaseAdmin");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,76 +9,78 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Autentisering av bruker
-app.post("/login", (req, res) => {
-	const { username, password } = req.body;
-	const result = authController.authenticateUser(username, password);
-	if (result.success) {
-		res.json({ message: "Suksess", data: { token: "dummy-token-for-demo" } });
-	} else {
-		res.status(404).json({ message: result.message });
-	}
-});
+app.post("/register", async (req, res) => {
+	const { email, password, username, age, weight, height, gender, birthday } =
+		req.body;
 
-// Registrering av bruker
-app.post("/register", (req, res) => {
-	const result = userController.registerUser(req.body);
-	if (result.success) {
-		res.json({ message: "Suksess", newUser: result.newUser });
-	} else {
-		res.status(400).json({ message: result.message });
-	}
-});
-app.get("/check-username/:username", (req, res) => {
-	const { username } = req.params;
-	const result = userController.checkUsernameAvailability(username);
-	if (result.success) {
-		res.json({ message: "Sjekk fullført", isAvailable: result.isAvailable });
-	} else {
-		res.status(400).json({ message: "Kunne ikke sjekke brukernavn" });
-	}
-});
+	try {
+		const userRecord = await admin.auth().createUser({ email, password });
+		const userId = userRecord.uid;
 
-// CRUD-operasjoner for bruker
-app.get("/users/:id", (req, res) => {
-	const user = userController.getUserById(req.params.id);
-	if (user) {
-		res.json(user);
-	} else {
-		res.status(404).json({ message: "Brukeren ble ikke funnet." });
-	}
-});
-
-app.put("/users/:id", (req, res) => {
-	const result = userController.updateUser(req.params.id, req.body);
-	if (result.success) {
-		res.json({
-			message: "Brukeren ble oppdatert.",
-			updatedUser: result.updatedUser,
+		await db.collection("users").doc(userId).set({
+			username,
+			email,
+			age,
+			weight,
+			height,
+			gender,
+			birthday,
 		});
-	} else {
-		res.status(404).json({ message: result.message });
+
+		res.status(200).json({
+			message: "Bruker registrert og data lagret i Firestore",
+			userId,
+		});
+	} catch (error) {
+		res.status(500).json({ message: "Feil under oppretting av bruker", error });
 	}
 });
 
-app.delete("/users/:id", (req, res) => {
-	const result = userController.deleteUser(req.params.id);
-	if (result.success) {
-		res.json({ message: "Brukeren ble slettet." });
-	} else {
-		res.status(404).json({ message: result.message });
+app.get("/users/:id", async (req, res) => {
+	const uid = req.params.id;
+
+	try {
+		const doc = await db.collection("users").doc(uid).get();
+		if (doc.exists) {
+			res.status(200).json(doc.data());
+		} else {
+			res.status(404).json({ message: "Brukeren ble ikke funnet." });
+		}
+	} catch (error) {
+		res.status(500).json({ message: "Noe gikk galt", error });
 	}
 });
 
-app.use((req, res) => {
-	res.status(404).send("Siden ble ikke funnet!");
+app.put("/users/:id", async (req, res) => {
+	const uid = req.params.id;
+	const userData = req.body;
+
+	try {
+		await db.collection("users").doc(uid).update(userData);
+		res.status(200).json({ message: "Brukeren ble oppdatert." });
+	} catch (error) {
+		res.status(500).json({ message: "Noe gikk galt ved oppdatering.", error });
+	}
 });
+
+app.delete("/users/:id", async (req, res) => {
+	const uid = req.params.id;
+
+	try {
+		await db.collection("users").doc(uid).delete();
+		res.status(200).json({ message: "Brukeren ble slettet." });
+	} catch (error) {
+		res.status(500).json({ message: "Noe gikk galt ved sletting.", error });
+	}
+});
+
+app.use((req, res) => res.status(404).send("Siden ble ikke funnet!"));
 
 app.use((err, req, res, next) => {
 	console.error(err.stack);
 	res.status(500).send("Noe gikk galt!");
 });
 
-app.listen(PORT, () => {
-	console.log(`Server kjører på http://localhost:${PORT}`);
-});
+app.listen(PORT, () =>
+	console.log(`Server kjører på http://localhost:${PORT}`),
+);
