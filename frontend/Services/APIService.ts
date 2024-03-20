@@ -5,8 +5,8 @@ export interface ApiResponse<T> {
 
 interface User {
   username: string;
+  email: string;
   password: string;
-  email?: string;
   gender?: 'male' | 'female' | 'unspecified';
   height?: number;
   weight?: number;
@@ -15,47 +15,31 @@ interface User {
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-
-
 const apiService = {
-  login: async (username: string, password: string): Promise<ApiResponse<{ token: string }>> => {
+  login: async (email: string, password: string): Promise<ApiResponse<{ token: string }>> => {
     try {
       const response = await fetch(`${BASE_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
+      console.log(data);
       if (response.ok) {
-        return { message: 'Suksess', data: data };
+        return { message: 'Suksess', data };
       }
-        return { message: data.message };
+      return { message: data.message };
     } catch (error) {
       console.error('Login Error:', error);
       return { message: 'Noe gikk galt med innloggingen.' };
     }
   },
 
-checkUsernameAvailability: async (username: string): Promise<ApiResponse<{ isAvailable: boolean }>> => {
-  try {
-    const response = await fetch(`${BASE_URL}/username_availability/${username}`, {
-      method: 'GET'
-    });
-    const data = await response.json();
-    if (response.ok) {
-      return { message: 'Suksess', data: { isAvailable: data.isAvailable } };
-    }
-    return { message: data.message, data: { isAvailable: false } };
-  } catch (error) {
-    console.error('Username Availability Error:', error);
-    return { message: 'Noe gikk galt under sjekking av brukernavn.', data: { isAvailable: false } };
-  }
-},
+  
 
-//POST
-  register: async (user: User): Promise<ApiResponse<null>> => {
+  register: async (user: User): Promise<ApiResponse<{ userId: string }>> => {
     try {
       const response = await fetch(`${BASE_URL}/register`, {
         method: 'POST',
@@ -65,13 +49,16 @@ checkUsernameAvailability: async (username: string): Promise<ApiResponse<{ isAva
         body: JSON.stringify(user),
       });
       const data = await response.json();
+      if (response.ok) {
+        return { message: 'Bruker registrert og data lagret i Firestore', data };
+      }
       return { message: data.message };
     } catch (error) {
       console.error('Registration Error:', error);
       return { message: 'Noe gikk galt under registreringen.' };
     }
   },
-//PUT/PATCH
+
   updateUser: async (userId: string, userUpdates: Partial<User>): Promise<ApiResponse<null>> => {
     try {
       const response = await fetch(`${BASE_URL}/users/${userId}`, {
@@ -82,27 +69,32 @@ checkUsernameAvailability: async (username: string): Promise<ApiResponse<{ isAva
         body: JSON.stringify(userUpdates),
       });
       const data = await response.json();
-      return { message: data.message };
+      if (response.ok) {
+        return { message: 'Brukeren ble oppdatert.', data: null };
+      }
+      return { message: data.message, data: null };
     } catch (error) {
       console.error('Update User Error:', error);
-      return { message: 'Noe gikk galt under oppdateringen av brukeren.' };
+      return { message: 'Noe gikk galt under oppdateringen av brukeren.', data: null };
     }
   },
-//DELETE
+
   deleteUser: async (userId: string): Promise<ApiResponse<null>> => {
     try {
       const response = await fetch(`${BASE_URL}/users/${userId}`, {
         method: 'DELETE',
       });
       const data = await response.json();
-      return { message: data.message };
+      if (response.ok) {
+        return { message: 'Brukeren ble slettet.', data: null };
+      }
+      return { message: data.message, data: null };
     } catch (error) {
       console.error('Delete User Error:', error);
-      return { message: 'Noe gikk galt under slettingen av brukeren.' };
+      return { message: 'Noe gikk galt under slettingen av brukeren.', data: null };
     }
   },
 
-//GET
   getUser: async (userId: string): Promise<ApiResponse<User>> => {
     try {
       const response = await fetch(`${BASE_URL}/users/${userId}`, {
@@ -110,12 +102,12 @@ checkUsernameAvailability: async (username: string): Promise<ApiResponse<{ isAva
       });
       const data = await response.json();
       if (response.ok) {
-        return { message: 'Suksess', data: data };
+        return { message: 'Suksess', data };
       }
-        return { message: data.message };
+      return { message: data.message, data: undefined };
     } catch (error) {
       console.error('Get User Error:', error);
-      return { message: 'Noe gikk galt under henting av brukerinformasjon.' };
+      return { message: 'Noe gikk galt under henting av brukerinformasjon.', data: undefined };
     }
   },
 };

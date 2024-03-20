@@ -1,0 +1,52 @@
+// [
+//   {
+//     "id": 1,
+//     "username": "admin",
+//     "password": "admin",
+//     "email": "admin@admin.com",
+//     "gender": "unspecified",
+//     "height": 180,
+//     "weight": 80,
+//     "birthday": "1990-01-01"
+//   },
+//   {
+//     "id": 2,
+//     "username": "tommy",
+//     "password": "tommy",
+//     "email": "tommy@tommy.com",
+//     "gender": "male",
+//     "height": 174,
+//     "weight": 76,
+//     "birthday": "1985-01-01"
+//   },
+//   {
+//     "id": 2,
+//     "username": "mina",
+//     "password": "mina",
+//     "email": "mina@mina.com",
+//     "gender": "female",
+//     "height": 110,
+//     "weight": 60,
+//     "birthday": "1990-01-01"
+//   },
+//   {
+//     "id": 4,
+//     "username": "bjarne",
+//     "password": "1234",
+//     "email": "bjarneP@pst.no",
+//     "gender": "male",
+//     "height": 183,
+//     "weight": 113,
+//     "birthday": "1999-11-13"
+//   },
+//   {
+//     "id": 5,
+//     "username": "arne",
+//     "password": "arne",
+//     "email": "arne@pst.no",
+//     "gender": "male",
+//     "height": 170,
+//     "weight": 70,
+//     "birthday": "2024-02-17"
+//   }
+// ]
