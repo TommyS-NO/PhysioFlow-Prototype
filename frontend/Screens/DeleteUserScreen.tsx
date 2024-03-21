@@ -1,9 +1,21 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { deleteUser as deleteUserFromAuth } from "firebase/auth";
+import { deleteDoc, doc } from "firebase/firestore";
+import { auth, db } from "../Services/Firebase/firebaseConfig";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../Navigation/navigationTypes";
+
+type DeleteUserScreenNavigationProp = StackNavigationProp<
+	RootStackParamList,
+	"DeleteUserScreen"
+>;
 
 const DeleteUserScreen: React.FC = () => {
+	const navigation = useNavigation<DeleteUserScreenNavigationProp>();
+
 	const handleDeletePress = () => {
-		// Bekreftelse før sletting
 		Alert.alert(
 			"Bekreft Sletting",
 			"Er du sikker på at du vil slette din profil? Denne handlingen kan ikke angres.",
@@ -18,11 +30,21 @@ const DeleteUserScreen: React.FC = () => {
 		);
 	};
 
-	const deleteUserAccount = () => {
-		// NB!! Her må vi legge til logikken i backend for å få slettet brukerprofilen
-		alert("Din konto har blitt slettet.");
-	};
+	const deleteUserAccount = async () => {
+		if (auth.currentUser) {
+			const userId = auth.currentUser.uid;
 
+			try {
+				await deleteDoc(doc(db, "users", userId));
+				await deleteUserFromAuth(auth.currentUser);
+				Alert.alert("Din konto har blitt slettet.");
+				navigation.navigate("Front");
+			} catch (error) {
+				console.error("Error deleting user:", error);
+				Alert.alert("Det oppstod en feil ved sletting av brukeren.");
+			}
+		}
+	};
 	//Sett opp kulepunkter og hev ut de ulike punktene i hvert avsnitt
 	return (
 		<View style={styles.container}>
