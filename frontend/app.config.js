@@ -10,6 +10,7 @@ export default {
 		assetBundlePatterns: ["**/*"],
 		ios: {
 			supportsTablet: true,
+			bundleIdentifier: "PhysioGO",
 		},
 		android: {
 			permissions: ["android.permission.DETECT_SCREEN_CAPTURE"],
