@@ -1,10 +1,10 @@
-// firebaseConfig.ts
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, AuthError } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, AuthError  } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID } from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Initialize Firebase
+
 const firebaseConfig = {
   apiKey: API_KEY,
   authDomain: AUTH_DOMAIN,
@@ -32,8 +32,6 @@ export const registerUser = async (email: string, password: string): Promise<str
     return null;
   }
 };
-
-// Save additional user profile information in Firestore
 export const saveUserProfile = async (userId: string, profile: any): Promise<boolean> => {
   try {
     await setDoc(doc(db, "users", userId), profile);
