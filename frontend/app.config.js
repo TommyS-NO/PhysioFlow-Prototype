@@ -10,7 +10,7 @@ export default {
 		assetBundlePatterns: ["**/*"],
 		ios: {
 			supportsTablet: true,
-			bundleIdentifier: "com.pyshiogo.app",
+			bundleIdentifier: "com.physiogo.app",
 		},
 		android: {
 			permissions: ["android.permission.DETECT_SCREEN_CAPTURE"],
