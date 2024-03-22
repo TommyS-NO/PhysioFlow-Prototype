@@ -14,6 +14,7 @@ Frontend:
 
 
 
+- Endre username til Name for registrering!
 
 
 

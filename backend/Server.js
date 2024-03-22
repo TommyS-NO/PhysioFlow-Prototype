@@ -67,8 +67,11 @@ app.delete("/users/:id", async (req, res) => {
 	const uid = req.params.id;
 
 	try {
+		await admin.auth().deleteUser(uid);
 		await db.collection("users").doc(uid).delete();
-		res.status(200).json({ message: "Brukeren ble slettet." });
+		res
+			.status(200)
+			.json({ message: "Brukeren og deres autentiseringsdata ble slettet." });
 	} catch (error) {
 		res.status(500).json({ message: "Noe gikk galt ved sletting.", error });
 	}
