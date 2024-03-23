@@ -11,7 +11,7 @@ export default {
 		ios: {
 			supportsTablet: true,
 			bundleIdentifier: "com.physiogo.app",
-			googleServicesFile: "./GoogleService-info.plist",
+			// googleServicesFile: "./GoogleService-info.plist",
 		},
 		android: {
 			permissions: ["android.permission.DETECT_SCREEN_CAPTURE"],
