@@ -12,6 +12,7 @@ app.use(express.json());
 app.post("/register", async (req, res) => {
 	const { email, password, username, age, weight, height, gender, birthday } =
 		req.body;
+	console.log("Forsøker å registrere bruker med data:", req.body);
 
 	try {
 		const userRecord = await admin.auth().createUser({ email, password });
@@ -84,6 +85,7 @@ app.use((err, req, res, next) => {
 	res.status(500).send("Noe gikk galt!");
 });
 
-app.listen(PORT, () =>
-	console.log(`Server kjører på http://localhost:${PORT}`),
-);
+app.listen(PORT, () => {
+	console.log(`Server kjører på http://localhost:${PORT}`);
+	console.log("Koble til Firebase...");
+});
