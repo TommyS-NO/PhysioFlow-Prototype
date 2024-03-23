@@ -15,6 +15,7 @@ import {
 } from 'firebase/firestore';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID } from '@env';
 
+
 // Firebase configuration
 const firebaseConfig = {
   apiKey: API_KEY,
@@ -23,11 +24,12 @@ const firebaseConfig = {
   messagingSenderId: MESSAGING_SENDER_ID,
   appId: APP_ID,
 };
-
-// Initialize Firebase
+// Initialize Firebaseg
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { app, auth, db };
 
 // Register User
 export const registerUser = async (email: string, password: string): Promise<string | null> => {
@@ -92,3 +94,5 @@ export const deleteUserAccount = async (userId: string): Promise<boolean> => {
     return false;
   }
 };
+
+
