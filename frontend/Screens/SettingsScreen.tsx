@@ -41,14 +41,31 @@ const SettingsScreen: React.FC = () => {
 	const [isEditing, setIsEditing] = useState<keyof UserProfile | null>(null);
 	const editingValueRef = useRef<string>("");
 
+	const calculateAge = (birthdate: string) => {
+		const birthday = new Date(birthdate);
+		const today = new Date();
+		const thisYear = today.getFullYear();
+		const birthYear = birthday.getFullYear();
+		const age = thisYear - birthYear;
+
+		if (today < new Date(thisYear, birthday.getMonth(), birthday.getDate())) {
+			return age - 1;
+		}
+		return age;
+	};
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const userId = auth.currentUser?.uid;
 		if (userId) {
 			const unsubscribe = subscribeToUserProfile(userId, (data) => {
+				const ageString = data.birthday
+					? `${calculateAge(data.birthday)} År`
+					: "";
 				setUserProfile({
 					weight: data.weight || "",
 					height: data.height?.toString() || "",
-					age: data.age || "",
+					age: ageString,
 					gender:
 						data.gender === "male"
 							? "mann"
@@ -61,17 +78,41 @@ const SettingsScreen: React.FC = () => {
 		}
 	}, []);
 
+	const MAX_WEIGHT = 180;
+	const MAX_HEIGHT = 210;
+
 	const handleUpdate = (field: keyof UserProfile) => {
 		const userId = auth.currentUser?.uid;
-		if (userId) {
-			updateUserProfile(userId, { [field]: editingValueRef.current }).then(
-				() => {
+		if (userId && field !== "age") {
+			let valueToUpdate = editingValueRef.current;
+
+			if (field === "weight" || field === "height") {
+				const numValue = parseInt(valueToUpdate, 10);
+				if (
+					numValue > 0 &&
+					(field === "weight" ? numValue <= MAX_WEIGHT : numValue <= MAX_HEIGHT)
+				) {
+					valueToUpdate = numValue.toString();
+				} else {
+					Alert.alert(
+						"Feil",
+						`Angitt verdi er utenfor tillatt rekkevidde for ${field}.`,
+					);
+					return;
+				}
+			}
+
+			updateUserProfile(userId, { [field]: valueToUpdate })
+				.then(() => {
 					setIsEditing(null);
 					Alert.alert("Oppdatering", "Dine endringer er lagret.");
-				},
-			);
+				})
+				.catch(() => {
+					Alert.alert("Feil", "Det oppstod en feil under lagring av data.");
+				});
 		}
 	};
+
 	const startEditing = (field: keyof UserProfile, value: string) => {
 		editingValueRef.current = value;
 		setIsEditing(field);
@@ -171,7 +212,5 @@ const SettingsScreen: React.FC = () => {
 		</View>
 	);
 };
-
-
 
 export default SettingsScreen;

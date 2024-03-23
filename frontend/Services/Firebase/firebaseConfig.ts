@@ -11,10 +11,10 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
-  onSnapshot
+  onSnapshot,
 } from 'firebase/firestore';
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID } from '@env';
-
 
 // Firebase configuration
 const firebaseConfig = {
@@ -24,15 +24,16 @@ const firebaseConfig = {
   messagingSenderId: MESSAGING_SENDER_ID,
   appId: APP_ID,
 };
-// Initialize Firebaseg
+
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
-export { app, auth, db };
 
 // Register User
-export const registerUser = async (email: string, password: string): Promise<string | null> => {
+ const registerUser = async (email: string, password: string): Promise<string | null> => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return userCredential.user.uid;
@@ -44,7 +45,7 @@ export const registerUser = async (email: string, password: string): Promise<str
 };
 
 // Save User Profile
-export const saveUserProfile = async (userId: string, profile: any): Promise<boolean> => {
+ const saveUserProfile = async (userId: string, profile: any): Promise<boolean> => {
   try {
     await setDoc(doc(db, "users", userId), profile);
     return true;
@@ -55,7 +56,7 @@ export const saveUserProfile = async (userId: string, profile: any): Promise<boo
 };
 
 // Update User Profile
-export const updateUserProfile = async (userId: string, updates: Record<string, any>): Promise<void> => {
+ const updateUserProfile = async (userId: string, updates: Record<string, any>): Promise<void> => {
   try {
     await updateDoc(doc(db, "users", userId), updates);
   } catch (error) {
@@ -64,7 +65,7 @@ export const updateUserProfile = async (userId: string, updates: Record<string, 
 };
 
 // Subscribe to User Profile
-export const subscribeToUserProfile = (userId: string, setUserProfile: (profile: any) => void) => {
+ const subscribeToUserProfile = (userId: string, setUserProfile: (profile: any) => void) => {
   return onSnapshot(doc(db, "users", userId), (document) => {
     if (document.exists()) {
       setUserProfile(document.data());
@@ -77,16 +78,12 @@ export const subscribeToUserProfile = (userId: string, setUserProfile: (profile:
 };
 
 // Delete User Account
-export const deleteUserAccount = async (userId: string): Promise<boolean> => {
+ const deleteUserAccount = async (userId: string): Promise<boolean> => {
   try {
-  
     await deleteDoc(doc(db, "users", userId));
-
- 
     if (auth.currentUser?.uid === userId) {
       await firebaseDeleteUser(auth.currentUser);
     }
-    
     return true;
   } catch (error) {
     const firebaseError = error as AuthError;
@@ -95,4 +92,19 @@ export const deleteUserAccount = async (userId: string): Promise<boolean> => {
   }
 };
 
+// Upload Profile Image
+ const uploadProfileImage = async (userId: string, imageUri: string): Promise<string> => {
+  const imageRef = storageRef(storage, `profile_images/${userId}`);
+  const response = await fetch(imageUri);
+  const blob = await response.blob();
+
+  await uploadBytes(imageRef, blob);
+  const downloadURL = await getDownloadURL(imageRef);
+
+  await updateDoc(doc(db, "users", userId), { profileImageUrl: downloadURL });
+  return downloadURL;
+};
+
+
+export { app, auth, db, storage, registerUser, saveUserProfile, updateUserProfile, subscribeToUserProfile, deleteUserAccount, uploadProfileImage };
 
