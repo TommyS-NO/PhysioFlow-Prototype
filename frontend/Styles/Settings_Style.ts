@@ -20,7 +20,6 @@ export const styles = StyleSheet.create({
   },
   editButton: {
     marginLeft: 5,
-
     backgroundColor: "#fff",
     paddingVertical: 6,
     paddingHorizontal: 12,
@@ -61,4 +60,44 @@ export const styles = StyleSheet.create({
   deleteButtonText: {
     color: "#fff",
   },
+ fieldContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    marginVertical: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.5,
+    elevation: 1,
+  },
+    fieldInput: {
+    flex: 1,
+    fontSize: 16,
+    color: "#000",
+    marginRight: 12,
+  },
+  fieldLabel: {
+    fontSize: 16,
+    color: "#000",
+    marginRight: 12,
+  },
+  fieldIcon: {
+    padding: 10,
+  },
+  fieldValue: {
+    flex: 1,
+    fontSize: 16,
+    color: "#A0A0A0", // Faded text color for non-editable fields
+  },
+  editingIcons: {
+    flexDirection: 'row',
+    width: 50,
+    justifyContent: 'space-between',
+    marginLeft: 10,
+  },
+
 });
