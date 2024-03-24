@@ -10,16 +10,26 @@ Frontend:
 -Justere designoppsett på Profilsiden. Juster visning. 
 -Flytt send-knapp til høyre under tekstfeltet i 
 "kontakt oss".
+-Legg til en beskrivelse av hvordan slider fungerer med tanke på nivåer. Skal den inn i FaQ eller som en boks man kan klikke på for å få opp info der og da? 
 -Design:
-
+-Skal de ulike komponentene også ha styling via Styles? Husk i så fall å oppdatere dette.
 
 
 - Endre username til Name for registrering!
-
-
+-Hva skal vises på skjermen etter man har logget seg inn? Skal det kun være treningsrelatert? 
 
 
 Backend:
 
  - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
  
+
+  Ta med i rapport?
+
+Bruk av ExorLive eller ikke?
+Mye frem og tilbake med produkteier om det skal brukes eller ikke. Ønsket ikke å utlevere hvem han er.
+
+
+ 21. mars:
+ Utfordringer med oppkobling mot iOS etter oppdatering av backend opp mot skyløsning. Oppsett av Firebase på Mac. 
+
