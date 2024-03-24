@@ -10,10 +10,11 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import {
-	signOut,
 	auth,
 	subscribeToUserProfile,
 } from "../Services/Firebase/firebaseConfig";
+import { signOut } from "firebase/auth";
+
 import CustomModal from "../Components/CustomModal/CustomModal";
 import { styles } from "../Styles/ProfileScreen_Style";
 import { RootStackParamList } from "../Navigation/navigationTypes";
@@ -43,7 +44,7 @@ const ProfileScreen: React.FC = () => {
 			await signOut(auth);
 			navigation.navigate("Front");
 		} catch (error) {
-			Alert.alert("Feil", "Noe gikk galt under utlogging.");
+			Alert.alert("Feil", `Noe gikk galt under utlogging: ${error.message}`);
 		}
 	};
 

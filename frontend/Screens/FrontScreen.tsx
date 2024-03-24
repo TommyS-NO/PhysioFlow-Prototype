@@ -56,10 +56,8 @@ const FrontScreen: React.FC = () => {
 			const user = userCredential.user;
 			const token = await user.getIdToken();
 			const userName = user.displayName || "Bruker";
-
+			
 			dispatch({ type: "LOGIN", token: token });
-
-			// Naviger til ProfileScreen med brukernavn med en type assertion
 			navigation.navigate("ProfileScreen", { userName: userName as string });
 			Alert.alert("Suksess", "Du er nå logget inn.");
 		} catch (error) {
