@@ -24,6 +24,7 @@ type SettingsNavigationProp = StackNavigationProp<
 >;
 
 type UserProfile = {
+	username?: string;
 	weight: string;
 	height: string;
 	age: string;
@@ -33,6 +34,7 @@ type UserProfile = {
 const SettingsScreen: React.FC = () => {
 	const navigation = useNavigation<SettingsNavigationProp>();
 	const [userProfile, setUserProfile] = useState<UserProfile>({
+		username: "",
 		weight: "",
 		height: "",
 		age: "",
@@ -63,14 +65,15 @@ const SettingsScreen: React.FC = () => {
 					? `${calculateAge(data.birthday)} År`
 					: "";
 				setUserProfile({
+					username: data.username,
 					weight: data.weight || "",
 					height: data.height?.toString() || "",
 					age: ageString,
 					gender:
 						data.gender === "male"
-							? "mann"
+							? "Mann"
 							: data.gender === "female"
-							  ? "kvinne"
+							  ? "Kvinne"
 							  : "ikke oppgitt",
 				});
 			});
@@ -78,8 +81,8 @@ const SettingsScreen: React.FC = () => {
 		}
 	}, []);
 
-	const MAX_WEIGHT = 180;
-	const MAX_HEIGHT = 210;
+	const MAX_WEIGHT = 200;
+	const MAX_HEIGHT = 205;
 
 	const handleUpdate = (field: keyof UserProfile) => {
 		const userId = auth.currentUser?.uid;
@@ -145,6 +148,7 @@ const SettingsScreen: React.FC = () => {
 			{isEditing === field ? (
 				<TextInput
 					style={styles.fieldInput}
+					// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
 					onChangeText={(text) => (editingValueRef.current = text)}
 					defaultValue={value}
 					autoFocus={true}
@@ -172,6 +176,15 @@ const SettingsScreen: React.FC = () => {
 			)}
 		</View>
 	);
+	const NonEditableField = ({
+		label,
+		value,
+	}: { label: string; value: string }) => (
+		<View style={styles.fieldContainer}>
+			<Text style={styles.fieldLabel}>{label}</Text>
+			<Text style={styles.fieldValue}>{value}</Text>
+		</View>
+	);
 
 	return (
 		<View style={styles.container}>
@@ -180,20 +193,25 @@ const SettingsScreen: React.FC = () => {
 					source={require("../Assets/Robot_1.png")}
 					style={styles.profileImage}
 				/>
-				<TouchableOpacity style={styles.editButton}>
-					<Text style={styles.editText}>Endre bilde</Text>
-				</TouchableOpacity>
 			</View>
 
 			<View style={styles.menuContainer}>
-				<EditableField field="weight" value={userProfile.weight} isEditable />
-				<EditableField field="height" value={userProfile.height} isEditable />
-				<EditableField field="age" value={userProfile.age} isEditable={false} />
-				<EditableField
-					field="gender"
-					value={userProfile.gender}
-					isEditable={false}
+				<NonEditableField
+					label="Navn:"
+					value={userProfile.username || "[Brukernavn]"}
 				/>
+				<EditableField
+					field="weight"
+					value={`${userProfile.weight} kg `}
+					isEditable
+				/>
+				<EditableField
+					field="height"
+					value={`${userProfile.height} cm `}
+					isEditable
+				/>
+				<NonEditableField label="Alder" value={userProfile.age} />
+				<NonEditableField label="Kjønn" value={userProfile.gender} />
 
 				<TouchableOpacity
 					style={styles.menuItem}
