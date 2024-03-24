@@ -23,11 +23,6 @@ import { auth } from "../Services/Firebase/firebaseConfig";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, "Front">;
 
-// interface LoginFormData {
-// 	email: string;
-// 	password: string;
-// }
-
 const FrontScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>();
 	const { dispatch } = useUser();
@@ -58,10 +53,15 @@ const FrontScreen: React.FC = () => {
 				email,
 				password,
 			);
-			const token = await userCredential.user.getIdToken();
+			const user = userCredential.user;
+			const token = await user.getIdToken();
+			const userName = user.displayName || "Bruker";
+
 			dispatch({ type: "LOGIN", token: token });
+
+			// Naviger til ProfileScreen med brukernavn med en type assertion
+			navigation.navigate("ProfileScreen", { userName: userName as string });
 			Alert.alert("Suksess", "Du er nå logget inn.");
-			navigation.navigate("TBA");
 		} catch (error) {
 			const firebaseError = error as FirebaseError;
 			setError(firebaseError.message);
@@ -78,11 +78,11 @@ const FrontScreen: React.FC = () => {
 	};
 
 	const handleAboutPress = () => {
-		navigation.navigate("AboutScreen"); //Navigasjon til "Om oss"
+		navigation.navigate("AboutScreen");
 	};
 
 	const handleContactPress = () => {
-		navigation.navigate("ContactScreen"); //Navigasjon til "Kontakt oss"
+		navigation.navigate("ContactScreen");
 	};
 
 	return (

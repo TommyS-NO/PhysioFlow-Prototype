@@ -15,6 +15,9 @@ Frontend:
 
 
 - Endre username til Name for registrering!
+- Endre inne på Profilinnstillinger (Oppsett) (kg/cm)
+- Legge til mulighet for å laste opp profilbilde?
+- Legge inn 2-4 alternative avatarer til å bruke? // MIndre jobB!
 
 
 

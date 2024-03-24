@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	ScrollView,
 	View,
@@ -7,14 +7,16 @@ import {
 	Alert,
 	TouchableOpacity,
 } from "react-native";
-import CustomModal from "../Components/CustomModal/CustomModal";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import CustomButton from "../Components/CustomButton/CustomButton"; //Husk å bruke denne eller legg evt. til nye knapper for de ulike sidene
-import { RootStackParamList } from "../Navigation/navigationTypes";
+import {
+	signOut,
+	auth,
+	subscribeToUserProfile,
+} from "../Services/Firebase/firebaseConfig";
+import CustomModal from "../Components/CustomModal/CustomModal";
 import { styles } from "../Styles/ProfileScreen_Style";
-import { signOut } from "firebase/auth";
-import { auth } from "../Services/Firebase/firebaseConfig";
+import { RootStackParamList } from "../Navigation/navigationTypes";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
@@ -23,31 +25,26 @@ type ProfileScreenNavigationProp = StackNavigationProp<
 
 const ProfileScreen: React.FC = () => {
 	const [modalVisible, setModalVisible] = useState(false);
+	const [userName, setUserName] = useState("");
 	const navigation = useNavigation<ProfileScreenNavigationProp>();
 
-	const handleSignOut = () => {
-		Alert.alert(
-			"Logg ut",
-			"Er du sikker på at du vil logge ut?",
-			[
-				{
-					text: "Avbryt",
-					style: "cancel",
-				},
-				{
-					text: "Logg ut",
-					onPress: async () => {
-						try {
-							await signOut(auth);
-							navigation.navigate("Front");
-						} catch (error) {
-							Alert.alert("Feil", "Noe gikk galt under utlogging.");
-						}
-					},
-				},
-			],
-			{ cancelable: false },
-		);
+	useEffect(() => {
+		const userId = auth.currentUser?.uid;
+		if (userId) {
+			const unsubscribe = subscribeToUserProfile(userId, (data) => {
+				setUserName(data.username || "Bruker");
+			});
+			return () => unsubscribe();
+		}
+	}, []);
+
+	const handleSignOut = async () => {
+		try {
+			await signOut(auth);
+			navigation.navigate("Front");
+		} catch (error) {
+			Alert.alert("Feil", "Noe gikk galt under utlogging.");
+		}
 	};
 
 	return (
@@ -58,7 +55,7 @@ const ProfileScreen: React.FC = () => {
 						source={require("../Assets/Robot_1.png")}
 						style={styles.profileImage}
 					/>
-					<Text style={styles.welcomeText}>Velkommen, [Brukernavn!]!</Text>
+					<Text style={styles.welcomeText}>Velkommen, {userName}!</Text>
 				</View>
 
 				<View style={styles.menuContainer}>
