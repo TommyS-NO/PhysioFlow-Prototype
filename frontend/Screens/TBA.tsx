@@ -30,6 +30,10 @@ const TBA: React.FC = () => {
         title="Profilside"
         onPress={() => navigation.navigate("ProfileScreen")}
       />
+            <CustomButton
+        title="Registrer økt"
+        onPress={() => navigation.navigate("RegisterWorkout")}
+      />
     </View>
   );
 };
