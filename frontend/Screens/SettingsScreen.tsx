@@ -148,6 +148,7 @@ const SettingsScreen: React.FC = () => {
 			{isEditing === field ? (
 				<TextInput
 					style={styles.fieldInput}
+					// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
 					onChangeText={(text) => (editingValueRef.current = text)}
 					defaultValue={value}
 					autoFocus={true}
