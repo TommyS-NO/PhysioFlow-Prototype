@@ -31,3 +31,6 @@ pids
 # OS filer
 .DS_Store
 Thumbs.db
+.expo/README.md
+.gitignore
+.expo/settings.json
