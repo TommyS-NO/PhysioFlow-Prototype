@@ -26,7 +26,7 @@ const RegisterWorkout: React.FC = () => {
       ...registeredExercises,
       { ...selectedExercise, painLevel, effortLevel },
     ]);
-    setIsCustomModalVisible(false); 
+    setIsCustomModalVisible(false);
   };
 
   const handleFinalRegister = () => {
@@ -39,7 +39,7 @@ const RegisterWorkout: React.FC = () => {
 
   const openExerciseCustomModal = (exercise) => {
     setSelectedExercise(exercise);
-    setPainLevel(5); 
+    setPainLevel(5);
     setEffortLevel(5);
     setIsCustomModalVisible(true);
   };
@@ -116,9 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  datePickerText:{    marginBottom: 15,
-    textAlign: "center",
-    fontSize: 18,},
+  datePickerText: { marginBottom: 15, textAlign: "center", fontSize: 18 },
 
   exerciseItem: {
     padding: 10,
@@ -149,15 +147,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   CustomModalContent: {
-    alignItems: 'center',
-    justifyContent: 'center',
-},
-input: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    width: '80%',  },
+    width: "80%",
+  },
 });
 
 export default RegisterWorkout;
