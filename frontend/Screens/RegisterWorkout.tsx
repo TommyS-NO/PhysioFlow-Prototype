@@ -46,18 +46,6 @@ const RegisterWorkout: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.datePickerText}>
-        Velg ønsket dato for registrering av treningsøkt
-      </Text>
-      <DateTimePicker
-        testID="dateTimePicker"
-        value={date}
-        mode="date"
-        display="default"
-        onChange={(event, selectedDate) => {
-          setDate(selectedDate || date);
-        }}
-      />
       <FlatList
         data={EXERCISE_SESSIONS}
         keyExtractor={(item) => item.id}
