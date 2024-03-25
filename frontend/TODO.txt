@@ -18,6 +18,10 @@ Frontend:
 - Endre username til Name for registrering!
 - Ved å gi bruker muligheten til å endre bilde, må appen også da ha tilgang til bildebiblioteket til brukeren? Er dette noe som må kodes inn i så fall? 
 
+-Legge til infoknapp
+-Slette DeleteScreen og knytt det opp mot settings og firebase
+-Sjekk om treningsøktene kan lagres automatisk under dato hver gang bruker registrer treningsøkt
+
 
 
 Backend:

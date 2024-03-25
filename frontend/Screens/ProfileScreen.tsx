@@ -67,12 +67,13 @@ const ProfileScreen: React.FC = () => {
           >
             <Text style={styles.menuText}>Profilinnstillinger</Text>
           </TouchableOpacity>
-		  <TouchableOpacity
+          {/* Denne fjerner vi- kommenterer foreløpig bare ut */}
+		  {/* <TouchableOpacity
              style={[styles.menuItem, styles.fullWidthButton]}
             onPress={() => navigation.navigate("ExerciseSession")}
           >
             <Text style={styles.menuText}>Mitt treningsprogram</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
         </View>
 
