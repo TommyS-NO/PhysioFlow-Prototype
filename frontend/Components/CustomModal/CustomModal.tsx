@@ -4,17 +4,11 @@ import {
 	StyleSheet,
 	View,
 	Text,
+	TouchableOpacity,
 	ViewStyle,
 	ModalProps,
 } from "react-native";
-import CustomButton from "../CustomButton/CustomButton";
-
-interface ButtonProps {
-	id?: string;
-	title: string;
-	onPress: () => void;
-	style?: ViewStyle;
-}
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 interface CustomModalProps
 	extends Omit<ModalProps, "visible" | "onRequestClose"> {
@@ -22,7 +16,6 @@ interface CustomModalProps
 	onClose: () => void;
 	title: string;
 	children: React.ReactNode;
-	buttons?: ButtonProps[];
 	style?: ViewStyle;
 }
 
@@ -31,7 +24,6 @@ const CustomModal: React.FC<CustomModalProps> = ({
 	onClose,
 	title,
 	children,
-	buttons,
 	style,
 }) => (
 	<Modal
@@ -42,17 +34,11 @@ const CustomModal: React.FC<CustomModalProps> = ({
 	>
 		<View style={styles.centeredView}>
 			<View style={[styles.modalView, style]}>
+				<TouchableOpacity style={styles.closeButton} onPress={onClose}>
+					<MaterialCommunityIcons name="close-circle" size={24} color="red" />
+				</TouchableOpacity>
 				<Text style={styles.modalTitle}>{title}</Text>
 				{children}
-				{buttons?.map((button, index) => (
-					<CustomButton
-						key={button.id || index}
-						title={button.title}
-						onPress={button.onPress}
-						buttonStyle={button.style}
-					/>
-				))}
-				{!buttons && <CustomButton title="Lukk" onPress={onClose} />}
 			</View>
 		</View>
 	</Modal>
@@ -77,6 +63,11 @@ const styles = StyleSheet.create({
 		shadowRadius: 4,
 		elevation: 5,
 	},
+	closeButton: {
+		position: "absolute",
+		top: 10,
+		right: 10,
+	},
 	modalTitle: {
 		marginBottom: 15,
 		textAlign: "center",
@@ -86,5 +77,3 @@ const styles = StyleSheet.create({
 });
 
 export default CustomModal;
-
-
