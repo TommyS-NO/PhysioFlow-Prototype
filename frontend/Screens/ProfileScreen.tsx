@@ -59,36 +59,34 @@ const ProfileScreen: React.FC = () => {
           <Text style={styles.welcomeText}>Velkommen, {userName}!</Text>
         </View>
 
-        <View style={styles.menuContainer}>
+    
+        <View style={styles.fullWidthContainer}>
           <TouchableOpacity
-            style={styles.menuItem}
+            style={[styles.menuItem, styles.fullWidthButton]}
             onPress={() => navigation.navigate("SettingsScreen")}
           >
             <Text style={styles.menuText}>Profilinnstillinger</Text>
           </TouchableOpacity>
-
 		  <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() => navigation.navigate("FocusScreen")}
-          >
-            <Text style={styles.menuText}>Fokusområder</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.menuItem}
+             style={[styles.menuItem, styles.fullWidthButton]}
             onPress={() => navigation.navigate("ExerciseSession")}
           >
             <Text style={styles.menuText}>Mitt treningsprogram</Text>
           </TouchableOpacity>
 
-		  <TouchableOpacity
+        </View>
+
+
+        <View style={styles.gridContainer}>
+          {/* Plasser kolonneknapper her- må legges i par hvis det skal bli riktig */}
+       
+          <TouchableOpacity
             style={styles.menuItem}
             onPress={() => navigation.navigate("RegisterWorkout")}
           >
             <Text style={styles.menuText}>Registrer treningsøkt</Text>
           </TouchableOpacity>
-
-		  <TouchableOpacity
+          <TouchableOpacity
             style={styles.menuItem}
             onPress={() => navigation.navigate("SearchScreen")}
           >
@@ -103,12 +101,14 @@ const ProfileScreen: React.FC = () => {
             <Text style={styles.menuText}>Treningsprogresjon</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuText}>Reward</Text>
-          </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity
+          style={[styles.menuItem, styles.fullWidthButton, styles.bobButton]}
+          onPress={() => {
+            /* Her må vi legge til funksjonen til BobAI */
+          }}
+        >
           <Text style={styles.bobText}>BobAI</Text>
           <Image
             source={require("../Assets/Robot_2.png")}
@@ -116,17 +116,25 @@ const ProfileScreen: React.FC = () => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.messageText}>Send melding til din behandler</Text>
-        </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => setModalVisible(true)}
+          style={[styles.menuItem, styles.fullWidthButton]}
+          onPress={() => {
+            /* Husk å legge inn funksjonen for å sende melding her om vi skal ha med dette?*/
+          }}
         >
-          <Text style={styles.messageText}>FAQ</Text>
+          <Text style={styles.menuText}>Send melding til din behandler</Text>
         </TouchableOpacity>
 
+
+        <TouchableOpacity
+          style={[styles.menuItem, styles.fullWidthButton]}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.menuText}>FAQ</Text>
+        </TouchableOpacity>
+
+ 
         <TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
           <Text style={styles.logoutButtonText}>Logg ut</Text>
         </TouchableOpacity>
@@ -137,7 +145,7 @@ const ProfileScreen: React.FC = () => {
         onClose={() => setModalVisible(false)}
         title="Ofte stilte spørsmål"
         children={
-          //Husk å legge til punkter og riktig tekst her
+          //Husk å legge til flere punkter og riktig tekst her :)
           <View>
             <Text style={{ marginBottom: 10 }}>
               Hvordan endrer jeg mitt treningsprogram?
