@@ -44,7 +44,7 @@ const ProfileScreen: React.FC = () => {
 			await signOut(auth);
 			navigation.navigate("Front");
 		} catch (error) {
-			Alert.alert("Feil", `Noe gikk galt under utlogging: ${error.message}`);
+			Alert.alert("Feil", `Noe gikk galt under utlogging.: ${error.message}`);
 		}
 	};
 
