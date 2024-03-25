@@ -16,7 +16,7 @@ Frontend:
 
 
 - Endre username til Name for registrering!
-
+- Ved å gi bruker muligheten til å endre bilde, må appen også da ha tilgang til bildebiblioteket til brukeren? Er dette noe som må kodes inn i så fall? 
 
 
 
