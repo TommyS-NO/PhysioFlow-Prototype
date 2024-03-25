@@ -17,7 +17,7 @@ const TBA: React.FC = () => {
         title="Gå til mitt treningsprogram"
         onPress={() => navigation.navigate("ExerciseSession")}
       /> */}
-      <CustomButton
+      {/* <CustomButton
         title="Fokusområde"
         onPress={() => navigation.navigate("FocusScreen")}
       />
@@ -29,11 +29,11 @@ const TBA: React.FC = () => {
       <CustomButton
         title="Profilside"
         onPress={() => navigation.navigate("ProfileScreen")}
-      />
-            <CustomButton
+      /> */}
+            {/* <CustomButton
         title="Registrer økt"
         onPress={() => navigation.navigate("RegisterWorkout")}
-      />
+      /> */}
     </View>
   );
 };
