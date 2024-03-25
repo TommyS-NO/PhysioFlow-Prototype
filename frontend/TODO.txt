@@ -20,7 +20,7 @@ Frontend:
 
 -Legge til infoknapp
 -Slette DeleteScreen og knytt det opp mot settings og firebase
-
+-Sjekk om treningsøktene kan lagres automatisk under dato hver gang bruker registrer treningsøkt
 
 
 

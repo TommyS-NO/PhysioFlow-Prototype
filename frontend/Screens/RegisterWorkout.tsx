@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomSlider from "../Components/CustomSlider/CustomSlider";
 import CustomButton from "../Components/CustomButton/CustomButton";
 import CustomModal from "../Components/CustomModal/CustomModal";
@@ -17,7 +16,6 @@ const RegisterWorkout: React.FC = () => {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [painLevel, setPainLevel] = useState(5);
   const [effortLevel, setEffortLevel] = useState(5);
-  const [date, setDate] = useState(new Date());
   const [isCustomModalVisible, setIsCustomModalVisible] = useState(false);
   const [registeredExercises, setRegisteredExercises] = useState([]);
 
