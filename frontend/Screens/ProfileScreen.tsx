@@ -7,6 +7,7 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import {
@@ -14,7 +15,7 @@ import {
   subscribeToUserProfile,
 } from "../Services/Firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
-
+import { theme } from "../theme";
 import CustomModal from "../Components/CustomModal/CustomModal";
 import { styles } from "../Styles/ProfileScreen_Style";
 import { RootStackParamList } from "../Navigation/navigationTypes";
@@ -28,6 +29,8 @@ const ProfileScreen: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userName, setUserName] = useState("");
   const navigation = useNavigation<ProfileScreenNavigationProp>();
+
+
 
   useEffect(() => {
     const userId = auth.currentUser?.uid;
@@ -48,7 +51,13 @@ const ProfileScreen: React.FC = () => {
 		}
 	};
 
+  const handleHelp = () => {
+		Alert.alert("Brukerveiledning", "Brukerveiledningen er under utvikling.");
+	};
+
+
   return (
+    // Husk å fjerne scrollview ettersom vi ikke skal benytte dette
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -58,6 +67,7 @@ const ProfileScreen: React.FC = () => {
           />
           <Text style={styles.welcomeText}>Velkommen, {userName}!</Text>
         </View>
+        
 
     
         <View style={styles.fullWidthContainer}>
@@ -127,6 +137,16 @@ const ProfileScreen: React.FC = () => {
           <Text style={styles.menuText}>Send melding til din behandler</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity
+						onPress={handleHelp}
+						style={styles.helpButton}
+					>
+						<Icon
+							name="help-circle"
+							size={24}
+							color={theme.colors.helpButton}
+						/>
+					</TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.menuItem, styles.fullWidthButton]}

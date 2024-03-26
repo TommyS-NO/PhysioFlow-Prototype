@@ -92,4 +92,12 @@ export const styles = StyleSheet.create({
     color: "#FFFFFF",
     textAlign: "center",
   },
+  helpButton: {
+
+    position: "absolute",
+    right: theme.spacing.medium,
+    top: theme.spacing.large,
+    padding: theme.spacing.small,
+    zIndex: 1,
+  },
 });
