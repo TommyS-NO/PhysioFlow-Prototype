@@ -1,24 +1,50 @@
-import React, { createContext, useReducer, useContext, Dispatch } from "react";
+import React, {
+	createContext,
+	useReducer,
+	useContext,
+	Dispatch,
+	ReactNode,
+} from "react";
 
-// Definere typer for staten
-type FocusAreaState = {
+type FocusAreaKey =
+	| "Nakke"
+	| "Skulder"
+	| "Albue"
+	| "Håndledd"
+	| "Øvre_rygg"
+	| "Nedre_rygg"
+	| "Hofte"
+	| "Kne"
+	| "Ankel";
+
+interface Answer {
+	question: string;
+	answer: boolean;
+}
+
+interface FocusAreaState {
 	selectedAreas: {
 		[key in FocusAreaKey]?: string;
 	};
-};
+	answers: {
+		[key in FocusAreaKey]?: Answer[];
+	};
+}
 
-// Handlingstyper
 type FocusAreaAction =
 	| { type: "SET_AREA"; area: FocusAreaKey; description: string }
+	| { type: "SET_ANSWERS"; area: FocusAreaKey; answers: Answer[] }
 	| { type: "CLEAR_AREAS" };
 
-// Initial state
 const initialState: FocusAreaState = {
 	selectedAreas: {},
+	answers: {},
 };
 
-// Reducer-funksjonen
-const focusAreaReducer = (state: FocusAreaState, action: FocusAreaAction) => {
+const focusAreaReducer = (
+	state: FocusAreaState,
+	action: FocusAreaAction,
+): FocusAreaState => {
 	switch (action.type) {
 		case "SET_AREA":
 			return {
@@ -28,6 +54,14 @@ const focusAreaReducer = (state: FocusAreaState, action: FocusAreaAction) => {
 					[action.area]: action.description,
 				},
 			};
+		case "SET_ANSWERS":
+			return {
+				...state,
+				answers: {
+					...state.answers,
+					[action.area]: action.answers,
+				},
+			};
 		case "CLEAR_AREAS":
 			return initialState;
 		default:
@@ -35,20 +69,20 @@ const focusAreaReducer = (state: FocusAreaState, action: FocusAreaAction) => {
 	}
 };
 
-// Oppretter Context
 const FocusAreaContext = createContext<{
 	state: FocusAreaState;
 	dispatch: Dispatch<FocusAreaAction>;
-}>({
-	state: initialState,
-	dispatch: () => null,
-});
+}>({ state: initialState, dispatch: () => null });
 
-// Hook for å bruke context
 export const useFocusArea = () => useContext(FocusAreaContext);
 
-// Provider-komponenten
-export const FocusAreaProvider: React.FC = ({ children }) => {
+interface FocusAreaProviderProps {
+	children: ReactNode;
+}
+
+export const FocusAreaProvider: React.FC<FocusAreaProviderProps> = ({
+	children,
+}) => {
 	const [state, dispatch] = useReducer(focusAreaReducer, initialState);
 
 	return (
