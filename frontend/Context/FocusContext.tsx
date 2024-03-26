@@ -6,7 +6,8 @@ import React, {
 	ReactNode,
 } from "react";
 
-type FocusAreaKey =
+// Definerer nøkkeltyper for fokusområder
+export type FocusAreaKey =
 	| "Nakke"
 	| "Skulder"
 	| "Albue"
@@ -17,11 +18,13 @@ type FocusAreaKey =
 	| "Kne"
 	| "Ankel";
 
-interface Answer {
+// Struktur for svar
+export interface Answer {
 	question: string;
 	answer: boolean;
 }
 
+// Statens struktur
 interface FocusAreaState {
 	selectedAreas: {
 		[key in FocusAreaKey]?: string;
@@ -31,16 +34,19 @@ interface FocusAreaState {
 	};
 }
 
+// Handlinger som kan påvirke staten
 type FocusAreaAction =
 	| { type: "SET_AREA"; area: FocusAreaKey; description: string }
 	| { type: "SET_ANSWERS"; area: FocusAreaKey; answers: Answer[] }
 	| { type: "CLEAR_AREAS" };
 
+// Initial state
 const initialState: FocusAreaState = {
 	selectedAreas: {},
 	answers: {},
 };
 
+// Reducer-funksjonen som håndterer endringer i tilstand basert på handlinger
 const focusAreaReducer = (
 	state: FocusAreaState,
 	action: FocusAreaAction,
@@ -69,16 +75,22 @@ const focusAreaReducer = (
 	}
 };
 
-const FocusAreaContext = createContext<{
+// Context opprettelse
+const FocusAreaContext = createContext<
+	{ state: FocusAreaState; dispatch: Dispatch<FocusAreaAction> } | undefined
+>(undefined);
+
+// Hook for å bruke denne konteksten
+export const useFocusArea = (): {
 	state: FocusAreaState;
 	dispatch: Dispatch<FocusAreaAction>;
-}>({ state: initialState, dispatch: () => null });
-
-export const useFocusArea = () => useContext(FocusAreaContext);
-
-interface FocusAreaProviderProps {
-	children: ReactNode;
-}
+} => {
+	const context = useContext(FocusAreaContext);
+	if (context === undefined) {
+		throw new Error("useFocusArea must be used within a FocusAreaProvider");
+	}
+	return context;
+};
 
 export const FocusAreaProvider: React.FC<FocusAreaProviderProps> = ({
 	children,
@@ -91,5 +103,7 @@ export const FocusAreaProvider: React.FC<FocusAreaProviderProps> = ({
 		</FocusAreaContext.Provider>
 	);
 };
-
-export default FocusAreaContext;
+interface FocusAreaProviderProps {
+	children: ReactNode;
+}
+export default FocusAreaProvider;
