@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import CustomModal from "../CustomModal/CustomModal";
 import CustomButton from "../CustomButton/CustomButton";
+import { FocusAreaKey, Answer, useFocusArea } from "../../Context/FocusContext";
 
 interface FocusSelectionProps {
 	visible: boolean;
 	onClose: () => void;
-	onUpdate: (selections: Record<string, boolean>) => void;
-	area: string; // Tittel for valgt fokusområde
+	onUpdate: (answers: Answer[]) => void;
+	area: FocusAreaKey;
 }
 
 const questions = [
@@ -63,15 +64,34 @@ const FocusSelection: React.FC<FocusSelectionProps> = ({
 	area,
 }) => {
 	const [answers, setAnswers] = useState<Record<string, boolean | null>>({});
+	const { dispatch } = useFocusArea();
 
 	const handleSelection = (question: string, selection: boolean) => {
 		setAnswers((prevAnswers) => ({ ...prevAnswers, [question]: selection }));
 	};
 
 	const handleUpdate = () => {
-		if (Object.values(answers).every((val) => val !== null)) {
-			onUpdate(answers as Record<string, boolean>);
+		const answersArray: Answer[] = Object.entries(answers).map(
+			([question, answer]) => ({
+				question,
+				answer: answer as boolean, // Type assertion her for å sikre at answer ikke er null
+			}),
+		);
+
+		if (answersArray.length === questions.length) {
+			dispatch({
+				type: "SET_ANSWERS",
+				area: area,
+				answers: answersArray,
+			});
+			onUpdate(answersArray);
 			onClose();
+		} else {
+			// Gi beskjed til brukeren at alle spørsmålene må besvares
+			Alert.alert(
+				"Viktig",
+				"Vennligst svar på alle spørsmålene før du fortsetter.",
+			);
 		}
 	};
 
