@@ -27,4 +27,4 @@ Frontend:
 Backend:
 
  - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
- 
+ - duplisert kode i backend.. ser mer på det når vi starter med RAG og AI
