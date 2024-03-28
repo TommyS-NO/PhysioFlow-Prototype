@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import FrontScreen from "../Screens/FrontScreen";
-import RegisterScreen from "../Screens/RegisterScreen";
+import RegisterScreen from "../Screens/RegisterScreen/RegisterScreen";
 import TermsScreen from "../Screens/TermsScreen";
 import FocusScreen from "../Screens/FocusScreen";
 import UserGuideScreen from "../Screens/UserGuideScreen";
