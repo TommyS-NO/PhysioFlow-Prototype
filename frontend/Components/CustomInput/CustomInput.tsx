@@ -11,7 +11,7 @@ export interface InputFieldProps extends TextInputProps {
 	label?: string;
 }
 
-export const InputField: React.FC<InputFieldProps> = ({ label, ...props }) => {
+export const InputField = ({ label, ...props }: InputFieldProps) => {
 	return (
 		<View style={styles.container}>
 			{label && <Text style={styles.label}>{label}</Text>}
@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	input: {
-		borderWidth: 1,
-		borderColor: "#ccc",
+		borderWidth: 2,
+		borderColor: "black",
 		borderRadius: 4,
 		padding: 8,
 		height: 40,
