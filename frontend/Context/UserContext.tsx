@@ -6,56 +6,52 @@ import React, {
 	ReactNode,
 } from "react";
 
-type UserProviderProps = {
-	children: ReactNode;
-};
-
-//  types for the state
-type UserDetails = {
-	username: string;
+interface UserProfile {
+	username?: string;
 	email: string;
-	password: string;
-	confirmPassword: string;
 	gender?: "male" | "female" | "unspecified";
 	height?: number;
 	weight?: number;
 	birthday?: string;
-	acceptTerms?: boolean;
-};
+	profileImageUrl?: string;
+}
 
-type UserState = {
+interface UserState {
 	isLoggedIn: boolean;
 	token: string | null;
-	userDetails: UserDetails | null;
-};
+	userDetails: UserProfile | null;
+	userId: string | null;
+}
 
-//  action types
 type UserAction =
-	| { type: "LOGIN"; token: string }
+	| {
+			type: "LOGIN";
+			token: string;
+			userId: string;
+			userDetails: Partial<UserProfile>;
+	  }
 	| { type: "LOGOUT" }
-	| { type: "REGISTER"; userDetails: UserDetails }
-	| { type: "UPDATE_USER_DETAILS"; details: Partial<UserDetails> };
+	| { type: "REGISTER"; userDetails: UserProfile }
+	| { type: "UPDATE_USER_DETAILS"; details: Partial<UserProfile> };
 
-// Initial state
 const initialState: UserState = {
 	isLoggedIn: false,
 	token: null,
 	userDetails: null,
 };
 
-// Reducer function
-const userReducer = (state: UserState, action: UserAction) => {
+const userReducer = (state: UserState, action: UserAction): UserState => {
 	switch (action.type) {
 		case "LOGIN":
 			return {
 				...state,
 				isLoggedIn: true,
 				token: action.token,
+				userId: action.userId,
+				userDetails: { ...state.userDetails, ...action.userDetails },
 			};
 		case "LOGOUT":
-			return {
-				...initialState,
-			};
+			return initialState;
 		case "REGISTER":
 			return {
 				...state,
@@ -71,7 +67,6 @@ const userReducer = (state: UserState, action: UserAction) => {
 	}
 };
 
-// Create Context
 const UserContext = createContext<{
 	state: UserState;
 	dispatch: Dispatch<UserAction>;
@@ -80,12 +75,9 @@ const UserContext = createContext<{
 	dispatch: () => null,
 });
 
-// Hook to use context
 export const useUser = () => useContext(UserContext);
 
-// Provider component
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-	// Corrected type here
+export const UserProvider = ({ children }: { children: ReactNode }) => {
 	const [state, dispatch] = useReducer(userReducer, initialState);
 
 	return (
