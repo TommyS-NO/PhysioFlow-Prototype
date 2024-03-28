@@ -151,7 +151,7 @@ const FrontScreen = () => {
 							title="Logg inn"
 							onPress={handleLogin}
 							iconName="login"
-							buttonStyle={frontScreenStyles.loginButton}
+							buttonStyle={frontScreenStyles.button}
 						/>
 
 						<Text style={frontScreenStyles.registerText}>
