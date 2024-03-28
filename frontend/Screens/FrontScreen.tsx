@@ -19,11 +19,14 @@ import { frontScreenStyles } from "../Styles/FrontScreen_Style";
 import { useUser } from "../Context/UserContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FirebaseError } from "@firebase/util";
-import { auth } from "../Services/Firebase/firebaseConfig";
+import {
+	auth,
+	fetchUserDetailsFromFirestore,
+} from "../Services/Firebase/firebaseConfig";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, "Front">;
 
-const FrontScreen: React.FC = () => {
+const FrontScreen = () => {
 	const navigation = useNavigation<NavigationProp>();
 	const { dispatch } = useUser();
 	const [email, setEmail] = useState("");
@@ -55,11 +58,24 @@ const FrontScreen: React.FC = () => {
 			);
 			const user = userCredential.user;
 			const token = await user.getIdToken();
-			const userName = user.displayName || "Bruker";
-			
-			dispatch({ type: "LOGIN", token: token });
-			navigation.navigate("ProfileScreen", { userName: userName as string });
-			Alert.alert("Suksess", "Du er nå logget inn.");
+
+			// Hent brukerdetaljer fra Firestore
+			const userDetails = await fetchUserDetailsFromFirestore(user.uid);
+			if (!userDetails) {
+				Alert.alert("Feil", "Kunne ikke hente brukerdetaljer.");
+				return;
+			}
+
+			dispatch({
+				type: "LOGIN",
+				token,
+				userId: user.uid,
+				userDetails,
+			});
+
+			navigation.navigate("ProfileScreen", {
+				userName: userDetails.username || "Bruker",
+			});
 		} catch (error) {
 			const firebaseError = error as FirebaseError;
 			setError(firebaseError.message);
@@ -68,7 +84,7 @@ const FrontScreen: React.FC = () => {
 	};
 
 	const handleRegister = () => {
-		navigation.navigate("Register", { termsAccepted: true });
+		navigation.navigate("Register");
 	};
 
 	const handleHelp = () => {
