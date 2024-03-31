@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import FrontScreen from "../Screens/FrontScreen";
 import RegisterScreen from "../Screens/RegisterScreen/RegisterScreen";
 import TermsScreen from "../Screens/TermsScreen";
-import FocusScreen from "../Screens/FocusScreen";
+import FocusScreen from "../Screens/FocusScreen/FocusScreen";
 import UserGuideScreen from "../Screens/UserGuideScreen";
 
 import { RootStackParamList } from "./navigationTypes";
@@ -37,6 +37,7 @@ const AppNav = () => (
 				component={TermsScreen}
 				options={{ title: "Vilkår og Betingelser" }}
 			/>
+
 			<Stack.Screen
 				name="UserGuideScreen"
 				component={UserGuideScreen}
