@@ -8,37 +8,36 @@ import {
 	Platform,
 	Text,
 } from "react-native";
-import CustomButton from "../Components/CustomButton/CustomButton";
-import BodyChart from "../Components/BodyChart/bodyChart";
-import FollowUpQuestion from "../Components/FollowUP/FollowUP";
-import FocusSelection from "../Components/FocusSelection/FocusSelection";
+import CustomButton from "../../Components/CustomButton/CustomButton";
+import BodyChart from "../../Components/BodyChart/bodyChart";
+import FollowUpQuestion from "../../Components/FollowUP/FollowUpQuestion";
+import FocusSelection from "../../Components/FocusSelection/FocusSelection";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
-import { RootStackParamList } from "../Navigation/navigationTypes";
+import { RootStackParamList } from "../../Navigation/navigationTypes";
+import { useFocusArea } from "../../Context/FocusContext";
 
 type FocusAreaKey =
-	| "Hode/Nakke"
+	| "Nakke"
 	| "Skulder"
 	| "Albue"
-	| "Håndledd/Hånd"
+	| "Håndledd"
 	| "Øvre rygg"
 	| "Nedre rygg"
 	| "Hofte"
 	| "Kne"
-	| "Ankel/Fot";
+	| "Ankel";
 
 interface FocusAreaState {
-	[key in FocusAreaKey]?: string;
+	[key in FocusAreaKey]?: Record<string, boolean>;
 }
 
-// Typedefinisjoner for navigasjon og rute, antar at 'RootStackParamList' er definert
 type FocusScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
 	"FocusScreen"
 >;
 type FocusScreenRouteProp = RouteProp<RootStackParamList, "FocusScreen">;
 
-// Props for komponenten, inkludert navigation og route props
 interface FocusScreenProps {
 	navigation: FocusScreenNavigationProp;
 	route: FocusScreenRouteProp;
@@ -51,6 +50,7 @@ const FocusScreen: React.FC<FocusScreenProps> = ({ navigation, route }) => {
 		{},
 	);
 	const [currentArea, setCurrentArea] = useState<FocusAreaKey | null>(null);
+	const { dispatch } = useFocusArea();
 
 	useEffect(() => {
 		if (currentStep === 1) {
@@ -62,11 +62,28 @@ const FocusScreen: React.FC<FocusScreenProps> = ({ navigation, route }) => {
 	}, [currentStep]);
 
 	const handleAreaPress = (area: FocusAreaKey): void => {
-		setCurrentArea(area); // Lagrer gjeldende område før vi åpner modalen
+		// Forhindre flere valg hvis tre områder allerede er valgt
+		if (
+			Object.keys(selectedFocusAreas).length < 3 ||
+			selectedFocusAreas[FocusAreaKey]
+		) {
+			setCurrentArea(area);
+		} else {
+			Alert.alert(
+				"For mange valg",
+				"Du kan ikke velge mer enn tre fokusområder.",
+			);
+		}
 	};
 
-	const handleFocusSelectionUpdate = (area: FocusAreaKey, value: string) => {
-		setSelectedFocusAreas((prevState) => ({ ...prevState, [area]: value }));
+	const handleFocusSelectionUpdate = (
+		area: FocusAreaKey,
+		newAnswers: boolean[],
+	) => {
+		setSelectedFocusAreas((prevState) => ({
+			...prevState,
+			[area]: newAnswers,
+		}));
 	};
 
 	const handleNextStep = (): void => {
@@ -135,13 +152,11 @@ const FocusScreen: React.FC<FocusScreenProps> = ({ navigation, route }) => {
 				<FocusSelection
 					visible={currentArea !== null}
 					onClose={() => setCurrentArea(null)}
-					onUpdate={(value: string) =>
-						currentArea && handleFocusSelectionUpdate(currentArea, value)
+					onUpdate={(area, newAnswers) =>
+						handleFocusSelectionUpdate(area, newAnswers)
 					}
-					area={currentArea || "Hode/Nakke"} // En fallback-verdi
-					initialSelection={
-						selectedFocusAreas[currentArea || "Hode/Nakke"] || ""
-					}
+					area={currentArea}
+					initialSelection={selectedFocusAreas[currentArea] || []}
 				/>
 			)}
 		</KeyboardAvoidingView>

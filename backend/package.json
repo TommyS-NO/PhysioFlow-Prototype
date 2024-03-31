@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "Server.js",
-  "scripts": {
-    "start": "node Server.js"
-  },
+"scripts": {
+  "start": "node Server.js",
+  "upload": "node scripts/uploadquestion.js" 
+},
+
   "keywords": [],
   "author": "",
   "license": "ISC",
