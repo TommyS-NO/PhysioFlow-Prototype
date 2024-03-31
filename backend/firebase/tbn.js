@@ -566,7 +566,79 @@ const questionsData = {
 						},
 					},
 				},
-				neck_gen3_nei: {},
+				neck_gen3_nei: {
+					text: "Siden smerten/ubehaget ikke oppstod plutselig uten en åpenbar årsak, kan du identifisere faktorer eller situasjoner som bidro til eller forverret smerten?",
+					type: "multipleChoice",
+					options: [
+						"Stress eller emosjonelt press",
+						"Fysiske aktiviteter eller overanstrengelse",
+						"Langvarig stilling, som sittende eller stående",
+						"Endringer i vær eller klima",
+						"Annet",
+					],
+					followUp: {
+						"Stress eller emosjonelt press": "neck_gen3_nei_1",
+						"Fysiske aktiviteter eller overanstrengelse": "neck_gen3_nei_2",
+						"Langvarig stilling, som sittende eller stående": "neck_gen3_nei_3",
+						"Endringer i vær eller klima": "neck_gen3_nei_4",
+					},
+					neck_gen3_nei_1: {
+						text: "Du nevnte stress eller emosjonelt press. Har du prøvd noen teknikker eller metoder for å håndtere dette som har påvirket smerten?",
+						type: "multipleChoice",
+						options: [
+							"Ja, med positiv effekt på smerten",
+							"Ja, men uten merkbar effekt på smerten",
+							"Nei, har ikke prøvd spesifikke metoder",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen3_nei_1_alt",
+						},
+					},
+
+					neck_gen3_nei_1_alt: {
+						text: "Vennligst beskriv hvilke andre metoder eller teknikker du har vurdert eller prøvd.",
+						type: "text",
+					},
+					neck_gen3_nei_2: {
+						text: "Du nevnte fysiske aktiviteter eller overanstrengelse. Kan du beskrive disse aktivitetene nærmere, og om du tok noen tiltak for å redusere smerten etterpå?",
+						type: "multipleChoice",
+						options: [
+							"Trening eller sport som belaster nakken",
+							"Arbeidsrelaterte aktiviteter som forårsaker spenning",
+							"Tunge løft eller repetitiv bevegelse",
+							"Ingen spesifikke tiltak tatt, smerten forsvant gradvis",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen3_nei_2_alt",
+						},
+					},
+
+					neck_gen3_nei_2_alt: {
+						text: "Vennligst beskriv hvilke andre aktiviteter som kan ha bidratt til smerten, eller hvilke tiltak du vurderer å ta.",
+						type: "text",
+					},
+					neck_gen3_nei_3: {
+						text: "Du nevnte langvarig stilling, som sittende eller stående. Har du gjort noen endringer i din daglige rutine eller arbeidsmiljø for å forbedre situasjonen?",
+						type: "multipleChoice",
+						options: [
+							"Ja, jeg har tilpasset min arbeidsstasjon for bedre ergonomi",
+							"Ja, jeg tar regelmessige pauser for å bevege meg",
+							"Nei, men jeg er åpen for forslag",
+							"Jeg har prøvd, men smerten vedvarer",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen3_nei_3_alt",
+						},
+					},
+
+					neck_gen3_nei_3_alt: {
+						text: "Vennligst del hvilke spesifikke endringer eller tiltak du har vurdert eller allerede implementert for å håndtere smerten.",
+						type: "text",
+					},
+				},
 				neck_gen4_ja: {},
 				neck_gen4_nei: {},
 				neck_gen5_ja: {},
