@@ -12,7 +12,6 @@ Kan brukes som mal for de andre fokusområdene!
 
 ***END****
 */
-
 const questionsData = {
 	generalQuestions: [
 		{
