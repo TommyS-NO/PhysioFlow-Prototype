@@ -296,6 +296,7 @@ const questionsData = {
 						placeholder: "Vennligst gi detaljer",
 					},
 				},
+				// Definer spørsmål for hver oppfølging Spørsmål (2)
 				neck_gen2_ja: {
 					text: "Fortell mer om den tidligere skaden i dette området",
 					type: "multipleChoice",
@@ -403,6 +404,7 @@ const questionsData = {
 						"Jeg foretrekker selvbehandling": "neck_gen2_nei_2",
 						"Jeg venter og ser om det går over av seg selv": "neck_gen2_nei_3",
 						"Jeg har ikke hatt lignende smerte før": "neck_gen2_nei_4",
+						"Vennligst sesifiser": "neck_gen2_nei_5",
 					},
 					neck_gen2_nei_1: {
 						text: "Hvilken type medisinsk hjelp søker du vanligvis?",
@@ -449,7 +451,6 @@ const questionsData = {
 							"Avvente og se om det forbedrer seg med tiden",
 							"Annet",
 						],
-						// Ytterligere oppfølging kan være nødvendig for å tilpasse behandlingsplanen.
 					},
 					neck_gen2_nei_5: {
 						text: "Vennligst spesifiser andre måter du har håndtert lignende smerte eller ubehag på.",
@@ -457,6 +458,119 @@ const questionsData = {
 						placeholder: "Gi en detaljert beskrivelse.",
 					},
 				},
+				// Definer spørsmål for hver oppfølging Spørsmål (3)
+				neck_gen3_ja: {
+					text: "Beskriv hvordan og når smerten eller ubehaget først startet.",
+					type: "multipleChoice",
+					options: [
+						"Plutselig under en spesifikk aktivitet",
+						"Gradvis, uten en spesifikk start",
+						"Etter en skade",
+						"Annet",
+					],
+					followUp: {
+						"Plutselig under en spesifikk aktivitet": "neck_gen3_ja_1",
+						"Gradvis, uten en spesifikk start": "neck_gen3_ja_2",
+						"Etter en skade": "neck_gen3_ja_3",
+					},
+
+					neck_gen3_ja_1: {
+						text: "Beskriv omstendighetene nærmere. Var det under spesifikke aktiviteter eller i hvile?",
+						type: "multipleChoice",
+						options: [
+							"Under fysisk aktivitet",
+							"I hvile eller uten aktivitet",
+							"Ved spesielle bevegelser",
+							"Kan ikke knytte det til spesifikke handlinger",
+							"Spesifiser",
+						],
+						followUp: {
+							"Under fysisk aktivitet": "neck_gen3_ja_1_1",
+							"I hvile eller uten aktivitet": "neck_gen3_ja_1_2",
+							"Ved spesielle bevegelser": "neck_gen3_ja_1_3",
+							"Kan ikke knytte det til spesifikke handlinger":
+								"neck_gen3_ja_1_4",
+						},
+						neck_gen3_ja_1_1: {
+							text: "Hva slags fysisk aktivitet var du engasjert i da smerten oppstod?",
+							type: "multipleChoice",
+							options: [
+								"Trening eller sport",
+								"Husarbeid eller hagearbeid",
+								"På jobb eller under profesjonelle aktiviteter",
+								"Fritidsaktiviteter",
+								"Annet",
+							],
+							followUp: {
+								Annet: "neck_gen3_ja_1_1_alt",
+							},
+							neck_gen3_ja_1_1_alt: {
+								text: "Vennligst spesifiser typen fysisk aktivitet.",
+								type: "text",
+							},
+						},
+						neck_gen3_ja_1_2: {
+							text: "Du nevnte at smerten oppstod i hvile eller uten aktivitet. Kan du beskrive nærmere omstendighetene rundt når og hvordan smerten oppstår?",
+							type: "multipleChoice",
+							options: [
+								"Under langvarig sittende eller stående",
+								"Om natten eller ved hvile",
+								"Uten noen åpenbar utløsende faktor",
+								"Ved spesifikke hvilestillinger",
+								"Annet",
+							],
+							followUp: {
+								Annet: "neck_gen3_ja_1_2_1",
+							},
+							neck_gen3_ja_1_2_1: {
+								text: "Vennligst beskriv andre tiltak du har forsøkt.",
+								type: "text",
+							},
+						},
+						neck_gen3_ja_1_3: {
+							text: "Du nevnte at smerten oppstår ved spesielle bevegelser. Kan du beskrive hvilke bevegelser som utløser smerten?",
+							type: "multipleChoice",
+							options: [
+								"Bøying eller vridning av nakken",
+								"Løfting av gjenstander",
+								"Rekkevidde eller strekking",
+								"Hodets bevegelser, som å se opp eller ned",
+								"Annet",
+							],
+							followUp: {
+								Annet: "neck_gen3_ja_1_3_alt",
+							},
+						},
+						neck_gen3_ja_1_3_alt: {
+							text: "Vennligst spesifiser hvilke andre bevegelser som utløser smerten.",
+							type: "text",
+						},
+						neck_gen3_ja_1_4: {
+							text: "Du nevnte at du ikke kan knytte smerten til spesifikke handlinger. Kan du beskrive smertens karakter eller når den føles mest intens?",
+							type: "multipleChoice",
+							options: [
+								"Konstant smerte uavhengig av bevegelse",
+								"Intermitterende, uten åpenbar utløsende årsak",
+								"Forverres i løpet av dagen",
+								"Forverres etter perioder med inaktivitet",
+								"Annet",
+							],
+							followUp: {
+								Annet: "neck_gen3_ja_1_4_alt",
+							},
+						},
+
+						neck_gen3_ja_1_4_alt: {
+							text: "Vennligst beskriv andre omstendigheter rundt smerten.",
+							type: "text",
+						},
+					},
+				},
+				neck_gen3_nei: {},
+				neck_gen4_ja: {},
+				neck_gen4_nei: {},
+				neck_gen5_ja: {},
+				neck_gen5_nei: {},
 			},
 		},
 	},
