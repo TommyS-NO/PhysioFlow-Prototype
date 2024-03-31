@@ -1,23 +1,13 @@
 import React from "react";
 import { View, Image, TouchableOpacity, Text, StyleSheet } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { FocusAreaKey } from "../../Context/FocusContext";
 
 interface BodyChartProps {
 	bodySide: "front" | "back";
-	onAreaPress: (area: FocusArea) => void;
+	onAreaPress: (area: FocusAreaKey) => void;
 	toggleBodySide: () => void;
 }
-
-type FocusArea =
-	| "Hode/Nakke"
-	| "Skulder"
-	| "Albue"
-	| "Håndledd/Hånd"
-	| "Øvre rygg"
-	| "Nedre rygg"
-	| "Hofte"
-	| "Kne"
-	| "Ankel/Fot";
 
 const BodyChart: React.FC<BodyChartProps> = ({
 	bodySide,
@@ -60,7 +50,7 @@ const BodyChart: React.FC<BodyChartProps> = ({
 					/>
 					<TouchableOpacity
 						style={styles.wristHandArea}
-						onPress={() => onAreaPress("Håndledd/Hånd")}
+						onPress={() => onAreaPress("Håndledd")}
 					/>
 					<TouchableOpacity
 						style={styles.hipArea}
@@ -72,18 +62,18 @@ const BodyChart: React.FC<BodyChartProps> = ({
 					/>
 					<TouchableOpacity
 						style={styles.ankleFootArea}
-						onPress={() => onAreaPress("Ankel/Fot")}
+						onPress={() => onAreaPress("Ankel")}
 					/>
 				</>
 			) : (
 				<>
 					<TouchableOpacity
 						style={styles.upperBackArea}
-						onPress={() => onAreaPress("Øvre rygg")}
+						onPress={() => onAreaPress("Øvre_rygg")}
 					/>
 					<TouchableOpacity
 						style={styles.lowerBackArea}
-						onPress={() => onAreaPress("Nedre rygg")}
+						onPress={() => onAreaPress("Nedre_rygg")}
 					/>
 					<TouchableOpacity
 						style={styles.elbowArea}
@@ -91,7 +81,7 @@ const BodyChart: React.FC<BodyChartProps> = ({
 					/>
 					<TouchableOpacity
 						style={styles.neckArea}
-						onPress={() => onAreaPress("Hode/Nakke")}
+						onPress={() => onAreaPress("Nakke")}
 					/>
 				</>
 			)}
