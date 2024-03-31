@@ -46,7 +46,7 @@ const RegisterScreen = () => {
 		password: "",
 		confirmPassword: "",
 		gender: undefined,
-		height: undefined,
+		height: undefined, // Set initial height to undefined
 		weight: undefined,
 		birthday: "",
 		acceptTerms: false,
