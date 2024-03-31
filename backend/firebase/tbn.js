@@ -737,8 +737,86 @@ const questionsData = {
 						type: "text",
 					},
 				},
-				neck_gen4_nei: {},
-				neck_gen5_ja: {},
+				neck_gen4_nei: {
+					text: "Siden det ikke har vært noen nylig endring i ditt fysiske aktivitetsnivå eller trening, kan det være andre faktorer som har bidratt til smerten eller ubehaget. Kan du identifisere noen slike faktorer?",
+					type: "multipleChoice",
+					options: [
+						"Endringer i daglige rutiner",
+						"Ny arbeidssituasjon eller arbeidsmiljø",
+						"Psykologisk stress eller emosjonelle endringer",
+						"Endringer i søvnmønster",
+						"Annet",
+					],
+					followUp: {
+						"Endringer i daglige rutiner": "neck_gen4_nei_1",
+						"Ny arbeidssituasjon eller arbeidsmiljø": "neck_gen4_nei_2",
+						"Psykologisk stress eller emosjonelle endringer": "neck_gen4_nei_3",
+						"Endringer i søvnmønster": "neck_gen4_nei_4",
+						Annet: "neck_gen4_nei_5",
+					},
+					neck_gen4_nei_1: {
+						text: "Kan du beskrive hvilke endringer i daglige rutiner som har funnet sted nylig?",
+						type: "text",
+					},
+
+					neck_gen4_nei_2: {
+						text: "Hvordan har den nye arbeidssituasjonen eller arbeidsmiljøet påvirket deg fysisk og mentalt?",
+						type: "text",
+					},
+
+					neck_gen4_nei_3: {
+						text: "Hvilke metoder eller teknikker har du brukt for å håndtere det psykologiske stresset eller de emosjonelle endringene?",
+						type: "multipleChoice",
+						options: [
+							"Meditasjon eller mindfulness",
+							"Fysisk aktivitet",
+							"Sosial støtte fra venner eller familie",
+							"Profesjonell hjelp (psykolog, terapeut)",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen4_nei_3_alt",
+						},
+					},
+				},
+				neck_gen5_ja: {
+					text: "Du nevnte at daglige aktiviteter eller spesifikke bevegelser utløser eller forverrer smerten/ubehaget. Kan du identifisere hvilke aktiviteter eller bevegelser dette gjelder?",
+					type: "multipleChoice",
+					options: [
+						"Sitting for lange perioder",
+						"Stående arbeid eller aktiviteter",
+						"Løfting av tunge gjenstander",
+						"Repetitive bevegelser (f.eks., tastaturbruk, bruk av verktøy)",
+						"Trening eller sport",
+						"Annet",
+					],
+					followUp: {
+						"Sitting for lange perioder": "neck_gen5_ja_1",
+						"Stående arbeid eller aktiviteter": "neck_gen5_ja_2",
+						"Løfting av tunge gjenstander": "neck_gen5_ja_3",
+						"Repetitive bevegelser (f.eks., tastaturbruk, bruk av verktøy)":
+							"neck_gen5_ja_4",
+						"Trening eller sport": "neck_gen5_ja_5",
+						Annet: "neck_gen5_ja_6",
+					},
+					neck_gen5_ja_1: {
+						text: "Har du prøvd å endre sittestillingen eller ta regelmessige pauser for å se om det påvirker smerten?",
+						type: "multipleChoice",
+						options: [
+							"Ja, og det har hjulpet",
+							"Ja, men det har ikke gjort noen forskjell",
+							"Nei, har ikke prøvd dette",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen5_ja_1_alt",
+						},
+					},
+					neck_gen5_ja_1_alt: {
+						text: "Vennligst beskriv andre tiltak du har tatt for å håndtere smerten relatert til langvarig sitting.",
+						type: "text",
+					},
+				},
 				neck_gen5_nei: {},
 			},
 		},
