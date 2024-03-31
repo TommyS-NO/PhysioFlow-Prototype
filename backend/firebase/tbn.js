@@ -388,6 +388,75 @@ const questionsData = {
 						// Her tillater vi brukeren å gi en åpen tekstrespons.
 					},
 				},
+				neck_gen2_nei: {
+					text: "Hvis dette er første gangen, hvordan har du tidligere håndtert lignende smerte eller ubehag i andre deler av kroppen?",
+					type: "multipleChoice",
+					options: [
+						"Vanligvis søker jeg medisinsk hjelp",
+						"Jeg foretrekker selvbehandling",
+						"Jeg venter og ser om det går over av seg selv",
+						"Jeg har ikke hatt lignende smerte før",
+						"Annet",
+					],
+					followUp: {
+						"Vanligvis søker jeg medisinsk hjelp": "neck_gen2_nei_1",
+						"Jeg foretrekker selvbehandling": "neck_gen2_nei_2",
+						"Jeg venter og ser om det går over av seg selv": "neck_gen2_nei_3",
+						"Jeg har ikke hatt lignende smerte før": "neck_gen2_nei_4",
+					},
+					neck_gen2_nei_1: {
+						text: "Hvilken type medisinsk hjelp søker du vanligvis?",
+						type: "multipleChoice",
+						options: ["Fastlege", "Fysioterapeut", "Kiropraktor", "Annet"],
+					},
+					neck_gen2_nei_2: {
+						text: "Hvilke selvbehandlingstiltak har du funnet mest effektive?",
+						type: "multipleChoice",
+						options: [
+							"Smertestillende medisiner",
+							"Tøyninger og øvelser",
+							"Varme- eller isbehandlinger",
+							"Annet",
+						],
+						// Ingen videre oppfølging da dette er slutten på rekken.
+					},
+					neck_gen2_nei_1_2: {
+						text: "Hvilke selvbehandlingstiltak har du funnet mest effektive?",
+						type: "multipleChoice",
+						options: [
+							"Smertestillende medisiner",
+							"Tøyninger og øvelser",
+							"Varme- eller isbehandlinger",
+							"Annet",
+						],
+					},
+					neck_gen2_nei_3: {
+						text: "Hvor lenge venter du vanligvis før du vurderer å søke hjelp hvis smerten ikke forbedrer seg?",
+						type: "slider",
+						min: 0,
+						max: 90,
+						step: 1,
+						unit: "dager",
+						defaultValue: 14,
+						label: "Vennligst angi antall dager (0-90 dager)",
+					},
+					neck_gen2_nei_4: {
+						text: "Hvordan planlegger du å håndtere denne nye smerten eller ubehaget?",
+						type: "multipleChoice",
+						options: [
+							"Søke informasjon online",
+							"Konsultere en helseprofesjonell",
+							"Avvente og se om det forbedrer seg med tiden",
+							"Annet",
+						],
+						// Ytterligere oppfølging kan være nødvendig for å tilpasse behandlingsplanen.
+					},
+					neck_gen2_nei_5: {
+						text: "Vennligst spesifiser andre måter du har håndtert lignende smerte eller ubehag på.",
+						type: "text",
+						placeholder: "Gi en detaljert beskrivelse.",
+					},
+				},
 			},
 		},
 	},
