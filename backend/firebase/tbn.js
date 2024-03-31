@@ -190,7 +190,7 @@ const questionsData = {
 						],
 					},
 				},
-				neck_gen1_ja_3: {
+				neck_gen1_ja_1_3: {
 					text: "Du nevnte at smerten eller ubehaget startet etter en skade. Kan du beskrive hvordan skaden skjedde?",
 					type: "multipleChoice",
 					options: [
@@ -200,12 +200,12 @@ const questionsData = {
 						"Annet",
 					],
 					followUp: {
-						"Under fysisk aktivitet eller sport": "neck_gen1_ja_3_1",
-						"Ved en ulykke (f.eks. trafikkulykke, fall)": "neck_gen1_ja_3_2",
+						"Under fysisk aktivitet eller sport": "neck_gen1_ja_1_3_1",
+						"Ved en ulykke (f.eks. trafikkulykke, fall)": "neck_gen1_ja_1_3_2",
 						"Gjennom en plutselig bevegelse eller overanstrengelse":
-							"neck_gen1_ja_3_3",
+							"neck_gen1_ja_1_3_3",
 					},
-					neck_gen1_ja_3_1: {
+					neck_gen1_ja_1_3_1: {
 						text: "Hvordan reagerte du og hva var dine umiddelbare tiltak etter skaden under fysisk aktivitet eller sport?",
 						type: "multipleChoice",
 						options: [
@@ -214,9 +214,9 @@ const questionsData = {
 							"Brukte selvbehandlingstiltak (is, hvile, smertestillende)",
 							"Annet",
 						],
-						// Eventuell oppfølging basert på svarene her
+						// Eventuell oppfølging
 					},
-					neck_gen1_ja_3_2: {
+					neck_gen1_ja_1_3_2: {
 						text: "Etter ulykken, hvilke skritt tok du for å håndtere skaden?",
 						type: "multipleChoice",
 						options: [
@@ -225,9 +225,9 @@ const questionsData = {
 							"Anvendte selvbehandlingstiltak hjemme",
 							"Annet",
 						],
-						// Eventuell oppfølging basert på svarene her
+						// Eventuell oppfølging
 					},
-					neck_gen1_ja_3_3: {
+					neck_gen1_ja_1_3_3: {
 						text: "Beskriv de tiltakene du tok umiddelbart etter skaden som skjedde gjennom en plutselig bevegelse eller overanstrengelse.",
 						type: "multipleChoice",
 						options: [
@@ -236,10 +236,65 @@ const questionsData = {
 							"Tok en pause fra alle fysiske aktiviteter",
 							"Annet",
 						],
-						// Eventuell oppfølging basert på svarene her
+						// Eventuell oppfølging
 					},
 				},
 			},
+		},
+	},
+	neck_gen1_nei: {
+		text: "Siden du har opplevd denne typen smerte eller ubehag før, kan du beskrive tidligere episoder og om du søkte noen form for behandling?",
+		type: "multipleChoice",
+		options: [
+			"Jeg søkte medisinsk hjelp (lege, fysioterapeut, etc.)",
+			"Jeg behandlet det selv med hvile, medisiner, hjemmeøvelser, etc.",
+			"Det gikk over av seg selv uten spesifikk behandling",
+			"Annet",
+		],
+		followUp: {
+			"Jeg søkte medisinsk hjelp (lege, fysioterapeut, etc.)":
+				"neck_gen1_nei_1",
+			"Jeg behandlet det selv med hvile, medisiner, hjemmeøvelser, etc.":
+				"neck_gen1_nei_1_2",
+			"Det gikk over av seg selv uten spesifikk behandling":
+				"neck_gen1_nei_1_3",
+			Annet: "neck_gen1_nei_1_4",
+		},
+		neck_gen1_nei_1_1: {
+			text: "Hvilken type medisinsk hjelp søkte du, og følte du at det hjalp?",
+			type: "multipleChoice",
+			options: [
+				"Fysioterapi som forbedret situasjonen",
+				"Medisinsk undersøkelse uten klar forbedring",
+				"Kirurgi som var nødvendig for bedring",
+				"Annet",
+			],
+		},
+		neck_gen1_nei_1_2: {
+			text: "Hvilke selvbehandlingstiltak fant du mest effektive?",
+			type: "multipleChoice",
+			options: [
+				"Smertestillende medisiner",
+				"Hvile og begrensning av aktiviteter",
+				"Hjemmeøvelser og stretching",
+				"Annet",
+			],
+			// Legg til oppfølgingsspørsmål om nødvendig.
+		},
+		neck_gen1_nei_1_3: {
+			text: "Hvor lenge tok det før smerten eller ubehaget gikk over av seg selv?",
+			type: "slider",
+			min: 0,
+			max: 90,
+			step: 1,
+			unit: "dager",
+			defaultValue: 14,
+			label: "Vennligst angi antall dager (0-90 dager)",
+		},
+		neck_gen1_nei_1_4: {
+			text: "Kan du beskrive de spesifikke omstendighetene eller tiltakene du tok som ikke passer inn i de tidligere kategoriene?",
+			type: "text",
+			placeholder: "Vennligst gi detaljer",
 		},
 	},
 };
