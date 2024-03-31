@@ -639,7 +639,104 @@ const questionsData = {
 						type: "text",
 					},
 				},
-				neck_gen4_ja: {},
+				neck_gen4_ja: {
+					text: "Hva slags endring gjorde du i ditt fysiske aktivitetsnivå eller hvilken ny type trening startet du nylig?",
+					type: "multipleChoice",
+					options: [
+						"Startet med en ny sport",
+						"Økte intensiteten på eksisterende treningsrutine",
+						"Gjenopptok trening etter en pause",
+						"Endret type fysiske aktiviteter",
+						"Annet",
+					],
+					followUp: {
+						"Startet med en ny sport": "neck_gen4_ja_1",
+						"Økte intensiteten på eksisterende treningsrutine":
+							"neck_gen4_ja_2",
+						"Gjenopptok trening etter en pause": "neck_gen4_ja_3",
+						"Endret type fysiske aktiviteter": "neck_gen4_ja_4",
+						Annet: "neck_gen4_ja_5",
+					},
+					neck_gen4_ja_1: {
+						text: "Fortell mer om den nye sporten du startet med. Tror du den har bidratt til smerten eller ubehaget?",
+						type: "multipleChoice",
+						options: [
+							"Ja, smerten oppstod etter å ha startet med denne sporten",
+							"Nei, smerten synes ikke å være relatert",
+							"Usikker på sammenhengen",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen4_ja_1_alt",
+						},
+						neck_gen4_ja_1_alt: {
+							text: "Vennligst beskriv din opplevelse og tanker rundt den nye sporten og smerten.",
+							type: "text",
+						},
+					},
+					neck_gen4_ja_2: {
+						text: "Hvordan økte du intensiteten i din eksisterende treningsrutine, og hvordan tror du det påvirket smerten eller ubehaget?",
+						type: "multipleChoice",
+						options: [
+							"Økte varigheten av treningsøkter",
+							"Inkluderte mer krevende øvelser",
+							"Reduserte hviletiden mellom sett",
+							"Økte treningsfrekvensen",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen4_ja_2_alt",
+						},
+					},
+
+					neck_gen4_ja_2_alt: {
+						text: "Vennligst beskriv den spesifikke endringen i din treningsrutine.",
+						type: "text",
+					},
+					neck_gen4_ja_3: {
+						text: "Hvilke tiltak tok du for å gjenoppta treningen etter pausen, og føler du at det hadde noen effekt på smerten eller ubehaget?",
+						type: "multipleChoice",
+						options: [
+							"Startet gradvis for å bygge opp styrke",
+							"Fokuserte på lav-impact øvelser",
+							"Konsultasjon med treningsveileder for en tilpasset plan",
+							"Ingen spesielle tiltak, gjenopptok tidligere rutine",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen4_ja_3_alt",
+						},
+					},
+
+					neck_gen4_ja_3_alt: {
+						text: "Vennligst gi detaljer om hvordan du gjenopptok treningen og eventuelle utfordringer du møtte.",
+						type: "text",
+					},
+					neck_gen4_ja_4: {
+						text: "Hvilken type fysiske aktiviteter endret du til, og hvordan vurderer du effekten dette hadde på smerten eller ubehaget?",
+						type: "multipleChoice",
+						options: [
+							"Byttet til en lavere impact aktivitet",
+							"Varierte treningsaktiviteter for bedre balanse",
+							"Innførte flere hviledager",
+							"Fokuserte mer på fleksibilitet og bevegelighet",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen4_ja_4_alt",
+						},
+					},
+
+					neck_gen4_ja_4_alt: {
+						text: "Vennligst forklar nærmere om endringene i dine fysiske aktiviteter og hvordan de påvirker deg.",
+						type: "text",
+					},
+
+					neck_gen4_ja_5: {
+						text: "Du valgte 'Annet'. Vennligst beskriv den endringen du gjorde i din fysiske aktivitet eller trening.",
+						type: "text",
+					},
+				},
 				neck_gen4_nei: {},
 				neck_gen5_ja: {},
 				neck_gen5_nei: {},
