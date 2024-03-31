@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import CustomModal from "../CustomModal/CustomModal";
 import CustomButton from "../CustomButton/CustomButton";
-import { FocusAreaKey, Answer, useFocusArea } from "../../Context/FocusContext";
+import { useFocusArea } from "../../Context/FocusContext";
 
 interface FocusSelectionProps {
 	visible: boolean;
 	onClose: () => void;
-	onUpdate: (answers: Answer[]) => void;
-	area: FocusAreaKey;
+	onUpdate: (selections: Record<string, boolean>) => void;
+	area: string; // Tittel for valgt fokusområde
 }
 
 const questions = [
@@ -71,20 +71,14 @@ const FocusSelection: React.FC<FocusSelectionProps> = ({
 	};
 
 	const handleUpdate = () => {
-		const answersArray: Answer[] = Object.entries(answers).map(
-			([question, answer]) => ({
-				question,
-				answer: answer as boolean, // Type assertion her for å sikre at answer ikke er null
-			}),
-		);
-
-		if (answersArray.length === questions.length) {
+		if (Object.values(answers).every((val) => val !== null)) {
+			// Oppdaterer den globale tilstanden med de nye svarene før lukking av modalen
 			dispatch({
 				type: "SET_ANSWERS",
-				area: area,
-				answers: answersArray,
+				area,
+				answers: answers as Record<string, boolean>,
 			});
-			onUpdate(answersArray);
+			onUpdate(answers as Record<string, boolean>);
 			onClose();
 		} else {
 			// Gi beskjed til brukeren at alle spørsmålene må besvares
