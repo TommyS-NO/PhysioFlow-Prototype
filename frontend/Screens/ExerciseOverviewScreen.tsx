@@ -10,10 +10,9 @@ import {
 	Alert,
 	ImageSourcePropType,
 } from "react-native";
-import { format, parseISO } from "date-fns";
-import CustomButton from "../Components/CustomButton/CustomButton";
+
 import CustomModal from "../Components/CustomModal/CustomModal";
-import CustomSlider from "../Components/CustomSlider/CustomSlider";
+
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Navigation/navigationTypes";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -46,7 +45,7 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		title: "Bein og Gluteus Maximus Styrke",
 		description:
 			"Dette programmet fokuserer på nedre del av kroppen, spesielt bein og rumpe. Perfekt for å bygge styrke og utholdenhet.",
-		 image: require('../Assets/12501301.gif'),
+		image: require("../Assets/12501301.gif"),
 		datetime: "2024-01-01T08:00:00Z",
 	},
 	{
@@ -54,7 +53,7 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		title: "Kjerne og Abs Kondisjonering",
 		description:
 			"Intensiv kjerne- og magetrening for å forbedre stabilitet og bygge muskeldefinisjon.",
-		image: require('../Assets/12501301.gif'),
+		image: require("../Assets/12501301.gif"),
 		datetime: "2024-01-01T08:00:00Z",
 	},
 	{
@@ -62,7 +61,7 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		title: "Fullkropps HIIT",
 		description:
 			"Høy intensitets intervalltrening som dekker hele kroppen. Forbrenn kalorier og bygg muskler effektivt.",
-		image: require('../Assets/12501301.gif'),
+		image: require("../Assets/12501301.gif"),
 		datetime: "2024-01-01T08:00:00Z",
 	},
 	{
@@ -70,16 +69,15 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		title: "Pushups",
 		description:
 			"Ligg på gulvet med ansiktet ned og plasser hendene omtrent 90 cm fra hverandre mens du holder overkroppen oppe i armlengde.",
-		image: require('../Assets/12501301.gif'),
+		image: require("../Assets/12501301.gif"),
 		datetime: "2024-01-01T08:00:00Z",
-		
 	},
 	{
 		id: "5",
 		title: "Hantelbenkpress",
 		description:
 			"Ligg på en flat benk med en hantel i hver hånd som hviler på toppen av lårene dine.",
-		image: require('../Assets/12501301.gif'),
+		image: require("../Assets/12501301.gif"),
 		datetime: "2024-01-01T08:00:00Z",
 	},
 	{
@@ -87,7 +85,7 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		title: "Smal-grip benkpress",
 		description:
 			"Ligg tilbake på en flat benk. Bruk et smalt grep (rundt skulderbredde), løft stangen fra stativet og hold den rett over deg med armene låst.",
-		image: require('../Assets/12501301.gif'),
+		image: require("../Assets/12501301.gif"),
 		datetime: "2024-01-01T08:00:00Z",
 	},
 	{
@@ -95,7 +93,7 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		title: "Kettlebell thruster",
 		description:
 			"Roter håndleddene mens du gjør dette. Dette vil være din startposisjon. Begynn å knebøy ved å bøye i hoftene og knærne, senk hoftene mellom beina dine. Oppretthold en oppreist, rett rygg mens du synker så lavt du kan. ",
-		image: require('../Assets/12501301.gif'),
+		image: require("../Assets/12501301.gif"),
 		datetime: "2024-01-01T08:00:00Z",
 	},
 	{
@@ -103,7 +101,7 @@ const EXERCISE_SESSIONS: ExerciseSession[] = [
 		title: "Knelende knebøy",
 		description:
 			"Still stangen til riktig høyde i en power rack. Knel bak stangen; det kan være nyttig å legge ned en matte for å polstre knærne dine.",
-		image: require('../Assets/12501301.gif'),
+		image: require("../Assets/12501301.gif"),
 		datetime: "2024-01-01T08:00:00Z",
 	},
 ];
