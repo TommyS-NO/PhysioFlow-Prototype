@@ -52,6 +52,7 @@ const questionsData = {
 				},
 			},
 			questionsById: {
+				// Definer spørsmål for hver oppfølging Spørsmål (1)
 				neck_gen1_ja: {
 					text: "Beskriv hvordan og når smerten eller ubehaget først startet.",
 					type: "multipleChoice",
@@ -639,6 +640,7 @@ const questionsData = {
 						type: "text",
 					},
 				},
+				// Definer spørsmål for hver oppfølging Spørsmål (4)
 				neck_gen4_ja: {
 					text: "Hva slags endring gjorde du i ditt fysiske aktivitetsnivå eller hvilken ny type trening startet du nylig?",
 					type: "multipleChoice",
@@ -687,11 +689,11 @@ const questionsData = {
 						followUp: {
 							Annet: "neck_gen4_ja_2_alt",
 						},
-					},
 
-					neck_gen4_ja_2_alt: {
-						text: "Vennligst beskriv den spesifikke endringen i din treningsrutine.",
-						type: "text",
+						neck_gen4_ja_2_alt: {
+							text: "Vennligst beskriv den spesifikke endringen i din treningsrutine.",
+							type: "text",
+						},
 					},
 					neck_gen4_ja_3: {
 						text: "Hvilke tiltak tok du for å gjenoppta treningen etter pausen, og føler du at det hadde noen effekt på smerten eller ubehaget?",
@@ -706,11 +708,11 @@ const questionsData = {
 						followUp: {
 							Annet: "neck_gen4_ja_3_alt",
 						},
-					},
 
-					neck_gen4_ja_3_alt: {
-						text: "Vennligst gi detaljer om hvordan du gjenopptok treningen og eventuelle utfordringer du møtte.",
-						type: "text",
+						neck_gen4_ja_3_alt: {
+							text: "Vennligst gi detaljer om hvordan du gjenopptok treningen og eventuelle utfordringer du møtte.",
+							type: "text",
+						},
 					},
 					neck_gen4_ja_4: {
 						text: "Hvilken type fysiske aktiviteter endret du til, og hvordan vurderer du effekten dette hadde på smerten eller ubehaget?",
@@ -725,11 +727,11 @@ const questionsData = {
 						followUp: {
 							Annet: "neck_gen4_ja_4_alt",
 						},
-					},
 
-					neck_gen4_ja_4_alt: {
-						text: "Vennligst forklar nærmere om endringene i dine fysiske aktiviteter og hvordan de påvirker deg.",
-						type: "text",
+						neck_gen4_ja_4_alt: {
+							text: "Vennligst forklar nærmere om endringene i dine fysiske aktiviteter og hvordan de påvirker deg.",
+							type: "text",
+						},
 					},
 
 					neck_gen4_ja_5: {
@@ -779,6 +781,7 @@ const questionsData = {
 						},
 					},
 				},
+				// Definer spørsmål for hver oppfølging Spørsmål (5)
 				neck_gen5_ja: {
 					text: "Du nevnte at daglige aktiviteter eller spesifikke bevegelser utløser eller forverrer smerten/ubehaget. Kan du identifisere hvilke aktiviteter eller bevegelser dette gjelder?",
 					type: "multipleChoice",
@@ -816,8 +819,180 @@ const questionsData = {
 						text: "Vennligst beskriv andre tiltak du har tatt for å håndtere smerten relatert til langvarig sitting.",
 						type: "text",
 					},
+					// Stående arbeid eller aktiviteter
+					neck_gen5_ja_2: {
+						text: "Hvordan påvirker stående arbeid eller aktiviteter smerten eller ubehaget?",
+						type: "multipleChoice",
+						options: [
+							"Forverrer smerten etter en viss tid",
+							"Konstant ubehag uavhengig av tidsperiode",
+							"Smerten avtar med bevegelse eller ved å endre stilling",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen5_ja_2_alt",
+						},
+					},
+					neck_gen5_ja_2_alt: {
+						text: "Vennligst beskriv nærmere hvordan stående arbeid eller aktiviteter påvirker deg.",
+						type: "text",
+					},
+
+					// Løfting av tunge gjenstander
+					neck_gen5_ja_3: {
+						text: "Beskriv hvordan løfting av tunge gjenstander påvirker smerten eller ubehaget.",
+						type: "multipleChoice",
+						options: [
+							"Umiddelbar økning i smerte under eller etter løft",
+							"Gradvis økning i ubehag etter flere løft",
+							"Ingen merkbar endring i smerte eller ubehag",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen5_ja_3_alt",
+						},
+					},
+					neck_gen5_ja_3_alt: {
+						text: "Vennligst beskriv eventuelle spesifikke forhold eller metoder du bruker når du løfter som påvirker smerten.",
+						type: "text",
+					},
+
+					// Repetitive bevegelser (f.eks., tastaturbruk, bruk av verktøy)
+					neck_gen5_ja_4: {
+						text: "Hvordan påvirker repetitive bevegelser smerten eller ubehaget?",
+						type: "multipleChoice",
+						options: [
+							"Forverring med langvarig bruk av tastatur eller verktøy",
+							"Periodisk ubehag som kommer og går med aktivitet",
+							"Ingen klar sammenheng mellom aktivitet og smerte",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen5_ja_4_alt",
+						},
+					},
+					neck_gen5_ja_4_alt: {
+						text: "Vennligst spesifiser de repetitive bevegelsene og hvordan de påvirker smerten eller ubehaget.",
+						type: "text",
+					},
+
+					neck_gen5_ja_5: {
+						text: "Kan du identifisere spesifikke treningsformer eller sporter som utløser eller forverrer smerten?",
+						type: "multipleChoice",
+						options: [
+							"Ja, visse treningsformer forverrer smerten",
+							"Nei, trening synes ikke å påvirke smerten",
+							"Usikker på sammenhengen mellom trening og smerte",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen5_ja_5_alt",
+						},
+					},
+					neck_gen5_ja_5_alt: {
+						text: "Vennligst beskriv treningsformene eller sportene og din erfaring med smerten.",
+						type: "text",
+					},
+
+					// Annet
+					neck_gen5_ja_6: {
+						text: "Du valgte 'Annet'. Vennligst beskriv hvilke andre aktiviteter eller bevegelser som utløser eller forverrer smerten.",
+						type: "text",
+					},
 				},
-				neck_gen5_nei: {},
+				neck_gen5_nei: {
+					text: "Siden daglige aktiviteter eller spesifikke bevegelser ikke utløser eller forverrer smerten, hva tror du bidrar til å holde smerten eller ubehaget i sjakk?",
+					type: "multipleChoice",
+					options: [
+						"Regelmessig fysisk aktivitet eller trening",
+						"Bevissthet om kroppsholdning og ergonomi",
+						"Strekkeøvelser eller avslapningsteknikker",
+						"Riktig smertehåndtering og medikasjon",
+						"Annet",
+					],
+					followUp: {
+						"Regelmessig fysisk aktivitet eller trening": "neck_gen5_nei_1",
+						"Bevissthet om kroppsholdning og ergonomi": "neck_gen5_nei_2",
+						"Strekkeøvelser eller avslapningsteknikker": "neck_gen5_nei_3",
+						"Riktig smertehåndtering og medikasjon": "neck_gen5_nei_4",
+						Annet: "neck_gen5_nei_5",
+					},
+
+					neck_gen5_nei_1: {
+						text: "Hvordan bidrar regelmessig fysisk aktivitet eller trening til å håndtere smerten?",
+						type: "multipleChoice",
+						options: [
+							"Øker generell fysisk helse og fleksibilitet",
+							"Bidrar til styrking av muskler rundt smerteområdet",
+							"Reduserer stivhet og forbedrer blodsirkulasjon",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen5_nei_1_alt",
+						},
+					},
+					neck_gen5_nei_1_alt: {
+						text: "Vennligst beskriv nærmere hvordan regelmessig fysisk aktivitet eller trening påvirker smerten.",
+						type: "text",
+					},
+					neck_gen5_nei_2: {
+						text: "På hvilken måte har bevissthet om kroppsholdning og ergonomi påvirket din opplevelse av smerte eller ubehag?",
+						type: "multipleChoice",
+						options: [
+							"Forbedret holdning har redusert smerten",
+							"Ergonomiske justeringer på arbeidsplassen har hatt positiv effekt",
+							"Lite eller ingen endring merket",
+							"Annet",
+						],
+						followUp: {
+							Annet: "neck_gen5_nei_2_alt",
+						},
+
+						neck_gen5_nei_2_alt: {
+							text: "Vennligst gi detaljer om andre ergonomiske eller holdningsmessige tilpasninger du har prøvd.",
+							type: "text",
+						},
+						neck_gen5_nei_3: {
+							text: "Hvordan har strekkeøvelser eller avslapningsteknikker påvirket din smerte eller ubehag?",
+							type: "multipleChoice",
+							options: [
+								"Regelmessige strekkeøvelser har bidratt til smertelindring",
+								"Avslapningsteknikker har hjulpet med å håndtere smerten",
+								"Har prøvd, men merket lite til ingen forbedring",
+								"Annet",
+							],
+							followUp: {
+								Annet: "neck_gen5_nei_3_alt",
+							},
+						},
+						neck_gen5_nei_3_alt: {
+							text: "Vennligst beskriv hvilke strekkeøvelser eller avslapningsteknikker du har funnet nyttige eller ikke.",
+							type: "text",
+						},
+
+						neck_gen5_nei_4: {
+							text: "Hvordan har riktig smertehåndtering og bruk av medikasjon påvirket din smerte?",
+							type: "multipleChoice",
+							options: [
+								"Medikasjon har effektivt redusert smerten",
+								"Smertehåndteringsteknikker har vært hjelpsomme",
+								"Har ikke funnet en effektiv løsning ennå",
+								"Annet",
+							],
+							followUp: {
+								Annet: "neck_gen5_nei_4_alt",
+							},
+						},
+						neck_gen5_nei_4_alt: {
+							text: "Vennligst beskriv din erfaring med smertehåndtering og medikasjon, inkludert hva som har eller ikke har fungert.",
+							type: "text",
+						},
+						neck_gen5_nei_5: {
+							text: "Du valgte 'Annet'. Vennligst beskriv hva du tror bidrar til å holde smerten eller ubehaget i sjakk.",
+							type: "text",
+						},
+					},
+				},
 			},
 		},
 	},
