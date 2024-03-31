@@ -37,11 +37,12 @@ export const theme: Theme = {
     buttonText: "#ffffff",
     infoText: "#000000",
     button: "#26807C",
-	helpButton: "#26807C",
+    helpButton: "#26807C",
     icon: "#FFF",
     secondary: "#000000",
     disabled: "#cccccc",
     disabledText: "#666666",
+    text: "#000000"
   },
   fontSize: {
     regular: 16,
