@@ -296,6 +296,98 @@ const questionsData = {
 						placeholder: "Vennligst gi detaljer",
 					},
 				},
+				neck_gen2_ja: {
+					text: "Fortell mer om den tidligere skaden i dette området",
+					type: "multipleChoice",
+					options: [
+						"Behandlet med fysioterapi",
+						"Operasjon gjennomført",
+						"Selvbehandling",
+						"Ikke behandlet",
+						"Annet",
+					],
+					followUp: {
+						"Behandlet med fysioterapi": "neck_gen2_ja_1",
+						"Operasjon gjennomført": "neck_gen2_ja_2",
+						Selvbehandling: "neck_gen2_ja_3",
+						"Ikke behandlet": "neck_gen2_ja_4",
+					},
+					neck_gen2_ja_1: {
+						text: "Hvordan reagerte kroppen din på fysioterapibehandlingen?",
+						type: "multipleChoice",
+						options: [
+							"Tilfriskning uten problemer",
+							"Noen forbedringer, men ikke helt tilfrisknet",
+							"Ingen endring i tilstand",
+							"Forverring av tilstand",
+							"Annet",
+						],
+						followUp: {
+							"Tilfriskning uten problemer": "neck_gen2_ja_1_1",
+							"Noen forbedringer, men ikke helt tilfrisknet":
+								"neck_gen2_ja_1_2",
+							"Ingen endring i tilstand": "neck_gen2_ja_1_3",
+							"Forverring av tilstand": "neck_gen2_ja_1_4",
+							"beskrivelse av tilstand": "neck_gen2_ja_1_5",
+						},
+					},
+					neck_gen2_ja_1_1: {
+						text: "For å opprettholde din gode tilstand, hvilke vedlikeholdstiltak har du iverksatt?",
+						type: "multipleChoice",
+						options: [
+							"Regelmessige øvelser eller fysisk aktivitet",
+							"Periodiske kontroller hos fysioterapeut",
+							"Ingen spesielle tiltak, føler meg frisk",
+							"Annet",
+						],
+						// Ingen videre oppfølging da dette er slutten på rekken.
+					},
+					neck_gen2_ja_1_2: {
+						text: "Hvilke planer har du for å adressere de gjenværende symptomene?",
+						type: "multipleChoice",
+						options: [
+							"Fortsette med fysioterapi eller profesjonell oppfølging",
+							"Selvadministrerte øvelser og behandlinger",
+							"Vurderer alternative behandlingsmetoder",
+							"Annet",
+						],
+						followUp: {
+							"Vurderer alternative behandlingsmetoder": "neck_gen2_ja_1_2_alt",
+						},
+					},
+					neck_gen2_ja_1_2_alt: {
+						text: "Hvilke alternative behandlingsmetoder vurderer du?",
+						type: "text",
+						// Her tillater vi brukeren å gi en åpen tekstrespons.
+					},
+					neck_gen2_ja_1_3: {
+						text: "Hva er ditt neste skritt ettersom tilstanden ikke har endret seg?",
+						type: "multipleChoice",
+						options: [
+							"Søke en ny vurdering fra en annen helseprofesjonell",
+							"Utforske nye behandlingsmetoder",
+							"Fortsette å observere tilstanden over tid",
+							"Annet",
+						],
+						// Ytterligere oppfølging kan være nødvendig basert på brukerens respons.
+					},
+					neck_gen2_ja_1_4: {
+						text: "Ettersom tilstanden din har forverret seg, hvilke umiddelbare tiltak har du planer om å ta?",
+						type: "multipleChoice",
+						options: [
+							"Kontakte min fysioterapeut eller lege umiddelbart",
+							"Ta ytterligere diagnostiske tester",
+							"Revidere min nåværende behandlingsplan",
+							"Annet",
+						],
+						// Ytterligere oppfølging kan være nødvendig for å tilpasse behandlingsplanen.
+					},
+					neck_gen2_ja_1_5: {
+						text: "Vennligst beskriv eventuelle andre reaksjoner eller tiltak du har tatt i forhold til behandlingen.",
+						type: "text",
+						// Her tillater vi brukeren å gi en åpen tekstrespons.
+					},
+				},
 			},
 		},
 	},
