@@ -6,7 +6,6 @@ import React, {
 	ReactNode,
 } from "react";
 
-// Definerer nøkkeltyper for fokusområder
 export type FocusAreaKey =
 	| "Nakke"
 	| "Skulder"
@@ -18,79 +17,78 @@ export type FocusAreaKey =
 	| "Kne"
 	| "Ankel";
 
-// Struktur for svar
 export interface Answer {
 	question: string;
 	answer: boolean;
 }
 
-// Statens struktur
 interface FocusAreaState {
 	selectedAreas: {
 		[key in FocusAreaKey]?: string;
 	};
 	answers: {
-		[key in FocusAreaKey]?: Answer[];
+		[key: string]: Answer[];
 	};
 }
 
-// Handlinger som kan påvirke staten
 type FocusAreaAction =
-	| { type: "SET_AREA"; area: FocusAreaKey; description: string }
+	| { type: "SET_AREA"; area: FocusAreaKey; description: boolean }
 	| { type: "SET_ANSWERS"; area: FocusAreaKey; answers: Answer[] }
 	| { type: "CLEAR_AREAS" };
 
-// Initial state
 const initialState: FocusAreaState = {
 	selectedAreas: {},
 	answers: {},
 };
 
-// Reducer-funksjonen som håndterer endringer i tilstand basert på handlinger
 const focusAreaReducer = (
 	state: FocusAreaState,
 	action: FocusAreaAction,
 ): FocusAreaState => {
+	console.log("Dispatching action:", action);
+
 	switch (action.type) {
-		case "SET_AREA":
-			return {
+		case "SET_AREA": {
+			const newStateForSetArea = {
 				...state,
 				selectedAreas: {
 					...state.selectedAreas,
 					[action.area]: action.description,
 				},
 			};
-		case "SET_ANSWERS":
-			return {
+			console.log("New state after SET_AREA:", newStateForSetArea);
+			return newStateForSetArea;
+		}
+		case "SET_ANSWERS": {
+			const newStateForSetAnswers = {
 				...state,
 				answers: {
 					...state.answers,
 					[action.area]: action.answers,
 				},
 			};
+			console.log("New state after SET_ANSWERS:", newStateForSetAnswers);
+			return newStateForSetAnswers;
+		}
 		case "CLEAR_AREAS":
+			console.log("State reset to initialState after CLEAR_AREAS.");
 			return initialState;
 		default:
+			console.log("Default case hit, returning current state.");
 			return state;
 	}
 };
 
-// Context opprettelse
-const FocusAreaContext = createContext<
-	{ state: FocusAreaState; dispatch: Dispatch<FocusAreaAction> } | undefined
->(undefined);
-
-// Hook for å bruke denne konteksten
-export const useFocusArea = (): {
+const FocusAreaContext = createContext<{
 	state: FocusAreaState;
 	dispatch: Dispatch<FocusAreaAction>;
-} => {
-	const context = useContext(FocusAreaContext);
-	if (context === undefined) {
-		throw new Error("useFocusArea must be used within a FocusAreaProvider");
-	}
-	return context;
-};
+}>({ state: initialState, dispatch: () => null });
+
+export const useFocusArea = () => useContext(FocusAreaContext);
+
+interface FocusAreaProviderProps {
+	children: ReactNode;
+}
 
 export const FocusAreaProvider: React.FC<FocusAreaProviderProps> = ({
 	children,
@@ -103,7 +101,5 @@ export const FocusAreaProvider: React.FC<FocusAreaProviderProps> = ({
 		</FocusAreaContext.Provider>
 	);
 };
-interface FocusAreaProviderProps {
-	children: ReactNode;
-}
-export default FocusAreaProvider;
+
+export default FocusAreaContext;
