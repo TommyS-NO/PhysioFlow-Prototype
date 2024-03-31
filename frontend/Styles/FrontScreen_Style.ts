@@ -50,6 +50,11 @@ export const frontScreenStyles = StyleSheet.create({
     marginTop: theme.spacing.medium,
     fontSize: theme.fontSize.regular,
   },
+  errorText: {
+        color: theme.colors.secondary, 
+    fontSize: theme.fontSize.regular,
+
+  },
   input: {
     height: 50,
     width: "100%",
