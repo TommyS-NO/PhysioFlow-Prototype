@@ -38,6 +38,7 @@ const initialState: UserState = {
 	isLoggedIn: false,
 	token: null,
 	userDetails: null,
+	userId: "",
 };
 
 const userReducer = (state: UserState, action: UserAction): UserState => {
