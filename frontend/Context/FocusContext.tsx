@@ -6,6 +6,7 @@ import React, {
 	ReactNode,
 } from "react";
 
+// Definisjoner
 export type FocusAreaKey =
 	| "Nakke"
 	| "Skulder"
@@ -23,69 +24,75 @@ export interface Answer {
 }
 
 interface FocusAreaState {
-	selectedAreas: {
-		[key in FocusAreaKey]?: string;
-	};
-	answers: {
-		[key: string]: Answer[];
-	};
+	selectedAreas: { [key in FocusAreaKey]?: boolean };
+	answers: { [key: string]: Answer[] };
+	currentQuestionId?: string;
+	nextQuestionId?: string;
 }
 
 type FocusAreaAction =
 	| { type: "SET_AREA"; area: FocusAreaKey; description: boolean }
 	| { type: "SET_ANSWERS"; area: FocusAreaKey; answers: Answer[] }
+	| { type: "SET_CURRENT_QUESTION"; questionId: string }
+	| { type: "SET_NEXT_QUESTION"; questionId: string }
 	| { type: "CLEAR_AREAS" };
 
 const initialState: FocusAreaState = {
 	selectedAreas: {},
 	answers: {},
+	currentQuestionId: undefined,
+	nextQuestionId: undefined,
 };
 
+// Reducer
 const focusAreaReducer = (
 	state: FocusAreaState,
 	action: FocusAreaAction,
 ): FocusAreaState => {
-	console.log("Dispatching action:", action);
-
 	switch (action.type) {
-		case "SET_AREA": {
-			const newStateForSetArea = {
+		case "SET_AREA":
+			return {
 				...state,
 				selectedAreas: {
 					...state.selectedAreas,
 					[action.area]: action.description,
 				},
 			};
-			console.log("New state after SET_AREA:", newStateForSetArea);
-			return newStateForSetArea;
-		}
-		case "SET_ANSWERS": {
-			const newStateForSetAnswers = {
+		case "SET_ANSWERS":
+			return {
 				...state,
 				answers: {
 					...state.answers,
 					[action.area]: action.answers,
 				},
 			};
-			console.log("New state after SET_ANSWERS:", newStateForSetAnswers);
-			return newStateForSetAnswers;
-		}
+		case "SET_CURRENT_QUESTION":
+			return {
+				...state,
+				currentQuestionId: action.questionId,
+			};
+		case "SET_NEXT_QUESTION":
+			return {
+				...state,
+				nextQuestionId: action.questionId,
+			};
 		case "CLEAR_AREAS":
-			console.log("State reset to initialState after CLEAR_AREAS.");
 			return initialState;
 		default:
-			console.log("Default case hit, returning current state.");
 			return state;
 	}
 };
 
+// Context
 const FocusAreaContext = createContext<{
 	state: FocusAreaState;
 	dispatch: Dispatch<FocusAreaAction>;
-}>({ state: initialState, dispatch: () => null });
+}>({ state: initialState, dispatch: () => undefined });
 
+// Custom hook for easier context usage
 export const useFocusArea = () => useContext(FocusAreaContext);
 
+// Provider component
 interface FocusAreaProviderProps {
 	children: ReactNode;
 }
