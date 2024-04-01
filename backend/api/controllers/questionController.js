@@ -16,7 +16,6 @@ export const getQuestionsByCategory = async (req, res) => {
 };
 
 export const getNextQuestion = async (req, res) => {
-	// Anta at request.body inneholder 'currentQuestionId' og 'answer'
 	const { currentQuestionId, answer } = req.body;
 
 	try {
