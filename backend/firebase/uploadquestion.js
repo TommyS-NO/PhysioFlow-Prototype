@@ -1,8 +1,8 @@
 console.log("Starter tilkoblingen til Firebase...");
 
 // Importerer Firebase admin og spørsmåldata
-const { db } = require("../firebase/firebaseAdmin");
-const { questionsData } = require("../firebase/focusNeckQuestion");
+const { db } = require("./firebaseAdmin");
+const { questionsData } = require("./focusNeckQuestion");
 
 console.log(
 	"Tilkobling til Firebase etablert. Begynner opplasting av spørsmål...",
