@@ -1,44 +1,71 @@
 import { db } from './firebaseConfig';
-import {
-  collection,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
 
 interface Question {
   id: string;
   text: string;
   options: string[];
+  followUp?: { [key: string]: string };
 }
 
-interface Answer {
-  questionId: string;
-  answer: string;
-}
+// Hente alle generelle spørsmål fra Firestore
+const fetchGeneralQuestions = async (): Promise<Question[]> => {
+  const docRef = doc(db, 'questions', 'general');
+  const docSnap = await getDoc(docRef);
 
-// Hente alle spørsmål for et gitt steg
-const fetchQuestions = async (step: string): Promise<Question[]> => {
-  const questionsCol = collection(db, 'questions', step, 'questionsList');
-  const questionSnapshot = await getDoc(questionsCol);
-  return questionSnapshot.docs.map(doc => doc.data() as Question);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    return data.questions as Question[];
+  }
+    console.error("Generelle spørsmål ble ikke funnet.");
+    return [];
 };
 
-// Lagre en brukers svar på et spørsmål
-const saveAnswer = async (userId: string, step: string, answer: Answer): Promise<void> => {
-  const answersRef = doc(db, 'users', userId, 'answers', step);
-  await updateDoc(answersRef, { [answer.questionId]: answer.answer });
+// Hente alle spørsmål for et gitt fokusområde
+const fetchQuestionsByFocusArea = async (focusArea: string): Promise<Question[]> => {
+  const q = query(collection(db, "focusAreas"), where("name", "==", focusArea));
+  const querySnapshot = await getDocs(q);
+  const focusAreaData = querySnapshot.docs.map(doc => doc.data())[0];
+  const followUpQuestionsIds = focusAreaData?.followUps;
+  const questions: Question[] = [];
+
+
+  if (followUpQuestionsIds) {
+    for (const [key, value] of Object.entries(followUpQuestionsIds)) {
+      const followUpRef = doc(db, "questionsById", value as string);
+      const followUpSnap = await getDoc(followUpRef);
+
+      if (followUpSnap.exists()) {
+        questions.push(followUpSnap.data() as Question);
+      } else {
+        console.error(`Follow-up question with ID ${value} was not found.`);
+      }
+    }
+  }
+
+  return questions;
 };
 
-// Oppdatere et spørsmål i Firestore (kan gjøres via Firebase Console eller gjennom en admin-funksjon)
-const updateQuestion = async (step: string, questionId: string, question: Partial<Question>): Promise<void> => {
-  const questionRef = doc(db, 'questions', step, 'questionsList', questionId);
-  await updateDoc(questionRef, question);
+// Funksjon for å hente neste spørsmål basert på svaret til brukeren
+const fetchNextQuestion = async (currentQuestionId: string, answer: string): Promise<Question | null> => {
+  const currentQuestionRef = doc(db, "questionsById", currentQuestionId);
+  const currentQuestionSnap = await getDoc(currentQuestionRef);
+
+  if (currentQuestionSnap.exists()) {
+    const currentQuestionData = currentQuestionSnap.data() as Question;
+    const nextQuestionId = currentQuestionData.followUp?.[answer];
+
+    if (nextQuestionId) {
+      const nextQuestionRef = doc(db, "questionsById", nextQuestionId);
+      const nextQuestionSnap = await getDoc(nextQuestionRef);
+
+      if (nextQuestionSnap.exists()) {
+        return nextQuestionSnap.data() as Question;
+      }
+    }
+  }
+  console.error(`Next question based on answer "${answer}" was not found.`);
+  return null;
 };
 
-export {
-  fetchQuestions,
-  saveAnswer,
-  updateQuestion,
-};
+export { fetchGeneralQuestions, fetchQuestionsByFocusArea, fetchNextQuestion };
