@@ -1,62 +1,78 @@
 import { db } from "../../firebase/firebaseAdmin.js";
+import { questionsData } from "../../firebase/focusNeckQuestion.js";
 
-export const getQuestionsByCategory = async (req, res) => {
-	const { category } = req.params;
+const uploadQuestion = async (path, questionData) => {
+	// Document reference path for the Firestore document
+	const questionDocPath = `${path}/${questionData.id}`;
+	console.log(`Uploading question at path: ${questionDocPath}`);
 
-	try {
-		const snapshot = await db.collection("questions").doc(category).get();
-		if (!snapshot.exists) {
-			return res.status(404).json({ message: "Kategorien ble ikke funnet." });
+	// Set the question data at the constructed path
+	await db.doc(questionDocPath).set(questionData);
+	console.log(`Question uploaded at path: ${questionDocPath}`);
+
+	// If there are follow-up questions, iterate and upload each
+	if (questionData.followUp) {
+		for (const [option, followUpId] of Object.entries(questionData.followUp)) {
+			const followUpQuestionData =
+				questionsData.focusAreas.neck.questionsById[followUpId];
+			if (followUpQuestionData) {
+				// Construct the path for the sub-collection where follow-up questions will be stored
+				const followUpPath = `${questionDocPath}/followUpQuestions`;
+				console.log(
+					`Uploading follow-up question at path: ${followUpPath}/${followUpId}`,
+				);
+
+				// Recursive call to upload the follow-up question
+				await uploadQuestion(followUpPath, followUpQuestionData);
+			}
 		}
-		res.status(200).json(snapshot.data());
-	} catch (error) {
-		console.error("Feil under henting av spørsmål: ", error);
-		res.status(500).json({ message: "Noe gikk galt", error });
 	}
 };
 
-export const getNextQuestion = async (req, res) => {
-	const { currentQuestionId, answer } = req.body;
+const uploadFocusArea = async (focusAreaKey, focusAreaData) => {
+	const focusAreaPath = `focusAreas/${focusAreaKey}`;
+	console.log(`Uploading focus area at path: ${focusAreaPath}`);
+	await db.doc(focusAreaPath).set({ name: focusAreaData.name });
+	console.log(`Focus area ${focusAreaKey} uploaded successfully.`);
 
-	try {
-		// Hent det aktuelle spørsmålet fra Firestore
-		const currentQuestionDoc = await db
-			.collection("questionsById")
-			.doc(currentQuestionId)
-			.get();
-		if (!currentQuestionDoc.exists) {
-			return res
-				.status(404)
-				.json({ message: "Aktuelt spørsmål ble ikke funnet." });
-		}
-		const currentQuestionData = currentQuestionDoc.data();
-
-		// Finn IDen til oppfølgingsspørsmålet basert på svaret
-		const followUpId = currentQuestionData.followUp[answer];
-		if (!followUpId) {
-			return res.status(404).json({
-				message: "Oppfølgingsspørsmål ble ikke funnet for det gitte svaret.",
-			});
-		}
-
-		// Hent oppfølgingsspørsmålet fra Firestore
-		const followUpQuestionDoc = await db
-			.collection("questionsById")
-			.doc(followUpId)
-			.get();
-		if (!followUpQuestionDoc.exists) {
-			return res
-				.status(404)
-				.json({ message: "Oppfølgingsspørsmål ble ikke funnet." });
-		}
-
-		// Send oppfølgingsspørsmålet til klienten
-		res.status(200).json(followUpQuestionDoc.data());
-	} catch (error) {
-		console.error("Feil under henting av oppfølgingsspørsmål: ", error);
-		res.status(500).json({
-			message: "Noe gikk galt ved henting av oppfølgingsspørsmål.",
-			error,
-		});
-	}
+	await Promise.all(
+		Object.values(focusAreaData.questionsById).map((questionData) =>
+			uploadQuestion(`${focusAreaPath}/questionsById`, questionData),
+		),
+	);
 };
+
+const uploadGeneralQuestions = async () => {
+	const generalQuestionsPath = "generalQuestions/general";
+	console.log(`Uploading general questions at path: ${generalQuestionsPath}`);
+	await db
+		.doc(generalQuestionsPath)
+		.set({ questions: questionsData.generalQuestions });
+	console.log("General questions uploaded successfully.");
+};
+
+const uploadAllQuestions = async () => {
+	console.log("Starting the upload of questions...");
+
+	await uploadGeneralQuestions();
+	await Promise.all(
+		Object.entries(questionsData.focusAreas).map(
+			([focusAreaKey, focusAreaData]) =>
+				uploadFocusArea(focusAreaKey, focusAreaData),
+		),
+	);
+
+	console.log(
+		"All questions have been successfully uploaded. Upload complete.",
+	);
+};
+
+uploadAllQuestions()
+	.then(() => {
+		console.log("Upload script completed. Exiting Node.js process.");
+		process.exit(0);
+	})
+	.catch((error) => {
+		console.error("An error occurred while running the script:", error);
+		process.exit(1);
+	});
