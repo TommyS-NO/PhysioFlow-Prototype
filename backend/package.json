@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node Server.js",
-    "upload": "node scripts/uploadquestion.js" 
+    "upload": "node api/controllers/questionController.js" 
   },
   "keywords": [],
   "author": "",
