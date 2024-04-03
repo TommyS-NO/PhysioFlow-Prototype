@@ -6,6 +6,7 @@ import RegisterScreen from "../Screens/RegisterScreen/RegisterScreen";
 import TermsScreen from "../Screens/TermsScreen";
 import FocusScreen from "../Screens/FocusScreen/FocusScreen";
 import UserGuideScreen from "../Screens/UserGuideScreen";
+import NewScreen from "../Screens/NewScreen";
 
 import { RootStackParamList } from "./navigationTypes";
 import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen";
@@ -87,6 +88,11 @@ const AppNav = () => (
 				name="RegisterWorkout"
 				component={RegisterWorkout}
 				options={{ title: "Registrer økt" }}
+			/>
+			<Stack.Screen
+				name="NewScreen"
+				component={NewScreen}
+				options={{ title: "new" }}
 			/>
 		</Stack.Navigator>
 	</NavigationContainer>
