@@ -6,6 +6,7 @@ export type RootStackParamList = {
   ExerciseSession: undefined;
   UserGuideScreen: undefined;
   DeleteUserScreen: undefined;
+  NewScreen: undefined;
   AboutScreen: undefined;
   SearchScreen: undefined;
   ProfileScreen: {userName?: string};
