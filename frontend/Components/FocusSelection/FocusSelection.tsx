@@ -1,61 +1,26 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+	View,
+	Text,
+	StyleSheet,
+	TouchableOpacity,
+	Alert,
+	ActivityIndicator,
+} from "react-native";
 import CustomModal from "../CustomModal/CustomModal";
 import CustomButton from "../CustomButton/CustomButton";
 import { useFocusArea } from "../../Context/FocusContext";
+import {
+	Question,
+	fetchQuestionsByFocusArea,
+} from "../../Services/Firebase/questionService";
 
 interface FocusSelectionProps {
 	visible: boolean;
 	onClose: () => void;
 	onUpdate: (selections: Record<string, boolean>) => void;
-	area: string; // Tittel for valgt fokusområde
+	area: string;
 }
-
-const questions = [
-	"Er dette første gang du opplever denne typen smerte eller ubehag?",
-	"Har du tidligere hatt en skade i samme område som du nå opplever smerte eller ubehag?",
-	"Oppstod smerten/ubehaget plutselig uten en åpenbar årsak?",
-	"Har du endret ditt fysiske aktivitetsnivå eller startet en ny type trening nylig?",
-	"Føler du at daglige aktiviteter eller spesifikke bevegelser utløser eller forverrer smerten/ubehaget?",
-];
-
-interface YesNoQuestionProps {
-	question: string;
-	onSelection: (question: string, selection: boolean) => void;
-	selected: boolean | null;
-}
-
-const YesNoQuestion: React.FC<YesNoQuestionProps> = ({
-	question,
-	onSelection,
-	selected,
-}) => {
-	return (
-		<View style={styles.questionContainer}>
-			<Text style={styles.questionText}>{question}</Text>
-			<View style={styles.answerContainer}>
-				<TouchableOpacity
-					style={[
-						styles.answerButton,
-						selected === true ? styles.selectedYes : undefined,
-					]}
-					onPress={() => onSelection(question, true)}
-				>
-					<Text style={styles.answerText}>Ja</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[
-						styles.answerButton,
-						selected === false ? styles.selectedNo : undefined,
-					]}
-					onPress={() => onSelection(question, false)}
-				>
-					<Text style={styles.answerText}>Nei</Text>
-				</TouchableOpacity>
-			</View>
-		</View>
-	);
-};
 
 const FocusSelection: React.FC<FocusSelectionProps> = ({
 	visible,
@@ -63,25 +28,53 @@ const FocusSelection: React.FC<FocusSelectionProps> = ({
 	onUpdate,
 	area,
 }) => {
+	const [questions, setQuestions] = useState<Question[]>([]);
 	const [answers, setAnswers] = useState<Record<string, boolean | null>>({});
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const { dispatch } = useFocusArea();
 
-	const handleSelection = (question: string, selection: boolean) => {
-		setAnswers((prevAnswers) => ({ ...prevAnswers, [question]: selection }));
+	useEffect(() => {
+		const fetchQuestions = async () => {
+			setIsLoading(true);
+			try {
+				const fetchedQuestions = await fetchQuestionsByFocusArea(area);
+				setQuestions(fetchedQuestions);
+				// Reset answers when questions change
+				setAnswers(
+					fetchedQuestions.reduce(
+						(acc, question) => ({ ...acc, [question.id]: null }),
+						{},
+					),
+				);
+			} catch (error) {
+				Alert.alert("Feil", "Kunne ikke hente spørsmål.");
+				console.error(error);
+			}
+			setIsLoading(false);
+		};
+
+		if (area) {
+			fetchQuestions();
+		}
+	}, [area]);
+
+	const handleSelection = (questionId: string, selection: boolean) => {
+		setAnswers((prevAnswers) => ({ ...prevAnswers, [questionId]: selection }));
 	};
 
 	const handleUpdate = () => {
 		if (Object.values(answers).every((val) => val !== null)) {
-			// Oppdaterer den globale tilstanden med de nye svarene før lukking av modalen
 			dispatch({
 				type: "SET_ANSWERS",
 				area,
-				answers: answers as Record<string, boolean>,
+				answers: Object.entries(answers).map(([questionId, answer]) => ({
+					question: questionId,
+					answer: answer as boolean,
+				})),
 			});
 			onUpdate(answers as Record<string, boolean>);
 			onClose();
 		} else {
-			// Gi beskjed til brukeren at alle spørsmålene må besvares
 			Alert.alert(
 				"Viktig",
 				"Vennligst svar på alle spørsmålene før du fortsetter.",
@@ -89,10 +82,12 @@ const FocusSelection: React.FC<FocusSelectionProps> = ({
 		}
 	};
 
-	// Sjekker om alle spørsmål er besvart
 	const allQuestionsAnswered =
-		Object.values(answers).filter((val) => val !== null).length ===
-		questions.length;
+		questions.length > 0 && Object.values(answers).every((val) => val !== null);
+
+	if (isLoading) {
+		return <ActivityIndicator size="large" color="#0000ff" />;
+	}
 
 	return (
 		<CustomModal
@@ -102,12 +97,28 @@ const FocusSelection: React.FC<FocusSelectionProps> = ({
 		>
 			<View style={styles.container}>
 				{questions.map((question) => (
-					<YesNoQuestion
-						key={question}
-						question={question}
-						onSelection={handleSelection}
-						selected={answers[question]}
-					/>
+					<View key={question.id} style={styles.questionContainer}>
+						<Text style={styles.questionText}>{question.text}</Text>
+						<View style={styles.answerContainer}>
+							{question.options.map((option) => (
+								<TouchableOpacity
+									key={option}
+									style={[
+										styles.answerButton,
+										answers[question.id] === (option === "Ja")
+											? styles.selectedYes
+											: undefined,
+										answers[question.id] === (option !== "Ja")
+											? styles.selectedNo
+											: undefined,
+									]}
+									onPress={() => handleSelection(question.id, option === "Ja")}
+								>
+									<Text style={styles.answerText}>{option}</Text>
+								</TouchableOpacity>
+							))}
+						</View>
+					</View>
 				))}
 				<CustomButton
 					title="Bekreft"

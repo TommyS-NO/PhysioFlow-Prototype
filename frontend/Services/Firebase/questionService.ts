@@ -1,7 +1,8 @@
 import { db } from './firebaseConfig';
 import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
 
-interface Question {
+export interface Question {
+  area: string;
   id: string;
   text: string;
   options: string[];

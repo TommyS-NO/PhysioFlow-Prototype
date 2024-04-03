@@ -10,12 +10,12 @@ import {
 } from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton";
 import BodyChart from "../../Components/BodyChart/bodyChart";
-import FollowUpQuestion from "../../Components/FollowUP/FollowUpQuestion";
 import FocusSelection from "../../Components/FocusSelection/FocusSelection";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../Navigation/navigationTypes";
 import { useFocusArea } from "../../Context/FocusContext";
+import NewScreen from "../NewScreen";
 
 type FocusAreaKey =
 	| "Nakke"

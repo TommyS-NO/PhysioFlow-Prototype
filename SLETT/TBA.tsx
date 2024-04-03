@@ -20,7 +20,7 @@
       /> */
 }
 {
-	/* <CustomButton
+<CustomButton
         title="Fokusområde"
         onPress={() => navigation.navigate("FocusScreen")}
       />
@@ -32,28 +32,28 @@
       <CustomButton
         title="Profilside"
         onPress={() => navigation.navigate("ProfileScreen")}
-      /> */
+      />
 }
 {
-	/* <CustomButton
+<CustomButton
         title="Registrer økt"
         onPress={() => navigation.navigate("RegisterWorkout")}
-      /> */
+      /> 
 }
-//     </View>
-//   );
-// };
+    </View>
+  );
+};
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
-//   text: {
-//     fontSize: 20,
-//     marginBottom: 20,
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 20,
+    marginBottom: 20,
+  },
+});
 
-// export default TBA;
+export default TBA;
