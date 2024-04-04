@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-
+import morgan from "morgan";
 import express from "express";
 import cors from "cors";
 
@@ -18,10 +18,10 @@ app.use(express.json());
 app.get("/test", (req, res) => {
 	res.send("Testruten fungerer!");
 });
-
+app.use(morgan("dev"));
 // Define the base path for your routes
 app.use("/api/users", userRoutes);
-app.use("/questions", questionRoutes);
+app.use("/api/questions", questionRoutes);
 
 // 404 Not Found handler
 app.use((req, res) => {
