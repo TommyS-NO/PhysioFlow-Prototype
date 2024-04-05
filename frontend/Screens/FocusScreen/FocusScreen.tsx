@@ -2,142 +2,91 @@ import React, { useState, useEffect } from "react";
 import {
 	View,
 	StyleSheet,
-	Alert,
 	ScrollView,
 	KeyboardAvoidingView,
 	Platform,
 	Text,
+	TouchableOpacity,
 } from "react-native";
+import CustomModal from "../../Components/CustomModal/CustomModal";
+import BodyChart from "./BodyChart/bodyChart";
 import CustomButton from "../../Components/CustomButton/CustomButton";
-import BodyChart from "../../Components/BodyChart/bodyChart";
-import FocusSelection from "../../Components/FocusSelection/FocusSelection";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RouteProp } from "@react-navigation/native";
-import { RootStackParamList } from "../../Navigation/navigationTypes";
-import { useFocusArea } from "../../Context/FocusContext";
-import NewScreen from "../NewScreen";
+import { useQuestion } from "../../Context/QuestionContext";
+import { FocusAreaKey, useFocusArea } from "../../Context/FocusContext";
+import { questionService } from "../../Services/questionService";
 
-type FocusAreaKey =
-	| "Nakke"
-	| "Skulder"
-	| "Albue"
-	| "Håndledd"
-	| "Øvre rygg"
-	| "Nedre rygg"
-	| "Hofte"
-	| "Kne"
-	| "Ankel";
-
-interface FocusAreaState {
-	[key in FocusAreaKey]?: Record<string, boolean>;
+interface Question {
+	id: string;
+	text: string;
+	options: string[];
 }
 
-type FocusScreenNavigationProp = StackNavigationProp<
-	RootStackParamList,
-	"FocusScreen"
->;
-type FocusScreenRouteProp = RouteProp<RootStackParamList, "FocusScreen">;
-
-interface FocusScreenProps {
-	navigation: FocusScreenNavigationProp;
-	route: FocusScreenRouteProp;
+interface Answer {
+	[questionId: string]: string;
 }
 
-const FocusScreen: React.FC<FocusScreenProps> = ({ navigation, route }) => {
+const FocusScreen = () => {
+	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [bodySide, setBodySide] = useState<"front" | "back">("front");
-	const [currentStep, setCurrentStep] = useState<number>(1);
-	const [selectedFocusAreas, setSelectedFocusAreas] = useState<FocusAreaState>(
-		{},
-	);
-	const [currentArea, setCurrentArea] = useState<FocusAreaKey | null>(null);
-	const { dispatch } = useFocusArea();
+	const { state: focusState, dispatch: focusDispatch } = useFocusArea();
+	const [answers, setAnswers] = useState<Record<string, Answer>>({});
+	const [generalQuestions, setGeneralQuestions] = useState<Question[]>([]);
 
 	useEffect(() => {
-		if (currentStep === 1) {
-			Alert.alert(
-				"Instruksjoner",
-				"Velg minst ett og maks tre fokusområder. Trykk på et område på kroppen for å velge.",
-			);
-		}
-	}, [currentStep]);
+		const fetchGeneralQuestions = async () => {
+			const fetchedQuestions = await questionService.getGeneralQuestions();
+			setGeneralQuestions(fetchedQuestions.questions);
+		};
 
-	const handleAreaPress = (area: FocusAreaKey): void => {
-		// Forhindre flere valg hvis tre områder allerede er valgt
-		if (
-			Object.keys(selectedFocusAreas).length < 3 ||
-			selectedFocusAreas[FocusAreaKey]
-		) {
-			setCurrentArea(area);
-		} else {
-			Alert.alert(
-				"For mange valg",
-				"Du kan ikke velge mer enn tre fokusområder.",
-			);
-		}
+		fetchGeneralQuestions();
+	}, []);
+
+	const handleAreaPress = (area: FocusAreaKey) => {
+		focusDispatch({ type: "SET_AREA", area, isSelected: true });
+		setIsModalVisible(true);
+		// Set answers for the new area
+		setAnswers((prev) => ({ ...prev, [area]: {} }));
 	};
 
-	const handleFocusSelectionUpdate = (
+	const handleSelectAnswer = (
 		area: FocusAreaKey,
-		newAnswers: boolean[],
+		questionId: string,
+		option: string,
 	) => {
-		setSelectedFocusAreas((prevState) => ({
-			...prevState,
-			[area]: newAnswers,
+		setAnswers((prev) => ({
+			...prev,
+			[area]: { ...(prev[area] || {}), [questionId]: option },
 		}));
 	};
 
-	const handleNextStep = (): void => {
-		const selectedCount = Object.keys(selectedFocusAreas).length;
-		if (selectedCount >= 1 && selectedCount <= 3) {
-			setCurrentStep((prevStep) => prevStep + 1);
-		} else {
-			Alert.alert(
-				"Feil valg",
-				"Du må velge minst ett og maks tre fokusområder før du kan fortsette.",
-			);
-		}
+	const handleConfirmAnswers = () => {
+		setIsModalVisible(false);
+		// Submit answers somewhere or handle navigation
 	};
 
 	const toggleBodySide = () => {
 		setBodySide((prevSide) => (prevSide === "front" ? "back" : "front"));
 	};
 
-	const renderStepContent = (): JSX.Element | null => {
-		switch (currentStep) {
-			case 1:
-				return (
-					<>
-						<BodyChart
-							bodySide={bodySide}
-							onAreaPress={handleAreaPress}
-							toggleBodySide={toggleBodySide}
-						/>
-						<CustomButton
-							title="Neste"
-							onPress={handleNextStep}
-							disabled={Object.keys(selectedFocusAreas).length === 0}
-						/>
-					</>
-				);
-			case 2:
-				return (
-					<FollowUpQuestion
-						selectedAreas={selectedFocusAreas}
-						onContinue={() => setCurrentStep((prevStep) => prevStep + 1)}
-					/>
-				);
-			case 3:
-				return (
-					<View style={styles.infoContainer}>
-						<Text style={styles.infoText}>Takk for informasjonen!</Text>
-						<Text style={styles.infoText}>
-							Dine valg vil hjelpe oss med å tilpasse din rehabiliteringsplan.
-						</Text>
-					</View>
-				);
-			default:
-				return null;
-		}
+	const currentFocusArea = focusState.currentFocusArea;
+	const currentAnswers = answers[currentFocusArea] || {};
+
+	const allQuestionsAnswered =
+		generalQuestions.length > 0 &&
+		generalQuestions.every(
+			(question) => currentAnswers[question.id] !== undefined,
+		);
+
+	const getButtonStyle = (questionId: string, option: string) => {
+		const isSelected = currentAnswers[questionId] === option;
+		return [
+			styles.optionButton,
+			isSelected
+				? option === "Ja"
+					? styles.optionButtonYesSelected
+					: styles.optionButtonNoSelected
+				: {},
+		];
 	};
 
 	return (
@@ -146,41 +95,148 @@ const FocusScreen: React.FC<FocusScreenProps> = ({ navigation, route }) => {
 			style={styles.container}
 		>
 			<ScrollView contentContainerStyle={styles.content}>
-				{renderStepContent()}
-			</ScrollView>
-			{currentArea && (
-				<FocusSelection
-					visible={currentArea !== null}
-					onClose={() => setCurrentArea(null)}
-					onUpdate={(area, newAnswers) =>
-						handleFocusSelectionUpdate(area, newAnswers)
-					}
-					area={currentArea}
-					initialSelection={selectedFocusAreas[currentArea] || []}
+				<BodyChart
+					bodySide={bodySide}
+					onAreaPress={handleAreaPress}
+					toggleBodySide={toggleBodySide}
 				/>
-			)}
+				{isModalVisible && (
+					<CustomModal
+						visible={isModalVisible}
+						onClose={() => setIsModalVisible(false)}
+						style={styles.modalView}
+					>
+						<View style={styles.modalTitleContainer}>
+							<Text style={styles.modalTitle}>{currentFocusArea}</Text>
+							<Text style={styles.modalSubtitle}>Generelle Spørsmål</Text>
+						</View>
+						{generalQuestions.map((question) => (
+							<View key={question.id} style={styles.questionContainer}>
+								<Text style={styles.questionText}>{question.text}</Text>
+								<View style={styles.optionsContainer}>
+									{question.options.map((option) => (
+										<TouchableOpacity
+											key={option}
+											style={getButtonStyle(question.id, option)}
+											onPress={() =>
+												handleSelectAnswer(
+													currentFocusArea,
+													question.id,
+													option,
+												)
+											}
+										>
+											<Text style={styles.optionText}>{option}</Text>
+										</TouchableOpacity>
+									))}
+								</View>
+							</View>
+						))}
+						<CustomButton
+							title="Bekreft"
+							onPress={handleConfirmAnswers}
+							disabled={!allQuestionsAnswered}
+						/>
+					</CustomModal>
+				)}
+			</ScrollView>
 		</KeyboardAvoidingView>
 	);
 };
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: "#f2f2f2",
 	},
 	content: {
 		flexGrow: 1,
-		justifyContent: "center",
-		alignItems: "center",
+		paddingTop: 20,
 	},
-	infoContainer: {
-		padding: 20,
-		alignItems: "center",
+	questionContainer: {
+		borderBottomWidth: 1,
+		borderBottomColor: "#ececec",
+		padding: 10,
 	},
-	infoText: {
-		fontSize: 16,
+	questionText: {
+		fontSize: 14, // Mindre fontstørrelse
+		color: "#333",
+	},
+
+	optionsContainer: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+	optionButton: {
+		padding: 10,
+		borderRadius: 5,
+		margin: 2,
+		width: 100,
+		// flex: 1,
+	},
+	optionButtonYesSelected: {
+		backgroundColor: "lightgreen", // Stil for valgt 'Ja'-knapp
+	},
+	optionButtonNoSelected: {
+		backgroundColor: "red", // Stil for valgt 'Nei'-knapp
+	},
+	optionText: {
+		fontSize: 12,
+		color: "black",
 		textAlign: "center",
-		marginBottom: 10,
 	},
+	confirmButton: {
+		backgroundColor: "#4CAF50",
+		paddingVertical: 10,
+		paddingHorizontal: 20,
+		borderRadius: 20,
+		marginVertical: 20,
+	},
+	confirmButtonText: {
+		color: "white",
+		textAlign: "center",
+		fontSize: 18,
+	},
+	disabledConfirmButton: {
+		backgroundColor: "#9E9E9E",
+	},
+	modalView: {
+		marginHorizontal: 20,
+		marginTop: "10%",
+		marginBottom: "10%",
+		paddingHorizontal: 15,
+		paddingTop: 15,
+		paddingBottom: 20,
+		borderRadius: 20,
+		backgroundColor: "white",
+
+		padding: 35,
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
+		width: "100%",
+		maxHeight: "80%",
+	},
+	modalText: {
+		marginBottom: 15,
+		textAlign: "center",
+		fontSize: 18,
+		fontWeight: "bold",
+	},
+	modalTitleContainer: {
+		// ... Add styles for the title container
+	},
+	modalTitle: {
+		// ... Add styles for the title
+	},
+	modalSubtitle: {
+		// ... Add styles for the subtitle
+	},
+	// ... Add other styles as needed
 });
 
 export default FocusScreen;
+function setCurrentFocusArea(area: string) {
+	throw new Error("Function not implemented.");
+}
