@@ -1,3 +1,4 @@
+// FocusContext.tsx
 import React, {
 	createContext,
 	useReducer,
@@ -6,7 +7,6 @@ import React, {
 	ReactNode,
 } from "react";
 
-// Fokusområder typer og interfaces
 export type FocusAreaKey =
 	| "Nakke"
 	| "Skulder"
@@ -19,42 +19,54 @@ export type FocusAreaKey =
 	| "Ankel";
 
 interface FocusAreaState {
+	currentFocusArea: FocusAreaKey | null;
 	selectedAreas: { [key in FocusAreaKey]?: boolean };
 }
 
 type FocusAreaAction =
 	| { type: "SET_AREA"; area: FocusAreaKey; isSelected: boolean }
-	| { type: "CLEAR_AREAS" };
+	| { type: "CLEAR_AREAS" }
+	| { type: "SET_CURRENT_FOCUS_AREA"; area: FocusAreaKey };
 
 const initialState: FocusAreaState = {
+	currentFocusArea: null,
 	selectedAreas: {},
 };
 
-// Reducer
 const focusAreaReducer = (
 	state: FocusAreaState,
 	action: FocusAreaAction,
 ): FocusAreaState => {
 	switch (action.type) {
-		case "SET_AREA": {
-			const { area, isSelected, focusArea } = action;
+		case "SET_AREA":
 			return {
 				...state,
 				selectedAreas: {
 					...state.selectedAreas,
-					[area]: isSelected,
-					...(focusArea && { currentFocusArea: focusArea }),
+					[action.area]: action.isSelected,
 				},
 			};
-		}
+		case "SET_CURRENT_FOCUS_AREA":
+			return {
+				...state,
+				currentFocusArea: action.area,
+				selectedAreas: {
+					...state.selectedAreas,
+					[action.area]: true,
+				},
+			};
 		case "CLEAR_AREAS":
-			return initialState;
+			return {
+				...state,
+				currentFocusArea: null,
+				selectedAreas: {},
+			};
 		default:
 			return state;
 	}
 };
 
-// Context
+// Create Context
 const FocusAreaContext = createContext<{
 	state: FocusAreaState;
 	dispatch: Dispatch<FocusAreaAction>;
@@ -65,7 +77,7 @@ const FocusAreaContext = createContext<{
 
 export const useFocusArea = () => useContext(FocusAreaContext);
 
-// Provider
+// Provide the context
 export const FocusAreaProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {

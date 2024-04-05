@@ -11,9 +11,19 @@ import {
 import CustomModal from "../../Components/CustomModal/CustomModal";
 import BodyChart from "./BodyChart/bodyChart";
 import CustomButton from "../../Components/CustomButton/CustomButton";
-import { useQuestion } from "../../Context/QuestionContext";
-import { FocusAreaKey, useFocusArea } from "../../Context/FocusContext";
+import { useFocusArea } from "../../Context/FocusContext";
 import { questionService } from "../../Services/questionService";
+
+type FocusAreaKey =
+	| "Nakke"
+	| "Skulder"
+	| "Albue"
+	| "Håndledd"
+	| "Øvre_rygg"
+	| "Nedre_rygg"
+	| "Hofte"
+	| "Kne"
+	| "Ankel";
 
 interface Question {
 	id: string;
@@ -21,61 +31,68 @@ interface Question {
 	options: string[];
 }
 
-interface Answer {
-	[questionId: string]: string;
+interface Answers {
+	[key: string]: { [questionId: string]: string };
 }
 
 const FocusScreen = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [bodySide, setBodySide] = useState<"front" | "back">("front");
 	const { state: focusState, dispatch: focusDispatch } = useFocusArea();
-	const [answers, setAnswers] = useState<Record<string, Answer>>({});
+	const [answers, setAnswers] = useState<Answers>({});
 	const [generalQuestions, setGeneralQuestions] = useState<Question[]>([]);
+	const [nextEnabled, setNextEnabled] = useState(false);
 
 	useEffect(() => {
-		const fetchGeneralQuestions = async () => {
-			const fetchedQuestions = await questionService.getGeneralQuestions();
+		questionService.getGeneralQuestions().then((fetchedQuestions) => {
 			setGeneralQuestions(fetchedQuestions.questions);
-		};
-
-		fetchGeneralQuestions();
+		});
 	}, []);
 
 	const handleAreaPress = (area: FocusAreaKey) => {
-		focusDispatch({ type: "SET_AREA", area, isSelected: true });
+		focusDispatch({ type: "SET_CURRENT_FOCUS_AREA", area });
 		setIsModalVisible(true);
-		// Set answers for the new area
-		setAnswers((prev) => ({ ...prev, [area]: {} }));
+		if (!answers[area]) {
+			setAnswers((prev) => ({ ...prev, [area]: {} }));
+		} else {
+			setAnswers((prev) => ({ ...prev, [area]: answers[area] }));
+		}
 	};
 
-	const handleSelectAnswer = (
-		area: FocusAreaKey,
-		questionId: string,
-		option: string,
-	) => {
-		setAnswers((prev) => ({
-			...prev,
-			[area]: { ...(prev[area] || {}), [questionId]: option },
-		}));
+	const handleSelectAnswer = (questionId: string, option: string) => {
+		const currentArea = focusState.currentFocusArea;
+		if (currentArea) {
+			setAnswers((prev) => ({
+				...prev,
+				[currentArea]: {
+					...prev[currentArea],
+					[questionId]: option,
+				},
+			}));
+		}
 	};
 
 	const handleConfirmAnswers = () => {
 		setIsModalVisible(false);
-		// Submit answers somewhere or handle navigation
+		const currentArea = focusState.currentFocusArea;
+		if (currentArea) {
+			setNextEnabled(areAllQuestionsAnswered(currentArea));
+		}
 	};
-
-	const toggleBodySide = () => {
-		setBodySide((prevSide) => (prevSide === "front" ? "back" : "front"));
-	};
-
-	const currentFocusArea = focusState.currentFocusArea;
-	const currentAnswers = answers[currentFocusArea] || {};
+	const currentAnswers = answers[focusState.currentFocusArea || ""] || {};
 
 	const allQuestionsAnswered =
 		generalQuestions.length > 0 &&
 		generalQuestions.every(
 			(question) => currentAnswers[question.id] !== undefined,
 		);
+	const areAllQuestionsAnswered = (area: FocusAreaKey) => {
+		return generalQuestions.every(
+			(question) => answers[area] && answers[area][question.id] !== undefined,
+		);
+	};
+
+	const currentFocusArea = focusState.currentFocusArea;
 
 	const getButtonStyle = (questionId: string, option: string) => {
 		const isSelected = currentAnswers[questionId] === option;
@@ -98,18 +115,18 @@ const FocusScreen = () => {
 				<BodyChart
 					bodySide={bodySide}
 					onAreaPress={handleAreaPress}
-					toggleBodySide={toggleBodySide}
+					toggleBodySide={() =>
+						setBodySide(bodySide === "front" ? "back" : "front")
+					}
 				/>
-				{isModalVisible && (
+				{isModalVisible && focusState.currentFocusArea && (
 					<CustomModal
 						visible={isModalVisible}
 						onClose={() => setIsModalVisible(false)}
+						title={focusState.currentFocusArea}
 						style={styles.modalView}
 					>
-						<View style={styles.modalTitleContainer}>
-							<Text style={styles.modalTitle}>{currentFocusArea}</Text>
-							<Text style={styles.modalSubtitle}>Generelle Spørsmål</Text>
-						</View>
+						<Text style={styles.modalSubtitle}>Generelle Spørsmål</Text>
 						{generalQuestions.map((question) => (
 							<View key={question.id} style={styles.questionContainer}>
 								<Text style={styles.questionText}>{question.text}</Text>
@@ -118,13 +135,7 @@ const FocusScreen = () => {
 										<TouchableOpacity
 											key={option}
 											style={getButtonStyle(question.id, option)}
-											onPress={() =>
-												handleSelectAnswer(
-													currentFocusArea,
-													question.id,
-													option,
-												)
-											}
+											onPress={() => handleSelectAnswer(question.id, option)}
 										>
 											<Text style={styles.optionText}>{option}</Text>
 										</TouchableOpacity>
@@ -138,6 +149,19 @@ const FocusScreen = () => {
 							disabled={!allQuestionsAnswered}
 						/>
 					</CustomModal>
+				)}
+				{nextEnabled && (
+					<View style={styles.nextButtonContainer}>
+						<CustomButton
+							title="Neste"
+							onPress={() => console.log("Next")}
+							style={
+								nextEnabled
+									? styles.nextButtonActive
+									: styles.nextButtonInactive
+							}
+						/>
+					</View>
 				)}
 			</ScrollView>
 		</KeyboardAvoidingView>
@@ -218,25 +242,26 @@ const styles = StyleSheet.create({
 		width: "100%",
 		maxHeight: "80%",
 	},
-	modalText: {
-		marginBottom: 15,
-		textAlign: "center",
-		fontSize: 18,
-		fontWeight: "bold",
+	nextButtonContainer: {
+		paddingHorizontal: 20,
+		paddingVertical: 10,
 	},
-	modalTitleContainer: {
-		// ... Add styles for the title container
+	nextButton: {
+		backgroundColor: "#4CAF50",
+		padding: 15,
+		borderRadius: 25,
 	},
+	// Add styles for modal title and subtitle as needed
 	modalTitle: {
-		// ... Add styles for the title
+		fontWeight: "bold",
+		fontSize: 18,
+		textAlign: "center",
 	},
 	modalSubtitle: {
-		// ... Add styles for the subtitle
+		fontSize: 16,
+		textAlign: "center",
+		color: "grey",
 	},
-	// ... Add other styles as needed
 });
 
 export default FocusScreen;
-function setCurrentFocusArea(area: string) {
-	throw new Error("Function not implemented.");
-}
