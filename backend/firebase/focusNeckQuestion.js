@@ -1,17 +1,3 @@
-/*		***INFO***
-Opprettet : 31.03.24
-Lastet opp: 31.03.24 (Firestore Db)
-Kan brukes som mal for de andre fokusområdene!
------Redigert-----
-
-
--------End-------
-
----scripts/uploadquestion.js
-
-
-***END****
-*/
 export const questionsData = {
 	generalQuestions: [
 		{
