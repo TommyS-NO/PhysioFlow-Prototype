@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, TouchableOpacity, Text, StyleSheet } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { FocusAreaKey } from "../../Context/FocusContext";
+import { FocusAreaKey } from "../../../Context/FocusContext";
 
 interface BodyChartProps {
 	bodySide: "front" | "back";
@@ -37,8 +37,8 @@ const BodyChart: React.FC<BodyChartProps> = ({
 			<Image
 				source={
 					bodySide === "front"
-						? require("../../Assets/bodyChartFront.png")
-						: require("../../Assets/bodyChartBack.png")
+						? require("../../../Assets/bodyChartFront.png")
+						: require("../../../Assets/bodyChartBack.png")
 				}
 				style={styles.bodyChart}
 			/>
