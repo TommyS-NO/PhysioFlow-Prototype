@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     color: "#000",
   },
   deleteButton: {
-    backgroundColor: "red",
+    backgroundColor: "#D32F2F",
   },
   deleteButtonText: {
     color: "#fff",

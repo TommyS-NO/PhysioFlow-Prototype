@@ -217,13 +217,6 @@ const SettingsScreen: React.FC = () => {
         <NonEditableField label="Alder" value={userProfile.age} />
         <NonEditableField label="Kjønn" value={userProfile.gender} />
 
-        {/* <TouchableOpacity
-					style={styles.menuItem}
-					onPress={() => navigation.navigate("FocusScreen")}
-				>
-					<Text style={styles.menuText}>Endre fokusområder</Text>
-				</TouchableOpacity> */}
-
         <TouchableOpacity
           style={[styles.menuItem, styles.deleteButton]}
           onPress={() => navigation.navigate("DeleteUserScreen")}

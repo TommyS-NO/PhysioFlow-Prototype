@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
 	warningText: {
 		marginBottom: 20,
 		fontSize: 16,
-		color: "red",
+		color:  "#D32F2F",
 		textAlign: "center",
 	},
 	deleteButton: {
-		backgroundColor: "red",
+		backgroundColor:  "#D32F2F",
 		padding: 10,
 		borderRadius: 5,
 	},
