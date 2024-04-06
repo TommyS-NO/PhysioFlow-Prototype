@@ -19,6 +19,7 @@ import { theme } from "../theme";
 import CustomModal from "../Components/CustomModal/CustomModal";
 import { styles } from "../Styles/ProfileScreen_Style";
 import { RootStackParamList } from "../Navigation/navigationTypes";
+import UserGuideScreen from "./UserGuideScreen";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -26,11 +27,8 @@ type ProfileScreenNavigationProp = StackNavigationProp<
 >;
 
 const ProfileScreen: React.FC = () => {
-  const [modalVisible, setModalVisible] = useState(false);
   const [userName, setUserName] = useState("");
   const navigation = useNavigation<ProfileScreenNavigationProp>();
-
-
 
   useEffect(() => {
     const userId = auth.currentUser?.uid;
@@ -42,23 +40,22 @@ const ProfileScreen: React.FC = () => {
     }
   }, []);
 
-	const handleSignOut = async () => {
-		try {
-			await signOut(auth);
-			navigation.navigate("Front");
-		} catch (error) {
-			Alert.alert("Feil", `Noe gikk galt under utlogging.: ${error.message}`);
-		}
-	};
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      navigation.navigate("Front");
+    } catch (error) {
+      Alert.alert("Feil", `Noe gikk galt under utlogging.: ${error.message}`);
+    }
+  };
 
   const handleHelp = () => {
-		Alert.alert("Brukerveiledning", "Brukerveiledningen er under utvikling.");
-	};
-
+    navigation.navigate ('UserGuideScreen');
+  };
 
   return (
     // Husk å fjerne scrollview ettersom vi ikke skal benytte dette
-    <ScrollView style={{ flex: 1 }}>
+  
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Image
@@ -67,9 +64,7 @@ const ProfileScreen: React.FC = () => {
           />
           <Text style={styles.welcomeText}>Velkommen, {userName}!</Text>
         </View>
-        
 
-    
         <View style={styles.fullWidthContainer}>
           <TouchableOpacity
             style={[styles.menuItem, styles.fullWidthButton]}
@@ -78,40 +73,28 @@ const ProfileScreen: React.FC = () => {
             <Text style={styles.menuText}>Profilinnstillinger</Text>
           </TouchableOpacity>
           {/* Denne fjerner vi- kommenterer foreløpig bare ut */}
-		  {/* <TouchableOpacity
+          {/* <TouchableOpacity
              style={[styles.menuItem, styles.fullWidthButton]}
             onPress={() => navigation.navigate("ExerciseSession")}
           >
             <Text style={styles.menuText}>Mitt treningsprogram</Text>
           </TouchableOpacity> */}
-
         </View>
-
 
         <View style={styles.gridContainer}>
           {/* Plasser kolonneknapper her- må legges i par hvis det skal bli riktig */}
-       
           <TouchableOpacity
             style={styles.menuItem}
-            onPress={() => navigation.navigate("RegisterWorkout")}
+            onPress={() => navigation.navigate("ExerciseScreen")}
           >
-            <Text style={styles.menuText}>Registrer treningsøkt</Text>
+            <Text style={styles.menuText}>Trening</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.menuItem}
-            onPress={() => navigation.navigate("SearchScreen")}
+            onPress={() => navigation.navigate("HealthScreen")}
           >
-            <Text style={styles.menuText}>Søk etter øvelser</Text>
+            <Text style={styles.menuText}>Helsedata</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuText}>Utførte treningsøkter</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuText}>Treningsprogresjon</Text>
-          </TouchableOpacity>
-
         </View>
 
         <TouchableOpacity
@@ -127,7 +110,6 @@ const ProfileScreen: React.FC = () => {
           />
         </TouchableOpacity>
 
-
         <TouchableOpacity
           style={[styles.menuItem, styles.fullWidthButton]}
           onPress={() => {
@@ -137,55 +119,18 @@ const ProfileScreen: React.FC = () => {
           <Text style={styles.menuText}>Send melding til din behandler</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-						onPress={handleHelp}
-						style={styles.helpButton}
-					>
-						<Icon
-							name="help-circle"
-							size={24}
-							color={theme.colors.helpButton}
-						/>
-					</TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.menuItem, styles.fullWidthButton]}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.menuText}>FAQ</Text>
+        <TouchableOpacity onPress={handleHelp} style={styles.helpButton}>
+          <Icon name="help-circle" size={24} color={theme.colors.helpButton} />
         </TouchableOpacity>
 
- 
+     
+
         <TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
           <Text style={styles.logoutButtonText}>Logg ut</Text>
         </TouchableOpacity>
       </View>
 
-      <CustomModal
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        title="Ofte stilte spørsmål"
-        children={
-          //Husk å legge til flere punkter og riktig tekst her :)
-          <View>
-            <Text style={{ marginBottom: 10 }}>
-              Hvordan endrer jeg mitt treningsprogram?
-            </Text>
-            <Text style={{ marginBottom: 20 }}>
-              Du kan endre ditt treningsprogram ved å gå til 'Mitt
-              treningsprogram' og velge 'Endre'.
-            </Text>
-            <Text style={{ marginBottom: 10 }}>
-              Hvordan kontakter jeg min behandler?
-            </Text>
-            <Text style={{ marginBottom: 20 }}>
-              Du kan sende en melding til din behandler ved å bruke 'Send
-              melding til din behandler'-funksjonen i appen.
-            </Text>
-          </View>
-        }
-      />
-    </ScrollView>
+
   );
 };
 

@@ -13,12 +13,14 @@ Frontend:
 -Legg til en beskrivelse av hvordan slider fungerer med tanke på nivåer. Skal den inn i FaQ eller som en boks man kan klikke på for å få opp info der og da? 
 -Design:
 
+"Hovedfargen vår, med opacity for å skape kontraster: backgroundColor: 'rgba(38, 128, 124, 0.2)'"
+-Sjekk at det er en rød tråd på alle bakgrunnsfarger, knapper, fonter, størrelser osv.. 
 
 
 - Endre username til Name for registrering!
 - Ved å gi bruker muligheten til å endre bilde, må appen også da ha tilgang til bildebiblioteket til brukeren? Er dette noe som må kodes inn i så fall? 
 
--Legge til infoknapp
+
 -Slette DeleteScreen og knytt det opp mot settings og firebase
 -Sjekk om treningsøktene kan lagres automatisk under dato hver gang bruker registrer treningsøkt
 
@@ -28,3 +30,12 @@ Backend:
 
  - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
  - duplisert kode i backend.. ser mer på det når vi starter med RAG og AI
+
+ To do før presentasjon 9/4:
+
+ -Endre farge på spørsmålstegn i hjelpeknapp til hvit
+ -Endre farge på "front" (tilbakeknapp) til grønn
+ -Justere profilsiden slik at grønnfargen dekker hele siden
+ -Endre oppsett på "Om oss" og "kontakt oss" på forsiden
+ -Slett FAQ og flytt innholdet til hjelpeknappen
+ -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen.

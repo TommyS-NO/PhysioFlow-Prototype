@@ -7,10 +7,10 @@ import {
 	TouchableOpacity,
 	FlatList,
 } from "react-native";
-import CustomSlider from "../Components/CustomSlider/CustomSlider";
-import CustomButton from "../Components/CustomButton/CustomButton";
-import CustomModal from "../Components/CustomModal/CustomModal";
-import { EXERCISE_SESSIONS } from "./ExerciseOverviewScreen";
+import CustomSlider from "../../Components/CustomSlider/CustomSlider";
+import CustomButton from "../../Components/CustomButton/CustomButton";
+import CustomModal from "../../Components/CustomModal/CustomModal";
+import { EXERCISE_SESSIONS } from "../ExerciseOverviewScreen";
 
 const RegisterWorkout: React.FC = () => {
 	const [selectedExercise, setSelectedExercise] = useState(null);

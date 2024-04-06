@@ -88,7 +88,7 @@ const FrontScreen = () => {
 	};
 
 	const handleHelp = () => {
-		Alert.alert("Brukerveiledning", "Brukerveiledningen er under utvikling.");
+	    navigation.navigate ('UserGuideScreen');
 	};
 
 	const handleAboutPress = () => {
@@ -111,7 +111,7 @@ const FrontScreen = () => {
 							source={require("../Assets/Logo.png")}
 							style={frontScreenStyles.logo}
 						/>
-						<Text style={frontScreenStyles.titleText}>Tittel</Text>
+						<Text style={frontScreenStyles.titleText}>FysioGO!</Text>
 					</View>
 
 					<TouchableOpacity

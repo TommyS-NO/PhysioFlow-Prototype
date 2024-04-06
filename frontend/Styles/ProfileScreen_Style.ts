@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { theme } from "../theme"; //Husk å legge til fra denne om det skal brukes? 
+import { withTheme } from "react-native-elements";
+import { theme } from "../theme"; //Husk å legge til fra denne om det skal brukes?
 
 const { width } = Dimensions.get("window");
 const spacing = 10;
@@ -9,11 +10,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: theme.colors.primary,
   },
   fullWidthContainer: {
     width: "100%",
     alignItems: "center",
     marginBottom: spacing,
+    
   },
   gridContainer: {
     flexDirection: "row",
@@ -42,17 +45,17 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   menuItem: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#fff",
     padding: spacing,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
     marginVertical: spacing / 2,
-    width: (width - spacing * 1) / 2,
-  
+    marginHorizontal: spacing / 2,
+    width: (width - spacing * 5) / 2,
   },
   fullWidthButton: {
-    width: width - spacing * 3, 
+    width: width - spacing * 4,
   },
   menuText: {
     fontSize: 18,
@@ -68,9 +71,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   bobImage: {
-    width: 30, 
-    height: 40, 
-    resizeMode: "contain", 
+    width: 30,
+    height: 40,
+    resizeMode: "contain",
   },
   bobText: {
     fontSize: 18,
@@ -93,11 +96,12 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   helpButton: {
-
     position: "absolute",
     right: theme.spacing.medium,
     top: theme.spacing.large,
     padding: theme.spacing.small,
     zIndex: 1,
+    
+
   },
 });

@@ -10,8 +10,8 @@ import {
 	Platform,
 	Image,
 } from "react-native";
-import CustomModal from "../Components/CustomModal/CustomModal";
-import { EXERCISE_SESSIONS } from "./ExerciseOverviewScreen";
+import CustomModal from "../../Components/CustomModal/CustomModal";
+import { EXERCISE_SESSIONS } from "../ExerciseOverviewScreen";
 
 const SearchScreen: React.FC = () => {
 	const [searchQuery, setSearchQuery] = useState("");

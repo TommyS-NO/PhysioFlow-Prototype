@@ -17,21 +17,22 @@ export const frontScreenStyles = StyleSheet.create({
   logo: {
     height: 80,
     width: 80,
-    marginTop: 20,
+    marginTop: 120,
   },
   titleText: {
-    color: theme.colors.primary,
+    color: theme.colors.text,
     fontSize: theme.fontSize.h2,
     fontWeight: "bold",
     marginVertical: theme.spacing.small,
   },
   helpButton: {
-
+    marginTop: 50,
     position: "absolute",
     right: theme.spacing.medium,
     top: theme.spacing.large,
     padding: theme.spacing.small,
     zIndex: 1,
+
   },
   loginContainer: {
     backgroundColor: "#FFFFFF",
@@ -40,7 +41,7 @@ export const frontScreenStyles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     // marginTop: theme.spacing.large,
-	marginTop:80,
+    marginTop: 80,
   },
   loginText: {
     fontSize: theme.fontSize.h4,
@@ -51,9 +52,8 @@ export const frontScreenStyles = StyleSheet.create({
     fontSize: theme.fontSize.regular,
   },
   errorText: {
-        color: theme.colors.secondary, 
+    color: theme.colors.secondary,
     fontSize: theme.fontSize.regular,
-
   },
   input: {
     height: 50,
@@ -71,20 +71,20 @@ export const frontScreenStyles = StyleSheet.create({
     marginTop: theme.spacing.medium,
   },
   bottomLinksContainer: {
-    position: 'absolute', 
-    bottom: theme.spacing.large, 
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingHorizontal: theme.spacing.large, 
+    position: "absolute",
+    bottom: theme.spacing.large,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: theme.spacing.large,
   },
   bottomLinkText: {
-    color: theme.colors.secondary, 
+    color: theme.colors.secondary,
     fontSize: theme.fontSize.regular,
-    padding: theme.spacing.small, 
+    padding: theme.spacing.small,
   },
   registerLinkText: {
-    color: "black", 
-    textDecorationLine: 'underline', 
+    color: "black",
+    textDecorationLine: "underline",
   },
 });

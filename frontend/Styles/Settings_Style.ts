@@ -1,11 +1,13 @@
 import { StyleSheet } from "react-native";
+import { theme } from "../theme";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "#f0f0f0",
+    // backgroundColor: "#f0f0f0",
+    backgroundColor: theme.colors.primary,
   },
   imageContainer: {
     flexDirection: "row",
