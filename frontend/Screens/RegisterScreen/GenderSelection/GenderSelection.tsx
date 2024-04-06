@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
 		padding: 20,
+	
 	},
 	title: {
 		fontSize: 22,
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#F5F5F9",
 	},
 	selected: {
-		borderColor: "green",
+		borderColor: "#26807C",
 		borderWidth: 2,
 	},
 	image: {

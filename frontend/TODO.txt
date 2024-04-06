@@ -16,6 +16,7 @@ Frontend:
 "Hovedfargen vår, med opacity for å skape kontraster: backgroundColor: 'rgba(38, 128, 124, 0.2)'"
 -Sjekk at det er en rød tråd på alle bakgrunnsfarger, knapper, fonter, størrelser osv.. 
 
+-Husk å sette opp KeyboardAvoidingView på alle sider!
 
 - Endre username til Name for registrering!
 - Ved å gi bruker muligheten til å endre bilde, må appen også da ha tilgang til bildebiblioteket til brukeren? Er dette noe som må kodes inn i så fall? 
@@ -35,10 +36,12 @@ Backend:
 
  -Endre farge på spørsmålstegn i hjelpeknapp til hvit
  -Endre farge på "front" (tilbakeknapp) til grønn
- -Justere profilsiden slik at grønnfargen dekker hele siden
  -Endre oppsett på "Om oss" og "kontakt oss" på forsiden
- -Slett FAQ og flytt innholdet til hjelpeknappen
  -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen.
  -Under "Registrer økt" så må det settes opp mulighet til å krysse ut dersom man trykker feil eller angrer valget sitt. Nå kan man bare legge til øvelse. 
  -Sjekk farger og styling i registreringsprosessen
  -Sjekk avstand mellom "send melding" og BobAI
+-Endre oppsettet på Gender selection slik at bakgrunnsfargen endrer seg over hele skjermen
+-Fremheve bildet som er trykket på under Gender selection? 
+-Gjøre picker til vekt og høyde litt kortere.
+-Flytte knapper nederst på siden . Eks. "Neste"

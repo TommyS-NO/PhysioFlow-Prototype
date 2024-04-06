@@ -6,7 +6,7 @@ const HealthScreen: React.FC = () => {
     const navigation = useNavigation();
 
     return( 
-        <View style={styles.container}>
+        <View style={styles.gridContainer}>
 
         <TouchableOpacity
         style={styles.menuItem}
@@ -19,12 +19,14 @@ const HealthScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#fff',
-    },
+  gridContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap', 
+    alignItems: 'flex-start', 
+    padding: 20, 
+    // backgroundColor: 'rgba(38, 128, 124, 0.2)',
+  },
     menuItem: {
       backgroundColor: '#26807C', 
       padding: 15, 
@@ -40,6 +42,6 @@ const styles = StyleSheet.create({
   });
 
 
-
+    
 
 export default HealthScreen;

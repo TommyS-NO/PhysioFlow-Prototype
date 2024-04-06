@@ -44,6 +44,7 @@ const ExerciseScreen: React.FC = () => {
           flexWrap: 'wrap', 
           alignItems: 'flex-start', 
           padding: 20, 
+          // backgroundColor: 'rgba(38, 128, 124, 0.2)',
         },
         menuItem: {
           backgroundColor: '#26807C', 
