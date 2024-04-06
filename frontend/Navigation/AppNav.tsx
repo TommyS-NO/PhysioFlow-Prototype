@@ -12,11 +12,13 @@ import { RootStackParamList } from "./navigationTypes";
 import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen";
 import DeleteUserScreen from "../Screens/DeleteUserScreen";
 import AboutScreen from "../Screens/AboutScreen";
-import SearchScreen from "../Screens/SearchScreen";
+import SearchScreen from "../Screens/ExerciseScreen/SearchScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import SettingsScreen from "../Screens/SettingsScreen";
 import ContactScreen from "../Screens/ContactScreen";
-import RegisterWorkout from "../Screens/RegisterWorkout";
+import RegisterWorkout from "../Screens/ExerciseScreen/RegisterWorkout";
+import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
+import HealthScreen from "../Screens/HealthScreen/HealthScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -93,6 +95,16 @@ const AppNav = () => (
 				name="NewScreen"
 				component={NewScreen}
 				options={{ title: "new" }}
+			/>
+				<Stack.Screen
+				name="ExerciseScreen"
+				component={ExerciseScreen}
+				options={{ title: "Trening" }}
+			/>
+				<Stack.Screen
+				name="HealthScreen"
+				component={HealthScreen}
+				options={{ title: "Helse" }}
 			/>
 		</Stack.Navigator>
 	</NavigationContainer>
