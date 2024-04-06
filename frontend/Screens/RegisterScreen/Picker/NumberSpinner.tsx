@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
 	},
 	selectedValueText: {
 		fontSize: 18,
-		color: "green",
+		color: "#26807C",
 		marginTop: 10,
 		textAlign: "center",
 	},
