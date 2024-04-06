@@ -39,3 +39,6 @@ Backend:
  -Endre oppsett på "Om oss" og "kontakt oss" på forsiden
  -Slett FAQ og flytt innholdet til hjelpeknappen
  -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen.
+ -Under "Registrer økt" så må det settes opp mulighet til å krysse ut dersom man trykker feil eller angrer valget sitt. Nå kan man bare legge til øvelse. 
+ -Sjekk farger og styling i registreringsprosessen
+ -Sjekk avstand mellom "send melding" og BobAI

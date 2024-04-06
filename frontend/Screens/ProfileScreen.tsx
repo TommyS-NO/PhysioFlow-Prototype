@@ -16,10 +16,9 @@ import {
 } from "../Services/Firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { theme } from "../theme";
-import CustomModal from "../Components/CustomModal/CustomModal";
+
 import { styles } from "../Styles/ProfileScreen_Style";
 import { RootStackParamList } from "../Navigation/navigationTypes";
-import UserGuideScreen from "./UserGuideScreen";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -50,87 +49,78 @@ const ProfileScreen: React.FC = () => {
   };
 
   const handleHelp = () => {
-    navigation.navigate ('UserGuideScreen');
+    navigation.navigate("UserGuideScreen");
   };
 
   return (
     // Husk å fjerne scrollview ettersom vi ikke skal benytte dette
-  
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Image
-            source={require("../Assets/Robot_1.png")}
-            style={styles.profileImage}
-          />
-          <Text style={styles.welcomeText}>Velkommen, {userName}!</Text>
-        </View>
 
-        <View style={styles.fullWidthContainer}>
-          <TouchableOpacity
-            style={[styles.menuItem, styles.fullWidthButton]}
-            onPress={() => navigation.navigate("SettingsScreen")}
-          >
-            <Text style={styles.menuText}>Profilinnstillinger</Text>
-          </TouchableOpacity>
-          {/* Denne fjerner vi- kommenterer foreløpig bare ut */}
-          {/* <TouchableOpacity
-             style={[styles.menuItem, styles.fullWidthButton]}
-            onPress={() => navigation.navigate("ExerciseSession")}
-          >
-            <Text style={styles.menuText}>Mitt treningsprogram</Text>
-          </TouchableOpacity> */}
-        </View>
+    <View style={styles.container}>
+        <View style={{ flex: 1 }}>
+      <View style={styles.headerContainer}>
+        <Image
+          source={require("../Assets/Robot_1.png")}
+          style={styles.profileImage}
+        />
+        <Text style={styles.welcomeText}>Velkommen, {userName}!</Text>
+      </View>
 
-        <View style={styles.gridContainer}>
-          {/* Plasser kolonneknapper her- må legges i par hvis det skal bli riktig */}
-          <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() => navigation.navigate("ExerciseScreen")}
-          >
-            <Text style={styles.menuText}>Trening</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() => navigation.navigate("HealthScreen")}
-          >
-            <Text style={styles.menuText}>Helsedata</Text>
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity
-          style={[styles.menuItem, styles.fullWidthButton, styles.bobButton]}
-          onPress={() => {
-            /* Her må vi legge til funksjonen til BobAI */
-          }}
-        >
-          <Text style={styles.bobText}>BobAI</Text>
-          <Image
-            source={require("../Assets/Robot_2.png")}
-            style={styles.bobImage}
-          />
-        </TouchableOpacity>
-
+      <View style={styles.fullWidthContainer}>
         <TouchableOpacity
           style={[styles.menuItem, styles.fullWidthButton]}
-          onPress={() => {
-            /* Husk å legge inn funksjonen for å sende melding her om vi skal ha med dette?*/
-          }}
+          onPress={() => navigation.navigate("SettingsScreen")}
         >
-          <Text style={styles.menuText}>Send melding til din behandler</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={handleHelp} style={styles.helpButton}>
-          <Icon name="help-circle" size={24} color={theme.colors.helpButton} />
-        </TouchableOpacity>
-
-     
-
-        <TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
-          <Text style={styles.logoutButtonText}>Logg ut</Text>
+          <Text style={styles.menuText}>Profilinnstillinger</Text>
         </TouchableOpacity>
       </View>
 
+      <View style={styles.gridContainer}>
+        {/* Plasser kolonneknapper her- må legges i par hvis det skal bli riktig */}
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate("ExerciseScreen")}
+        >
+          <Text style={styles.menuText}>Trening</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => navigation.navigate("HealthScreen")}
+        >
+          <Text style={styles.menuText}>Helsedata</Text>
+        </TouchableOpacity>
+      </View>
 
+      <TouchableOpacity
+        style={[styles.menuItem, styles.fullWidthButton, styles.bobButton]}
+        onPress={() => {
+          /* Her må vi legge til funksjonen til BobAI */
+        }}
+      >
+        <Text style={styles.bobText}>BobAI</Text>
+        <Image
+          source={require("../Assets/Robot_2.png")}
+          style={styles.bobImage}
+        />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.menuItem, styles.fullWidthButton]}
+        onPress={() => {
+          /* Husk å legge inn funksjonen for å sende melding her om vi skal ha med dette?*/
+        }}
+      >
+        <Text style={styles.menuText}>Send melding til din behandler</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleHelp} style={styles.helpButton}>
+        <Icon name="help-circle" size={24} color={theme.colors.helpButton} />
+      </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
+        <Text style={styles.logoutButtonText}>Logg ut</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
