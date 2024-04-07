@@ -25,6 +25,7 @@ Frontend:
 -Slette DeleteScreen og knytt det opp mot settings og firebase
 -Sjekk om treningsøktene kan lagres automatisk under dato hver gang bruker registrer treningsøkt
 
+-Rød ramme rundt feil 
 
 
 Backend:
@@ -53,9 +54,17 @@ Backend:
 -Innstallere react-native-vector-icons for ikoner til knappene på profilsiden? 
 -Legge til bakgrunnsbilde på logg inn forsiden for å gjøre det litt mer levende? 
 -Legge til theme på knappene på profilsiden? 
+-Kontakt oss- logikk for mottak av epost
+-Legg til alternativ tekst på bildene som er brukt
+-"Utførte treningsøkter" kunne fjerne/endre fra denne siden også? 
+
 
 Registrer økt: 
 -Endre oppsett i modal under "Registrer økt"
 -Lage egen styleSheet til registrer økt? 
 -Legg til regel og alert dersom bruker trykker registrer økt uten å ha lagt til noen øvelser.
--Sett opp mulighet til å fjerne valgt øvelse dersom bruker har valgt feil øvelse 
+-Sett opp mulighet til å fjerne valgt øvelse dersom bruker har valgt feil øvelse
+-Legg til beskrivelse av nivåer på slideren
+-Legg til "rediger øveleser" i tillegg til fjern øvelse.. 
+-Ta bort done ved registrering av antall sett og reps
+-Den legger det automatisk til uten at man trenger å trykke på "Legg til øvelse". Endre det. 
