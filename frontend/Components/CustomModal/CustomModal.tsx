@@ -35,7 +35,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
 		<View style={styles.centeredView}>
 			<View style={[styles.modalView, style]}>
 				<TouchableOpacity style={styles.closeButton} onPress={onClose}>
-					<MaterialCommunityIcons name="close-circle" size={24} color="red" />
+					<MaterialCommunityIcons name="close-circle" size={24} color="#D32F2F" />
 				</TouchableOpacity>
 				<Text style={styles.modalTitle}>{title}</Text>
 				{children}

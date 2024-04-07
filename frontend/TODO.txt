@@ -32,9 +32,9 @@ Backend:
  - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
  - duplisert kode i backend.. ser mer på det når vi starter med RAG og AI
 
- To do før presentasjon 9/4:
+ ## To do før presentasjon 9/4: ##
 
- -Endre farge på spørsmålstegn i hjelpeknapp til hvit
+ -Endre farge på spørsmålstegn i hjelpeknapp til hvit?
  -Skal hjelpeknappen gå igjen på alle sidene? 
  -Endre farge på "front" (tilbakeknapp) til grønn
  -Endre oppsett på "Om oss" og "kontakt oss" på forsiden? Gjør mer synlig.. 
@@ -53,3 +53,9 @@ Backend:
 -Innstallere react-native-vector-icons for ikoner til knappene på profilsiden? 
 -Legge til bakgrunnsbilde på logg inn forsiden for å gjøre det litt mer levende? 
 -Legge til theme på knappene på profilsiden? 
+
+Registrer økt: 
+-Endre oppsett i modal under "Registrer økt"
+-Lage egen styleSheet til registrer økt? 
+-Legg til regel og alert dersom bruker trykker registrer økt uten å ha lagt til noen øvelser.
+-Sett opp mulighet til å fjerne valgt øvelse dersom bruker har valgt feil øvelse 
