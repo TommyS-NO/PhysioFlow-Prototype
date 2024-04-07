@@ -192,6 +192,9 @@ const SettingsScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+
+<View style={{flex: 1, alignItems: 'center', width: '100%' }}> 
+
       <View style={styles.imageContainer}>
         <Image
           source={require("../Assets/Robot_1.png")}
@@ -216,14 +219,15 @@ const SettingsScreen: React.FC = () => {
         />
         <NonEditableField label="Alder" value={userProfile.age} />
         <NonEditableField label="Kjønn" value={userProfile.gender} />
-
+        </View>
+        </View>
         <TouchableOpacity
           style={[styles.menuItem, styles.deleteButton]}
           onPress={() => navigation.navigate("DeleteUserScreen")}
         >
           <Text style={styles.deleteButtonText}>Slett profil</Text>
         </TouchableOpacity>
-      </View>
+
     </View>
   );
 };

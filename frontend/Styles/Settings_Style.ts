@@ -16,9 +16,9 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
   },
 
   editButton: {
@@ -54,19 +54,29 @@ export const styles = StyleSheet.create({
     shadowRadius: 1.5,
   },
   menuText: {
-    fontSize: 16,
+    fontSize: 18,
     color: "#000",
   },
   deleteButton: {
     backgroundColor: "#D32F2F",
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 10,
+    marginVertical: 8,
+    width: "90%",
+    // alignSelf: 'center', Tror ikke vi trenger disse to, men er usikker på om det trengs til Android?
+    // alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 40,
   },
   deleteButtonText: {
     color: "#fff",
+    fontSize: 18,
   },
- fieldContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+  fieldContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
@@ -77,14 +87,14 @@ export const styles = StyleSheet.create({
     shadowRadius: 1.5,
     elevation: 1,
   },
-    fieldInput: {
+  fieldInput: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 18,
     color: "#000",
     marginRight: 12,
   },
   fieldLabel: {
-    fontSize: 16,
+    fontSize: 18,
     color: "#000",
     marginRight: 12,
   },
@@ -97,10 +107,9 @@ export const styles = StyleSheet.create({
     color: "#A0A0A0", // Faded text color for non-editable fields
   },
   editingIcons: {
-    flexDirection: 'row',
+    flexDirection: "row",
     width: 50,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     marginLeft: 10,
   },
-
 });
