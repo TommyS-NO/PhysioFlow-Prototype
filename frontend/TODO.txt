@@ -35,9 +35,10 @@ Backend:
  To do før presentasjon 9/4:
 
  -Endre farge på spørsmålstegn i hjelpeknapp til hvit
+ -Skal hjelpeknappen gå igjen på alle sidene? 
  -Endre farge på "front" (tilbakeknapp) til grønn
- -Endre oppsett på "Om oss" og "kontakt oss" på forsiden
- -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen.
+ -Endre oppsett på "Om oss" og "kontakt oss" på forsiden? Gjør mer synlig.. 
+ -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
  -Under "Registrer økt" så må det settes opp mulighet til å krysse ut dersom man trykker feil eller angrer valget sitt. Nå kan man bare legge til øvelse. 
  -Sjekk farger og styling i registreringsprosessen
  -Sjekk avstand mellom "send melding" og BobAI
@@ -45,3 +46,4 @@ Backend:
 -Fremheve bildet som er trykket på under Gender selection? 
 -Gjøre picker til vekt og høyde litt kortere.
 -Flytte knapper nederst på siden . Eks. "Neste"
+-Endre til custom button på alle knapper.
