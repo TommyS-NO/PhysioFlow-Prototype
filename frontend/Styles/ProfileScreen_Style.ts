@@ -31,12 +31,13 @@ export const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
+    marginTop: 30,
     marginBottom: 10,
   },
   welcomeText: {
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   menuContainer: {
     width: "100%",
