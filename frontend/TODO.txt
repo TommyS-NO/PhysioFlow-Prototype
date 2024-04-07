@@ -47,3 +47,9 @@ Backend:
 -Gjøre picker til vekt og høyde litt kortere.
 -Flytte knapper nederst på siden . Eks. "Neste"
 -Endre til custom button på alle knapper.
+-Legge til logikk for redigering av profilbilde. Må bruker ha tilgang til kamerarull? Er dette noe vi kan sette opp regler for? 
+-Endre skriftfarge under Profilinnstillinger. Må være mer synlig. 
+-Flytte hjelpeknappen høyere opp på profilsiden
+-Innstallere react-native-vector-icons for ikoner til knappene på profilsiden? 
+-Legge til bakgrunnsbilde på logg inn forsiden for å gjøre det litt mer levende? 
+-Legge til theme på knappene på profilsiden? 
