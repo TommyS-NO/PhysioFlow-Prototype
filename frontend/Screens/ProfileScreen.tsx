@@ -116,7 +116,7 @@ const ProfileScreen: React.FC = () => {
         <Icon name="help-circle" size={24} color={theme.colors.helpButton} />
       </TouchableOpacity>
       </View>
-
+{/* Her må vi lage samme knappeoppsett som "Logg inn" */}
       <TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
         <Text style={styles.logoutButtonText}>Logg ut</Text>
       </TouchableOpacity>
