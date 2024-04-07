@@ -38,7 +38,7 @@ export const theme: Theme = {
     buttonText: "#ffffff",
     infoText: "#000000",
     button: "#26807C",
-    helpButton: "#26807C",
+    helpButton: "#1D576C",
     icon: "#FFF",
     secondary: "#000000",
     disabled: "#cccccc",
