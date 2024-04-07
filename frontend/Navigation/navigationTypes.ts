@@ -15,4 +15,5 @@ export type RootStackParamList = {
   RegisterWorkout: undefined;
   ExerciseScreen: undefined;
   HealthScreen: undefined;
+  CompletedWorkoutsScreen: undefined;
 };

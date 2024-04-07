@@ -19,6 +19,7 @@ import ContactScreen from "../Screens/ContactScreen";
 import RegisterWorkout from "../Screens/ExerciseScreen/RegisterWorkout";
 import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
 import HealthScreen from "../Screens/HealthScreen/HealthScreen";
+import CompletedWorkoutsScreen from "../Screens/ExerciseScreen/CompletedWorkoutsScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -105,6 +106,11 @@ const AppNav = () => (
 				name="HealthScreen"
 				component={HealthScreen}
 				options={{ title: "Helse" }}
+			/>
+				<Stack.Screen
+				name="CompletedWorkoutsScreen"
+				component={CompletedWorkoutsScreen}
+				options={{ title: "Utførte treningsøkter" }}
 			/>
 		</Stack.Navigator>
 	</NavigationContainer>
