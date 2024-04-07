@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { withTheme } from "react-native-elements";
-import { theme } from "../theme"; //Husk å legge til fra denne om det skal brukes?
+import { theme } from "../theme";
 
 const { width } = Dimensions.get("window");
 const spacing = 10;
@@ -16,7 +15,6 @@ export const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     marginBottom: spacing,
-    
   },
   gridContainer: {
     flexDirection: "row",
@@ -46,7 +44,7 @@ export const styles = StyleSheet.create({
   },
   menuItem: {
     backgroundColor: "#fff",
-    padding: spacing,
+    paddingVertical: 15, 
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
@@ -67,8 +65,8 @@ export const styles = StyleSheet.create({
   },
   bobButton: {
     flexDirection: "row",
-
     alignItems: "center",
+    marginBottom: 15,
   },
   bobImage: {
     width: 30,
@@ -101,7 +99,5 @@ export const styles = StyleSheet.create({
     top: theme.spacing.large,
     padding: theme.spacing.small,
     zIndex: 1,
-    
-
   },
 });
