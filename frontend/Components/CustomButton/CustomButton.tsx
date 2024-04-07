@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "center",
-		paddingVertical: theme.spacing.small,
+		paddingVertical: theme.spacing.medium,
 		paddingHorizontal: theme.spacing.medium,
 		backgroundColor: theme.colors.button,
 		width: "100%",
