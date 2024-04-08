@@ -104,7 +104,7 @@ export const styles = StyleSheet.create({
   fieldValue: {
     flex: 1,
     fontSize: 16,
-    color: "#A0A0A0", // Faded text color for non-editable fields
+    color: "#00000", 
   },
   editingIcons: {
     flexDirection: "row",

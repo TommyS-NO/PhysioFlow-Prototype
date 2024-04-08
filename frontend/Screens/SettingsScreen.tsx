@@ -217,8 +217,8 @@ const SettingsScreen: React.FC = () => {
           value={`${userProfile.height} cm `}
           isEditable
         />
-        <NonEditableField label="Alder" value={userProfile.age} />
-        <NonEditableField label="Kjønn" value={userProfile.gender} />
+        <NonEditableField label="Alder:" value={userProfile.age} />
+        <NonEditableField label="Kjønn:" value={userProfile.gender} />
         </View>
         </View>
         <TouchableOpacity
