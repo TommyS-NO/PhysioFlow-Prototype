@@ -297,7 +297,7 @@ const handleRegisterExercise = () => {
 	  sessions.push(newSession);
   
 	  await AsyncStorage.setItem('workoutSessions', JSON.stringify(sessions));
-	  Alert.alert("Treningsøkt registrert", "Din treningsøkt er lagret.");
+	//   Alert.alert("Treningsøkt registrert", "Din treningsøkt er lagret.");
 	} catch (error) {
 	  Alert.alert("Feil", "Kunne ikke lagre treningsøkten.");
 	}
