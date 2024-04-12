@@ -216,11 +216,5 @@ export const neckSurvey = {
 				Nei: [],
 			},
 		},
-		{
-			id: "neckQ21",
-			question: "Er det noe annet vedrørende din nakkesmerte du ønsker å dele?",
-			type: "openText",
-			relatedSymptoms: [], 
-		},
 	],
 };
