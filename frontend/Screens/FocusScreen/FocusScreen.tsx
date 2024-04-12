@@ -1,5 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import {
+	View,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	Alert,
+	ScrollView,
+} from "react-native";
 import CustomModal from "../../Components/CustomModal/CustomModal";
 import BodyChart from "./BodyChart/bodyChart";
 import CustomButton from "../../Components/CustomButton/CustomButton";
@@ -7,15 +14,35 @@ import CustomSlider from "../../Components/CustomSlider/CustomSlider";
 import { SurveyContext } from "../../Context/SurveyContext";
 import { surveyService } from "../../Services/SurveyService";
 
+interface Question {
+	id: string;
+	type: string;
+	question: string;
+	options?: string[];
+	minValue?: number;
+	maxValue?: number;
+}
+
+interface Answer {
+	[questionId: string]: string | number;
+}
+
 const FocusScreen = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [currentPage, setCurrentPage] = useState(0);
-	const [selectedAnswers, setSelectedAnswers] = useState({});
+	const [selectedAnswers, setSelectedAnswers] = useState<Answer>({});
 	const [bodySide, setBodySide] = useState("front");
-	const [selectedFocusArea, setSelectedFocusArea] = useState(null);
+	const [selectedFocusArea, setSelectedFocusArea] = useState<string | null>(
+		null,
+	);
 	const { state: surveyState, dispatch: surveyDispatch } =
 		useContext(SurveyContext);
-	const [diagnosisResult, setDiagnosisResult] = useState(null);
+	const [diagnosisResult, setDiagnosisResult] = useState<{
+		diagnosis: string;
+		exercises: string[];
+	} | null>(null);
+
+	const scrollViewRef = useRef<ScrollView | null>(null);
 
 	useEffect(() => {
 		if (selectedFocusArea) {
@@ -31,13 +58,13 @@ const FocusScreen = () => {
 		}
 	}, [selectedFocusArea, surveyDispatch]);
 
-	const handleAreaPress = (area) => {
+	const handleAreaPress = (area: string) => {
 		setSelectedFocusArea(area);
 		setIsModalVisible(true);
 		setCurrentPage(0);
 	};
 
-	const handleAnswerChange = (questionId, answer) => {
+	const handleAnswerChange = (questionId: string, answer: string | number) => {
 		setSelectedAnswers((prevState) => ({ ...prevState, [questionId]: answer }));
 		surveyDispatch({
 			type: "ANSWER_QUESTION",
@@ -46,11 +73,19 @@ const FocusScreen = () => {
 		});
 	};
 
-	const isAnswered = (questionId) => selectedAnswers[questionId] !== undefined;
+	const isAnswered = (questionId: string) =>
+		selectedAnswers[questionId] !== undefined;
+	const totalNumberOfPages = Math.ceil(surveyState.questions.length / 5);
+
+	const pageQuestions = surveyState.questions.slice(
+		currentPage * 5,
+		(currentPage + 1) * 5,
+	);
 
 	const canProceed =
-		currentPage < surveyState.questions.length / 5 - 1 ||
-		Object.keys(selectedAnswers).length === surveyState.questions.length;
+		pageQuestions.every((question) => isAnswered(question.id)) &&
+		(currentPage < totalNumberOfPages - 1 ||
+			Object.keys(selectedAnswers).length === surveyState.questions.length);
 
 	const handleSubmitAnswers = () => {
 		setIsModalVisible(false);
@@ -62,30 +97,32 @@ const FocusScreen = () => {
 	};
 
 	const handleNext = () => {
-		if (canProceed) {
-			setCurrentPage(currentPage + 1);
-			if (currentPage === surveyState.questions.length / 5 - 1) {
+		const nextPage = currentPage + 1;
+		const totalQuestions = surveyState.questions.length;
+		if (nextPage < Math.ceil(totalQuestions / 5)) {
+			setCurrentPage(nextPage);
+		} else {
+			if (selectedAnswers.openTextQuestion) {
 				handleSubmitAnswers();
+			} else {
+				Alert.alert("Error", "Please fill in the open text question.");
 			}
 		}
 	};
 
 	const renderQuestionsForPage = () => {
-		const pageQuestions = surveyState.questions.slice(
-			currentPage * 5,
-			(currentPage + 1) * 5,
-		);
-		return pageQuestions.map((question) => {
+		return pageQuestions.map((question: Question) => {
 			if (question.type === "singleChoice") {
 				return (
 					<View key={question.id} style={styles.questionContainer}>
 						<Text style={styles.questionText}>{question.question}</Text>
-						{question.options.map((option) => (
+						{question.options?.map((option) => (
 							<TouchableOpacity
 								key={option}
 								style={[
 									styles.optionButton,
-									isAnswered(question.id) && styles.selectedOption,
+									selectedAnswers[question.id] === option &&
+										styles.selectedOption,
 								]}
 								onPress={() => handleAnswerChange(question.id, option)}
 							>
@@ -94,12 +131,15 @@ const FocusScreen = () => {
 						))}
 					</View>
 				);
-			} else if (question.type === "slider") {
+			}
+			if (question.type === "slider") {
 				return (
 					<View key={question.id} style={styles.questionContainer}>
 						<Text style={styles.questionText}>{question.question}</Text>
 						<CustomSlider
-							value={selectedAnswers[question.id] || question.minValue}
+							value={
+								(selectedAnswers[question.id] as number) || question.minValue
+							}
 							onValueChange={(value) => handleAnswerChange(question.id, value)}
 							maximumValue={question.maxValue}
 							minimumValue={question.minValue}
@@ -126,13 +166,17 @@ const FocusScreen = () => {
 					title={selectedFocusArea}
 					style={styles.modalView}
 				>
-					{renderQuestionsForPage()}
+					<Text style={styles.pageNumber}>
+						Side {currentPage + 1} av {totalNumberOfPages}
+					</Text>
+					<ScrollView
+						ref={scrollViewRef}
+						contentContainerStyle={{ paddingTop: 20 }}
+					>
+						{renderQuestionsForPage()}
+					</ScrollView>
 					<CustomButton
-						title={
-							currentPage === surveyState.questions.length / 5 - 1
-								? "Submit"
-								: "Next"
-						}
+						title={currentPage === totalNumberOfPages - 1 ? "Bekreft" : "Neste"}
 						onPress={handleNext}
 						disabled={!canProceed}
 					/>
@@ -190,6 +234,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		maxHeight: "80%",
 	},
+	pageNumber: { fontSize: 16, textAlign: "center", marginBottom: 10 },
 	resultContainer: { padding: 20 },
 	resultTitle: { fontWeight: "bold", fontSize: 16 },
 	resultText: { fontSize: 14, marginTop: 5 },
