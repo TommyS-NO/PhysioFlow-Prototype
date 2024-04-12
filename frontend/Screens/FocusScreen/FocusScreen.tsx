@@ -1,228 +1,177 @@
-import React, { useState, useEffect } from "react";
-import {
-	View,
-	StyleSheet,
-	ScrollView,
-	KeyboardAvoidingView,
-	Platform,
-	Text,
-	TouchableOpacity,
-} from "react-native";
+import React, { useState, useEffect, useContext } from "react";
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import CustomModal from "../../Components/CustomModal/CustomModal";
 import BodyChart from "./BodyChart/bodyChart";
 import CustomButton from "../../Components/CustomButton/CustomButton";
-import { useFocusArea } from "../../Context/FocusContext";
-import { questionService } from "../../Services/questionService";
-
-type FocusAreaKey =
-	| "Nakke"
-	| "Skulder"
-	| "Albue"
-	| "Håndledd"
-	| "Øvre_rygg"
-	| "Nedre_rygg"
-	| "Hofte"
-	| "Kne"
-	| "Ankel";
-
-interface Question {
-	id: string;
-	text: string;
-	options: string[];
-}
-
-interface Answers {
-	[key: string]: { [questionId: string]: string };
-}
+import CustomSlider from "../../Components/CustomSlider/CustomSlider";
+import { SurveyContext } from "../../Context/SurveyContext";
+import { surveyService } from "../../Services/SurveyService";
 
 const FocusScreen = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [bodySide, setBodySide] = useState<"front" | "back">("front");
-	const { state: focusState, dispatch: focusDispatch } = useFocusArea();
-	const [answers, setAnswers] = useState<Answers>({});
-	const [generalQuestions, setGeneralQuestions] = useState<Question[]>([]);
-	const [nextEnabled, setNextEnabled] = useState(false);
+	const [currentPage, setCurrentPage] = useState(0);
+	const [selectedAnswers, setSelectedAnswers] = useState({});
+	const [bodySide, setBodySide] = useState("front");
+	const [selectedFocusArea, setSelectedFocusArea] = useState(null);
+	const { state: surveyState, dispatch: surveyDispatch } =
+		useContext(SurveyContext);
+	const [diagnosisResult, setDiagnosisResult] = useState(null);
 
 	useEffect(() => {
-		questionService.getGeneralQuestions().then((fetchedQuestions) => {
-			setGeneralQuestions(fetchedQuestions.questions);
-		});
-	}, []);
+		if (selectedFocusArea) {
+			const fetchSurvey = async () => {
+				const data = await surveyService.getSurvey(selectedFocusArea);
+				surveyDispatch({
+					type: "LOAD_SURVEY",
+					surveyId: selectedFocusArea,
+					questions: data.questions,
+				});
+			};
+			fetchSurvey();
+		}
+	}, [selectedFocusArea, surveyDispatch]);
 
-	const handleAreaPress = (area: FocusAreaKey) => {
-		focusDispatch({ type: "SET_CURRENT_FOCUS_AREA", area });
+	const handleAreaPress = (area) => {
+		setSelectedFocusArea(area);
 		setIsModalVisible(true);
-		if (!answers[area]) {
-			setAnswers((prev) => ({ ...prev, [area]: {} }));
-		} else {
-			setAnswers((prev) => ({ ...prev, [area]: answers[area] }));
-		}
+		setCurrentPage(0);
 	};
 
-	const handleSelectAnswer = (questionId: string, option: string) => {
-		const currentArea = focusState.currentFocusArea;
-		if (currentArea) {
-			setAnswers((prev) => ({
-				...prev,
-				[currentArea]: {
-					...prev[currentArea],
-					[questionId]: option,
-				},
-			}));
-		}
+	const handleAnswerChange = (questionId, answer) => {
+		setSelectedAnswers((prevState) => ({ ...prevState, [questionId]: answer }));
+		surveyDispatch({
+			type: "ANSWER_QUESTION",
+			questionId,
+			answer: { questionId, answer },
+		});
 	};
 
-	const handleConfirmAnswers = () => {
+	const isAnswered = (questionId) => selectedAnswers[questionId] !== undefined;
+
+	const canProceed =
+		currentPage < surveyState.questions.length / 5 - 1 ||
+		Object.keys(selectedAnswers).length === surveyState.questions.length;
+
+	const handleSubmitAnswers = () => {
 		setIsModalVisible(false);
-		const currentArea = focusState.currentFocusArea;
-		if (currentArea) {
-			setNextEnabled(areAllQuestionsAnswered(currentArea));
+		setDiagnosisResult({
+			diagnosis: "Some Diagnosis",
+			exercises: ["Exercise 1", "Exercise 2"],
+		});
+		Alert.alert("Resultat", "Dine svar har blitt sendt.");
+	};
+
+	const handleNext = () => {
+		if (canProceed) {
+			setCurrentPage(currentPage + 1);
+			if (currentPage === surveyState.questions.length / 5 - 1) {
+				handleSubmitAnswers();
+			}
 		}
 	};
-	const currentAnswers = answers[focusState.currentFocusArea || ""] || {};
 
-	const allQuestionsAnswered =
-		generalQuestions.length > 0 &&
-		generalQuestions.every(
-			(question) => currentAnswers[question.id] !== undefined,
+	const renderQuestionsForPage = () => {
+		const pageQuestions = surveyState.questions.slice(
+			currentPage * 5,
+			(currentPage + 1) * 5,
 		);
-	const areAllQuestionsAnswered = (area: FocusAreaKey) => {
-		return generalQuestions.every(
-			(question) => answers[area] && answers[area][question.id] !== undefined,
-		);
-	};
-
-	const currentFocusArea = focusState.currentFocusArea;
-
-	const getButtonStyle = (questionId: string, option: string) => {
-		const isSelected = currentAnswers[questionId] === option;
-		return [
-			styles.optionButton,
-			isSelected
-				? option === "Ja"
-					? styles.optionButtonYesSelected
-					: styles.optionButtonNoSelected
-				: {},
-		];
+		return pageQuestions.map((question) => {
+			if (question.type === "singleChoice") {
+				return (
+					<View key={question.id} style={styles.questionContainer}>
+						<Text style={styles.questionText}>{question.question}</Text>
+						{question.options.map((option) => (
+							<TouchableOpacity
+								key={option}
+								style={[
+									styles.optionButton,
+									isAnswered(question.id) && styles.selectedOption,
+								]}
+								onPress={() => handleAnswerChange(question.id, option)}
+							>
+								<Text style={styles.optionText}>{option}</Text>
+							</TouchableOpacity>
+						))}
+					</View>
+				);
+			} else if (question.type === "slider") {
+				return (
+					<View key={question.id} style={styles.questionContainer}>
+						<Text style={styles.questionText}>{question.question}</Text>
+						<CustomSlider
+							value={selectedAnswers[question.id] || question.minValue}
+							onValueChange={(value) => handleAnswerChange(question.id, value)}
+							maximumValue={question.maxValue}
+							minimumValue={question.minValue}
+						/>
+					</View>
+				);
+			}
+		});
 	};
 
 	return (
-		<KeyboardAvoidingView
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
-			style={styles.container}
-		>
-			<ScrollView contentContainerStyle={styles.content}>
-				<BodyChart
-					bodySide={bodySide}
-					onAreaPress={handleAreaPress}
-					toggleBodySide={() =>
-						setBodySide(bodySide === "front" ? "back" : "front")
-					}
-				/>
-				{isModalVisible && focusState.currentFocusArea && (
-					<CustomModal
-						visible={isModalVisible}
-						onClose={() => setIsModalVisible(false)}
-						title={focusState.currentFocusArea}
-						style={styles.modalView}
-					>
-						<Text style={styles.modalSubtitle}>Generelle Spørsmål</Text>
-						{generalQuestions.map((question) => (
-							<View key={question.id} style={styles.questionContainer}>
-								<Text style={styles.questionText}>{question.text}</Text>
-								<View style={styles.optionsContainer}>
-									{question.options.map((option) => (
-										<TouchableOpacity
-											key={option}
-											style={getButtonStyle(question.id, option)}
-											onPress={() => handleSelectAnswer(question.id, option)}
-										>
-											<Text style={styles.optionText}>{option}</Text>
-										</TouchableOpacity>
-									))}
-								</View>
-							</View>
-						))}
-						<CustomButton
-							title="Bekreft"
-							onPress={handleConfirmAnswers}
-							disabled={!allQuestionsAnswered}
-						/>
-					</CustomModal>
-				)}
-				{nextEnabled && (
-					<View style={styles.nextButtonContainer}>
-						<CustomButton
-							title="Neste"
-							onPress={() => console.log("Next")}
-							style={
-								nextEnabled
-									? styles.nextButtonActive
-									: styles.nextButtonInactive
-							}
-						/>
-					</View>
-				)}
-			</ScrollView>
-		</KeyboardAvoidingView>
+		<View style={styles.container}>
+			<BodyChart
+				bodySide={bodySide}
+				onAreaPress={handleAreaPress}
+				toggleBodySide={() =>
+					setBodySide(bodySide === "front" ? "back" : "front")
+				}
+			/>
+			{isModalVisible && selectedFocusArea && (
+				<CustomModal
+					visible={isModalVisible}
+					onClose={() => setIsModalVisible(false)}
+					title={selectedFocusArea}
+					style={styles.modalView}
+				>
+					{renderQuestionsForPage()}
+					<CustomButton
+						title={
+							currentPage === surveyState.questions.length / 5 - 1
+								? "Submit"
+								: "Next"
+						}
+						onPress={handleNext}
+						disabled={!canProceed}
+					/>
+				</CustomModal>
+			)}
+			{diagnosisResult && (
+				<View style={styles.resultContainer}>
+					<Text style={styles.resultTitle}>
+						Diagnosis and Recommended Exercises:
+					</Text>
+					<Text style={styles.resultText}>{diagnosisResult.diagnosis}</Text>
+					{diagnosisResult.exercises.map((exercise, index) => (
+						<Text key={index} style={styles.resultText}>
+							{exercise}
+						</Text>
+					))}
+				</View>
+			)}
+		</View>
 	);
 };
+
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#f2f2f2",
-	},
-	content: {
-		flexGrow: 1,
-		paddingTop: 20,
-	},
+	container: { flex: 1, backgroundColor: "#f2f2f2" },
+	content: { flexGrow: 1, paddingTop: 20 },
 	questionContainer: {
 		borderBottomWidth: 1,
 		borderBottomColor: "#ececec",
 		padding: 10,
 	},
-	questionText: {
-		fontSize: 14, // Mindre fontstørrelse
-		color: "#333",
-	},
-
-	optionsContainer: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-	},
+	questionText: { fontSize: 14, color: "#333" },
 	optionButton: {
 		padding: 10,
 		borderRadius: 5,
 		margin: 2,
-		width: 100,
-		// flex: 1,
+		backgroundColor: "#dddddd",
 	},
-	optionButtonYesSelected: {
-		backgroundColor: "lightgreen", // Stil for valgt 'Ja'-knapp
-	},
-	optionButtonNoSelected: {
-		backgroundColor: "red", // Stil for valgt 'Nei'-knapp
-	},
-	optionText: {
-		fontSize: 12,
-		color: "black",
-		textAlign: "center",
-	},
-	confirmButton: {
-		backgroundColor: "#4CAF50",
-		paddingVertical: 10,
-		paddingHorizontal: 20,
-		borderRadius: 20,
-		marginVertical: 20,
-	},
-	confirmButtonText: {
-		color: "white",
-		textAlign: "center",
-		fontSize: 18,
-	},
-	disabledConfirmButton: {
-		backgroundColor: "#9E9E9E",
-	},
+	selectedOption: { backgroundColor: "green" },
+	optionText: { fontSize: 12, color: "black", textAlign: "center" },
 	modalView: {
 		marginHorizontal: 20,
 		marginTop: "10%",
@@ -232,7 +181,6 @@ const styles = StyleSheet.create({
 		paddingBottom: 20,
 		borderRadius: 20,
 		backgroundColor: "white",
-
 		padding: 35,
 		shadowColor: "#000",
 		shadowOffset: { width: 0, height: 2 },
@@ -242,26 +190,9 @@ const styles = StyleSheet.create({
 		width: "100%",
 		maxHeight: "80%",
 	},
-	nextButtonContainer: {
-		paddingHorizontal: 20,
-		paddingVertical: 10,
-	},
-	nextButton: {
-		backgroundColor: "#4CAF50",
-		padding: 15,
-		borderRadius: 25,
-	},
-	// Add styles for modal title and subtitle as needed
-	modalTitle: {
-		fontWeight: "bold",
-		fontSize: 18,
-		textAlign: "center",
-	},
-	modalSubtitle: {
-		fontSize: 16,
-		textAlign: "center",
-		color: "grey",
-	},
+	resultContainer: { padding: 20 },
+	resultTitle: { fontWeight: "bold", fontSize: 16 },
+	resultText: { fontSize: 14, marginTop: 5 },
 });
 
 export default FocusScreen;
