@@ -20,7 +20,6 @@ const CustomSlider: React.FC<CustomSliderProps> = ({
 		return `rgb(${red},${green},0)`;
 	};
 
-  // Lager en rad med tallene 1 til 10 under slideren. Ok at vi har det sånn? 
   const renderScale = () => {
     return (
       <View style={styles.scaleContainer}>
