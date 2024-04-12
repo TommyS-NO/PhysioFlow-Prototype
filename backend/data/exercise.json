@@ -1,0 +1,95 @@
+{
+  "fysioterapiOvelser": [
+    {
+      "navn": "Ankelsirkler",
+      "kategori": "Mobilitet",
+      "beskrivelse": "Sitt eller stå. Roter ankelen i en sirkulær bevegelse. Gjenta i motsatt retning.",
+      "gjentakelser": "10 per retning"
+    },
+    {
+      "navn": "Katt-kamel",
+      "kategori": "Fleksibilitet",
+      "beskrivelse": "Start på alle fire. Bøy ryggen opp og deretter ned, slik at du beveger deg mellom en katteposisjon og en kamelposisjon.",
+      "gjentakelser": "10-15"
+    },
+    {
+      "navn": "Gående lunges",
+      "kategori": "Styrke",
+      "beskrivelse": "Stå rett. Ta et steg frem med ett ben og senk kroppen ned ved å bøye på kneet. Hold det bakre kneet fra å berøre gulvet. Returner til stående og gjenta med det andre benet.",
+      "gjentakelser": "10 per ben"
+    },
+    {
+      "navn": "Tåhev",
+      "kategori": "Balansetrening",
+    
+      "beskrivelse": "Stå rett. Hev deg opp på tåspissene og senk deg sakte ned igjen. For økt utfordring, prøv dette på ett ben av gangen.",
+      "gjentakelser": "15-20"
+    },
+    {
+      "navn": "Armhevinger mot vegg",
+      "kategori": "Utholdenhet",
+      "beskrivelse": "Stå med ansiktet mot en vegg, med føttene skulderbredde fra hverandre. Len deg fremover og plasser hendene på veggen, skulderbredde fra hverandre. Bøy albueleddene og senk kroppen mot veggen før du skyver deg tilbake til startposisjonen.",
+      "gjentakelser": "10-15"
+    }, {
+      "navn": "Ankelsirkler",
+      "kategori": "Mobilitet",
+      "beskrivelse": "Sitt eller stå. Roter ankelen i en sirkulær bevegelse. Gjenta i motsatt retning.",
+      "gjentakelser": "10 per retning"
+    },
+    {
+      "navn": "Katt-kamel",
+      "kategori": "Fleksibilitet",
+      "beskrivelse": "Start på alle fire. Bøy ryggen opp og deretter ned, slik at du beveger deg mellom en katteposisjon og en kamelposisjon.",
+      "gjentakelser": "10-15"
+    },
+    {
+      "navn": "Gående lunges",
+      "kategori": "Styrke",
+      "beskrivelse": "Stå rett. Ta et steg frem med ett ben og senk kroppen ned ved å bøye på kneet. Hold det bakre kneet fra å berøre gulvet. Returner til stående og gjenta med det andre benet.",
+      "gjentakelser": "10 per ben"
+    },
+    {
+      "navn": "Tåhev",
+      "kategori": "Balansetrening",
+      "beskrivelse": "Stå rett. Hev deg opp på tåspissene og senk deg sakte ned igjen. For økt utfordring, prøv dette på ett ben av gangen.",
+      "gjentakelser": "15-20"
+    },
+    {
+      "navn": "Armhevinger mot vegg",
+      "kategori": "Utholdenhet",
+      "beskrivelse": "Stå med ansiktet mot en vegg, med føttene skulderbredde fra hverandre. Len deg fremover og plasser hendene på veggen, skulderbredde fra hverandre. Bøy albueleddene og senk kroppen mot veggen før du skyver deg tilbake til startposisjonen.",
+      "gjentakelser": "10-15"
+    },
+    {
+      "navn": "Pelvic tilt",
+      "kategori": "Mobilitet",
+      "beskrivelse": "Ligg på ryggen med knærne bøyd og føttene flate på gulvet. Stram magemusklene og press nedre del av ryggen mot gulvet. Hold i noen sekunder og slapp av.",
+      "gjentakelser": "10-15"
+    },
+    {
+      "navn": "Hofteabduksjon",
+      "kategori": "Styrke",
+      "beskrivelse": "Ligg på siden med bena sammen. Løft det øverste benet mot taket mens du holder det rett. Senk benet sakte tilbake.",
+      "gjentakelser": "10-15 per side"
+    },
+    {
+      "navn": "Hofteløft",
+      "kategori": "Styrke",
+      "beskrivelse": "Ligg på ryggen med bøyde knær og føttene flate på gulvet. Hev hoftene mot taket til kroppen danner en rett linje fra skuldrene til knærne. Hold posisjonen, og senk deretter hoftene tilbake.",
+      "gjentakelser": "10-15"
+    },
+    {
+      "navn": "Planken",
+      "kategori": "Kjerne",
+      "beskrivelse": "Start i push-up posisjon men hvil på underarmene i stedet for hendene. Hold kroppen rett og stram magemusklene. Hold posisjonen så lenge du kan.",
+      "gjentakelser": "Hold i 30-60 sekunder"
+    },
+    {
+      "navn": "Sideplanken",
+      "kategori": "Kjerne",
+      "beskrivelse": "Ligg på siden med albuen under skulderen. Løft hoftene til kroppen danner en rett linje. Hold posisjonen, og gjenta på motsatt side.",
+      "gjentakelser": "Hold i 20-40 sekunder per side"
+    }
+
+  ]
+}
