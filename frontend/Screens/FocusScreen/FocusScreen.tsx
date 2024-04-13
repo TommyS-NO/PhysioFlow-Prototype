@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
 	View,
 	StyleSheet,
@@ -14,47 +14,32 @@ import CustomSlider from "../../Components/CustomSlider/CustomSlider";
 import { SurveyContext } from "../../Context/SurveyContext";
 import { surveyService } from "../../Services/SurveyService";
 
-interface Question {
-	id: string;
-	type: string;
-	question: string;
-	options?: string[];
-	minValue?: number;
-	maxValue?: number;
-}
-
-interface Answer {
-	[questionId: string]: string | number;
-}
+type Answer = string | number;
+type AnswerMap = Record<string, Answer>;
 
 const FocusScreen = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [currentPage, setCurrentPage] = useState(0);
-	const [selectedAnswers, setSelectedAnswers] = useState<Answer>({});
+	const [selectedAnswers, setSelectedAnswers] = useState<AnswerMap>({});
 	const [bodySide, setBodySide] = useState("front");
 	const [selectedFocusArea, setSelectedFocusArea] = useState<string | null>(
 		null,
 	);
+	const [diagnosisResult, setDiagnosisResult] = useState<any | null>(null);
+	const [isDiagnosisModalVisible, setIsDiagnosisModalVisible] = useState(false);
+
 	const { state: surveyState, dispatch: surveyDispatch } =
 		useContext(SurveyContext);
-	const [diagnosisResult, setDiagnosisResult] = useState<{
-		diagnosis: string;
-		exercises: string[];
-	} | null>(null);
-
-	const scrollViewRef = useRef<ScrollView | null>(null);
 
 	useEffect(() => {
 		if (selectedFocusArea) {
-			const fetchSurvey = async () => {
-				const data = await surveyService.getSurvey(selectedFocusArea);
+			surveyService.getSurvey(selectedFocusArea).then((data) => {
 				surveyDispatch({
 					type: "LOAD_SURVEY",
 					surveyId: selectedFocusArea,
 					questions: data.questions,
 				});
-			};
-			fetchSurvey();
+			});
 		}
 	}, [selectedFocusArea, surveyDispatch]);
 
@@ -64,8 +49,8 @@ const FocusScreen = () => {
 		setCurrentPage(0);
 	};
 
-	const handleAnswerChange = (questionId: string, answer: string | number) => {
-		setSelectedAnswers((prevState) => ({ ...prevState, [questionId]: answer }));
+	const handleAnswerChange = (questionId: string, answer: Answer) => {
+		setSelectedAnswers((prev) => ({ ...prev, [questionId]: answer }));
 		surveyDispatch({
 			type: "ANSWER_QUESTION",
 			questionId,
@@ -73,80 +58,75 @@ const FocusScreen = () => {
 		});
 	};
 
-	const isAnswered = (questionId: string) =>
-		selectedAnswers[questionId] !== undefined;
-	const totalNumberOfPages = Math.ceil(surveyState.questions.length / 5);
+	const showDiagnosisResult = (diagnosisResult) => {
+		Alert.alert(
+			"Diagnosis",
+			`Your diagnosis is: ${
+				diagnosisResult.diagnosis
+			}\n\nRecommended exercises:\n${diagnosisResult.exercises.join("\n")}`,
+			[{ text: "OK", onPress: () => setDiagnosisResult(diagnosisResult) }],
+		);
+	};
 
-	const pageQuestions = surveyState.questions.slice(
-		currentPage * 5,
-		(currentPage + 1) * 5,
-	);
-
-	const canProceed =
-		pageQuestions.every((question) => isAnswered(question.id)) &&
-		(currentPage < totalNumberOfPages - 1 ||
-			Object.keys(selectedAnswers).length === surveyState.questions.length);
-
-	const handleSubmitAnswers = () => {
-		setIsModalVisible(false);
-		setDiagnosisResult({
-			diagnosis: "Some Diagnosis",
-			exercises: ["Exercise 1", "Exercise 2"],
-		});
-		Alert.alert("Resultat", "Dine svar har blitt sendt.");
+	const handleSubmitAnswers = async () => {
+		try {
+			const diagnosis = await surveyService.submitSurvey(
+				selectedFocusArea,
+				selectedAnswers,
+			);
+			setIsModalVisible(false);
+			showDiagnosisResult(diagnosis);
+		} catch (error) {
+			// Handle errors such as network issues or server errors
+			Alert.alert(
+				"Error",
+				"There was a problem submitting your answers. Please try again.",
+			);
+		}
 	};
 
 	const handleNext = () => {
 		const nextPage = currentPage + 1;
-		const totalQuestions = surveyState.questions.length;
-		if (nextPage < Math.ceil(totalQuestions / 5)) {
+		if (nextPage < Math.ceil(surveyState.questions.length / 5)) {
 			setCurrentPage(nextPage);
 		} else {
-			if (selectedAnswers.openTextQuestion) {
-				handleSubmitAnswers();
-			} else {
-				Alert.alert("Error", "Please fill in the open text question.");
-			}
+			handleSubmitAnswers();
 		}
 	};
 
 	const renderQuestionsForPage = () => {
-		return pageQuestions.map((question: Question) => {
-			if (question.type === "singleChoice") {
-				return (
-					<View key={question.id} style={styles.questionContainer}>
-						<Text style={styles.questionText}>{question.question}</Text>
-						{question.options?.map((option) => (
+		const questionsForPage = surveyState.questions.slice(
+			currentPage * 5,
+			(currentPage + 1) * 5,
+		);
+		return questionsForPage.map((question) => {
+			return (
+				<View key={question.id} style={styles.questionContainer}>
+					<Text style={styles.questionText}>{question.question}</Text>
+					{question.type === "singleChoice" &&
+						question.options.map((option) => (
 							<TouchableOpacity
 								key={option}
-								style={[
-									styles.optionButton,
-									selectedAnswers[question.id] === option &&
-										styles.selectedOption,
-								]}
+								style={
+									selectedAnswers[question.id] === option
+										? [styles.optionButton, styles.selectedOption]
+										: styles.optionButton
+								}
 								onPress={() => handleAnswerChange(question.id, option)}
 							>
 								<Text style={styles.optionText}>{option}</Text>
 							</TouchableOpacity>
 						))}
-					</View>
-				);
-			}
-			if (question.type === "slider") {
-				return (
-					<View key={question.id} style={styles.questionContainer}>
-						<Text style={styles.questionText}>{question.question}</Text>
+					{question.type === "slider" && (
 						<CustomSlider
-							value={
-								(selectedAnswers[question.id] as number) || question.minValue
-							}
+							value={selectedAnswers[question.id] || question.minValue}
 							onValueChange={(value) => handleAnswerChange(question.id, value)}
 							maximumValue={question.maxValue}
 							minimumValue={question.minValue}
 						/>
-					</View>
-				);
-			}
+					)}
+				</View>
+			);
 		});
 	};
 
@@ -167,29 +147,29 @@ const FocusScreen = () => {
 					style={styles.modalView}
 				>
 					<Text style={styles.pageNumber}>
-						Side {currentPage + 1} av {totalNumberOfPages}
+						Side {currentPage + 1} av{" "}
+						{Math.ceil(surveyState.questions.length / 5)}
 					</Text>
-					<ScrollView
-						ref={scrollViewRef}
-						contentContainerStyle={{ paddingTop: 20 }}
-					>
+					<ScrollView style={styles.content}>
 						{renderQuestionsForPage()}
 					</ScrollView>
 					<CustomButton
-						title={currentPage === totalNumberOfPages - 1 ? "Bekreft" : "Neste"}
+						title={
+							currentPage === Math.ceil(surveyState.questions.length / 5) - 1
+								? "Bekreft"
+								: "Neste"
+						}
 						onPress={handleNext}
-						disabled={!canProceed}
 					/>
 				</CustomModal>
 			)}
 			{diagnosisResult && (
-				<View style={styles.resultContainer}>
-					<Text style={styles.resultTitle}>
-						Diagnosis and Recommended Exercises:
-					</Text>
-					<Text style={styles.resultText}>{diagnosisResult.diagnosis}</Text>
+				<View style={styles.diagnosisResultView}>
+					<Text style={styles.diagnosisTitle}>Diagnosis:</Text>
+					<Text style={styles.diagnosisText}>{diagnosisResult.diagnosis}</Text>
+					<Text style={styles.exercisesTitle}>Recommended Exercises:</Text>
 					{diagnosisResult.exercises.map((exercise, index) => (
-						<Text key={index} style={styles.resultText}>
+						<Text key={index} style={styles.exerciseText}>
 							{exercise}
 						</Text>
 					))}
@@ -238,6 +218,11 @@ const styles = StyleSheet.create({
 	resultContainer: { padding: 20 },
 	resultTitle: { fontWeight: "bold", fontSize: 16 },
 	resultText: { fontSize: 14, marginTop: 5 },
+	diagnosisResultView: { padding: 20, alignItems: "center" },
+	diagnosisTitle: { fontWeight: "bold", fontSize: 18, marginTop: 20 },
+	diagnosisText: { fontSize: 16, marginTop: 10 },
+	exercisesTitle: { fontWeight: "bold", fontSize: 18, marginTop: 20 },
+	exerciseText: { fontSize: 16, marginTop: 10 },
 });
 
 export default FocusScreen;
