@@ -1,4 +1,3 @@
-// /api/routes/diagnosisRoutes.js
 import express from "express";
 import {
 	getDiagnoses,
