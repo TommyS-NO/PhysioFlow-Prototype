@@ -8,15 +8,21 @@ const surveyController = {
 	},
 
 	evaluateDiagnosis: function (answers, surveyId) {
+		console.log(
+			`Evaluating diagnosis for survey ID: ${surveyId} with answers:`,
+			answers,
+		);
+
 		const survey = this.surveys[surveyId];
 		if (!survey) {
 			throw new Error("Survey not found");
 		}
 
-		const diagnoses = survey.diagnoses;
+		const diagnoses = neckDiagnoses; // Assuming that diagnoses are directly accessible
 		const symptoms = interpretAnswers(answers, survey.questions);
-		const diagnosisScores = {};
+		console.log("Interpreted symptoms:", symptoms);
 
+		const diagnosisScores = {};
 		for (const diagnosis in diagnoses) {
 			diagnosisScores[diagnosis] = 0;
 		}
@@ -25,10 +31,14 @@ const surveyController = {
 			for (const [diagnosis, { keySymptoms }] of Object.entries(diagnoses)) {
 				if (keySymptoms.includes(symptom)) {
 					diagnosisScores[diagnosis]++;
+					console.log(
+						`Incrementing score for diagnosis ${diagnosis} based on symptom ${symptom}`,
+					);
 				}
 			}
 		}
 
+		console.log("Diagnosis scores:", diagnosisScores);
 		let highestScore = 0;
 		let finalDiagnosis = "No clear diagnosis";
 
@@ -36,22 +46,31 @@ const surveyController = {
 			if (score > highestScore) {
 				highestScore = score;
 				finalDiagnosis = diagnosis;
+				console.log(
+					`New highest score ${highestScore} for diagnosis ${diagnosis}`,
+				);
 			}
 		}
 
-		return highestScore >= 3
-			? {
-					diagnosis: neckDiagnoses[finalDiagnosis].name,
-					exercises: neckDiagnoses[finalDiagnosis].recommendedExercises,
-			  }
-			: {
-					diagnosis: "Ingen Klar Diagnose, Vennligst kontakt en behandler",
-					exercises: ["Generelle nakkekomfortøvelser"],
-			  };
+		if (highestScore >= 2) {
+			console.log(`Final diagnosis: ${neckDiagnoses[finalDiagnosis].name}`);
+			return {
+				diagnosis: neckDiagnoses[finalDiagnosis].name,
+				exercises: neckDiagnoses[finalDiagnosis].recommendedExercises,
+			};
+		}
+		console.log("No clear diagnosis achieved, defaulting to general advice");
+		return {
+			diagnosis: "Ingen Klar Diagnose, Vennligst kontakt en behandler",
+			exercises: ["Generelle nakkekomfortøvelser"],
+		};
 	},
+
 	getSurveyById: function (surveyId) {
+		console.log(`Fetching survey with ID: ${surveyId}`);
 		const survey = this.surveys[surveyId];
 		if (!survey) {
+			console.error("Survey not found");
 			throw new Error("Survey not found");
 		}
 		return survey;
