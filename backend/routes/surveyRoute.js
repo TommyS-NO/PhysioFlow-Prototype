@@ -24,13 +24,12 @@ router.post("/evaluate/:surveyId", (req, res) => {
 
 	try {
 		console.log("Evaluating diagnosis with answers:", answers);
-
 		const result = surveyController.evaluateDiagnosis(answers, surveyId);
 		console.log("Evaluation result:", result);
 		res.json(result);
 	} catch (error) {
 		console.error("Error during evaluation:", error);
-		res.status(400).json({ message: error.message });
+		res.status(400).json({ message: `Evaluation error: ${error.message}` });
 	}
 });
 
