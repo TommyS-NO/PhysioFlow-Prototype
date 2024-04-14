@@ -4,8 +4,8 @@ import {
 	StyleSheet,
 	Text,
 	TouchableOpacity,
-	Alert,
 	ScrollView,
+	Image,
 } from "react-native";
 import CustomModal from "../../Components/CustomModal/CustomModal";
 import BodyChart from "./BodyChart/bodyChart";
@@ -17,19 +17,31 @@ import { surveyService } from "../../Services/SurveyService";
 type Answer = string | number;
 type AnswerMap = Record<string, Answer>;
 
+type DiagnosisResult = {
+	diagnosis: string;
+	description: string;
+	exercises: string[];
+};
+
+type ExerciseDetail = {
+	description: string;
+	image: string;
+};
+
 const FocusScreen = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [isExerciseModalVisible, setIsExerciseModalVisible] = useState(false);
 	const [currentPage, setCurrentPage] = useState(0);
 	const [selectedAnswers, setSelectedAnswers] = useState<AnswerMap>({});
 	const [bodySide, setBodySide] = useState("front");
 	const [selectedFocusArea, setSelectedFocusArea] = useState<string | null>(
 		null,
 	);
-	const [diagnosisResult, setDiagnosisResult] = useState<any | null>(null);
-	const [isDiagnosisModalVisible, setIsDiagnosisModalVisible] = useState(false);
-
 	const { state: surveyState, dispatch: surveyDispatch } =
 		useContext(SurveyContext);
+	const [diagnosisResult, setDiagnosisResult] =
+		useState<DiagnosisResult | null>(null);
+	const [exerciseDetails, setExerciseDetails] = useState<ExerciseDetail[]>([]);
 
 	useEffect(() => {
 		if (selectedFocusArea) {
@@ -58,30 +70,40 @@ const FocusScreen = () => {
 		});
 	};
 
-	const showDiagnosisResult = (diagnosisResult) => {
-		Alert.alert(
-			"Diagnosis",
-			`Your diagnosis is: ${
-				diagnosisResult.diagnosis
-			}\n\nRecommended exercises:\n${diagnosisResult.exercises.join("\n")}`,
-			[{ text: "OK", onPress: () => setDiagnosisResult(diagnosisResult) }],
-		);
+	const handleContactProvider = () => {
+		console.log("Contact provider action here");
+	};
+
+	const handleViewExercises = async () => {
+		if (diagnosisResult && diagnosisResult.exercises.length > 0) {
+			try {
+				// Her antar vi at `getExerciseDetails` funksjonen forventer en array av øvelsesnavn
+				const exerciseDetailsResponse = await surveyService.getExerciseDetails(
+					diagnosisResult.exercises,
+				);
+				setExerciseDetails(exerciseDetailsResponse);
+				setIsExerciseModalVisible(true);
+			} catch (error) {
+				console.error("Failed to load exercise details: ", error);
+				// Her kan du vise en feilmelding til brukeren, om ønskelig
+			}
+		}
 	};
 
 	const handleSubmitAnswers = async () => {
 		try {
-			const diagnosis = await surveyService.submitSurvey(
-				selectedFocusArea,
+			const response = await surveyService.submitSurvey(
+				selectedFocusArea ?? "",
 				selectedAnswers,
 			);
+			setDiagnosisResult({
+				diagnosis: response.diagnosis,
+				description: response.description,
+				exercises: response.exercises,
+			});
 			setIsModalVisible(false);
-			showDiagnosisResult(diagnosis);
 		} catch (error) {
-			// Handle errors such as network issues or server errors
-			Alert.alert(
-				"Error",
-				"There was a problem submitting your answers. Please try again.",
-			);
+			console.error("Error submitting answers: ", error);
 		}
 	};
 
@@ -99,35 +121,33 @@ const FocusScreen = () => {
 			currentPage * 5,
 			(currentPage + 1) * 5,
 		);
-		return questionsForPage.map((question) => {
-			return (
-				<View key={question.id} style={styles.questionContainer}>
-					<Text style={styles.questionText}>{question.question}</Text>
-					{question.type === "singleChoice" &&
-						question.options.map((option) => (
-							<TouchableOpacity
-								key={option}
-								style={
-									selectedAnswers[question.id] === option
-										? [styles.optionButton, styles.selectedOption]
-										: styles.optionButton
-								}
-								onPress={() => handleAnswerChange(question.id, option)}
-							>
-								<Text style={styles.optionText}>{option}</Text>
-							</TouchableOpacity>
-						))}
-					{question.type === "slider" && (
-						<CustomSlider
-							value={selectedAnswers[question.id] || question.minValue}
-							onValueChange={(value) => handleAnswerChange(question.id, value)}
-							maximumValue={question.maxValue}
-							minimumValue={question.minValue}
-						/>
-					)}
-				</View>
-			);
-		});
+		return questionsForPage.map((question) => (
+			<View key={question.id} style={styles.questionContainer}>
+				<Text style={styles.questionText}>{question.question}</Text>
+				{question.type === "singleChoice" &&
+					question.options.map((option) => (
+						<TouchableOpacity
+							key={option}
+							style={[
+								styles.optionButton,
+								selectedAnswers[question.id] === option &&
+									styles.selectedOption,
+							]}
+							onPress={() => handleAnswerChange(question.id, option)}
+						>
+							<Text style={styles.optionText}>{option}</Text>
+						</TouchableOpacity>
+					))}
+				{question.type === "slider" && (
+					<CustomSlider
+						value={selectedAnswers[question.id] || question.minValue}
+						onValueChange={(value) => handleAnswerChange(question.id, value)}
+						maximumValue={question.maxValue}
+						minimumValue={question.minValue}
+					/>
+				)}
+			</View>
+		));
 	};
 
 	return (
@@ -139,41 +159,70 @@ const FocusScreen = () => {
 					setBodySide(bodySide === "front" ? "back" : "front")
 				}
 			/>
-			{isModalVisible && selectedFocusArea && (
+			<CustomModal
+				visible={isModalVisible}
+				onClose={() => setIsModalVisible(false)}
+				title={selectedFocusArea ?? ""}
+				style={styles.modalView}
+			>
+				<ScrollView style={styles.content}>
+					{renderQuestionsForPage()}
+				</ScrollView>
+				<CustomButton
+					title={
+						currentPage === Math.ceil(surveyState.questions.length / 5) - 1
+							? "Bekreft"
+							: "Neste"
+					}
+					onPress={handleNext}
+				/>
+			</CustomModal>
+			{diagnosisResult && (
 				<CustomModal
-					visible={isModalVisible}
-					onClose={() => setIsModalVisible(false)}
-					title={selectedFocusArea}
+					visible={true}
+					onClose={() => setDiagnosisResult(null)}
+					title="Antatt diagnose"
 					style={styles.modalView}
 				>
-					<Text style={styles.pageNumber}>
-						Side {currentPage + 1} av{" "}
-						{Math.ceil(surveyState.questions.length / 5)}
+					<Text style={styles.diagnosisTitle}>{diagnosisResult.diagnosis}</Text>
+					<Text style={styles.diagnosisText}>
+						{diagnosisResult.description}
 					</Text>
-					<ScrollView style={styles.content}>
-						{renderQuestionsForPage()}
-					</ScrollView>
 					<CustomButton
-						title={
-							currentPage === Math.ceil(surveyState.questions.length / 5) - 1
-								? "Bekreft"
-								: "Neste"
-						}
-						onPress={handleNext}
+						title="Kontakt behandler"
+						onPress={handleContactProvider}
+					/>
+					<CustomButton
+						title="Vis anbefalte øvelser"
+						onPress={handleViewExercises}
 					/>
 				</CustomModal>
 			)}
-			{diagnosisResult && (
-				<View style={styles.diagnosisResultView}>
-					<Text style={styles.diagnosisTitle}>Diagnosis:</Text>
-					<Text style={styles.diagnosisText}>{diagnosisResult.diagnosis}</Text>
-					<Text style={styles.exercisesTitle}>Recommended Exercises:</Text>
-					{diagnosisResult.exercises.map((exercise, index) => (
-						<Text key={index} style={styles.exerciseText}>
-							{exercise}
-						</Text>
-					))}
-				</View>
+
+			{isExerciseModalVisible && (
+				<CustomModal
+					visible={isExerciseModalVisible}
+					onClose={() => setIsExerciseModalVisible(false)}
+					title="Anbefalte øvelser"
+					style={styles.modalView}
+				>
+					<ScrollView style={styles.content}>
+						{exerciseDetails.map((exercise, index) => (
+							<View key={index} style={styles.exerciseDetailContainer}>
+								<Text style={styles.exerciseTitle}>
+									{diagnosisResult.exercises[index]}
+								</Text>
+								<Text style={styles.exerciseDescription}>
+									{exercise.description}
+								</Text>
+								<Image
+									source={{ uri: exercise.image }}
+									style={styles.exerciseImage}
+								/>
+							</View>
+						))}
+					</ScrollView>
+				</CustomModal>
 			)}
 		</View>
 	);
@@ -205,7 +254,6 @@ const styles = StyleSheet.create({
 		paddingBottom: 20,
 		borderRadius: 20,
 		backgroundColor: "white",
-		padding: 35,
 		shadowColor: "#000",
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.25,
@@ -214,15 +262,12 @@ const styles = StyleSheet.create({
 		width: "100%",
 		maxHeight: "80%",
 	},
-	pageNumber: { fontSize: 16, textAlign: "center", marginBottom: 10 },
-	resultContainer: { padding: 20 },
-	resultTitle: { fontWeight: "bold", fontSize: 16 },
-	resultText: { fontSize: 14, marginTop: 5 },
-	diagnosisResultView: { padding: 20, alignItems: "center" },
 	diagnosisTitle: { fontWeight: "bold", fontSize: 18, marginTop: 20 },
-	diagnosisText: { fontSize: 16, marginTop: 10 },
-	exercisesTitle: { fontWeight: "bold", fontSize: 18, marginTop: 20 },
-	exerciseText: { fontSize: 16, marginTop: 10 },
+	diagnosisText: { fontSize: 16, marginTop: 10, marginBottom: 20 },
+	exerciseDetailContainer: { marginBottom: 20 },
+	exerciseTitle: { fontSize: 18, fontWeight: "bold" },
+	exerciseDescription: { fontSize: 14, marginVertical: 10 },
+	exerciseImage: { width: 250, height: 150, resizeMode: "contain" },
 });
 
 export default FocusScreen;
