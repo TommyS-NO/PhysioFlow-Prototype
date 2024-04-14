@@ -1,7 +1,7 @@
 Husk! 
 
 Frontend:
-
+- Follow Up Survey etter gjennomført øvelse
 -Flytte "Terms"-tekst ved siden av boks
 -Endre oppsett for 
 -Sett opp logikk for lagring av informasjon som bruker har lagret ved registrering. Må vises under innstillinger. 
