@@ -37,21 +37,22 @@ const surveyService = {
 
 getExerciseDetails: async (exerciseNames: string[]) => {
     try {
-      const response = await fetch(`${BASE_URL}/api/exercises/details`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ exercises: exerciseNames }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to fetch exercise details');
-      }
-      const exerciseDetails = await response.json();
-      return exerciseDetails;
-    } catch (error) {
-      console.error('Error fetching exercise details:', error);
-      throw error; // Videresend feilen for håndtering i komponenten
+    const response = await fetch(`${BASE_URL}/api/exercises/details`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ exercises: exerciseNames }),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch exercise details');
     }
-  },
+    const exerciseDetails = await response.json();
+    console.log('Exercise details received:', exerciseDetails);
+    return exerciseDetails;
+  } catch (error) {
+    console.error('Error fetching exercise details:', error);
+    throw error;
+  }
+},
 
 
 };

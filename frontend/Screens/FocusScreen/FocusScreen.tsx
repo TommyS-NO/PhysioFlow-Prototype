@@ -207,20 +207,29 @@ const FocusScreen = () => {
 					style={styles.modalView}
 				>
 					<ScrollView style={styles.content}>
-						{exerciseDetails.map((exercise, index) => (
-							<View key={index} style={styles.exerciseDetailContainer}>
-								<Text style={styles.exerciseTitle}>
-									{diagnosisResult.exercises[index]}
-								</Text>
-								<Text style={styles.exerciseDescription}>
-									{exercise.description}
-								</Text>
-								<Image
-									source={{ uri: exercise.image }}
-									style={styles.exerciseImage}
-								/>
-							</View>
-						))}
+						{exerciseDetails.map((exercise, index) => {
+							console.log(`Exercise #${index}:`, exercise);
+
+							return (
+								<View key={index} style={styles.exerciseDetailContainer}>
+									<Text style={styles.exerciseTitle}>
+										{diagnosisResult.exercises[index]}
+									</Text>
+									<Text style={styles.exerciseDescription}>
+										{exercise.description}
+									</Text>
+									<Image
+										source={{
+											uri: exercise.image.replace(
+												"localhost",
+												"192.168.10.182",
+											),
+										}}
+										style={styles.exerciseImage}
+									/>
+								</View>
+							);
+						})}
 					</ScrollView>
 				</CustomModal>
 			)}
