@@ -56,13 +56,15 @@ const surveyController = {
 			console.log(`Final diagnosis: ${neckDiagnoses[finalDiagnosis].name}`);
 			return {
 				diagnosis: neckDiagnoses[finalDiagnosis].name,
+				description: neckDiagnoses[finalDiagnosis].description,
 				exercises: neckDiagnoses[finalDiagnosis].recommendedExercises,
 			};
 		}
 		console.log("No clear diagnosis achieved, defaulting to general advice");
 		return {
-			diagnosis: "Ingen Klar Diagnose, Vennligst kontakt en behandler",
-			exercises: ["Generelle nakkekomfortøvelser"],
+			diagnosis: selectedDiagnosis.name,
+			description: selectedDiagnosis.description,
+			exercises: selectedDiagnosis.recommendedExercises,
 		};
 	},
 
