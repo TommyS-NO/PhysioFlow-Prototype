@@ -77,7 +77,6 @@ const FocusScreen = () => {
 	const handleViewExercises = async () => {
 		if (diagnosisResult && diagnosisResult.exercises.length > 0) {
 			try {
-				// Her antar vi at `getExerciseDetails` funksjonen forventer en array av øvelsesnavn
 				const exerciseDetailsResponse = await surveyService.getExerciseDetails(
 					diagnosisResult.exercises,
 				);
@@ -85,7 +84,6 @@ const FocusScreen = () => {
 				setIsExerciseModalVisible(true);
 			} catch (error) {
 				console.error("Failed to load exercise details: ", error);
-				// Her kan du vise en feilmelding til brukeren, om ønskelig
 			}
 		}
 	};
