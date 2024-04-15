@@ -7,6 +7,8 @@ export const frontScreenStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: theme.colors.primary,
+    width: '100%',
+    height: '100%',
   },
   topContainer: {
     position: "absolute",
@@ -17,7 +19,7 @@ export const frontScreenStyles = StyleSheet.create({
   logo: {
     height: 80,
     width: 80,
-    marginTop: 120,
+    // marginTop: 20,
   },
   titleText: {
     color: theme.colors.text,
@@ -41,7 +43,7 @@ export const frontScreenStyles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     // marginTop: theme.spacing.large,
-    marginTop: 80,
+    marginTop: 90,
   },
   loginText: {
     fontSize: theme.fontSize.h4,
