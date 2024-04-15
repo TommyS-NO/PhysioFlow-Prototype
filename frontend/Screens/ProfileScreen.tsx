@@ -90,10 +90,11 @@ const ProfileScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity
+{/* Kommentert ut BobAI-knappen ifm presentasjon til Bobby */}
+        {/* <TouchableOpacity
           style={[styles.menuItem, styles.fullWidthButton, styles.bobButton]}
           onPress={() => {
-            /* Her må vi legge til funksjonen til BobAI */
+        
           }}
         >
           <Text style={styles.bobText}>BobAI</Text>
@@ -101,7 +102,7 @@ const ProfileScreen: React.FC = () => {
             source={require("../Assets/Robot_2.png")}
             style={styles.bobImage}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
           style={[styles.menuItem, styles.fullWidthButton]}
