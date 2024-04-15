@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  ImageBackground
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
@@ -105,14 +106,22 @@ const FrontScreen = () => {
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
+          <ImageBackground
+          source={require("../Assets/Stretch3.png")}
+          style={frontScreenStyles.container}
+          resizeMode="cover"
+        >
+
+
         <View style={frontScreenStyles.container}>
-          <View style={frontScreenStyles.topContainer}>
+          {/* Flyttet disse inn i login containeren */}
+          {/* <View style={frontScreenStyles.topContainer}>
             <Image
               source={require("../Assets/Logo.png")}
               style={frontScreenStyles.logo}
             />
             <Text style={frontScreenStyles.titleText}>FysioGO!</Text>
-          </View>
+          </View> */}
 
           <TouchableOpacity
             onPress={handleHelp}
@@ -126,6 +135,11 @@ const FrontScreen = () => {
           </TouchableOpacity>
 
           <View style={frontScreenStyles.loginContainer}>
+          <Image
+              source={require("../Assets/Logo.png")}
+              style={frontScreenStyles.logo}
+            />
+          <Text style={frontScreenStyles.titleText}>FysioGO!</Text>
             <Text style={frontScreenStyles.loginText}>Logg inn</Text>
 
             <InputField
@@ -174,6 +188,7 @@ const FrontScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
+        </ImageBackground>
       </KeyboardAvoidingView>
     </>
   );
