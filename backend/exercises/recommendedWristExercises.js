@@ -1,62 +1,87 @@
 export const recommendedWristExercises = {
-	WristStretches: {
+	Håndleddstrekninger: {
 		description:
-			"Utfør tøyninger for å øke fleksibiliteten og redusere spenningen i håndleddet. For eksempel, hold armen rett ut foran deg med håndflaten opp. Bruk den andre hånden til å trekke fingrene nedover og mot deg til du kjenner en strekk i underarmen og håndleddet. Hold i 15-30 sekunder, gjenta 3-5 ganger.",
+			"Utfør håndleddstrekninger ved å strekke armen foran deg med håndflaten opp, bøy håndleddet og bruk den andre hånden til å forsiktig trykke på fingrene nedover og mot underarmen til du kjenner en strekk. Hold i 20-30 sekunder og bytt arm.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	NerveGlidingExercisesForWrist: {
+	NerveglidningsøvelserForHåndleddet: {
 		description:
-			"Nerveglidningsøvelser hjelper til med å forbedre nervens bevegelighet og redusere nummenhet eller prikking. En vanlig øvelse inkluderer å holde armen rett ut, palm ned, og sakte bøye håndleddet opp og ned. Gjør dette 10 ganger, flere ganger om dagen.",
+			"Utfør nerveglidningsøvelser for å forbedre nervefunksjonen og redusere ubehag. Strekk armen ut med håndflaten opp, bøy håndleddet nedover og oppover, og beveg deretter hånden fra side til side. Gjenta 10 ganger.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	StrengthExercisesForHandAndForearm: {
+	StyrkeøvelserForHåndenOgUnderarmen: {
 		description:
-			"Styrkeøvelser for hånden og underarmen forbedrer grepstyrken og støtten rundt håndleddet. Bruk en gripestyrker eller klem en myk ball. Hold sammenklemmingen i noen sekunder og slipp. Gjenta 10-15 ganger for hver hånd.",
+			"Styrk hånden og underarmen ved å bruke en stressball eller gripestyrker. Klem ballen fast i noen sekunder, slipp opp, og gjenta 10-15 ganger med hver hånd.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	WristBalanceTraining: {
+	BalansetreningForHåndleddetsMuskulatur: {
 		description:
-			"Balansetrening for håndleddet styrker de små musklene rundt håndleddet og forbedrer stabiliteten. Balanser en liten vekt eller en bok på håndflaten mens du forsiktig beveger håndleddet opp, ned og sidelengs. Fortsett i 1-2 minutter.",
+			"Forbedre håndleddets stabilitet og balanse ved å balansere en liten gjenstand på håndflaten mens du forsiktig beveger håndleddet opp og ned og fra side til side.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	IceApplication: {
+	Islegging: {
 		description:
-			"Bruk en ispakke for å redusere inflammasjon og smerte. Ikke påfør isen direkte på huden, bruk et håndkle mellom. Påfør i 15-20 minutter hver annen time som nødvendig.",
+			"Reduser inflammasjon og smerte ved å påføre en ispakke på håndleddet i 15-20 minutter hver annen time. Husk å ha et håndkle eller klut mellom ispakken og huden.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	GentleStrengtheningExercises: {
+	GentleStyrkeøvelserEtterSymptombedring: {
 		description:
-			"Start med milde styrkeøvelser for håndleddet etter symptombedring for å unngå overbelastning. Bruk lette vekter og utfør håndleddscurl både oppover og nedover, 10 repetisjoner hver, øk gradvis motstanden som tolerert.",
+			"Etter at symptomene begynner å avta, gradvis øk intensiteten på styrkeøvelsene uten å overbelaste håndleddet. Start med lette vekter eller elastiske bånd for å bygge styrke.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	WristSupportUse: {
+	BrukAvStøttebandasje: {
 		description:
-			"Bruk støttebandasje eller skinne som anbefalt av helsepersonell for å stabilisere håndleddet under helingsprosessen. Dette hjelper med å begrense bevegelsen og gir tid til heling.",
+			"Stabiliser håndleddet under helingsprosessen ved å bruke en støttebandasje eller ortose som anbefalt av helsepersonell for å forhindre ytterligere skade.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	MobilityExercisesForFingersAndElbow: {
+	ØvelserForÅOpprettholdeBevegelighetIFingreOgAlbue: {
 		description:
-			"Utfør mobilitetsøvelser for fingrene og albuen for å opprettholde bevegelighet og sirkulasjon etter en håndleddsskade. For fingrene, prøv å spre dem bredt, deretter knytte dem til en knyttneve, gjenta flere ganger. For albuen, bøy og strekk forsiktig.",
+			"For å opprettholde bevegelighet i fingre og albue, gjør enkle øvelser som fingerstrekk og albuebøyninger. Gjenta disse øvelsene flere ganger om dagen for å holde leddene smidige.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	WaterExercises: {
+	VannøvelserForSkånsomTreningOgRehabilitering: {
 		description:
-			"Vannøvelser gir skånsom trening som hjelper med rehabilitering av håndleddet uten å legge for mye press på det. Utfør håndleddsrotasjoner og åpne og lukke grep under vann for mild motstand.",
+			"Utfør skånsomme vannøvelser for å styrke håndleddet og hånden uten å legge for mye stress på leddet. Vannmotstanden gir en effektiv, men mild trening.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	WristAndThumbStrengthening: {
+	SpesifikkeTøyningerForÅAvlasteDeBerørteSenene: {
 		description:
-			"Spesifikke styrkeøvelser for håndledd og tommel, fokusert på å støtte og avlaste de berørte senene. For eksempel, hold en liten vekt i hånden og utfør tommelutvidelser ved å bevege tommelen bort fra håndflaten.",
+			"For de Quervains tendinose, utfør spesifikke tøyninger ved å lage en knyttneve, bøye håndleddet nedover, og rotere håndleddet mot lillefingeren. Hold hver strekk i 15-20 sekunder.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	ErgonomicAdjustments: {
+	IsapplikasjonForÅKontrollereSmerteOgHevelse: {
 		description:
-			"Gjør ergonomiske tilpasninger i arbeids- eller aktivitetsmiljøet for å redusere stress og belastning på håndleddet. Juster høyden på stolen og skrivebordet, bruk håndleddstøtter ved skriving.",
+			"Kontroller smerte og hevelse med isapplikasjon, spesielt etter aktiviteter som kan forverre tilstanden. Påfør ispakker i korte perioder, flere ganger om dagen.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	HeatTherapyForWrist: {
+	StyrkeøvelserRettetMotHåndleddOgTommel: {
 		description:
-			"Bruk varmeterapi for å lindre smerte og redusere stivhet i håndleddet, spesielt effektivt ved artrose. Anvend en varmepakke i 15-20 minutter flere ganger om dagen.",
+			"Utfør styrkeøvelser som er rettet mot håndledd og tommel for å forbedre funksjon og redusere smerter, som håndleddcurls og tommeladduksjon med motstandsbånd.",
+		image: "http://localhost:3000/static/assets/12501301.gif",
+	},
+	ErgonomiskeTilpasningerForÅRedusereStressPåSenene: {
+		description:
+			"Gjør ergonomiske tilpasninger på arbeidsplassen, som å justere høyden på skrivebordet eller bruk av ergonomiske tastaturer, for å redusere stress og belastning på håndledd og tommel.",
+		image: "http://localhost:3000/static/assets/12501301.gif",
+	},
+	VarmeterapiForÅRedusereStivhetOgSmerte: {
+		description:
+			"Anvend varmeterapi, som varmepakker eller oppvarmede håndkleomslag, for å lindre stivhet og smerte i håndleddet, spesielt nyttig for personer med artrose.",
+		image: "http://localhost:3000/static/assets/12501301.gif",
+	},
+	MildeTøyningerOgMobilitetsøvelserForHåndleddet: {
+		description:
+			"Utfør milde tøyninger og mobilitetsøvelser som roterer håndleddet sakte i alle retninger for å forbedre bevegelighet og redusere stivhet.",
+		image: "http://localhost:3000/static/assets/12501301.gif",
+	},
+	StyrkeøvelserSomTarHensynTilSmerteterskel: {
+		description:
+			"Utfør styrkeøvelser for håndleddet som tar hensyn til din smerteterskel. Begynn forsiktig og øk gradvis intensiteten for å unngå forverring av symptomer.",
+		image: "http://localhost:3000/static/assets/12501301.gif",
+	},
+	VannøvelserForSkånsomStyrkingOgBevegelighet: {
+		description:
+			"Engasjer i vannøvelser som lett svømming eller øvelser i terapibasseng for å forbedre styrke og bevegelighet i håndleddet uten å legge for mye press på det.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
 };
