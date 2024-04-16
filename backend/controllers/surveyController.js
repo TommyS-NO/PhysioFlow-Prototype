@@ -1,10 +1,13 @@
 import { neckSurvey } from "../surveys/neckSurvey.js";
 import { neckDiagnoses } from "../diagnoses/neckDiagnoses.js";
+import { shoulderSurvey } from "../surveys/shoulderSurvey.js";
+import { shoulderDiagnoses } from "../diagnoses/shoulderDiagnoses.js";
 import { interpretAnswers } from "../utils/surveyUtils.js";
 
 const surveyController = {
 	surveys: {
 		neck: neckSurvey,
+		shoulder: shoulderSurvey,
 	},
 
 	evaluateDiagnosis: function (answers, surveyId) {
@@ -18,7 +21,7 @@ const surveyController = {
 			throw new Error("Survey not found");
 		}
 
-		const diagnoses = neckDiagnoses; // Assuming that diagnoses are directly accessible
+		const diagnoses = surveyId === "neck" ? neckDiagnoses : shoulderDiagnoses;
 		const symptoms = interpretAnswers(answers, survey.questions);
 		console.log("Interpreted symptoms:", symptoms);
 
@@ -53,18 +56,18 @@ const surveyController = {
 		}
 
 		if (highestScore >= 2) {
-			console.log(`Final diagnosis: ${neckDiagnoses[finalDiagnosis].name}`);
+			console.log(`Final diagnosis: ${diagnoses[finalDiagnosis].name}`);
 			return {
-				diagnosis: neckDiagnoses[finalDiagnosis].name,
-				description: neckDiagnoses[finalDiagnosis].description,
-				exercises: neckDiagnoses[finalDiagnosis].recommendedExercises,
+				diagnosis: diagnoses[finalDiagnosis].name,
+				description: diagnoses[finalDiagnosis].description,
+				exercises: diagnoses[finalDiagnosis].recommendedExercises,
 			};
 		}
 		console.log("No clear diagnosis achieved, defaulting to general advice");
 		return {
-			diagnosis: selectedDiagnosis.name,
-			description: selectedDiagnosis.description,
-			exercises: selectedDiagnosis.recommendedExercises,
+			diagnosis: "General advice",
+			description: "Please consult a physician for a detailed diagnosis.",
+			exercises: [],
 		};
 	},
 
