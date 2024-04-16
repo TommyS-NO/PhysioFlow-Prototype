@@ -1,74 +1,91 @@
 export const recommendedLowBackExercises = {
-	TøyningAvRyggmusklene: {
+	"Gentle stretching av ryggmusklene": {
 		description:
-			"Gjør milde tøyninger av ryggmusklene for å lindre spenning og fremme fleksibilitet i nedre del av ryggen.",
+			"Utfør en serie med rolige strekk for nedre rygg. En effektiv øvelse er 'katten og kamelen': På alle fire, vekselvis bue ryggen oppover og deretter senke den nedover, hold hver posisjon i noen sekunder.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	IsleggingForÅRedusereInflammasjon: {
+
+	"Islegging for å redusere inflammasjon": {
 		description:
-			"Bruk en ispakke på det betente området i nedre del av ryggen for å redusere hevelse og smerte. Husk å ha et beskyttende lag mellom isen og huden.",
+			"Legg en ispakke innpakket i et håndkle på det smertefulle området i nedre rygg. Hold isen på i 20 minutter, fjern den i minst en time før du gjentar om nødvendig.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	StyrkeøvelserForKjerne: {
+
+	"Styrkeøvelser for kjerne": {
 		description:
-			"Utfør øvelser som styrker kjernemuskulaturen for å gi bedre støtte til ryggsøylen og forebygge fremtidige ryggsmerter.",
+			"Utfør øvelser som planken og sideplanken for å styrke kjerne-muskulaturen, noe som er kritisk for å støtte og stabilisere nedre rygg.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	LettAerobTreningSomGange: {
+
+	"Lett aerob trening som gange": {
 		description:
-			"Gåturer kan hjelpe med å forbedre sirkulasjonen og styrke ryggen uten å legge for mye belastning på ryggsøylen.",
+			"Regelmessig gange i moderat tempo bidrar til å øke blodsirkulasjonen og mobiliteten i ryggen, samtidig som det bygger styrke og utholdenhet.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	TøyningAvHamstring: {
+
+	"Gentle stretching av hamstring": {
 		description:
-			"Milde tøyninger av hamstring kan bidra til å redusere spenning i ryggen ved å øke fleksibiliteten i baksiden av lårene.",
+			"Sitt på gulvet med ett ben utstrakt, bøy forsiktig fremover fra hoften mot foten til det strakte benet. Hold i 20-30 sekunder og gjenta på det andre benet.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	LavImpactAerobTrening: {
+
+	"Lav-impact aerob trening": {
 		description:
-			"Lav-impact aerob trening som svømming eller sykling kan forbedre din generelle fitness og ryggens helse uten å overstresse ryggen.",
+			"Utfør lav-impact aerob øvelser som svømming eller rolig sykling for å bygge utholdenhet og redusere belastningen på ryggen.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	MildYogaForFleksibilitetOgStyrke: {
+
+	"Mild yoga for fleksibilitet og styrke": {
 		description:
-			"Delta i yogaøvelser som er skånsomme for ryggen for å forbedre både fleksibilitet og styrke i kroppen.",
+			"Praktiser milde yogaøvelser fokusert på fleksibilitet og styrke, spesielt øvelser som forsiktig tøyer og styrker rygg og kjerne.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	TøyingAvRyggOgBen: {
+
+	"Tøying av rygg og ben": {
 		description:
-			"Tøyninger som involverer både ryggen og bena kan hjelpe til med å forbedre den generelle mobiliteten og redusere stivhet.",
+			"Utfør daglig tøyning av både rygg og ben for å øke fleksibiliteten og redusere spenningene som kan bidra til ryggsmerter.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	PilatesForKjerneforsterkningOgFleksibilitet: {
+
+	"Pilates for kjerneforsterkning og fleksibilitet": {
 		description:
-			"Pilates kan hjelpe med å styrke kjernemuskulaturen og forbedre fleksibiliteten, noe som kan redusere risikoen for ryggskader.",
+			"Engasjer i Pilates, som fokuserer på bevegelser som styrker kjernemuskulaturen og øker ryggens og ryggvirvlenes fleksibilitet.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	BalansetreningForÅForbedreStabilitet: {
+
+	"Vannøvelser for å redusere belastningen": {
 		description:
-			"Øvelser som forbedrer balansen kan hjelpe med å stabilisere ryggen og redusere risikoen for skader som følge av fall.",
+			"Utfør øvelser i et basseng for å utnytte vannets støtte, som reduserer belastningen på ryggraden og leddene mens du bygger styrke og utholdenhet.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	FysioterapiForÅLæreRiktigeBevegelsesmønstre: {
+
+	"Balansetrening for å forbedre stabilitet": {
 		description:
-			"Et program for fysioterapi kan gi deg øvelser som er tilpasset din tilstand for å sikre riktig bevegelse og styrking av ryggen.",
+			"Utfør balansetrening som står på ett ben eller bruker en balansepute, for å forbedre kroppens stabilitet og redusere risikoen for ryggskader.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	VannøvelserForÅRedusereBelastning: {
+
+	"Fysioterapi for å lære riktige bevegelsesmønstre": {
 		description:
-			"Øvelser utført i vann kan redusere belastningen på ryggen mens du trener, og er spesielt gunstig for de med ryggproblemer.",
+			"Jobb med en fysioterapeut for å lære og praktisere riktig kroppsmekanikk og bevegelsesmønstre som kan forebygge videre ryggproblemer.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	PosisjonsøvelserForÅRedusereNerveklem: {
+
+	"Stabiliseringsøvelser for bekkenet": {
 		description:
-			"Visse posisjonsøvelser kan hjelpe til med å redusere trykket på isjiasnerven og lette symptomer på isjias.",
+			"Utfør øvelser som bekkenløft eller bird-dogs for å styrke bekkenmusklene og forbedre stabiliteten i nedre rygg og hofter.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
-	VarmebehandlingForÅRedusereMuskelspenninger: {
+
+	"Varmebehandling for å redusere muskelspenninger": {
 		description:
-			"Bruk varme på anspente områder av ryggen for å hjelpe med å slappe av i musklene og forbedre blodsirkulasjonen.",
+			"Anvend varmepakker på nedre rygg for å lindre muskelspenning og smerte, spesielt etter lengre perioder med inaktivitet eller før aktivitet.",
+		image: "http://localhost:3000/static/assets/12501301.gif",
+	},
+
+	"Posisjonsøvelser for å redusere nerveklem": {
+		description:
+			"Lær og praktiser posisjonsøvelser som kan hjelpe med å avlaste klemte nerver, spesielt for tilstander som isjias.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
 	},
 };
-
-export default recommendedLowBackExercises;
