@@ -10,9 +10,8 @@ export const kneeDiagnoses = {
 			"Ømhet over patella",
 		],
 		recommendedExercises: [
-			"Gentle stretching of the quadriceps",
+			"Mild stretching of the quadriceps",
 			"Styrkeøvelser for lårmuskulaturen",
-			"Eccentric exercises",
 			"Islegging etter aktivitet",
 		],
 	},
