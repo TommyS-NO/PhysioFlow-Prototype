@@ -61,12 +61,13 @@ const styles = StyleSheet.create({
     // borderRadius: 20,
     // padding: 35,
     // alignItems: "center",
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.25,
     // shadowRadius: 4,
     // elevation: 5,
+	// width: '90%', 
+	// maxWidth: '500', 
+	// alignSelf: 'center', //Trenger vi den? 
 
+//Dette oppsette fungerer bra med tanke på registrering av treningsøkter
     marginHorizontal: 85,
     backgroundColor: "white",
     borderRadius: 20,
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     shadowRadius: 4,
     elevation: 5,
-    maxWidth: "95%",
+    maxWidth: "95%",	
   },
   closeButton: {
     position: "absolute",
