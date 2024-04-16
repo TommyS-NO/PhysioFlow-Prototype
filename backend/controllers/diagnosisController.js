@@ -13,8 +13,6 @@ export const addDiagnosis = async (req, res) => {
 	const newDiagnosis = req.body;
 
 	try {
-		// Logikk for å legge til ny diagnose
-		// Dette kan innebære å oppdatere en database eller et lokalt objekt av diagnoser
 		res
 			.status(201)
 			.json({ message: "Ny diagnose lagt til", diagnosis: newDiagnosis });
