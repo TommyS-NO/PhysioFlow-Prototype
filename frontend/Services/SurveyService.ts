@@ -7,7 +7,13 @@ const translateSurveyId = (surveyId: SurveyId): string => {
   const surveyIdMap: Record<SurveyId, string> = {
     Nakke: 'neck',
     Skulder: 'shoulder',
-    // Legg til flere oversettelser om nødvendig
+    Ankel: 'ankle',
+    Albue: 'elbow',
+    Hofte: 'hip',
+    Kne: 'knee',
+    Nedre_rygg: 'lowBack',
+    Øvre_rygg: 'upperBack',
+    Håndledd: 'wrist'
   };
   return surveyIdMap[surveyId] || surveyId;
 };
