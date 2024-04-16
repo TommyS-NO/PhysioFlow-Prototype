@@ -1,13 +1,34 @@
+import { ankleSurvey } from "../surveys/ankleSurvey.js";
+import { ankleDiagnoses } from "../diagnoses/ankleDiagnoses.js";
+import { elbowSurvey } from "../surveys/elbowSurvey.js";
+import { elbowDiagnoses } from "../diagnoses/elbowDiagnoses.js";
+import { hipSurvey } from "../surveys/hipSurvey.js";
+import { hipDiagnoses } from "../diagnoses/hipDiagnoses.js";
+import { kneeSurvey } from "../surveys/kneeSurvey.js";
+import { kneeDiagnoses } from "../diagnoses/kneeDiagnoses.js";
+import { lowBackSurvey } from "../surveys/lowBackSurvey.js";
+import { lowBackDiagnoses } from "../diagnoses/lowBackDiagnoses.js";
 import { neckSurvey } from "../surveys/neckSurvey.js";
 import { neckDiagnoses } from "../diagnoses/neckDiagnoses.js";
 import { shoulderSurvey } from "../surveys/shoulderSurvey.js";
 import { shoulderDiagnoses } from "../diagnoses/shoulderDiagnoses.js";
+import { upperBackSurvey } from "../surveys/upperBackSurvey.js";
+import { upperBackDiagnoses } from "../diagnoses/upperBackDiagnoses.js";
+import { wristSurvey } from "../surveys/wristSurvey.js";
+import { wristDiagnoses } from "../diagnoses/wristDiagnoses.js";
 import { interpretAnswers } from "../utils/surveyUtils.js";
 
 const surveyController = {
 	surveys: {
+		ankle: ankleSurvey,
+		elbow: elbowSurvey,
+		hip: hipSurvey,
+		knee: kneeSurvey,
+		lowBack: lowBackSurvey,
 		neck: neckSurvey,
 		shoulder: shoulderSurvey,
+		upperBack: upperBackSurvey,
+		wrist: wristSurvey,
 	},
 
 	evaluateDiagnosis: function (answers, surveyId) {
@@ -21,7 +42,19 @@ const surveyController = {
 			throw new Error("Survey not found");
 		}
 
-		const diagnoses = surveyId === "neck" ? neckDiagnoses : shoulderDiagnoses;
+		const diagnosesMapping = {
+			ankle: ankleDiagnoses,
+			elbow: elbowDiagnoses,
+			hip: hipDiagnoses,
+			knee: kneeDiagnoses,
+			lowBack: lowBackDiagnoses,
+			neck: neckDiagnoses,
+			shoulder: shoulderDiagnoses,
+			upperBack: upperBackDiagnoses,
+			wrist: wristDiagnoses,
+		};
+
+		const diagnoses = diagnosesMapping[surveyId];
 		const symptoms = interpretAnswers(answers, survey.questions);
 		console.log("Interpreted symptoms:", symptoms);
 
@@ -63,6 +96,7 @@ const surveyController = {
 				exercises: diagnoses[finalDiagnosis].recommendedExercises,
 			};
 		}
+
 		console.log("No clear diagnosis achieved, defaulting to general advice");
 		return {
 			diagnosis: "General advice",
