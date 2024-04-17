@@ -5,6 +5,7 @@ import { recommendedKneeExercises } from "../exercises/recommendedKneeExercises.
 import { recommendedLowBackExercises } from "../exercises/recommendedLowBackExercise.js";
 import { recommendedUpperBackExercises } from "../exercises/recommendedUpperBackExercises.js";
 import { recommendedWristExercises } from "../exercises/recommendedWristExercises.js";
+import { recommendedShoulderExercises } from "../exercises/recommendedShoulderExercises.js";
 
 const allExercises = {
 	...recommendedNeckExercises,
@@ -14,6 +15,7 @@ const allExercises = {
 	...recommendedLowBackExercises,
 	...recommendedUpperBackExercises,
 	...recommendedWristExercises,
+	...recommendedShoulderExercises,
 };
 
 export const getExerciseDetails = (req, res) => {
