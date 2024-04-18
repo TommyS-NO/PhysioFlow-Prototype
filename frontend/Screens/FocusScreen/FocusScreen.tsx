@@ -220,7 +220,7 @@ const FocusScreen = () => {
 										source={{
 											uri: exercise.image.replace(
 												"localhost",
-												"192.168.10.182",
+												"192.168.68.54",//"192.168.10.182" Tommy IP
 											),
 										}}
 										style={styles.exerciseImage}
