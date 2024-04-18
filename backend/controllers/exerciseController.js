@@ -23,7 +23,14 @@ const allExercises = {
 export const getExerciseDetails = (req, res) => {
 	try {
 		const { exercises } = req.body;
-		const details = exercises.map((name) => allExercises[name]);
+		const details = exercises.map((name) => {
+			const exercise = allExercises[name];
+			if (!exercise) {
+				console.error("Exercise not found:", name);
+				return null;
+			}
+			return exercise;
+		});
 		res.json(details);
 	} catch (error) {
 		console.error("Error fetching exercise details:", error);
