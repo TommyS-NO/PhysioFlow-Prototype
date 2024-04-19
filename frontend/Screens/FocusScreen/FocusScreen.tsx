@@ -244,6 +244,7 @@ const FocusScreen = () => {
 
 //Har flyttet denne over i egen .ts fil..
 
+
 // const styles = StyleSheet.create({
 // 	container: { flex: 1, backgroundColor: "#f2f2f2" },
 // 	content: { flexGrow: 1, paddingTop: 20 },
