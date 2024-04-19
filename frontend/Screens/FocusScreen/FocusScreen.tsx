@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import {
 	View,
 	StyleSheet,
+	KeyboardAvoidingView,
 	Text,
 	TouchableOpacity,
-	ScrollView,
 	Image,
+	Platform,
 } from "react-native";
 import CustomModal from "../../Components/CustomModal/CustomModal";
 import BodyChart from "./BodyChart/bodyChart";
@@ -14,6 +15,7 @@ import CustomSlider from "../../Components/CustomSlider/CustomSlider";
 import { SurveyContext } from "../../Context/SurveyContext";
 import { surveyService } from "../../Services/SurveyService";
 import { styles } from "../FocusScreen/FocusScreen_Style";
+import { ScrollView } from "react-native-gesture-handler";
 
 type Answer = string | number;
 type AnswerMap = Record<string, Answer>;
@@ -164,8 +166,12 @@ const FocusScreen = () => {
 				title={selectedFocusArea ?? ""}
 				style={styles.modalView}
 			>
-				<ScrollView style={styles.content}>
-					{renderQuestionsForPage()}
+				<ScrollView>
+					<KeyboardAvoidingView
+						behavior={Platform.OS === "ios" ? "padding" : "height"}
+					>
+						<View style={styles.content}>{renderQuestionsForPage()}</View>
+					</KeyboardAvoidingView>
 				</ScrollView>
 				<CustomButton
 					title={
@@ -221,7 +227,7 @@ const FocusScreen = () => {
 										source={{
 											uri: exercise.image.replace(
 												"localhost",
-												"192.168.68.54",//"192.168.10.182" Tommy IP
+												"192.168.10.182", //"192.168.10.182" Tommy IP
 											),
 										}}
 										style={styles.exerciseImage}
@@ -236,9 +242,7 @@ const FocusScreen = () => {
 	);
 };
 
-
 //Har flyttet denne over i egen .ts fil..
-
 
 // const styles = StyleSheet.create({
 // 	container: { flex: 1, backgroundColor: "#f2f2f2" },
