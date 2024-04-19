@@ -14,7 +14,15 @@ const HealthScreen: React.FC = () => {
     >
         <Text style={styles.menuText}>Endre fokusområder</Text>
     </TouchableOpacity>
+    <TouchableOpacity
+        style={styles.menuItem}
+        onPress={() => navigation.navigate("")}
+    >
+        <Text style={styles.menuText}>Mitt behandlingsprogram</Text>
+    </TouchableOpacity>
     </View>
+
+    
     );
 };
 
