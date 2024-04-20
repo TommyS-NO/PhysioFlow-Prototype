@@ -1,5 +1,5 @@
 export const recommendedAnkleExercises = {
-	Ankelrotasjoner: {
+	"Ankelrotasjoner": {
 		description:
 			"Sitt med benet strukket ut. Roter ankelen i en sirkelbevegelse 10 ganger med urviseren og 10 ganger mot urviseren. Gjenta med det andre benet.",
 		image: "http://localhost:3000/static/assets/12501301.gif",
