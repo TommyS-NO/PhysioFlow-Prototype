@@ -28,6 +28,7 @@ Frontend:
 -Rød ramme rundt feil 
 -Endre farge på bagrunn under registrering
 -Ved registrering, stt opp Terms of Service i en modal som popper opp, evt. annen løsning. Nå må bruker krysse seg ut av modalen for å få opp terms.. 
+-Kan vi sette opp en default på iOS-plattform på CustomModal
 
 
 
