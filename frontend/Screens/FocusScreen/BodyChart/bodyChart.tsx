@@ -34,6 +34,7 @@ const BodyChart: React.FC<BodyChartProps> = ({
 				/>
 			</View>
 			<Text style={styles.title}>Bodychart Fokusområde</Text>
+			<Text style={styles.text}>Hvor på kroppen har du smerter? Trykk på det markerte fokusområdet og svar deretter på noen spørsmål slik at vi kan gi deg antatt diagnose i retur.</Text>
 			<Image
 				source={
 					bodySide === "front"

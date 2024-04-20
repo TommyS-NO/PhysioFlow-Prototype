@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
@@ -106,90 +106,79 @@ const FrontScreen = () => {
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-          <ImageBackground
+        <ImageBackground
           source={require("../Assets/Stretch3.png")}
           style={frontScreenStyles.container}
           resizeMode="cover"
         >
+          <View style={frontScreenStyles.container}>
+            <TouchableOpacity
+              onPress={handleHelp}
+              style={frontScreenStyles.helpButton}
+            >
+              <Icon
+                name="help-circle"
+                size={24}
+                color={theme.colors.helpButton}
+              />
+            </TouchableOpacity>
 
+            <View style={frontScreenStyles.loginContainer}>
+              <Image
+                source={require("../Assets/Logo.png")}
+                style={frontScreenStyles.logo}
+              />
+              <Text style={frontScreenStyles.titleText}>FysioGO!</Text>
+              <Text style={frontScreenStyles.loginText}>Logg inn</Text>
 
-        <View style={frontScreenStyles.container}>
-          {/* Flyttet disse inn i login containeren */}
-          {/* <View style={frontScreenStyles.topContainer}>
-            <Image
-              source={require("../Assets/Logo.png")}
-              style={frontScreenStyles.logo}
-            />
-            <Text style={frontScreenStyles.titleText}>FysioGO!</Text>
-          </View> */}
+              <InputField
+                style={frontScreenStyles.input}
+                placeholder="Epost"
+                value={email}
+                onChangeText={setEmail}
+                autoCapitalize="none"
+                keyboardType="email-address"
+              />
+              {error && (
+                <Text style={frontScreenStyles.errorText}>{error}</Text>
+              )}
 
-          <TouchableOpacity
-            onPress={handleHelp}
-            style={frontScreenStyles.helpButton}
-          >
-            <Icon
-              name="help-circle"
-              size={24}
-              color={theme.colors.helpButton}
-            />
-          </TouchableOpacity>
+              <InputField
+                style={frontScreenStyles.input}
+                placeholder="Passord"
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+                autoCapitalize="none"
+              />
 
-          <View style={frontScreenStyles.loginContainer}>
-          <Image
-              source={require("../Assets/Logo.png")}
-              style={frontScreenStyles.logo}
-            />
-          <Text style={frontScreenStyles.titleText}>FysioGO!</Text>
-            <Text style={frontScreenStyles.loginText}>Logg inn</Text>
+              <CustomButton
+                title="Logg inn"
+                onPress={handleLogin}
+                iconName="login"
+                buttonStyle={frontScreenStyles.button}
+              />
 
-            <InputField
-              style={frontScreenStyles.input}
-              placeholder="Epost"
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize="none"
-              keyboardType="email-address"
-            />
-            {error && <Text style={frontScreenStyles.errorText}>{error}</Text>}
-
-            <InputField
-              style={frontScreenStyles.input}
-              placeholder="Passord"
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-              autoCapitalize="none"
-            />
-
-            <CustomButton
-              title="Logg inn"
-              onPress={handleLogin}
-              iconName="login"
-              buttonStyle={frontScreenStyles.button}
-            />
-
-            <Text style={frontScreenStyles.registerText}>
-              Ikke medlem?{" "}
-              <Text
-                style={frontScreenStyles.registerLinkText}
-                onPress={handleRegister}
-              >
-                Registrer deg her
+              <Text style={frontScreenStyles.registerText}>
+                Ikke medlem?{" "}
+                <Text
+                  style={frontScreenStyles.registerLinkText}
+                  onPress={handleRegister}>
+                  Registrer deg her
+                </Text>
               </Text>
-            </Text>
+            </View>
           </View>
-
-          <View style={frontScreenStyles.bottomLinksContainer}>
-            <TouchableOpacity onPress={handleAboutPress}>
-              <Text style={frontScreenStyles.bottomLinkText}>Om oss</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleContactPress}>
-              <Text style={frontScreenStyles.bottomLinkText}>Kontakt oss</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
         </ImageBackground>
       </KeyboardAvoidingView>
+      <View style={frontScreenStyles.bottomLinksContainer}>
+        <TouchableOpacity onPress={handleAboutPress}>
+          <Text style={frontScreenStyles.bottomLinkText}>Om oss</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleContactPress}>
+          <Text style={frontScreenStyles.bottomLinkText}>Kontakt oss</Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 };

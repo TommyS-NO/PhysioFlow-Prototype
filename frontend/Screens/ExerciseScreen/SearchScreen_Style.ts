@@ -1,6 +1,3 @@
-
-
-
 // Husk å koble disse sammen!!
 
 // import { StyleSheet } from 'react-native';
