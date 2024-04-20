@@ -25,8 +25,10 @@ const ContactScreen = () => {
       Alert.alert("Feil", "Alle felt må fylles ut.");
       return;
     }
+
+    // Her må vi prøve å sette opp en serverløsning slik at bruker slipper at henvendelsen må gå via mailen og ikke direkte fra appen. 
     openComposer({
-      to: 'terapeut@eksempel.no',
+      to: 'bobAI_saeed@hotmail.com',
       subject: 'Henvendelse fra app',
       body: `Navn: ${name}\nEpost: ${email}\nTelefon: ${phone}\nMelding: ${message}`
     });
