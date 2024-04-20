@@ -12,7 +12,7 @@ const HealthScreen: React.FC = () => {
         style={styles.menuItem}
         onPress={() => navigation.navigate("FocusScreen")}
     >
-        <Text style={styles.menuText}>Endre fokusområder</Text>
+        <Text style={styles.menuText}>Finn min diagnose</Text>
     </TouchableOpacity>
     <TouchableOpacity
         style={styles.menuItem}
