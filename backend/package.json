@@ -6,15 +6,21 @@
   "type": "module",
   "scripts": {
     "start": "node Server.js",
-    "upload": "node api/controllers/questionController.js" 
+    "upload": "node api/controllers/questionController.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.8",
+    "chatgpt": "^5.2.5",
+    "colors": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
-    "firebase-admin": "^12.0.0"
+    "firebase-admin": "^12.0.0",
+    "helmet": "^7.1.0",
+    "openai": "^4.38.2",
+    "readline-sync": "^1.4.10"
   }
 }
