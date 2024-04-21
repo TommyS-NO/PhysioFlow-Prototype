@@ -16,6 +16,7 @@ export interface SingleChoiceQuestion {
 }
 
 export interface SliderQuestion {
+	title: string;
 	maxValue: number;
 	minValue: number;
 	id: string;
