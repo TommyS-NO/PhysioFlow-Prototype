@@ -1,34 +1,89 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	View,
 	Text,
-	TextInput,
 	StyleSheet,
 	TouchableOpacity,
 	FlatList,
 	KeyboardAvoidingView,
 	Platform,
 	Image,
+	TextInput,
 } from "react-native";
 import CustomModal from "../../Components/CustomModal/CustomModal";
-import { EXERCISE_SESSIONS } from "../ExerciseOverviewScreen";
+import { surveyService } from "../../Services/SurveyService";
+import { useRoute } from "@react-navigation/native";
 
-const SearchScreen: React.FC = () => {
-	const [searchQuery, setSearchQuery] = useState("");
-	const [filteredSessions, setFilteredSessions] = useState(EXERCISE_SESSIONS);
-	const [selectedSession, setSelectedSession] = useState(null);
+type ExerciseDetails = {
+	description: string;
+	image: string;
+};
+
+type ExerciseSession = {
+	id: string;
+	title: string;
+	description: string;
+	image: string;
+	category: string; // Add a category to each exercise
+};
+
+type RouteParams = {
+	recommendedExercises?: string[];
+};
+
+const SearchScreen = () => {
+	const [exercises, setExercises] = useState<ExerciseSession[]>([]);
+	const [filteredExercises, setFilteredExercises] = useState<ExerciseSession[]>(
+		[],
+	);
+	const [selectedSession, setSelectedSession] =
+		useState<ExerciseSession | null>(null);
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [searchQuery, setSearchQuery] = useState("");
+	const route = useRoute();
+	const routeParams = route.params as RouteParams;
 
-	const handleSearchChange = (query: string) => {
-		setSearchQuery(query);
-		setFilteredSessions(
-			EXERCISE_SESSIONS.filter((session) =>
-				session.title.toLowerCase().includes(query.toLowerCase()),
-			),
+	useEffect(() => {
+		const fetchExercises = async () => {
+			try {
+				const exercisesResponse = await surveyService.getAllExercises();
+				const exercisesArray: ExerciseSession[] = Object.entries(
+					exercisesResponse,
+				).map(([id, details]) => ({
+					id,
+					title: id.replace(/_/g, " "),
+					...details,
+				}));
+
+				// Move recommended exercises to the top if any
+				if (routeParams?.recommendedExercises) {
+					const recommended = exercisesArray.filter((exercise) =>
+						routeParams.recommendedExercises?.includes(exercise.id),
+					);
+					const others = exercisesArray.filter(
+						(exercise) =>
+							!routeParams.recommendedExercises?.includes(exercise.id),
+					);
+					setExercises([...recommended, ...others]);
+				} else {
+					setExercises(exercisesArray);
+				}
+				setFilteredExercises(exercisesArray);
+			} catch (error) {
+				console.error("Error fetching all exercises:", error);
+			}
+		};
+		fetchExercises();
+	}, [routeParams?.recommendedExercises]);
+
+	useEffect(() => {
+		const filtered = exercises.filter((exercise) =>
+			exercise.title.toLowerCase().includes(searchQuery.toLowerCase()),
 		);
-	};
+		setFilteredExercises(filtered);
+	}, [searchQuery, exercises]);
 
-	const openModal = (session) => {
+	const openModal = (session: ExerciseSession) => {
 		setSelectedSession(session);
 		setIsModalVisible(true);
 	};
@@ -38,8 +93,9 @@ const SearchScreen: React.FC = () => {
 	};
 
 	const handleAddToProgram = () => {
-		console.log("Legger til øvelse i program:", selectedSession?.title);
-		// Her må vi huske å implementere logikk for å faktisk legge til øvelsene i brukerens treningsprogram
+		if (selectedSession) {
+			console.log("Adding exercise to program:", selectedSession.title);
+		}
 		closeModal();
 	};
 
@@ -53,22 +109,31 @@ const SearchScreen: React.FC = () => {
 					placeholder="Søk etter øvelser..."
 					style={styles.searchInput}
 					value={searchQuery}
-					onChangeText={handleSearchChange}
+					onChangeText={setSearchQuery}
 				/>
 			</View>
 			<FlatList
-				data={filteredSessions}
+				data={filteredExercises}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => (
 					<TouchableOpacity
-						style={styles.sessionItem}
+						style={[
+							styles.sessionItem,
+							routeParams?.recommendedExercises?.includes(item.id) &&
+								styles.recommendedExercise,
+						]}
 						onPress={() => openModal(item)}
 					>
 						<Text style={styles.sessionTitle}>{item.title}</Text>
-						<Image source={item.image} style={styles.sessionImage} />
+						<Image
+							source={{
+								uri: item.image.replace("localhost", "192.168.10.182"),
+							}}
+							style={styles.sessionImage}
+						/>
 					</TouchableOpacity>
 				)}
-				numColumns={2} // Denne la jeg til for å dele opp listevisningen.
+				numColumns={2}
 			/>
 			{selectedSession && (
 				<CustomModal
@@ -83,15 +148,16 @@ const SearchScreen: React.FC = () => {
 						{ title: "Lukk", onPress: closeModal },
 					]}
 				>
-					<Image source={selectedSession.image} style={styles.modalImage} />
+					<Image
+						source={{ uri: selectedSession.image }}
+						style={styles.modalImage}
+					/>
 					<Text style={styles.modalText}>{selectedSession.description}</Text>
 				</CustomModal>
 			)}
 		</KeyboardAvoidingView>
 	);
 };
-
-//Husk å legge denne stylingen i en egen Styles-fil
 const styles = StyleSheet.create({
 	container: {
 		paddingTop: 20,
@@ -144,6 +210,9 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		marginBottom: 20,
 	},
+	recommendedExercise: {
+		borderColor: "green",
+		borderWidth: 2,
+	},
 });
-
 export default SearchScreen;
