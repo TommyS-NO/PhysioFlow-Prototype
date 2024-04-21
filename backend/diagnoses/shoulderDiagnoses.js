@@ -153,3 +153,4 @@ export const shoulderDiagnoses = {
 		],
 	},
 };
+export default shoulderDiagnoses;
