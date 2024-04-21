@@ -42,7 +42,7 @@ const BodyChart: React.FC<BodyChartProps> = ({
 			<Image
 				source={
 					bodySide === "front"
-						? require("../../../Assets/bodyChartFront.png")
+						? require("../../../Assets/bodyChartPerson.png")
 						: require("../../../Assets/bodyChartBack.png")
 				}
 				style={styles.bodyChart}
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 	},
 	shoulderArea: {
 		position: "absolute",
-		top: "28%",
+		top: "34%",
 		left: "62%",
 		width: 25,
 		height: 25,
@@ -132,8 +132,8 @@ const styles = StyleSheet.create({
 	},
 	wristHandArea: {
 		position: "absolute",
-		top: "53%",
-		left: "70%",
+		top: "56%",
+		left: "65%",
 		width: 25,
 		height: 25,
 		borderRadius: 100,
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
 	kneArea: {
 		position: "absolute",
 		top: "72%",
-		left: "41%",
+		left: "56%",
 		width: 25,
 		height: 25,
 		borderRadius: 100,
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
 	ankleFootArea: {
 		position: "absolute",
 		top: "90%",
-		left: "41%",
+		left: "55%",
 		width: 25,
 		height: 25,
 		borderRadius: 100,

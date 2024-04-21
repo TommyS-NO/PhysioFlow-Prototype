@@ -97,6 +97,41 @@ const FocusScreen = () => {
 		}
 	};
 
+	// const renderQuestionsForPage = () => {
+	// 	const questionsForPage = surveyState.questions.slice(
+	// 		currentPage * 5,
+	// 		(currentPage + 1) * 5,
+	// 	);
+	// 	return questionsForPage.map((question) => (
+	// 		<View key={question.id} style={styles.questionContainer}>
+	// 			<Text style={styles.questionText}>{question.question}</Text>
+	// 			{question.type === "singleChoice" &&
+	// 				question.options.map((option) => (
+	// 					<TouchableOpacity
+	// 						key={option}
+	// 						style={[
+	// 							styles.optionButton,
+	// 							selectedAnswers[question.id] === option &&
+	// 								styles.selectedOption,
+	// 						]}
+	// 						onPress={() => handleAnswerChange(question.id, option)}
+	// 					>
+	// 						<Text style={styles.optionText}>{option}</Text>
+	// 					</TouchableOpacity>
+	// 				))}
+	// 			{question.type === "slider" && (
+	// 				<CustomSlider
+	// 					value={Number(selectedAnswers[question.id]) || question.minValue}
+	// 					onValueChange={(value) => handleAnswerChange(question.id, value)}
+	// 					maximumValue={question.maxValue}
+	// 					minimumValue={question.minValue}
+	// 					title={question.title}
+	// 				/>
+	// 			)}
+	// 		</View>
+	// 	));
+	// };
+
 	const renderQuestionsForPage = () => {
 		const questionsForPage = surveyState.questions.slice(
 			currentPage * 5,
@@ -105,20 +140,27 @@ const FocusScreen = () => {
 		return questionsForPage.map((question) => (
 			<View key={question.id} style={styles.questionContainer}>
 				<Text style={styles.questionText}>{question.question}</Text>
-				{question.type === "singleChoice" &&
-					question.options.map((option) => (
-						<TouchableOpacity
+				{question.type === "singleChoice" && (
+					<View style={question.options.length === 2 ? styles.horizontalOptionsContainer : styles.verticalOptionsContainer}>
+						{question.options.map((option) => (
+							<TouchableOpacity
 							key={option}
 							style={[
 								styles.optionButton,
-								selectedAnswers[question.id] === option &&
-									styles.selectedOption,
+								selectedAnswers[question.id] === option && styles.selectedOption
 							]}
 							onPress={() => handleAnswerChange(question.id, option)}
 						>
-							<Text style={styles.optionText}>{option}</Text>
+							<Text style={[
+								styles.optionText,
+								selectedAnswers[question.id] === option && styles.selectedOptionText
+							]}>
+								{option}
+							</Text>
 						</TouchableOpacity>
-					))}
+						))}
+					</View>
+				)}
 				{question.type === "slider" && (
 					<CustomSlider
 						value={Number(selectedAnswers[question.id]) || question.minValue}
@@ -151,7 +193,7 @@ const FocusScreen = () => {
 					<KeyboardAvoidingView
 						behavior={Platform.OS === "ios" ? "padding" : "height"}
 					>
-						<View style={styles.content}>{renderQuestionsForPage()}</View>
+						{/* <View style={styles.content}>{renderQuestionsForPage()}</View>
 					</KeyboardAvoidingView>
 				</ScrollView>
 				<CustomButton
@@ -161,7 +203,18 @@ const FocusScreen = () => {
 							: "Neste"
 					}
 					onPress={handleNext}
-				/>
+				/> */}
+
+<View style={styles.content}>{renderQuestionsForPage()}</View>
+        </KeyboardAvoidingView>
+    </ScrollView>
+    <View style={styles.buttonContainer}>
+        <CustomButton
+            title={currentPage === Math.ceil(surveyState.questions.length / 5) - 1 ? "Bekreft" : "Neste"}
+            onPress={handleNext}
+        />
+    </View>
+
 			</CustomModal>
 			{diagnosisResult && (
 				<CustomModal
