@@ -20,6 +20,15 @@ const allExercises = {
 	...recommendedHipExercises,
 };
 
+export const getAllExercises = (req, res) => {
+	try {
+		res.json(allExercises);
+	} catch (error) {
+		console.error("Error fetching all exercises:", error);
+		res.status(400).send("Could not fetch all exercises");
+	}
+};
+
 export const getExerciseDetails = (req, res) => {
 	try {
 		const { exercises } = req.body;
