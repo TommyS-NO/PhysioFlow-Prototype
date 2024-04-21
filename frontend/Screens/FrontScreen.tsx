@@ -102,15 +102,10 @@ const FrontScreen = () => {
 
   return (
     <>
-      {/* <KeyboardAvoidingView
+      <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-      > */}
-      <KeyboardAvoidingView
-  style={{ flex: 1 }}
-  behavior={Platform.OS === 'ios' ? 'padding' : 'position'} 
-  keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 80}
->
+      >
         <ImageBackground
           source={require("../Assets/Stretch3.png")}
           style={frontScreenStyles.container}
@@ -168,7 +163,8 @@ const FrontScreen = () => {
                 Ikke medlem?{" "}
                 <Text
                   style={frontScreenStyles.registerLinkText}
-                  onPress={handleRegister}>
+                  onPress={handleRegister}
+                >
                   Registrer deg her
                 </Text>
               </Text>
