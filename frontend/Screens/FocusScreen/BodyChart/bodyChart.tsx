@@ -24,7 +24,7 @@ const BodyChart: React.FC<BodyChartProps> = ({
 					onPress={toggleBodySide}
 				/>
 				<Text style={styles.bodySideText}>
-					{bodySide === "front" ? "Forsiden" : "Baksiden"}
+					{bodySide === "front" ? "Forside kropp" : "Bakside kropp"}
 				</Text>
 				<MaterialCommunityIcons
 					name="chevron-right"
@@ -35,9 +35,8 @@ const BodyChart: React.FC<BodyChartProps> = ({
 			</View>
 			<Text style={styles.title}>Bodychart Fokusområde</Text>
 			<Text style={styles.text}>
-				Hvor på kroppen har du smerter? Trykk på det markerte fokusområdet og
-				svar deretter på noen spørsmål slik at vi kan gi deg antatt diagnose i
-				retur.
+				Trykk på det markerte fokusområdet du har smerter.Du må nå svare på noen kartleggingsspørsmål slik at vi kan gi deg antatt diagnose i
+				retur. Velg forside eller bakside kropp ved å trykke på pilene over. 
 			</Text>
 			<Image
 				source={
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
 	},
 	shoulderArea: {
 		position: "absolute",
-		top: "34%",
+		top: "38%",
 		left: "62%",
 		width: 25,
 		height: 25,
