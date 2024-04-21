@@ -30,7 +30,8 @@ const FocusScreen = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [currentPage, setCurrentPage] = useState(0);
 	const [selectedAnswers, setSelectedAnswers] = useState<AnswerMap>({});
-	const [bodySide, setBodySide] = useState("front");
+	const [bodySide, setBodySide] = useState<"front" | "back">("front");
+
 	const [selectedFocusArea, setSelectedFocusArea] = useState<string | null>(
 		null,
 	);
@@ -120,10 +121,11 @@ const FocusScreen = () => {
 					))}
 				{question.type === "slider" && (
 					<CustomSlider
-						value={selectedAnswers[question.id] || question.minValue}
+						value={Number(selectedAnswers[question.id]) || question.minValue}
 						onValueChange={(value) => handleAnswerChange(question.id, value)}
 						maximumValue={question.maxValue}
 						minimumValue={question.minValue}
+						title={question.title}
 					/>
 				)}
 			</View>
