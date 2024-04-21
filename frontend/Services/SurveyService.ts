@@ -40,6 +40,20 @@ const surveyService = {
     }
     return await response.json();
   },
+  getAllExercises: async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/exercises`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch all exercises');
+    }
+    const exercises = await response.json();
+    console.log('Exercises received:', exercises);
+    return exercises;
+  } catch (error) {
+    console.error('Error fetching all exercises:', error);
+    throw error;
+  }
+},
 
 getExerciseDetails: async (exerciseNames: string[]) => {
     try {
