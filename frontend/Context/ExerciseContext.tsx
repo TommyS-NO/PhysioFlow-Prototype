@@ -1,4 +1,5 @@
-import React, { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode, useEffect } from "react";
+import { surveyService } from "../Services/SurveyService";
 
 type Exercise = {
 	id: string;
@@ -9,6 +10,7 @@ type Exercise = {
 };
 
 interface ExerciseContextType {
+	exercises: Exercise[];
 	selectedExercises: Exercise[];
 	addExercise: (exercise: Exercise) => void;
 	removeExercise: (exerciseId: string) => void;
@@ -16,6 +18,7 @@ interface ExerciseContextType {
 }
 
 const defaultContextValue: ExerciseContextType = {
+	exercises: [],
 	selectedExercises: [],
 	addExercise: () => {},
 	removeExercise: () => {},
@@ -32,6 +35,7 @@ interface ExerciseProviderProps {
 export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 	children,
 }) => {
+	const [exercises, setExercises] = useState<Exercise[]>([]);
 	const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([]);
 
 	const addExercise = (newExercise: Exercise) => {
@@ -58,9 +62,18 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 		});
 	};
 
+	useEffect(() => {
+		const fetchExercises = async () => {
+			const exercises = await surveyService.getAllExercises();
+			setExercises(exercises);
+		};
+		fetchExercises();
+	}, []);
+
 	return (
 		<ExerciseContext.Provider
 			value={{
+				exercises,
 				selectedExercises,
 				addExercise,
 				removeExercise,
