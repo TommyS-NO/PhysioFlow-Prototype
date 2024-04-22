@@ -7,19 +7,16 @@ import TermsScreen from "../Screens/TermsScreen";
 import FocusScreen from "../Screens/FocusScreen/FocusScreen";
 import UserGuideScreen from "../Screens/UserGuideScreen";
 import NewScreen from "../Screens/NewScreen";
-
 import { RootStackParamList } from "./navigationTypes";
-import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen";
+
 import DeleteUserScreen from "../Screens/DeleteUserScreen";
 import AboutScreen from "../Screens/AboutScreen";
-import SearchScreen from "../Screens/ExerciseScreen/SearchScreen";
+import SearchScreen from "../Screens/SearchScreen/SearchScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import SettingsScreen from "../Screens/SettingsScreen";
 import ContactScreen from "../Screens/ContactScreen";
-import RegisterWorkout from "../Screens/ExerciseScreen/RegisterWorkout";
-import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
+
 import HealthScreen from "../Screens/HealthScreen/HealthScreen";
-import CompletedWorkoutsScreen from "../Screens/ExerciseScreen/CompletedWorkoutsScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -47,11 +44,11 @@ const AppNav = () => (
 				component={UserGuideScreen}
 				options={{ title: "Brukerveiledning" }}
 			/>
-			<Stack.Screen
+			{/* <Stack.Screen
 				name="ExerciseSession"
 				component={ExerciseOverviewScreen}
 				options={{ title: "Mitt treningsprogram" }}
-			/>
+			/> */}
 			<Stack.Screen
 				name="FocusScreen"
 				component={FocusScreen}
@@ -87,31 +84,31 @@ const AppNav = () => (
 				component={ContactScreen}
 				options={{ title: "Kontakt oss" }}
 			/>
-			<Stack.Screen
+			{/* <Stack.Screen
 				name="RegisterWorkout"
 				component={RegisterWorkout}
 				options={{ title: "Registrer økt" }}
-			/>
+			/> */}
 			<Stack.Screen
 				name="NewScreen"
 				component={NewScreen}
 				options={{ title: "new" }}
 			/>
-				<Stack.Screen
+			{/* <Stack.Screen
 				name="ExerciseScreen"
 				component={ExerciseScreen}
 				options={{ title: "Trening" }}
-			/>
-				<Stack.Screen
+			/> */}
+			<Stack.Screen
 				name="HealthScreen"
 				component={HealthScreen}
 				options={{ title: "Helse" }}
 			/>
-				<Stack.Screen
+			{/* <Stack.Screen
 				name="CompletedWorkoutsScreen"
 				component={CompletedWorkoutsScreen}
 				options={{ title: "Utførte treningsøkter" }}
-			/>
+			/> */}
 		</Stack.Navigator>
 	</NavigationContainer>
 );
