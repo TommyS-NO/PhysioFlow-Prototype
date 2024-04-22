@@ -229,7 +229,7 @@ const FocusScreen = () => {
 					<CustomButton
 						title="Vis anbefalte øvelser"
 						onPress={() => {
-							navigation.navigate("SearchScreen", {
+							navigation.navigate("ExerciseScreen", {
 								recommendedExercises: diagnosisResult.exercises,
 							});
 						}}
