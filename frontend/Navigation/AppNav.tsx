@@ -11,7 +11,7 @@ import { RootStackParamList } from "./navigationTypes";
 
 import DeleteUserScreen from "../Screens/DeleteUserScreen";
 import AboutScreen from "../Screens/AboutScreen";
-import SearchScreen from "../Screens/SearchScreen/SearchScreen";
+import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import SettingsScreen from "../Screens/SettingsScreen";
 import ContactScreen from "../Screens/ContactScreen";
@@ -65,8 +65,8 @@ const AppNav = () => (
 				options={{ title: "Om oss" }}
 			/>
 			<Stack.Screen
-				name="SearchScreen"
-				component={SearchScreen}
+				name="ExerciseScreen"
+				component={ExerciseScreen}
 				options={{ title: "Søk etter øvelser" }}
 			/>
 			<Stack.Screen
