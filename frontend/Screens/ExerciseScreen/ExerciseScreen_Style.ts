@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
 		flex: 1,
 		fontSize: 16,
 	},
-sessionItem: {
+	sessionItem: {
 		flexDirection: 'row',
 		margin: 5,
 		alignItems: 'center',
@@ -54,5 +54,15 @@ sessionItem: {
 	},
 	addButton: {
 		padding: 10,
+	},
+	recommendedContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	recommendedLabel: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		color: 'green',
+		marginLeft: 5,
 	},
 });

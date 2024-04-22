@@ -114,7 +114,7 @@ const ProfileScreen: React.FC = () => {
 				</TouchableOpacity>
 				<TouchableOpacity
 					style={styles.menuItem}
-					onPress={() => navigation.navigate("SearchScreen")}
+					onPress={() => navigation.navigate("ExerciseScreen")}
 				>
 					<Text style={styles.menuText}>Søk etter øvelser</Text>
 				</TouchableOpacity>
