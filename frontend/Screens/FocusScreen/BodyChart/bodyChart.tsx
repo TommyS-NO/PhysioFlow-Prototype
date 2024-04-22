@@ -24,7 +24,7 @@ const BodyChart: React.FC<BodyChartProps> = ({
 					onPress={toggleBodySide}
 				/>
 				<Text style={styles.bodySideText}>
-					{bodySide === "front" ? "Forsiden" : "Baksiden"}
+					{bodySide === "front" ? "Forside kropp" : "Bakside kropp"}
 				</Text>
 				<MaterialCommunityIcons
 					name="chevron-right"
@@ -34,11 +34,14 @@ const BodyChart: React.FC<BodyChartProps> = ({
 				/>
 			</View>
 			<Text style={styles.title}>Bodychart Fokusområde</Text>
-			<Text style={styles.text}>Hvor på kroppen har du smerter? Trykk på det markerte fokusområdet og svar deretter på noen spørsmål slik at vi kan gi deg antatt diagnose i retur.</Text>
+			<Text style={styles.text}>
+				Trykk på det markerte fokusområdet du har smerter.Du må nå svare på noen kartleggingsspørsmål slik at vi kan gi deg antatt diagnose i
+				retur. Velg forside eller bakside kropp ved å trykke på pilene over. 
+			</Text>
 			<Image
 				source={
 					bodySide === "front"
-						? require("../../../Assets/bodyChartFront.png")
+						? require("../../../Assets/bodyChartPerson.png")
 						: require("../../../Assets/bodyChartBack.png")
 				}
 				style={styles.bodyChart}
@@ -117,7 +120,7 @@ const styles = StyleSheet.create({
 	},
 	shoulderArea: {
 		position: "absolute",
-		top: "28%",
+		top: "38%",
 		left: "62%",
 		width: 25,
 		height: 25,
@@ -128,8 +131,8 @@ const styles = StyleSheet.create({
 	},
 	wristHandArea: {
 		position: "absolute",
-		top: "53%",
-		left: "70%",
+		top: "56%",
+		left: "65%",
 		width: 25,
 		height: 25,
 		borderRadius: 100,
@@ -151,7 +154,7 @@ const styles = StyleSheet.create({
 	kneArea: {
 		position: "absolute",
 		top: "72%",
-		left: "41%",
+		left: "56%",
 		width: 25,
 		height: 25,
 		borderRadius: 100,
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
 	ankleFootArea: {
 		position: "absolute",
 		top: "90%",
-		left: "41%",
+		left: "55%",
 		width: 25,
 		height: 25,
 		borderRadius: 100,
