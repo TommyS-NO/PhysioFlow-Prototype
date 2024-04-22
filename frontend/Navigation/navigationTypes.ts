@@ -8,12 +8,11 @@ export type RootStackParamList = {
   DeleteUserScreen: undefined;
   NewScreen: undefined;
   AboutScreen: undefined;
-  SearchScreen: { recommendedExercises?: string[] };
+  ExerciseScreen: { recommendedExercises?: string[] };
   ProfileScreen: {userName?: string};
   SettingsScreen: undefined;
   ContactScreen: undefined;
   RegisterWorkout: undefined;
-  ExerciseScreen: undefined;
   HealthScreen: undefined;
   CompletedWorkoutsScreen: undefined;
 };
