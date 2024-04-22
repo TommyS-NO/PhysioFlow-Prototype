@@ -8,16 +8,23 @@ import { recommendedWristExercises } from "../exercises/recommendedWristExercise
 import { recommendedShoulderExercises } from "../exercises/recommendedShoulderExercises.js";
 import { recommendedHipExercises } from "../exercises/recommendedHipExercises.js";
 
+const addCategoryToExercises = (exercises, category) => {
+	return Object.entries(exercises).reduce((result, [id, details]) => {
+		result[id] = { ...details, category };
+		return result;
+	}, {});
+};
+
 const allExercises = {
-	...recommendedNeckExercises,
-	...recommendedAnkleExercises,
-	...recommendedElbowExercises,
-	...recommendedKneeExercises,
-	...recommendedLowBackExercises,
-	...recommendedUpperBackExercises,
-	...recommendedWristExercises,
-	...recommendedShoulderExercises,
-	...recommendedHipExercises,
+	...addCategoryToExercises(recommendedNeckExercises, "Nakke"),
+	...addCategoryToExercises(recommendedAnkleExercises, "Ankel"),
+	...addCategoryToExercises(recommendedElbowExercises, "Albue"),
+	...addCategoryToExercises(recommendedKneeExercises, "Kne"),
+	...addCategoryToExercises(recommendedLowBackExercises, "Lav Rygg"),
+	...addCategoryToExercises(recommendedUpperBackExercises, "Øvre Rygg"),
+	...addCategoryToExercises(recommendedWristExercises, "Håndledd"),
+	...addCategoryToExercises(recommendedShoulderExercises, "Skulder"),
+	...addCategoryToExercises(recommendedHipExercises, "Hofte"),
 };
 
 export const getAllExercises = (req, res) => {
