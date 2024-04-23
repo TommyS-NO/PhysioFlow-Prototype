@@ -80,13 +80,13 @@ const ProfileScreen: React.FC = () => {
 						style={styles.menuItem}
 						onPress={() => navigation.navigate("ExerciseOverviewScreen")}
 					>
-						<Text style={styles.menuText}>liste</Text>
+						<Text style={styles.menuText}>Mine Øvelser</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
 						style={styles.menuItem}
-						onPress={() => navigation.navigate("HealthScreen")}
+						onPress={() => navigation.navigate("ExerciseScreen")}
 					>
-						<Text style={styles.menuText}>Helsedata</Text>
+						<Text style={styles.menuText}>Søk etter øvelser</Text>
 					</TouchableOpacity>
 				</View>
 
@@ -112,15 +112,15 @@ const ProfileScreen: React.FC = () => {
 				>
 					<Text style={styles.menuText}>Send melding til din behandler</Text>
 				</TouchableOpacity>
-				<TouchableOpacity
-					style={styles.menuItem}
-					onPress={() => navigation.navigate("ExerciseScreen")}
-				>
-					<Text style={styles.menuText}>Søk etter øvelser</Text>
-				</TouchableOpacity>
 
 				<TouchableOpacity onPress={handleHelp} style={styles.helpButton}>
 					<Icon name="help-circle" size={24} color={theme.colors.helpButton} />
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.menuItem}
+					onPress={() => navigation.navigate("HealthScreen")}
+				>
+					<Text style={styles.menuText}>Helsedata</Text>
 				</TouchableOpacity>
 			</View>
 			{/* Her må vi lage samme knappeoppsett som "Logg inn" */}
