@@ -78,9 +78,9 @@ const ProfileScreen: React.FC = () => {
 					{/* Plasser kolonneknapper her- må legges i par hvis det skal bli riktig */}
 					<TouchableOpacity
 						style={styles.menuItem}
-						onPress={() => navigation.navigate("ExerciseScreen")}
+						onPress={() => navigation.navigate("ExerciseOverviewScreen")}
 					>
-						<Text style={styles.menuText}>Trening</Text>
+						<Text style={styles.menuText}>liste</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
 						style={styles.menuItem}
