@@ -8,7 +8,7 @@ import FocusScreen from "../Screens/FocusScreen/FocusScreen";
 import UserGuideScreen from "../Screens/UserGuideScreen";
 import NewScreen from "../Screens/NewScreen";
 import { RootStackParamList } from "./navigationTypes";
-
+import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen/ExerciseOverviewScreen";
 import DeleteUserScreen from "../Screens/DeleteUserScreen";
 import AboutScreen from "../Screens/AboutScreen";
 import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
@@ -44,11 +44,11 @@ const AppNav = () => (
 				component={UserGuideScreen}
 				options={{ title: "Brukerveiledning" }}
 			/>
-			{/* <Stack.Screen
-				name="ExerciseSession"
+			<Stack.Screen
+				name="ExerciseOverviewScreen"
 				component={ExerciseOverviewScreen}
-				options={{ title: "Mitt treningsprogram" }}
-			/> */}
+				options={{ title: "Liste" }}
+			/>
 			<Stack.Screen
 				name="FocusScreen"
 				component={FocusScreen}
