@@ -3,7 +3,7 @@ export type RootStackParamList = {
   Register: { termsAccepted?: boolean };
   TermsScreen: undefined;
   FocusScreen: undefined;
-  ExerciseSession: undefined;
+  ExerciseOverviewScreen: undefined;
   UserGuideScreen: undefined;
   DeleteUserScreen: undefined;
   NewScreen: undefined;
