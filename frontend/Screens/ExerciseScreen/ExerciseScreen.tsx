@@ -1,19 +1,3 @@
-type ExerciseDetails = {
-	description: string;
-	image: string;
-};
-
-type ExerciseSession = {
-	id: string;
-	title: string;
-	description: string;
-	image: string;
-	category: string;
-};
-
-type RouteParams = {
-	recommendedExercises?: string[];
-};
 import React, { useState, useEffect } from "react";
 import {
 	View,
@@ -28,7 +12,11 @@ import {
 import { useRoute } from "@react-navigation/native";
 import { styles } from "./ExerciseScreen_Style";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { useExercises } from "../../Context/ExerciseContext";
+import { Exercise, useExercises } from "../../Context/ExerciseContext";
+
+type RouteParams = {
+	recommendedExercises?: string[];
+};
 
 const ExerciseScreen = () => {
 	const [searchQuery, setSearchQuery] = useState("");
@@ -40,7 +28,7 @@ const ExerciseScreen = () => {
 		fetchExercises();
 	}, [fetchExercises]);
 
-	const handleAddExercise = (exercise) => {
+	const handleAddExercise = (exercise: Exercise) => {
 		addExercise(exercise);
 	};
 	const filteredExercises = exercises.filter((exercise) => {
