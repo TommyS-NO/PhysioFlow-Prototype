@@ -28,7 +28,7 @@ import {
 import { useRoute } from "@react-navigation/native";
 import { styles } from "./ExerciseScreen_Style";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { useExercises } from "../../Context/ExerciseContext"; // Make sure this path is correct
+import { useExercises } from "../../Context/ExerciseContext";
 
 const ExerciseScreen = () => {
 	const [searchQuery, setSearchQuery] = useState("");
@@ -40,13 +40,9 @@ const ExerciseScreen = () => {
 		fetchExercises();
 	}, [fetchExercises]);
 
-	// Function to handle adding an exercise
 	const handleAddExercise = (exercise) => {
 		addExercise(exercise);
-		// Add any additional logic or user feedback here
 	};
-
-	// Filters the context exercises by search query and recommended status
 	const filteredExercises = exercises.filter((exercise) => {
 		const searchMatch = exercise.name
 			.toLowerCase()
