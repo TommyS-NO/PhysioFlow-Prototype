@@ -9,10 +9,11 @@ import {
 	Image,
 	TextInput,
 } from "react-native";
-import { surveyService } from "../../Services/SurveyService";
 import { useRoute } from "@react-navigation/native";
 import { styles } from "./ExerciseScreen_Style";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { useExercises } from "../../Context/ExerciseContext";
+import { apiService } from "../../Services/ApiService";
 
 type ExerciseDetails = {
 	description: string;
@@ -36,15 +37,15 @@ const ExerciseScreen = () => {
 	const [filteredExercises, setFilteredExercises] = useState<ExerciseSession[]>(
 		[],
 	);
-
 	const [searchQuery, setSearchQuery] = useState("");
+	const { addExercise } = useExercises(); // Hent funksjonen fra context
 	const route = useRoute();
 	const routeParams = route.params as RouteParams;
 
 	useEffect(() => {
 		const fetchExercises = async () => {
 			try {
-				const exercisesResponse = await surveyService.getAllExercises();
+				const exercisesResponse = await apiService.getAllExercises();
 				const exercisesArray: ExerciseSession[] = Object.entries(
 					exercisesResponse,
 				).map(([id, details]) => ({
@@ -79,6 +80,18 @@ const ExerciseScreen = () => {
 		);
 		setFilteredExercises(filtered);
 	}, [searchQuery, exercises]);
+
+	// Funksjon for å legge til en øvelse i listen
+	const handleAddExercise = (exercise: ExerciseSession) => {
+		addExercise({
+			id: exercise.id,
+			name: exercise.title,
+			description: exercise.description,
+			image: exercise.image,
+			category: exercise.category,
+		});
+	};
+
 	return (
 		<KeyboardAvoidingView
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -115,7 +128,7 @@ const ExerciseScreen = () => {
 						</View>
 						<TouchableOpacity
 							style={styles.addButton}
-							onPress={() => console.log("Legger til øvelse:", item.title)}
+							onPress={() => handleAddExercise(item)}
 						>
 							<MaterialIcons name="add" size={24} color="black" />
 						</TouchableOpacity>
