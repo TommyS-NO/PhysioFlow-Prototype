@@ -89,4 +89,9 @@ export const frontScreenStyles = StyleSheet.create({
     color: "black",
     textDecorationLine: "underline",
   },
+
+  linkText: {
+    marginTop: 5,
+    fontSize: theme.fontSize.regular,
+  },
 });
