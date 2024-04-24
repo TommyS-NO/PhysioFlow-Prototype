@@ -17,6 +17,7 @@ import { upperBackDiagnoses } from "../diagnoses/upperBackDiagnoses.js";
 import { wristSurvey } from "../surveys/wristSurvey.js";
 import { wristDiagnoses } from "../diagnoses/wristDiagnoses.js";
 import { interpretAnswers } from "../utils/surveyUtils.js";
+import { followupSurvey } from "../surveys/followUpSurvey.js";
 
 const surveyController = {
 	surveys: {
@@ -29,6 +30,7 @@ const surveyController = {
 		shoulder: shoulderSurvey,
 		upperBack: upperBackSurvey,
 		wrist: wristSurvey,
+		followup: followupSurvey,
 	},
 
 	evaluateDiagnosis: function (answers, surveyId) {
