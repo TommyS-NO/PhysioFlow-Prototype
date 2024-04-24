@@ -13,7 +13,7 @@ import BodyChart from "./BodyChart/bodyChart";
 import CustomButton from "../../Components/CustomButton/CustomButton";
 import CustomSlider from "../../Components/CustomSlider/CustomSlider";
 import { SurveyContext } from "../../Context/SurveyContext";
-import { surveyService } from "../../Services/SurveyService";
+import { apiService } from "../../Services/ApiService";
 import { styles } from "../FocusScreen/FocusScreen_Style";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../Navigation/navigationTypes";
@@ -44,7 +44,7 @@ const FocusScreen = () => {
 
 	useEffect(() => {
 		if (selectedFocusArea) {
-			surveyService.getSurvey(selectedFocusArea).then((data) => {
+			apiService.getSurvey(selectedFocusArea).then((data) => {
 				surveyDispatch({
 					type: "LOAD_SURVEY",
 					surveyId: selectedFocusArea,
@@ -79,7 +79,7 @@ const FocusScreen = () => {
 
 	const handleSubmitAnswers = async () => {
 		try {
-			const response = await surveyService.submitSurvey(
+			const response = await apiService.submitSurvey(
 				selectedFocusArea ?? "",
 				selectedAnswers,
 			);
