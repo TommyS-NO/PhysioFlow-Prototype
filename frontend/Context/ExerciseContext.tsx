@@ -4,10 +4,11 @@ import React, {
 	ReactNode,
 	useCallback,
 	useContext,
+	useEffect,
 } from "react";
-import { surveyService } from "../Services/SurveyService";
+import { apiService } from "../Services/ApiService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Type definitions for Exercise and Context
 export type Exercise = {
 	id: string;
 	name: string;
@@ -35,7 +36,6 @@ export type ExerciseApiData = {
 
 type AllExercisesApiResponse = Record<string, ExerciseApiData>;
 
-// Default context value with empty implementations and initial state
 const defaultContextValue: ExerciseContextType = {
 	exercises: [],
 	selectedExercises: [],
@@ -63,6 +63,37 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 	const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
+
+	const updateAsyncStorage = useCallback(
+		async (selectedExercises: Exercise[]) => {
+			try {
+				const jsonValue = JSON.stringify(selectedExercises);
+				await AsyncStorage.setItem("selectedExercises", jsonValue);
+			} catch (e) {
+				console.error("Error saving selected exercises:", e);
+			}
+		},
+		[],
+	);
+	useEffect(() => {
+		const loadSelectedExercises = async () => {
+			try {
+				const storedSelectedExercises =
+					await AsyncStorage.getItem("selectedExercises");
+				if (storedSelectedExercises) {
+					setSelectedExercises(JSON.parse(storedSelectedExercises));
+				}
+			} catch (e) {
+				console.error("Error loading selected exercises:", e);
+			}
+		};
+
+		loadSelectedExercises();
+	}, []);
+
+	useEffect(() => {
+		updateAsyncStorage(selectedExercises);
+	}, [selectedExercises, updateAsyncStorage]);
 
 	const addExercise = useCallback((newExercise: Exercise) => {
 		setSelectedExercises((prevExercises) => {
@@ -93,7 +124,7 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 		setError(null);
 		try {
 			const allExercisesResponse: AllExercisesApiResponse =
-				await surveyService.getAllExercises();
+				await apiService.getAllExercises();
 			const exercisesArray: Exercise[] = Object.entries(
 				allExercisesResponse,
 			).map(([name, details]) => ({
