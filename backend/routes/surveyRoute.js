@@ -12,6 +12,14 @@ router.get("/:surveyId", (req, res, next) => {
 		next(error);
 	}
 });
+router.get("/followup", (req, res, next) => {
+	try {
+		getSurveyById(req, res, next);
+	} catch (error) {
+		console.error(`Error in GET /followup: ${error.message}`);
+		next(error);
+	}
+});
 
 router.post("/evaluate/:surveyId", (req, res, next) => {
 	const { surveyId } = req.params;
