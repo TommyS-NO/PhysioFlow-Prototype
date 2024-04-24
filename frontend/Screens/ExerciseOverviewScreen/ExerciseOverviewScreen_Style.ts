@@ -40,4 +40,18 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
   },
+  completedText: {
+    fontSize: 16,
+    color: 'green',
+    fontWeight: 'bold',
+  },
+  notCompletedText: {
+    fontSize: 16,
+    color: 'red',
+    fontWeight: 'bold',
+  },
+  actionsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });
