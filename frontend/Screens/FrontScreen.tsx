@@ -79,7 +79,10 @@ const FrontScreen = () => {
     } catch (error) {
       const firebaseError = error as FirebaseError;
       setError(firebaseError.message);
-      Alert.alert("Feil ved innlogging", firebaseError.message);
+      Alert.alert(
+        "Feil ved innlogging",
+        "Du har tastet feil brkernavn eller passord."
+      );
     }
   };
 
@@ -127,14 +130,6 @@ const FrontScreen = () => {
 
   const handleHelp = () => {
     navigation.navigate("UserGuideScreen");
-  };
-
-  const handleAboutPress = () => {
-    navigation.navigate("AboutScreen");
-  };
-
-  const handleContactPress = () => {
-    navigation.navigate("ContactScreen");
   };
 
   return (
@@ -188,11 +183,7 @@ const FrontScreen = () => {
 
               <CustomButton title="Logg inn" onPress={handleLogin} />
 
-              <TouchableOpacity
-                onPress={handleForgotPassword}
-           
-              >
- 
+              <TouchableOpacity onPress={handleForgotPassword}>
                 <Text style={frontScreenStyles.linkText}>Glemt passord?</Text>
               </TouchableOpacity>
 
@@ -209,21 +200,13 @@ const FrontScreen = () => {
           </View>
         </ImageBackground>
       </KeyboardAvoidingView>
-      <View style={frontScreenStyles.bottomLinksContainer}>
-        <TouchableOpacity onPress={handleAboutPress}>
-          <Text style={frontScreenStyles.bottomLinkText}>Om oss</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleContactPress}>
-          <Text style={frontScreenStyles.bottomLinkText}>Kontakt oss</Text>
-        </TouchableOpacity>
-      </View>
     </>
   );
 };
 
 export default FrontScreen;
 
-//Her ligger opprinnelig fungerende kode, men uten mulighet til reeset av passord. Kikk på pilen for å åpne hele koden
+// Her ligger opprinnelig fungerende kode, men uten mulighet til reeset av passord. Kikk på pilen for å åpne hele koden
 // import React, { useState } from "react";
 // import {
 //   Alert,

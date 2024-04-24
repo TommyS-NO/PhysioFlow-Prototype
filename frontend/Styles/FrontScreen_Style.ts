@@ -42,7 +42,6 @@ export const frontScreenStyles = StyleSheet.create({
     borderRadius: theme.borderRadius.large,
     width: "90%",
     alignItems: "center",
-    // marginTop: theme.spacing.large,
     marginTop: 90,
   },
   loginText: {
@@ -94,4 +93,21 @@ export const frontScreenStyles = StyleSheet.create({
     marginTop: 5,
     fontSize: theme.fontSize.regular,
   },
+
+
+//Skal/trenger vi ha med markering av inputfelt hvor det er tastet feil brukernavn eller passord? 
+
+// errorInputField: {
+//   borderColor: 'red',
+//   borderWidth: 1,
+//   borderRadius: 5,
+//   backgroundColor: "#fff0f0",
+//   marginVertical: 5,
+// },
+// errorText: {
+//   color: 'red',
+//   fontSize: 14,
+//   marginVertical: 5,
+// }
+
 });
