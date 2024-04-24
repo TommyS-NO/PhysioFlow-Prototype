@@ -73,6 +73,8 @@ const FrontScreen = () => {
         userId: user.uid,
         userDetails,
       });
+      setEmail('');
+      setPassword('');
       navigation.navigate("ProfileScreen", {
         userName: userDetails.username || "Bruker",
       });
@@ -81,7 +83,7 @@ const FrontScreen = () => {
       setError(firebaseError.message);
       Alert.alert(
         "Feil ved innlogging",
-        "Du har tastet feil brkernavn eller passord."
+         "Du har tastet feil brukernavn eller passord."
       );
     }
   };
