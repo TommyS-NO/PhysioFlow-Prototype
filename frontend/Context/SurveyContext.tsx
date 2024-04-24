@@ -6,7 +6,7 @@ import React, {
 	useCallback,
 	PropsWithChildren,
 } from "react";
-import { surveyService } from "../Services/SurveyService";
+import { apiService } from "../Services/ApiService";
 
 export interface SingleChoiceQuestion {
 	id: string;
@@ -91,7 +91,8 @@ function SurveyProvider({ children }: PropsWithChildren) {
 
 	const loadSurvey = useCallback(async (surveyId: string) => {
 		try {
-			const surveyData = await surveyService.getSurvey(surveyId);
+			const surveyData = await apiService.getSurvey(surveyId);
+			console.log("Survey data:", surveyData);
 			dispatch({
 				type: "LOAD_SURVEY",
 				surveyId,
