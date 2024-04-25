@@ -7,13 +7,13 @@ const HealthScreen: React.FC = () => {
 
     return( 
         <View style={styles.gridContainer}>
-
+{/* 
         <TouchableOpacity
         style={styles.menuItem}
         onPress={() => navigation.navigate("FocusScreen")}
     >
         <Text style={styles.menuText}>Finn min diagnose</Text>
-    </TouchableOpacity>
+    </TouchableOpacity> */}
     <TouchableOpacity
         style={styles.menuItem}
         onPress={() => navigation.navigate("")}
