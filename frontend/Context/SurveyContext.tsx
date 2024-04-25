@@ -25,8 +25,16 @@ export interface SliderQuestion {
 	sliderMax: number;
 	type: "slider";
 }
+export interface NumericInputQuestion {
+	id: string;
+	question: string;
+	type: "numericInput";
+}
 
-export type SurveyQuestion = SingleChoiceQuestion | SliderQuestion;
+export type SurveyQuestion =
+	| SingleChoiceQuestion
+	| SliderQuestion
+	| NumericInputQuestion;
 
 export interface Answer {
 	questionId: string;
@@ -79,9 +87,11 @@ const SurveyReducer = (
 export const SurveyContext = createContext<{
 	state: SurveyState;
 	dispatch: Dispatch<SurveyAction>;
+	loadSurvey: (surveyId: string) => Promise<void>;
 }>({
 	state: initialState,
 	dispatch: () => null,
+	loadSurvey: async () => {},
 });
 
 export const useSurvey = () => useContext(SurveyContext);
@@ -104,7 +114,7 @@ function SurveyProvider({ children }: PropsWithChildren) {
 	}, []);
 
 	return (
-		<SurveyContext.Provider value={{ state, dispatch }}>
+		<SurveyContext.Provider value={{ state, dispatch, loadSurvey }}>
 			{children}
 		</SurveyContext.Provider>
 	);
