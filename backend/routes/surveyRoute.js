@@ -12,6 +12,7 @@ router.get("/:surveyId", (req, res, next) => {
 		next(error);
 	}
 });
+
 router.get("/followup", (req, res, next) => {
 	try {
 		getSurveyById(req, res, next);
