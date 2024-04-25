@@ -9,7 +9,6 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@firebase/firestore": "^4.5.0",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-native-community/datetimepicker": "7.6.1",
     "@react-native-community/slider": "^4.4.2",
@@ -22,6 +21,7 @@
     "dotenv": "^16.4.5",
     "expo": "^50.0.14",
     "expo-status-bar": "~1.11.1",
+    "firebase": "^10.11.0",
     "react": "^18.2.0",
     "react-native": "^0.73.6",
     "react-native-elements": "^3.4.3",
