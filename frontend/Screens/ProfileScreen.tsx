@@ -13,7 +13,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import {
 	auth,
 	subscribeToUserProfile,
-} from "../Services/Firebase/firebaseConfig";
+} from "../Services/Firebase/FirebaseConfig";
 import { signOut } from "firebase/auth";
 import { theme } from "../theme";
 
