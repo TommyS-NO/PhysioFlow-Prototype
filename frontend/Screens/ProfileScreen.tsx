@@ -11,8 +11,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import {
-  auth,
-  subscribeToUserProfile,
+	auth,
+	subscribeToUserProfile,
 } from "../Services/Firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { theme } from "../theme";

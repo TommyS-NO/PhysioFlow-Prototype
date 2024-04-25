@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Navigation/navigationTypes";
-import { deleteUserAccount, auth } from "../Services/Firebase/firebaseConfig";
+import { deleteUserAccount, auth } from "../Services/Firebase/FirebaseConfig";
 
 type DeleteUserScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
 	warningText: {
 		marginBottom: 20,
 		fontSize: 16,
-		color:  "#D32F2F",
+		color: "#D32F2F",
 		textAlign: "center",
 	},
 	deleteButton: {
-		backgroundColor:  "#D32F2F",
+		backgroundColor: "#D32F2F",
 		padding: 10,
 		borderRadius: 5,
 	},

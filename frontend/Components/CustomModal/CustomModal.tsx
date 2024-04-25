@@ -14,7 +14,7 @@ interface CustomModalProps
 	extends Omit<ModalProps, "visible" | "onRequestClose"> {
 	visible: boolean;
 	onClose: () => void;
-	title: string;
+	title?: string;
 	children: React.ReactNode;
 	style?: ViewStyle;
 }
