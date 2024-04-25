@@ -20,7 +20,7 @@ import PickerComponent from "./Picker/PickerComponent";
 import {
 	registerUser,
 	saveUserProfile,
-} from "../../Services/Firebase/firebaseConfig";
+} from "../../Services/Firebase/FirebaseConfig";
 
 type RegisterScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
