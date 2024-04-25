@@ -2,11 +2,11 @@ import express from "express";
 import {
 	getExerciseDetails,
 	getAllExercises,
-} from "../controllers/exerciseController.js"; // Import getAllExercises here
+} from "../controllers/exerciseController.js";
 
 const router = express.Router();
 
-router.get("/", getAllExercises); // Now getAllExercises is defined
+router.get("/", getAllExercises);
 
 // Henter detaljer for en liste med øvelser
 router.post("/details", (req, res, next) => {
