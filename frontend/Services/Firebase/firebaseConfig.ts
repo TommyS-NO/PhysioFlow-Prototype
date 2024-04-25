@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, deleteUser as firebaseDeleteUser, AuthError } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, deleteUser as firebaseDeleteUser } from 'firebase/auth';
 import { getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot, getDoc } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID } from '@env';
@@ -32,8 +32,8 @@ const registerUser = async (email: string, password: string): Promise<string | n
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return userCredential.user.uid;
   } catch (error) {
-    const authError = error as AuthError;
-    console.error("Registreringsfeil:", authError.message);
+    const authError = error as Error;
+  console.error("Registreringsfeil:", authError.message);
     return null;
   }
 };
