@@ -7,7 +7,7 @@ import {
 const router = express.Router();
 
 // Hent alle diagnoser
-router.get("/", (req, res, next) => {
+router.get("/", (res, next) => {
 	try {
 		const diagnoses = getDiagnoses();
 		res.json(diagnoses);
