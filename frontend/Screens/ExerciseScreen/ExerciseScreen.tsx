@@ -15,11 +15,6 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useExercises } from "../../Context/ExerciseContext";
 import { apiService } from "../../Services/ApiService";
 
-type ExerciseDetails = {
-	description: string;
-	image: string;
-};
-
 type ExerciseSession = {
 	id: string;
 	title: string;
@@ -38,7 +33,7 @@ const ExerciseScreen = () => {
 		[],
 	);
 	const [searchQuery, setSearchQuery] = useState("");
-	const { addExercise } = useExercises(); // Hent funksjonen fra context
+	const { addExercise } = useExercises();
 	const route = useRoute();
 	const routeParams = route.params as RouteParams;
 
