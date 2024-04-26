@@ -1,72 +1,13 @@
 import React, { useContext, useState } from "react";
-import {
-	View,
-	Text,
-	FlatList,
-	Image,
-	TouchableOpacity,
-	Alert,
-	ScrollView,
-	TextInput,
-} from "react-native";
+import { View, FlatList, Alert, ScrollView } from "react-native";
 import { Exercise, ExerciseContext } from "../../Context/ExerciseContext";
-import { SurveyQuestion, useSurvey, Answer } from "../../Context/SurveyContext";
-import { styles } from "./ExerciseOverviewScreen_Style";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import CustomModal from "../../Components/CustomModal/CustomModal";
-import CustomSlider from "../../Components/CustomSlider/CustomSlider";
-import CustomButton from "../../Components/CustomButton/CustomButton";
+import { useSurvey } from "../../Context/SurveyContext";
 import { useUser } from "../../Context/UserContext";
-
-interface SurveyQuestionsProps {
-	questions: SurveyQuestion[];
-	onAnswer: (questionId: string, answer: string | number) => void;
-	answers: Record<string, Answer>;
-}
-
-const SurveyQuestions = ({
-	questions,
-	onAnswer,
-	answers,
-}: SurveyQuestionsProps) => {
-	return (
-		<ScrollView>
-			{questions.map((question) => {
-				const answerValue = answers[question.id]?.answer || "";
-				return (
-					<View key={question.id} style={styles.questionContainer}>
-						<Text style={styles.questionTitle}>{question.question}</Text>
-						{question.type === "slider" && (
-							<CustomSlider
-								value={Number(answerValue) || question.minValue}
-								onValueChange={(value) => onAnswer(question.id, value)}
-								maximumValue={question.maxValue}
-								minimumValue={question.minValue}
-								title={question.title}
-							/>
-						)}
-						{question.type === "numericInput" && (
-							<View style={styles.timeInputContainer}>
-								<Text style={styles.timeInputLabel}>Tid:</Text>
-								<TextInput
-									style={styles.textInput}
-									value={String(answerValue)}
-									onChangeText={(value) => {
-										const numericValue = parseFloat(value);
-										if (!Number.isNaN(numericValue) && value.length <= 10) {
-											onAnswer(question.id, numericValue);
-										}
-									}}
-									keyboardType="numeric"
-								/>
-							</View>
-						)}
-					</View>
-				);
-			})}
-		</ScrollView>
-	);
-};
+import { styles } from "./ExerciseOverviewScreen_Style";
+import CustomModal from "../../Components/CustomModal/CustomModal";
+import CustomButton from "../../Components/CustomButton/CustomButton";
+import ExerciseItem from "./ExerciseItemComponent";
+import QuestionItem from "./QuestionItemComponent";
 
 const ExerciseOverviewScreen = () => {
 	const { selectedExercises, removeExercise, updateExerciseStatus } =
@@ -81,6 +22,14 @@ const ExerciseOverviewScreen = () => {
 	const [activeExerciseId, setActiveExerciseId] = useState<string | null>(null);
 
 	const handleCompleteExercise = async (exercise: Exercise) => {
+		console.log("Selected exercise ID:", exercise.id); // Log for debugging SLETT!!
+		if (!exercise.id) {
+			console.error(
+				"Error: exerciseId is undefined when trying to complete an exercise.",
+			);
+			return;
+		}
+
 		try {
 			await loadSurvey("followup");
 			setActiveExerciseId(exercise.id);
@@ -98,10 +47,22 @@ const ExerciseOverviewScreen = () => {
 		});
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (
 			Object.keys(surveyState.answers).length === surveyState.questions.length
 		) {
+			try {
+				await completeExercise(
+					userState.userId,
+					activeExerciseId,
+					surveyState.answers,
+				);
+				updateExerciseStatus(activeExerciseId, "completed");
+				setSurveyVisible(false);
+				setActiveExerciseId(null);
+			} catch (error) {
+				console.error("Error completing exercise:", error);
+			}
 		} else {
 			Alert.alert(
 				"Advarsel",
@@ -109,6 +70,7 @@ const ExerciseOverviewScreen = () => {
 			);
 		}
 	};
+
 	const closeSurvey = () => {
 		setSurveyVisible(false);
 		setActiveExerciseId(null);
@@ -136,51 +98,34 @@ const ExerciseOverviewScreen = () => {
 				onClose={closeSurvey}
 				style={styles.modalView}
 			>
-				<SurveyQuestions
-					questions={surveyState.questions}
-					onAnswer={handleAnswerChange}
-					answers={surveyState.answers}
-				/>
+				<ScrollView>
+					{surveyState.questions.map((question) => (
+						<QuestionItem
+							key={question.id}
+							question={question}
+							onAnswer={handleAnswerChange}
+							answer={
+								surveyState.answers[question.id] || {
+									questionId: question.id,
+									answer: "",
+								}
+							}
+						/>
+					))}
+				</ScrollView>
 				<CustomButton title="Bekreft" onPress={handleSubmit} />
 			</CustomModal>
 			<FlatList
 				data={selectedExercises}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => (
-					<View style={styles.sessionItem}>
-						<Image
-							source={{
-								uri: item.image.replace("localhost", "192.168.10.182"),
-							}}
-							style={styles.sessionImage}
-						/>
-						<View style={styles.sessionInfo}>
-							<Text style={styles.sessionTitle}>{item.name}</Text>
-							<Text style={styles.sessionDescription}>{item.description}</Text>
-							<View style={styles.actionsContainer}>
-								{activeExerciseId === item.id ? (
-									<TouchableOpacity>
-										<MaterialIcons name="edit" size={24} color="yellow" />
-									</TouchableOpacity>
-								) : (
-									<TouchableOpacity
-										onPress={() => handleCompleteExercise(item)}
-									>
-										<MaterialIcons
-											name="check-circle"
-											size={24}
-											color="green"
-										/>
-										<Text style={styles.completeText}>Gjennomfør</Text>
-									</TouchableOpacity>
-								)}
-								<TouchableOpacity onPress={() => handleRemoveExercise(item.id)}>
-									<MaterialIcons name="remove-circle" size={24} color="red" />
-									<Text style={styles.removeText}>Slett</Text>
-								</TouchableOpacity>
-							</View>
-						</View>
-					</View>
+					<ExerciseItem
+						exercise={item}
+						onEdit={() => console.log(`Rediger øvelse ${item.id}`)}
+						onComplete={() => handleCompleteExercise(item)}
+						onRemove={() => handleRemoveExercise(item.id)}
+						isActive={isSurveyVisible && activeExerciseId === item.id}
+					/>
 				)}
 			/>
 		</View>
