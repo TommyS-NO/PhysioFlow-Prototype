@@ -9,7 +9,6 @@ interface ExerciseItemProps {
 	onEdit: () => void;
 	onComplete: () => void;
 	onRemove: () => void;
-	isActive: boolean;
 }
 
 const ExerciseItem: React.FC<ExerciseItemProps> = ({
@@ -17,29 +16,40 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({
 	onEdit,
 	onComplete,
 	onRemove,
-	isActive,
 }) => {
+	const isCompleted = exercise.status === "completed";
+
 	return (
 		<View style={styles.sessionItem}>
-			<Image
-				source={{ uri: exercise.image.replace("localhost", "192.168.10.182") }}
-				style={styles.sessionImage}
-			/>
+			<View style={styles.sessionImageOverlay}>
+				<Image
+					source={{
+						uri: exercise.image.replace("localhost", "192.168.10.182"),
+					}}
+					style={styles.sessionImage}
+				/>
+				{isCompleted && (
+					<View style={styles.completedOverlay}>
+						<Text style={styles.completedText}>
+							Gjennomført {exercise.completedAt}
+						</Text>
+					</View>
+				)}
+			</View>
 			<View style={styles.sessionInfo}>
 				<Text style={styles.sessionTitle}>{exercise.name}</Text>
 				<Text style={styles.sessionDescription}>{exercise.description}</Text>
 				<View style={styles.actionsContainer}>
-					{isActive ? (
-						<TouchableOpacity onPress={onEdit}>
-							<MaterialIcons name="edit" size={24} color="yellow" />
-						</TouchableOpacity>
-					) : (
-						<TouchableOpacity onPress={onComplete}>
+					{!isCompleted && (
+						<TouchableOpacity
+							style={styles.completeButton}
+							onPress={onComplete}
+						>
 							<MaterialIcons name="check-circle" size={24} color="green" />
 							<Text style={styles.completeText}>Gjennomfør</Text>
 						</TouchableOpacity>
 					)}
-					<TouchableOpacity onPress={onRemove}>
+					<TouchableOpacity style={styles.removeButton} onPress={onRemove}>
 						<MaterialIcons name="remove-circle" size={24} color="red" />
 						<Text style={styles.removeText}>Slett</Text>
 					</TouchableOpacity>

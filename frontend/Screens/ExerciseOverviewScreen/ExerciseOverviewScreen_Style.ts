@@ -28,6 +28,12 @@ export const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
   },
+  sessionImageOverlay: {
+    position: 'relative',
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
   sessionInfo: {
     flex: 1,
     marginLeft: 10,
@@ -100,5 +106,30 @@ export const styles = StyleSheet.create({
     elevation: 5,
     width: "90%", 
     maxHeight: "85%",
+  },
+  completedOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50, 
+  },
+  completedText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 14,
+    textAlign: 'center', 
+  },
+  completeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  removeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

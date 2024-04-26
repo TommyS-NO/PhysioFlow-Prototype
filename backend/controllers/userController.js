@@ -196,6 +196,13 @@ export const saveCompletedExerciseForUser = async (req, res) => {
 	const { userId } = req.params;
 	const { completedExercise } = req.body;
 
+	if (!completedExercise.id) {
+		console.error("Error: completedExercise.id is undefined");
+		return res
+			.status(400)
+			.json({ message: "completedExercise.id is undefined" });
+	}
+
 	try {
 		const completedExerciseRef = await db
 			.collection("users")

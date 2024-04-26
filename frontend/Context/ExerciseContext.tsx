@@ -15,6 +15,8 @@ export type Exercise = {
 	description: string;
 	image: string;
 	category: string;
+	status?: "pending" | "completed";
+	completedAt?: string;
 };
 
 export interface ExerciseContextType {
@@ -23,6 +25,10 @@ export interface ExerciseContextType {
 	addExercise: (exercise: Exercise) => void;
 	removeExercise: (exerciseId: string) => void;
 	toggleExerciseSelected: (exercise: Exercise) => void;
+	updateExerciseStatus: (
+		exerciseId: string,
+		status: "pending" | "completed",
+	) => void;
 	loading: boolean;
 	error: string | null;
 	fetchExercises: () => Promise<void>;
@@ -42,6 +48,7 @@ const defaultContextValue: ExerciseContextType = {
 	addExercise: () => {},
 	removeExercise: () => {},
 	toggleExerciseSelected: () => {},
+	updateExerciseStatus: () => {},
 	loading: false,
 	error: null,
 	fetchExercises: async () => {},
@@ -97,10 +104,10 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 
 	const addExercise = useCallback((newExercise: Exercise) => {
 		setSelectedExercises((prevExercises) => {
-			if (!prevExercises.some((exercise) => exercise.id === newExercise.id)) {
-				return [...prevExercises, newExercise];
-			}
-			return prevExercises;
+			const timestamp = Date.now();
+			const newId = `${newExercise.id}_${timestamp}`;
+			const newExerciseWithUniqueId = { ...newExercise, id: newId };
+			return [...prevExercises, newExerciseWithUniqueId];
 		});
 	}, []);
 
@@ -118,6 +125,27 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 			return [...prevExercises, exercise];
 		});
 	}, []);
+
+	const updateExerciseStatus = useCallback(
+		(exerciseId: string, status: "pending" | "completed") => {
+			setSelectedExercises((prevExercises) =>
+				prevExercises.map((exercise) => {
+					if (exercise.id === exerciseId) {
+						return {
+							...exercise,
+							status: status,
+							completedAt:
+								status === "completed"
+									? new Date().toLocaleDateString()
+									: exercise.completedAt,
+						};
+					}
+					return exercise;
+				}),
+			);
+		},
+		[],
+	);
 
 	const fetchExercises = useCallback(async () => {
 		setLoading(true);
@@ -153,6 +181,7 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 				loading,
 				error,
 				fetchExercises,
+				updateExerciseStatus,
 			}}
 		>
 			{children}
