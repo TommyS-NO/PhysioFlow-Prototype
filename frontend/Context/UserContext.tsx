@@ -2,15 +2,16 @@ import React, {
 	createContext,
 	useReducer,
 	useContext,
-	Dispatch,
 	ReactNode,
 	useCallback,
 } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import { Exercise } from "./ExerciseContext";
 import { db } from "../Services/Firebase/FirebaseConfig";
 
-// Typescript-typer og interfaces
+// Exercise type imported from ExerciseContext
+import { Exercise } from "./ExerciseContext";
+
+// User profile interface
 interface UserProfile {
 	username?: string;
 	email: string;
@@ -21,13 +22,17 @@ interface UserProfile {
 	profileImageUrl?: string;
 }
 
+// User state interface
 interface UserState {
 	isLoggedIn: boolean;
 	token: string | null;
 	userDetails: UserProfile | null;
 	userId: string | null;
+	completedExercises: CompletedExercise[];
+	lastCompletedExercise: CompletedExercise | null;
 }
 
+// Follow-up answers interface
 interface FollowupAnswers {
 	painIntensity: number;
 	repetitionsCompleted: number;
@@ -36,63 +41,103 @@ interface FollowupAnswers {
 	generalAbility: number;
 }
 
-type UserAction =
-	| {
-			type: "LOGIN";
-			token: string;
-			userId: string;
-			userDetails: Partial<UserProfile>;
-	  }
-	| { type: "LOGOUT" }
-	| { type: "REGISTER"; userDetails: UserProfile }
-	| { type: "UPDATE_USER_DETAILS"; details: Partial<UserProfile> }
-	| {
-			type: "COMPLETE_EXERCISE";
-			userId: string;
-			exercise: Exercise;
-			answers: FollowupAnswers;
-	  };
+// Completed exercise type
+type CompletedExercise = {
+	exerciseId: string;
+	answers: FollowupAnswers;
+	completedAt: Date;
+};
 
+// User action types
+type UserAction = {
+	type:
+		| "LOGIN"
+		| "LOGOUT"
+		| "REGISTER"
+		| "UPDATE_USER_DETAILS"
+		| "COMPLETE_EXERCISE";
+	token?: string;
+	userId?: string;
+	userDetails?: UserProfile;
+	exerciseId?: string;
+	answers?: FollowupAnswers;
+};
+
+// Initial user state
 const initialState: UserState = {
 	isLoggedIn: false,
 	token: null,
 	userDetails: null,
 	userId: null,
+	completedExercises: [],
+	lastCompletedExercise: null,
 };
 
+// User reducer function
 const userReducer = (state: UserState, action: UserAction): UserState => {
 	switch (action.type) {
 		case "LOGIN":
+			// Ensure all required properties are present before updating state
 			return {
 				...state,
 				isLoggedIn: true,
-				token: action.token,
-				userId: action.userId,
-				userDetails: { ...state.userDetails, ...action.userDetails },
+				token: action.token ?? state.token,
+				userId: action.userId ?? state.userId,
+				userDetails: {
+					...state.userDetails,
+					...action.userDetails,
+				} as UserProfile,
 			};
 		case "LOGOUT":
 			return initialState;
 		case "REGISTER":
+			// userDetails in REGISTER action is expected to be a complete UserProfile object
 			return {
 				...state,
-				userDetails: action.userDetails,
+				userDetails: action.userDetails ?? state.userDetails,
 			};
 		case "UPDATE_USER_DETAILS":
+			// Update the userDetails only if details are provided
 			return {
 				...state,
-				userDetails: { ...state.userDetails, ...action.details },
+				userDetails: action.userDetails
+					? { ...state.userDetails, ...action.userDetails }
+					: state.userDetails,
 			};
+		case "COMPLETE_EXERCISE":
+			// Check for exerciseId and answers before adding new completed exercise
+			if (action.exerciseId && action.answers) {
+				const newCompletedExercise: CompletedExercise = {
+					exerciseId: action.exerciseId,
+					answers: action.answers,
+					completedAt: new Date(),
+				};
+				return {
+					...state,
+					completedExercises: [
+						...state.completedExercises,
+						newCompletedExercise,
+					],
+					lastCompletedExercise: newCompletedExercise,
+				};
+			}
+			// If fields are missing, log error and return the current state
+			console.error(
+				"Error: Missing exerciseId or answers for COMPLETE_EXERCISE action",
+			);
+			return state;
 		default:
 			return state;
 	}
 };
 
+// UserContext definition
 const UserContext = createContext<{
 	state: UserState;
-	dispatch: Dispatch<UserAction>;
+	dispatch: React.Dispatch<UserAction>;
 	completeExercise: (
 		userId: string,
-		exercise: Exercise,
+		exerciseId: string,
 		answers: FollowupAnswers,
 	) => Promise<void>;
 }>({
@@ -108,13 +153,16 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
 	const [state, dispatch] = useReducer(userReducer, initialState);
 
-	// Legg til alle nye funksjoner her
 	const completeExercise = useCallback(
-		async (userId: string, exercise: Exercise, answers: FollowupAnswers) => {
-			dispatch({ type: "COMPLETE_EXERCISE", userId, exercise, answers });
+		async (userId: string, exerciseId: string, answers: FollowupAnswers) => {
+			if (!userId || !exerciseId || !answers) {
+				console.error("Error: userId, exerciseId, or answers are undefined");
+				return;
+			}
+			dispatch({ type: "COMPLETE_EXERCISE", userId, exerciseId, answers });
 			try {
 				await addDoc(collection(db, "users", userId, "completedExercises"), {
-					exerciseId: exercise.id,
+					exerciseId,
 					...answers,
 					completedAt: new Date(),
 				});
