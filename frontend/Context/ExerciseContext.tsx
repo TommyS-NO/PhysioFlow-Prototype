@@ -16,6 +16,7 @@ export type Exercise = {
 	image: string;
 	category: string;
 	status?: "pending" | "completed";
+	completedAt?: string;
 };
 
 export interface ExerciseContextType {
@@ -103,10 +104,10 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 
 	const addExercise = useCallback((newExercise: Exercise) => {
 		setSelectedExercises((prevExercises) => {
-			if (!prevExercises.some((exercise) => exercise.id === newExercise.id)) {
-				return [...prevExercises, newExercise];
-			}
-			return prevExercises;
+			const timestamp = Date.now();
+			const newId = `${newExercise.id}_${timestamp}`;
+			const newExerciseWithUniqueId = { ...newExercise, id: newId };
+			return [...prevExercises, newExerciseWithUniqueId];
 		});
 	}, []);
 
@@ -128,11 +129,19 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 	const updateExerciseStatus = useCallback(
 		(exerciseId: string, status: "pending" | "completed") => {
 			setSelectedExercises((prevExercises) =>
-				prevExercises.map((exercise) =>
-					exercise.id === exerciseId
-						? { ...exercise, status: status }
-						: exercise,
-				),
+				prevExercises.map((exercise) => {
+					if (exercise.id === exerciseId) {
+						return {
+							...exercise,
+							status: status,
+							completedAt:
+								status === "completed"
+									? new Date().toLocaleDateString()
+									: exercise.completedAt,
+						};
+					}
+					return exercise;
+				}),
 			);
 		},
 		[],
