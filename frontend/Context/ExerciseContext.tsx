@@ -15,6 +15,7 @@ export type Exercise = {
 	description: string;
 	image: string;
 	category: string;
+	status?: "pending" | "completed";
 };
 
 export interface ExerciseContextType {
@@ -23,6 +24,10 @@ export interface ExerciseContextType {
 	addExercise: (exercise: Exercise) => void;
 	removeExercise: (exerciseId: string) => void;
 	toggleExerciseSelected: (exercise: Exercise) => void;
+	updateExerciseStatus: (
+		exerciseId: string,
+		status: "pending" | "completed",
+	) => void;
 	loading: boolean;
 	error: string | null;
 	fetchExercises: () => Promise<void>;
@@ -42,6 +47,7 @@ const defaultContextValue: ExerciseContextType = {
 	addExercise: () => {},
 	removeExercise: () => {},
 	toggleExerciseSelected: () => {},
+	updateExerciseStatus: () => {},
 	loading: false,
 	error: null,
 	fetchExercises: async () => {},
@@ -119,6 +125,19 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 		});
 	}, []);
 
+	const updateExerciseStatus = useCallback(
+		(exerciseId: string, status: "pending" | "completed") => {
+			setSelectedExercises((prevExercises) =>
+				prevExercises.map((exercise) =>
+					exercise.id === exerciseId
+						? { ...exercise, status: status }
+						: exercise,
+				),
+			);
+		},
+		[],
+	);
+
 	const fetchExercises = useCallback(async () => {
 		setLoading(true);
 		setError(null);
@@ -153,6 +172,7 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 				loading,
 				error,
 				fetchExercises,
+				updateExerciseStatus,
 			}}
 		>
 			{children}
