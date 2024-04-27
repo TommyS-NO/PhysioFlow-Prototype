@@ -5,30 +5,33 @@ export const registerScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: theme.colors.primary,
   },
+
+
   scrollContentContainer: {
     // flexGrow: 1,
     justifyContent: "center",
   },
   infoTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 30,
     textAlign: "center",
     color: theme.colors.text,
   },
-  infoContent: {
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 20,
-    color: theme.colors.text,
-  },
+
   title: {
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 10,
   },
+
+  infoText: {
+    fontSize: 18,
+  },
+
   subtitle: {
     fontSize: 14,
     textAlign: "center",
@@ -37,6 +40,7 @@ export const registerScreenStyles = StyleSheet.create({
   formContainer: {
     backgroundColor: "#FFFFFF",
     padding: 15,
+    marginTop: 30,
     borderRadius: 8,
     shadowColor: "#000",
     shadowOffset: {
@@ -56,9 +60,6 @@ export const registerScreenStyles = StyleSheet.create({
     fontSize: theme.fontSize.regular,
   },
 
-
-
-
   input: {
     height: 50,
     width: "100%",
@@ -67,6 +68,15 @@ export const registerScreenStyles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: theme.spacing.medium,
     borderRadius: theme.borderRadius.small,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 15,
+  },
+  button: {
+    width: 120, 
+    marginHorizontal: 10, 
   },
 });
 
