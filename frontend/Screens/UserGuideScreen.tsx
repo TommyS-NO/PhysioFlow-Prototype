@@ -21,7 +21,7 @@ const UserGuideScreen: React.FC = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Velkommen til FysioGO!</Text>
+      <Text style={styles.title}>Velkommen til PhysoFlow!</Text>
 
       <Text style={styles.heading}>Oppsett av fokusområder</Text>
       <Text style={styles.text}>
@@ -29,7 +29,7 @@ const UserGuideScreen: React.FC = () => {
         hvor du opplever smerte eller ubehag.
       </Text>
       <Text style={styles.text}>
-        2. Tilpasning: Basert på dine valg, tilpasser FysioGO et treningsregime
+        2. Tilpasning: Basert på dine valg, tilpasser PhysioFlow et tøye og rehabiliteringsregime
         spesielt utformet for å målrette dine fokusområder og lindre smerte.
       </Text>
 
