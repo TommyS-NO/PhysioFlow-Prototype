@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
 		padding: 20,
-	
 	},
 	title: {
 		fontSize: 22,
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
 	},
 	genderOptionsContainer: {
 		flexDirection: "row",
-		justifyContent: "space-around",
+		justifyContent: "space-evenly", 
 		width: "100%",
 	},
 	option: {
@@ -78,15 +77,16 @@ const styles = StyleSheet.create({
 		borderColor: "#D3D3D3",
 		borderRadius: 10,
 		marginBottom: 20,
-		backgroundColor: "#F5F5F9",
+		backgroundColor: "FFFFFF",
+		marginHorizontal: 30, 
 	},
 	selected: {
 		borderColor: "#26807C",
 		borderWidth: 2,
 	},
 	image: {
-		width: 100,
-		height: 100,
+		width: 120,
+		height: 200,
 		marginBottom: 10,
 		resizeMode: "contain",
 	},
