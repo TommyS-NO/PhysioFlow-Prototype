@@ -58,7 +58,7 @@ Backend:
 -Kontakt oss- logikk for mottak av epost
 -Legg til alternativ tekst på bildene som er brukt
 -"Utførte treningsøkter" kunne fjerne/endre fra denne siden også? 
-
+-Sjekk hvorfor ikke bruker finnes når man prøver å slette ny bruker. Bruker for ID i konsollen?
 
 Registrer økt: 
 -Endre oppsett i modal under "Registrer økt"
