@@ -6,6 +6,7 @@ import {
   Platform,
   View,
   Text,
+  Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -217,7 +218,8 @@ const RegisterScreen = () => {
         return (
   
             <View style={styles.formContainer}>
-              <Text style={styles.infoTitle}>Velkommen!</Text>
+              <Text style={styles.infoTitle}>Velkommen! 👋🏻</Text>
+		
               <Text style= {styles.infoText}>
                 Vi trenger litt mer informasjon for å fullføre registreringen
                 din.
