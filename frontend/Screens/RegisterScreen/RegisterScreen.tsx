@@ -337,7 +337,7 @@ const RegisterScreen = () => {
                 unit="kg"
                 label="Vekt"
               />
-<Image
+              <Image
                 source={require("../../Assets/Weight.png")}
                 style={styles.welcomeImage}
               />
@@ -364,6 +364,7 @@ const RegisterScreen = () => {
               <Text style={styles.infoText}>
                 Du er nå klar til å begynne å bruke appen.
               </Text>
+
               <Image
                 source={require("../../Assets/HighFive.png")}
                 style={styles.welcomeImage}
