@@ -15,6 +15,7 @@ import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import SettingsScreen from "../Screens/SettingsScreen";
 import ContactScreen from "../Screens/ContactScreen";
+import ChatScreen from "../Screens/ChatScreen/ChatScreen";
 
 import HealthScreen from "../Screens/HealthScreen/HealthScreen";
 
@@ -38,7 +39,6 @@ const AppNav = () => (
 				component={TermsScreen}
 				options={{ title: "Vilkår og Betingelser" }}
 			/>
-
 			<Stack.Screen
 				name="UserGuideScreen"
 				component={UserGuideScreen}
@@ -103,6 +103,11 @@ const AppNav = () => (
 				name="HealthScreen"
 				component={HealthScreen}
 				options={{ title: "Helse" }}
+			/>
+			<Stack.Screen
+				name="ChatScreen"
+				component={ChatScreen}
+				options={{ title: "Chat" }} // Legg til ChatScreen i navigasjonen
 			/>
 			{/* <Stack.Screen
 				name="CompletedWorkoutsScreen"

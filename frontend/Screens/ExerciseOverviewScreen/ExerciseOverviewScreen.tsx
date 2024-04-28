@@ -22,7 +22,6 @@ const ExerciseOverviewScreen = () => {
 	const [activeExerciseId, setActiveExerciseId] = useState<string | null>(null);
 
 	const handleCompleteExercise = async (exercise: Exercise) => {
-		console.log("Selected exercise ID:", exercise.id); // Log for debugging SLETT!!
 		if (!exercise.id) {
 			console.error(
 				"Error: exerciseId is undefined when trying to complete an exercise.",

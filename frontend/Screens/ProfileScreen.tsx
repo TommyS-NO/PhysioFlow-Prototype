@@ -93,13 +93,13 @@ const ProfileScreen: React.FC = () => {
 
 				<TouchableOpacity
 					style={[styles.menuItem, styles.fullWidthButton, styles.bobButton]}
-					onPress={() => {}}
+					onPress={() => navigation.navigate("ChatScreen")}
 				>
 					<Text style={styles.bobText}>BobAI 🤖</Text>
 					{/* <Image
-            source={require("../Assets/Robot_2.png")}
-            style={styles.bobImage}
-          /> */}
+		source={require("../Assets/Robot_2.png")}
+		style={styles.bobImage}
+	/> */}
 				</TouchableOpacity>
 
 				<View style={styles.fullWidthContainer}>

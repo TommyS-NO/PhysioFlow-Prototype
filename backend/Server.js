@@ -1,53 +1,42 @@
-import dotenv from "dotenv";
 import express from "express";
+import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
-import path from "path";
-import { fileURLToPath } from "url";
+// import AiRoute from "./routes/AiRoute.js";
 import surveyRoutes from "./routes/surveyRoute.js";
 import exerciseRoutes from "./routes/exerciseRoute.js";
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Sikkerhet
-app.use(helmet()); // Setter sikkerhetsheadere
 app.use(cors());
-app.use(morgan("combined")); // Logger alle HTTP-forespørsler
+app.use(helmet());
+app.use(morgan("combined"));
+app.use(express.json());
 
-// Rate limiting
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutter
-	max: 100, // Limit hver IP til 100 forespørsler per tidsvindu
+	max: 100,
 });
 app.use(limiter);
 
-app.use(express.json());
-app.use("/static", express.static(path.join(__dirname, "public")));
-
-// Ruter
+// app.use("/api/chat", AiRoute);
 app.use("/api/survey", surveyRoutes);
 app.use("/api/exercises", exerciseRoutes);
 
-// 404 - Ikke funnet håndtering
 app.use((req, res) => {
-	res.status(404).send("Siden ble ikke funnet!");
+	res.status(404).send("404 Not Found");
 });
 
-// Generell feilhåndtering
-app.use((err, req, res, next) => {
-	console.error(err.stack);
-	res.status(500).send("Noe gikk galt!");
+app.use((error, req, res, next) => {
+	console.error("Error:", error);
+	res.status(500).send("Internal Server Error");
 });
 
-// Start serveren
 app.listen(PORT, () => {
-	console.log(`Server kjører på http://localhost:${PORT}`);
+	console.log(`Server running on http://localhost:${PORT}`);
 });
