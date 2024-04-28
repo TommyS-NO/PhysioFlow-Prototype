@@ -34,7 +34,7 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 Hvordan løser vi det med en hjemknapp? Skal vi ha en knapp som alltid tar oss til forsiden, eller hvordan løser vi det? 
 
-
+FirebaseConfit.ts: Sjekk oppsettet med ny kode der for håndtering av async. Det er noe feil i koden, selv om alt fungerer. 
 
 Backend:
 
