@@ -47,14 +47,6 @@ export const registerScreenStyles = StyleSheet.create({
     padding: 15,
     marginTop: 50,
     borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 1.41,
-    elevation: 2,
     marginBottom: 15,
     alignItems: 'center',
   },
@@ -69,8 +61,9 @@ export const registerScreenStyles = StyleSheet.create({
   input: {
     height: 50,
     width: "100%",
-    borderColor: "gray",
+    borderColor: "#cccc",
     borderWidth: 1,
+    borderRadius: 5,
     paddingHorizontal: theme.spacing.small,
   },
   buttonContainer: {
