@@ -70,7 +70,7 @@ const ContactScreen = () => {
           numberOfLines={10}
         />
         <CustomButton
-          title="Send melding til FysioGO"
+          title="Send melding til PhysioFlow"
           onPress={handleSendEmail}
           iconName="send"
           buttonStyle={styles.sendButton}
