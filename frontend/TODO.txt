@@ -29,7 +29,12 @@ Frontend:
 
 HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette.. 
 
--Kontakt oss: Jeg fjernet oppsettet med ikoner for de ulike SoME kanalene ettersom det ikke finnes noe av dette uansett.. Enig? 
+-Kontakt oss: Jeg fjernet oppsettet med ikoner for de ulike SoME kanalene ettersom det ikke finnes noe av dette uansett.. Enig?
+Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp noe mer rundt dette.. 
+
+Hvordan løser vi det med en hjemknapp? Skal vi ha en knapp som alltid tar oss til forsiden, eller hvordan løser vi det? 
+
+
 
 Backend:
 
