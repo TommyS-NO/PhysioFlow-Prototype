@@ -69,11 +69,9 @@ export const registerScreenStyles = StyleSheet.create({
   input: {
     height: 50,
     width: "100%",
-    marginVertical: theme.spacing.small,
     borderColor: "gray",
     borderWidth: 1,
-    paddingHorizontal: theme.spacing.medium,
-    borderRadius: theme.borderRadius.small,
+    paddingHorizontal: theme.spacing.small,
   },
   buttonContainer: {
     flexDirection: 'row',
