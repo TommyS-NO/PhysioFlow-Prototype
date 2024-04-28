@@ -6,7 +6,8 @@ import {
 	saveDiagnosisForUser,
 	saveExerciseForUser,
 	saveCompletedExerciseForUser,
-} from "../controllers/userController.js";
+	getAIResponseWithLocalData,
+} from "../controllers";
 
 const router = express.Router();
 
@@ -18,5 +19,7 @@ router.post("/:userId/exercises", saveExerciseForUser);
 
 router.get("/:userId/completedExercises", getCompletedExercisesForUser);
 router.post("/:userId/completedExercises", saveCompletedExerciseForUser);
+
+router.post("/:userId/ai", getAIResponseWithLocalData);
 
 export default router;
