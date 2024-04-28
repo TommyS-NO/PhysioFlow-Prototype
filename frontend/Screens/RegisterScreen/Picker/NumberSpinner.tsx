@@ -45,7 +45,7 @@ const NumberSpinner: React.FC<NumberSpinnerProps> = ({
 				<Text style={styles.selectedValueText}>
 					{selectedValue
 						? `${label}: ${selectedValue} ${unit}`
-						: `Trykk på ${label} for å redigere..`}
+						: `Klikk her for å velge ${label}`}
 				</Text>
 			</TouchableOpacity>
 			<CustomModal

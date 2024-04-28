@@ -159,10 +159,10 @@ const FrontScreen = () => {
 
 						<View style={frontScreenStyles.loginContainer}>
 							<Image
-								source={require("../Assets/Logo.png")}
+								source={require("../Assets/PhysioFlow.png")}
 								style={frontScreenStyles.logo}
 							/>
-							<Text style={frontScreenStyles.titleText}>FysioGO!</Text>
+							<Text style={frontScreenStyles.titleText}>PhysioFlow</Text>
 							<Text style={frontScreenStyles.loginText}>Logg inn</Text>
 
 							<InputField

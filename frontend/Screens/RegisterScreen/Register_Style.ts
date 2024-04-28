@@ -5,30 +5,38 @@ export const registerScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: theme.colors.primary,
   },
+  welcomeImage: {
+    width: 300,  
+    height: 250,  
+    resizeMode: 'contain',  
+    marginTop: 20,
+  },
+
   scrollContentContainer: {
-    // flexGrow: 1,
+    // flexGrow: 1, Denne flytter alt i midten av skjermen. Skal vi heller ha den og droppe marginTop i formContainer? 
     justifyContent: "center",
   },
   infoTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 30,
     textAlign: "center",
     color: theme.colors.text,
   },
-  infoContent: {
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 20,
-    color: theme.colors.text,
-  },
+
   title: {
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 10,
   },
+
+  infoText: {
+    fontSize: 18,
+  },
+
   subtitle: {
     fontSize: 14,
     textAlign: "center",
@@ -37,6 +45,7 @@ export const registerScreenStyles = StyleSheet.create({
   formContainer: {
     backgroundColor: "#FFFFFF",
     padding: 15,
+    marginTop: 50,
     borderRadius: 8,
     shadowColor: "#000",
     shadowOffset: {
@@ -47,6 +56,7 @@ export const registerScreenStyles = StyleSheet.create({
     shadowRadius: 1.41,
     elevation: 2,
     marginBottom: 15,
+    alignItems: 'center',
   },
   checkboxContainer: {
     flexDirection: "row",
@@ -56,17 +66,21 @@ export const registerScreenStyles = StyleSheet.create({
     fontSize: theme.fontSize.regular,
   },
 
-
-
-
   input: {
     height: 50,
     width: "100%",
-    marginVertical: theme.spacing.small,
     borderColor: "gray",
     borderWidth: 1,
-    paddingHorizontal: theme.spacing.medium,
-    borderRadius: theme.borderRadius.small,
+    paddingHorizontal: theme.spacing.small,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 15,
+  },
+  button: {
+    width: 120, 
+    marginHorizontal: 10, 
   },
 });
 
