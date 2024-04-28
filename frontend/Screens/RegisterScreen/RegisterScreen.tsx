@@ -337,6 +337,11 @@ const RegisterScreen = () => {
                 unit="kg"
                 label="Vekt"
               />
+
+<Image
+              source={require("../../Assets/Weight.png")}
+              style={styles.welcomeImage}
+            />
               <View style={styles.buttonContainer}>
                 <CustomButton
                   title="Tilbake"
@@ -360,15 +365,24 @@ const RegisterScreen = () => {
               <Text style={styles.infoText}>
                 Du er nå klar til å begynne å bruke appen.
               </Text>
+
+              <Image
+              source={require("../../Assets/HighFive.png")}
+              style={styles.welcomeImage}
+            />
               <View>
-                <CustomButton
-                  title="Tilbake"
-                  onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
-                />
-                <CustomButton
-                  title="Fullfør registrering"
-                  onPress={handleRegistration}
-                />
+                <View style={styles.buttonContainer}>
+                  <CustomButton
+                    title="Tilbake"
+                    onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+                    buttonStyle={styles.button}
+                  />
+                  <CustomButton
+                    title="Fullfør registrering"
+                    onPress={handleRegistration}
+                    buttonStyle={styles.flexibleButton}
+                  />
+                </View>
               </View>
             </View>
           </>
