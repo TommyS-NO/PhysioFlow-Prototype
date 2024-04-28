@@ -27,6 +27,9 @@ Frontend:
 
 -Må customCheckbox være et komponent eller holder det at det står i koden under RegisterScreen? 
 
+HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette.. 
+
+-Kontakt oss: Jeg fjernet oppsettet med ikoner for de ulike SoME kanalene ettersom det ikke finnes noe av dette uansett.. Enig? 
 
 Backend:
 
