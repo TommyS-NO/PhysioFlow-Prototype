@@ -134,6 +134,7 @@ import { openComposer } from 'react-native-email-link';
 import CustomButton from "../Components/CustomButton/CustomButton";
 import { InputField } from "../Components/CustomInput/CustomInput"; 
 import { theme } from "../theme";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const ContactScreen = () => {
   const [name, setName] = useState('');
@@ -157,7 +158,7 @@ const ContactScreen = () => {
       Alert.alert("Feil", "Alle felt må fylles ut.");
       return;
     }
-
+//Klarer vi å sette en funksjon som gjør at meldingen kan sendes direkte fra appen?
     openComposer({
       to: 'bobAI_saeed@hotmail.com',
       subject: 'Henvendelse fra app',
@@ -166,13 +167,14 @@ const ContactScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView
+    <KeyboardAwareScrollView
       style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-      <ScrollView style={styles.container}>
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      contentContainerStyle={styles.container}
+      scrollEnabled={true}
+    >
       <View style={styles.formContainer}> 
-        <Text style={styles.headerText}>Kontakt oss</Text>
+        <Text style={styles.headerText}>Kontakt oss ☎️</Text>
         <InputField
           label="Navn:"
           value={name}
@@ -203,13 +205,12 @@ const ContactScreen = () => {
         />
         <Text style={styles.charCount}>{maxChar - charCount} tegn igjen</Text>
         <CustomButton
-          title="Send melding til PhysioFlow"
+          title="Send melding"
           onPress={handleSendEmail}
           iconName="send"
         />
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
   );
 };
 
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "#fff",
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: "#ddd",
 
