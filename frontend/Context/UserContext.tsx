@@ -10,6 +10,7 @@ import { db } from "../Services/Firebase/FirebaseConfig";
 
 // Exercise type imported from ExerciseContext
 import { Exercise } from "./ExerciseContext";
+import { apiService } from "../Services/ApiService";
 
 // User profile interface
 interface UserProfile {
@@ -140,10 +141,14 @@ const UserContext = createContext<{
 		exerciseId: string,
 		answers: FollowupAnswers,
 	) => Promise<void>;
+	startAIChat: (userId: string) => Promise<void>;
+	sendMessageToAIChat: (chatId: string, message: string) => Promise<void>;
 }>({
 	state: initialState,
 	dispatch: () => null,
 	completeExercise: async () => {},
+	startAIChat: async () => {},
+	sendMessageToAIChat: async () => {},
 });
 
 export const useUser = () => useContext(UserContext);
@@ -172,12 +177,37 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 		},
 		[],
 	);
+	const startAIChat = useCallback(async (userId: string) => {
+		try {
+			await apiService.startAIChat(userId);
+		} catch (error) {
+			console.error("Failed to start AI chat:", error);
+		}
+	}, []);
+
+	const sendMessageToAIChat = useCallback(
+		async (chatId: string, message: string) => {
+			try {
+				await apiService.sendMessageToAIChat(chatId, message);
+			} catch (error) {
+				console.error("Failed to send message:", error);
+			}
+		},
+		[],
+	);
 
 	return (
-		<UserContext.Provider value={{ state, dispatch, completeExercise }}>
+		<UserContext.Provider
+			value={{
+				state,
+				dispatch,
+				completeExercise,
+				startAIChat,
+				sendMessageToAIChat,
+			}}
+		>
 			{children}
 		</UserContext.Provider>
 	);
 };
-
 export default UserContext;
