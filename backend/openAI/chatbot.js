@@ -1,30 +1,23 @@
-import openai from "./openAIConfig.js";
+// import readline from "readline";
+// import chatWithBot from "./chatbotConfig.js";
 
-async function chatWithBot(userInput) {
-	console.log("Received user input:", userInput);
+// const rl = readline.createInterface({
+// 	input: process.stdin,
+// 	output: process.stdout,
+// });
 
-	try {
-		const completion = await openai.chat.completions.create({
-			model: "gpt-3.5-turbo-0125",
-			messages: [
-				{
-					role: "user",
-					content: userInput,
-				},
-			],
-			max_tokens: 250,
-			temperature: 0.7,
-			top_p: 1,
-			frequency_penalty: 0,
-			presence_penalty: 0.6,
-			stop: ["\n"],
-		});
-		const response = completion.choices[0].message.content;
-		console.log("AI Response:", response);
-		return response;
-	} catch (error) {
-		console.error("Failed to create completion:", error);
-	}
-}
+// rl.setPrompt("You: ");
+// rl.prompt();
 
-export default chatWithBot;
+// rl.on("line", async (line) => {
+// 	if (line.toLowerCase() === "exit") {
+// 		rl.close();
+// 	} else {
+// 		const response = await chatWithBot(line);
+// 		console.log("Bot:", response);
+// 		rl.prompt();
+// 	}
+// }).on("close", () => {
+// 	console.log("Session ended. Goodbye!");
+// 	process.exit(0);
+// });
