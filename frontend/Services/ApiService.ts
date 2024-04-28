@@ -77,7 +77,33 @@ const apiService = {
       throw error;
     }
   },
+ startAIChat: async (userId: string) => {
+    const response = await fetch(`${BASE_URL}/api/chat/start`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to start AI chat for user ID: ${userId}`);
+    }
+    const chatSession = await response.json();
+    console.log('AI chat session started:', chatSession);
+    return chatSession;
+  },
 
+  sendMessageToAIChat: async (chatId: string, message: string) => {
+    const response = await fetch(`${BASE_URL}/api/chat/${chatId}/message`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message }),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to send message to AI chat with chat ID: ${chatId}`);
+    }
+    const chatResponse = await response.json();
+    console.log('AI chat response received:', chatResponse);
+    return chatResponse;
+  },
 };
 
 export { apiService };

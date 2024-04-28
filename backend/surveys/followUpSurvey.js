@@ -12,7 +12,7 @@ export const followupSurvey = {
 		},
 		{
 			id: "followupQ2",
-			question: "Hvor mange repetisjoner klarte du å gjennomføre av øvelsen?",
+			question: "Angi antall minutter du brukte på å gjennomføre øvelsen:",
 			type: "numericInput",
 		},
 		{
@@ -25,7 +25,7 @@ export const followupSurvey = {
 		},
 		{
 			id: "followupQ4",
-			question: "Hvor lang tid brukte du på å gjennomføre øvelsen?",
+			question: "Hvor mange repetisjoner klarte du å gjennomføre av øvelsen?",
 			type: "numericInput",
 		},
 		{
