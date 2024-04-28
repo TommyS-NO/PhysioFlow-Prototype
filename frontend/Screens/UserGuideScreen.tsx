@@ -29,23 +29,23 @@ const UserGuideScreen: React.FC = () => {
         hvor du opplever smerte eller ubehag.
       </Text>
       <Text style={styles.text}>
-        2. Tilpasning: Basert på dine valg, tilpasser PhysioFlow et tøye og rehabiliteringsregime
+        2. Tilpasning: Basert på dine valg, tilpasser PhysioFlow et tøye og rehabiliteringsprogram
         spesielt utformet for å målrette dine fokusområder og lindre smerte.
       </Text>
 
       <Text style={styles.heading}>Utføre tøyeøvelser</Text>
-      <Text style={styles.text}>
+      {/* <Text style={styles.text}>
         - Daglige øvelsesforslag: Få anbefalinger for øvelser som passer for
         dine fokusområder, komplett med instruksjonsvideoer og guider.
-      </Text>
+      </Text> */}
       <Text style={styles.text}>
         - Instruksjoner og videoer: Sørg for riktig utførelse ved å følge
-        detaljerte instruksjoner og demonstrasjonsvideoer.
+        detaljerte instruksjoner og animasjoner.
       </Text>
-      <Text style={styles.text}>
+      {/* <Text style={styles.text}>
         - Tidtakning: Bruk appens tidtakerfunksjon for å overvåke varigheten av
         hver øvelse for maksimal effektivitet.
-      </Text>
+      </Text> */}
 
       <Text style={styles.heading}>Registrering av treningsøkter</Text>
       <Text style={styles.text}>
@@ -59,7 +59,7 @@ const UserGuideScreen: React.FC = () => {
 
       <Text style={styles.heading}>Kontakt din behandler</Text>
       <Text style={styles.text}>
-        - Meldingstjeneste: FysioGOs innebygde meldingstjeneste lar deg enkelt
+        - Meldingstjeneste: PhysioFlow sin innebygde meldingstjeneste lar deg enkelt
         kommunisere med din behandler for rådgivning eller veiledning.
       </Text>
       <Text style={styles.text}>
@@ -68,10 +68,7 @@ const UserGuideScreen: React.FC = () => {
       </Text>
 
       <Text style={styles.heading}>Ekstra funksjoner</Text>
-      <Text style={styles.text}>
-        - Påminnelser: Still inn daglige eller ukentlige påminnelser for å holde
-        deg engasjert og konsistent med dine tøyeøvelser.
-      </Text>
+
       <Text style={styles.text}>
         - Justering av program: Du kan når som helst justere ditt øvelsesprogram
         basert på endringer i dine fokusområder eller ut fra din helsetilstand.
