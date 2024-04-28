@@ -53,3 +53,4 @@ export const getExerciseDetails = (req, res) => {
 		res.status(400).send("Could not fetch exercise details");
 	}
 };
+export default allExercises;
