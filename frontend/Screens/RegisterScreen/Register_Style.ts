@@ -7,10 +7,15 @@ export const registerScreenStyles = StyleSheet.create({
     padding: 20,
     backgroundColor: theme.colors.primary,
   },
-
+  welcomeImage: {
+    width: 300,  
+    height: 250,  
+    resizeMode: 'contain',  
+    marginTop: 20,
+  },
 
   scrollContentContainer: {
-    // flexGrow: 1,
+    // flexGrow: 1, Denne flytter alt i midten av skjermen. Skal vi heller ha den og droppe marginTop i formContainer? 
     justifyContent: "center",
   },
   infoTitle: {
@@ -40,7 +45,7 @@ export const registerScreenStyles = StyleSheet.create({
   formContainer: {
     backgroundColor: "#FFFFFF",
     padding: 15,
-    marginTop: 30,
+    marginTop: 50,
     borderRadius: 8,
     shadowColor: "#000",
     shadowOffset: {
@@ -51,6 +56,7 @@ export const registerScreenStyles = StyleSheet.create({
     shadowRadius: 1.41,
     elevation: 2,
     marginBottom: 15,
+    alignItems: 'center',
   },
   checkboxContainer: {
     flexDirection: "row",

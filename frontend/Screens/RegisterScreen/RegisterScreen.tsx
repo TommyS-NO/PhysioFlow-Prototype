@@ -214,141 +214,163 @@ const RegisterScreen = () => {
           </ScrollView>
         );
       case 2:
-        
         return (
-  
-            <View style={styles.formContainer}>
-              <Text style={styles.infoTitle}>Velkommen! 👋🏻</Text>
-		
-              <Text style= {styles.infoText}>
-                Vi trenger litt mer informasjon for å fullføre registreringen
-                din.
-              </Text>
-              <View style={styles.buttonContainer}>
-                <CustomButton
-                  title="Tilbake"
-                  onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
-				  buttonStyle={styles.button}
-                />
-                <CustomButton title="Neste" onPress={handleNextStep} buttonStyle={styles.button} />
-              </View>
-            </View>
-        
-        );
-      case 3:
-        return (
-          <>
-		  <View style={styles.formContainer}>
-            <GenderSelection
-              selectedGender={formData.gender}
-              onSelectGender={(gender) => handleInputChange("gender", gender)}
+          <View style={styles.formContainer}>
+            <Text style={styles.infoTitle}>Velkommen! 👋🏻</Text>
+
+            <Text style={styles.infoText}>
+              Vi trenger litt mer informasjon for å fullføre registreringen din.
+            </Text>
+            <Image
+              source={require("../../Assets/Welcome.png")}
+              style={styles.welcomeImage}
             />
             <View style={styles.buttonContainer}>
               <CustomButton
                 title="Tilbake"
-                onPress={() => setCurrentStep((prevStep) => prevStep - 1)} buttonStyle={styles.button}
-		
+                onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+                buttonStyle={styles.button}
               />
-              <CustomButton title="Neste" onPress={handleNextStep} buttonStyle={styles.button}
-			  />
+              <CustomButton
+                title="Neste"
+                onPress={handleNextStep}
+                buttonStyle={styles.button}
+              />
             </View>
-			</View>
+          </View>
+        );
+      case 3:
+        return (
+          <>
+            <View style={styles.formContainer}>
+              <GenderSelection
+                selectedGender={formData.gender}
+                onSelectGender={(gender) => handleInputChange("gender", gender)}
+              />
+              <View style={styles.buttonContainer}>
+                <CustomButton
+                  title="Tilbake"
+                  onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+                  buttonStyle={styles.button}
+                />
+                <CustomButton
+                  title="Neste"
+                  onPress={handleNextStep}
+                  buttonStyle={styles.button}
+                />
+              </View>
+            </View>
           </>
         );
       case 4:
         return (
           <>
-		  <View style={styles.formContainer}>
-		  <Text style={styles.title}>Når er du født?</Text>
-            <PickerComponent
-              mode="date"
-              selectedValue={
-                formData.birthday ? new Date(formData.birthday) : new Date()
-              }
-              onValueChange={(date: { toISOString: () => string }) =>
-                handleInputChange("birthday", date.toISOString().split("T")[0])
-              }
-			  
-              label="Klikk på datofeltet for å velge fødselsdato:"
-            />
-            <View style={styles.buttonContainer}>
-              <CustomButton
-                title="Tilbake"
-                onPress={() => setCurrentStep((prevStep) => prevStep - 1)} buttonStyle={styles.button}
+            <View style={styles.formContainer}>
+              <Text style={styles.title}>Når er du født?</Text>
+              <PickerComponent
+                mode="date"
+                selectedValue={
+                  formData.birthday ? new Date(formData.birthday) : new Date()
+                }
+                onValueChange={(date: { toISOString: () => string }) =>
+                  handleInputChange(
+                    "birthday",
+                    date.toISOString().split("T")[0]
+                  )
+                }
+                label="Klikk på datofeltet for å velge fødselsdato:"
               />
-              <CustomButton title="Neste" onPress={handleNextStep} buttonStyle={styles.button}/>
+              <View style={styles.buttonContainer}>
+                <CustomButton
+                  title="Tilbake"
+                  onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+                  buttonStyle={styles.button}
+                />
+                <CustomButton
+                  title="Neste"
+                  onPress={handleNextStep}
+                  buttonStyle={styles.button}
+                />
+              </View>
             </View>
-			</View>
           </>
         );
       case 5:
         return (
           <>
-		    <View style={styles.formContainer}>
-            <Text style={styles.title}>Hvor høy er du?</Text>
-            {/* <Text style={styles.subtitle}>Trykk på verdien for å endre</Text> */}
-            <NumberSpinner
-              data={Array.from({ length: 121 }, (_, i) => 100 + i)}
-              selectedValue={formData.height}
-              onValueChange={(value) => handleInputChange("height", value)}
-              unit="cm"
-              label="Høyde"
-            />
-            <View style={styles.buttonContainer}>
-              <CustomButton
-                title="Tilbake"
-                onPress={() => setCurrentStep((prevStep) => prevStep - 1)} buttonStyle={styles.button}
+            <View style={styles.formContainer}>
+              <Text style={styles.title}>Hvor høy er du?</Text>
+              {/* <Text style={styles.subtitle}>Trykk på verdien for å endre</Text> */}
+              <NumberSpinner
+                data={Array.from({ length: 121 }, (_, i) => 100 + i)}
+                selectedValue={formData.height}
+                onValueChange={(value) => handleInputChange("height", value)}
+                unit="cm"
+                label="Høyde"
               />
-              <CustomButton title="Neste" onPress={handleNextStep} buttonStyle={styles.button}/>
+              <View style={styles.buttonContainer}>
+                <CustomButton
+                  title="Tilbake"
+                  onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+                  buttonStyle={styles.button}
+                />
+                <CustomButton
+                  title="Neste"
+                  onPress={handleNextStep}
+                  buttonStyle={styles.button}
+                />
+              </View>
             </View>
-			</View>
           </>
         );
 
       case 6:
         return (
           <>
-		  <View style={styles.formContainer}>
-            <Text style={styles.title}>Hvor mye veier du?</Text>
-            {/* <Text style={styles.subtitle}>Trykk på verdien for å endre</Text> */}
-            <NumberSpinner
-              data={Array.from({ length: 171 }, (_, i) => 30 + i)}
-              selectedValue={formData.weight}
-              onValueChange={(value) => handleInputChange("weight", value)}
-              unit="kg"
-              label="Vekt"
-            />
-            <View style={styles.buttonContainer}>
-              <CustomButton
-                title="Tilbake"
-                onPress={() => setCurrentStep((prevStep) => prevStep - 1)} buttonStyle={styles.button}
+            <View style={styles.formContainer}>
+              <Text style={styles.title}>Hvor mye veier du?</Text>
+              {/* <Text style={styles.subtitle}>Trykk på verdien for å endre</Text> */}
+              <NumberSpinner
+                data={Array.from({ length: 171 }, (_, i) => 30 + i)}
+                selectedValue={formData.weight}
+                onValueChange={(value) => handleInputChange("weight", value)}
+                unit="kg"
+                label="Vekt"
               />
-              <CustomButton title="Neste" onPress={handleNextStep}buttonStyle={styles.button}/>
+              <View style={styles.buttonContainer}>
+                <CustomButton
+                  title="Tilbake"
+                  onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+                  buttonStyle={styles.button}
+                />
+                <CustomButton
+                  title="Neste"
+                  onPress={handleNextStep}
+                  buttonStyle={styles.button}
+                />
+              </View>
             </View>
-			</View>
           </>
         );
       case 7:
-     
         return (
           <>
-		  <View style={styles.formContainer}>
-            <Text style={styles.infoTitle}>Takk for informasjonen!</Text>
-            <Text style={styles.infoText}>
-              Du er nå klar til å begynne å bruke appen.
-            </Text>
-            <View >
-              <CustomButton
-                title="Tilbake"
-                onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
-              />
-              <CustomButton
-                title="Fullfør registrering"
-                onPress={handleRegistration}
-				
-              />
+            <View style={styles.formContainer}>
+              <Text style={styles.infoTitle}>Takk for informasjonen!</Text>
+              <Text style={styles.infoText}>
+                Du er nå klar til å begynne å bruke appen.
+              </Text>
+              <View>
+                <CustomButton
+                  title="Tilbake"
+                  onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+                />
+                <CustomButton
+                  title="Fullfør registrering"
+                  onPress={handleRegistration}
+                />
+              </View>
             </View>
-			</View>
           </>
         );
       default:
