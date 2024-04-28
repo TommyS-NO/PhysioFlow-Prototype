@@ -124,9 +124,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
   Alert,
   StyleSheet,
 } from 'react-native';
