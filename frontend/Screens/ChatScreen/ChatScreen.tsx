@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TextInput, Text, ScrollView, StyleSheet } from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton";
+import { useUser } from "../../Context/UserContext";
+import { apiService } from "../../Services/ApiService";
 
 interface Message {
 	text: string;
@@ -8,33 +10,43 @@ interface Message {
 }
 
 const ChatScreen = () => {
+	const { state } = useUser();
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [input, setInput] = useState<string>("");
+	const [sessionId, setSessionId] = useState<string | null>(null);
+
+	useEffect(() => {
+		const startChat = async () => {
+			try {
+				const chatSession = await apiService.startAIChat(state.userId);
+				setSessionId(chatSession.session.sessionId); // Assuming the API returns session info as {session: {sessionId: 'xxx'}}
+				console.log("AI chat session started:", chatSession);
+			} catch (error) {
+				console.error("Failed to start AI chat:", error);
+			}
+		};
+
+		if (state.userId) {
+			startChat();
+		}
+	}, [state.userId]);
 
 	const sendMessage = async () => {
-		if (input.trim() === "") return;
-		const newMessages = [...messages, { text: input, sender: "user" }];
+		if (input.trim() === "" || !sessionId) return;
+		const newMessages = [...messages, { text: input, sender: "user" as const }];
 		setMessages(newMessages);
 
 		try {
-			const response = await fetch("http://localhost/chat", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ question: input }),
-			});
-
-			if (!response.ok) {
-				throw new Error("Network response was not ok");
+			const chatResponse = await apiService.sendMessageToAIChat(
+				sessionId,
+				input,
+			);
+			if (chatResponse) {
+				newMessages.push({ text: chatResponse.message, sender: "ai" as const }); // Assuming API returns message as {message: 'response'}
+				setMessages(newMessages);
 			}
-
-			const data = await response.json();
-			newMessages.push({ text: data.answer, sender: "ai" });
-			setMessages(newMessages);
 		} catch (error) {
 			console.error("Failed to send message:", error);
-			// Håndter eventuelle feil, for eksempel ved å vise en feilmelding
 		}
 
 		setInput("");
@@ -58,7 +70,7 @@ const ChatScreen = () => {
 				style={styles.input}
 				value={input}
 				onChangeText={setInput}
-				placeholder="Ask a question..."
+				placeholder="Still et spørsmål..."
 				autoCapitalize="none"
 				autoCorrect={false}
 			/>
@@ -76,24 +88,31 @@ const styles = StyleSheet.create({
 	messagesContainer: {
 		flex: 1,
 		padding: 10,
+		backgroundColor: "#f5f5f5",
+		borderRadius: 5,
+		marginBottom: 10,
 	},
 	input: {
-		borderWidth: 1,
+		height: 40,
 		borderColor: "gray",
+		borderWidth: 1,
+		borderRadius: 5,
 		padding: 10,
-		marginBottom: 10,
 	},
 	userMessage: {
 		alignSelf: "flex-end",
 		margin: 5,
 		padding: 10,
-		backgroundColor: "lightblue",
+		backgroundColor: "#0084ff",
+		color: "#fff",
+		borderRadius: 5,
 	},
 	aiMessage: {
 		alignSelf: "flex-start",
 		margin: 5,
 		padding: 10,
-		backgroundColor: "lightgray",
+		backgroundColor: "#e5e5ea",
+		borderRadius: 5,
 	},
 });
 
