@@ -66,14 +66,21 @@ export const registerScreenStyles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: theme.spacing.small,
   },
+  button: {
+    width: 120,
+    justifyContent: 'center',
+    alignItems: 'center', 
+    marginHorizontal: 10,
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 15,
   },
-  button: {
-    width: 120, 
-    marginHorizontal: 10, 
+  flexibleButton: {
+    width: 'auto', 
+    paddingHorizontal: 10,
+
   },
 });
 
