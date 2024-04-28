@@ -3,10 +3,9 @@ Husk!
 Frontend:
 - Follow Up Survey etter gjennomført øvelse
 -Flytte "Terms"-tekst ved siden av boks
--Endre oppsett for 
+
 -Sett opp logikk for lagring av informasjon som bruker har lagret ved registrering. Må vises under innstillinger. 
 -Endre styling av logoer på "Kontakt oss" siden.
--Flytte alt over til Profilsiden 
 -Justere designoppsett på Profilsiden. Juster visning. 
 -Flytt send-knapp til høyre under tekstfeltet i 
 "kontakt oss".
@@ -16,19 +15,17 @@ Frontend:
 "Hovedfargen vår, med opacity for å skape kontraster: backgroundColor: 'rgba(38, 128, 124, 0.2)'"
 -Sjekk at det er en rød tråd på alle bakgrunnsfarger, knapper, fonter, størrelser osv.. 
 
--Husk å sette opp KeyboardAvoidingView på alle sider!
+-Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
 
 - Ved å gi bruker muligheten til å endre bilde, må appen også da ha tilgang til bildebiblioteket til brukeren? Er dette noe som må kodes inn i så fall? 
 
 
--Slette DeleteScreen og knytt det opp mot settings og firebase
--Sjekk om treningsøktene kan lagres automatisk under dato hver gang bruker registrer treningsøkt
-
+-Slette DeleteScreen og knytt det opp mot settings og firebase?
 -Rød ramme rundt feil 
--Endre farge på bagrunn under registrering
--Ved registrering, stt opp Terms of Service i en modal som popper opp, evt. annen løsning. Nå må bruker krysse seg ut av modalen for å få opp terms.. 
+
 -Kan vi sette opp en default på iOS-plattform på CustomModal
 
+-Må customCheckbox være et komponent eller holder det at det står i koden under RegisterScreen? 
 
 
 Backend:
