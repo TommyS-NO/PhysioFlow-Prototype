@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword, deleteUser as firebaseDeleteUser } from 'firebase/auth';
-import { getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot, getDoc, collection, getDocs } from "firebase/firestore";
+
 import { getStorage } from 'firebase/storage';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID } from '@env';
 
