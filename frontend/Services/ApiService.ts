@@ -29,20 +29,26 @@ const apiService = {
     return await response.json();
   },
 
-  submitSurvey: async (surveyId: SurveyId, answers: Answers) => {
+submitSurvey: async (userId: string, surveyId: SurveyId, answers: Answers) => {
     const translatedSurveyId = translateSurveyId(surveyId);
-    const response = await fetch(`${BASE_URL}/api/survey/evaluate/${translatedSurveyId}`, {
+    const response = await fetch(`${BASE_URL}/api/users/${userId}/completedExercises`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(answers),
+      body: JSON.stringify({
+        completedExercise: {
+          id: translatedSurveyId,
+          ...answers
+        }
+      }),
     });
     if (!response.ok) {
       throw new Error(`Failed to submit answers for survey ID: ${translatedSurveyId}`);
     }
-        const survey = await response.json();
+    const survey = await response.json();
     console.log('Survey received:', survey);
     return survey;
   },
+
   
   getAllExercises: async () => {
     try {

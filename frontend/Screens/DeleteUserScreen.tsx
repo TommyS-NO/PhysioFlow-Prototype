@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Navigation/navigationTypes";
-import { deleteUserAccount, auth } from "../Services/Firebase/FirebaseConfig";
+import { deleteUserAccount, auth } from "../Services/Firebase/firebaseConfig";
 
 type DeleteUserScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,

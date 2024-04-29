@@ -1,32 +1,53 @@
-// ProgressScreen.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import { db } from "../../Services/Firebase/firebaseConfig";
+import { QueryDocumentSnapshot } from "@firebase/firestore-types";
 
 type Props = {
 	route: {
 		params: {
 			exerciseId: string;
-			answers: {
-				painIntensity: number[];
-				repetitionsCompleted: number[];
-				difficultyLevel: number[];
-				timeTaken: number[];
-				generalAbility: number[];
-			};
+			userId: string;
 		};
 	};
 };
 
-const ProgressScreen: React.FC<Props> = ({ route }) => {
-	const { exerciseId, answers } = route.params;
+type FollowupAnswers = {
+	painIntensity: number;
+	repetitionsCompleted: number;
+	difficultyLevel: number;
+	timeTaken: number;
+	generalAbility: number;
+};
 
-	// Eksempeldata
+const ProgressScreen: React.FC<Props> = ({ route }) => {
+	const { exerciseId, userId } = route.params;
+	const [answers, setAnswers] = useState<FollowupAnswers[]>([]);
+
+	useEffect(() => {
+		const fetchAnswers = async () => {
+			const snapshot = await db
+				.collection("users")
+				.doc(userId)
+				.collection("completedExercises")
+				.doc(exerciseId)
+				.collection("responses")
+				.get();
+			const fetchedAnswers = snapshot.docs.map(
+				(doc: QueryDocumentSnapshot) => doc.data() as FollowupAnswers,
+			);
+			setAnswers(fetchedAnswers);
+		};
+
+		fetchAnswers();
+	}, [exerciseId, userId]);
+
 	const data = {
 		labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
 		datasets: [
 			{
-				data: answers.painIntensity, // Erstatt dette med faktiske smerteintensitetssvar
+				data: answers.map((answer) => answer.painIntensity),
 				strokeWidth: 2,
 			},
 		],

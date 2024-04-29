@@ -19,7 +19,7 @@ const ChatScreen = () => {
 		const startChat = async () => {
 			try {
 				const chatSession = await apiService.startAIChat(state.userId);
-				setSessionId(chatSession.session.sessionId); // Assuming the API returns session info as {session: {sessionId: 'xxx'}}
+				setSessionId(chatSession.session.sessionId);
 				console.log("AI chat session started:", chatSession);
 			} catch (error) {
 				console.error("Failed to start AI chat:", error);
@@ -33,17 +33,22 @@ const ChatScreen = () => {
 
 	const sendMessage = async () => {
 		if (input.trim() === "" || !sessionId) return;
-		const newMessages = [...messages, { text: input, sender: "user" as const }];
-		setMessages(newMessages);
+
+		setMessages((currentMessages) => [
+			...currentMessages,
+			{ text: input, sender: "user" },
+		]);
 
 		try {
 			const chatResponse = await apiService.sendMessageToAIChat(
 				sessionId,
 				input,
 			);
-			if (chatResponse) {
-				newMessages.push({ text: chatResponse.message, sender: "ai" as const }); // Assuming API returns message as {message: 'response'}
-				setMessages(newMessages);
+			if (chatResponse?.aiResponse) {
+				setMessages((currentMessages) => [
+					...currentMessages,
+					{ text: chatResponse.aiResponse, sender: "ai" },
+				]);
 			}
 		} catch (error) {
 			console.error("Failed to send message:", error);

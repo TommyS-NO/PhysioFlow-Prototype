@@ -51,6 +51,7 @@ const ExerciseOverviewScreen = () => {
 			Object.keys(surveyState.answers).length === surveyState.questions.length
 		) {
 			try {
+				console.log("Submitting answers: ", surveyState.answers);
 				await completeExercise(
 					userState.userId,
 					activeExerciseId,

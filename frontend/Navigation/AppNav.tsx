@@ -16,6 +16,7 @@ import ProfileScreen from "../Screens/ProfileScreen";
 import SettingsScreen from "../Screens/SettingsScreen";
 import ContactScreen from "../Screens/ContactScreen";
 import ChatScreen from "../Screens/ChatScreen/ChatScreen";
+import ProgressScreen from "../Screens/ProgressScreen/ProgressScreen";
 
 import HealthScreen from "../Screens/HealthScreen/HealthScreen";
 
@@ -108,6 +109,11 @@ const AppNav = () => (
 				name="ChatScreen"
 				component={ChatScreen}
 				options={{ title: "Chat" }} // Legg til ChatScreen i navigasjonen
+			/>
+			<Stack.Screen
+				name="ProgressScreen"
+				component={ProgressScreen}
+				options={{ title: "ProgressScreen" }}
 			/>
 			{/* <Stack.Screen
 				name="CompletedWorkoutsScreen"

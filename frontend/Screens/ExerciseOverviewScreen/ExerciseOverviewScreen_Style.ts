@@ -81,9 +81,13 @@ export const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
     backgroundColor: '#FFF',
+       width: '80%', 
+    textAlign: 'center',
   },
   questionContainer: {
-    marginBottom: 20, 
+    marginBottom: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: 'black', 
   },
   questionTitle: {
     fontSize: 16,

@@ -26,7 +26,7 @@ import { FirebaseError } from "@firebase/util";
 import {
 	auth,
 	fetchUserDetailsFromFirestore,
-} from "../Services/Firebase/FirebaseConfig";
+} from "../Services/Firebase/firebaseConfig";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, "Front">;
 
@@ -158,7 +158,7 @@ const FrontScreen = () => {
 						</TouchableOpacity>
 
 						<View style={frontScreenStyles.loginContainer}>
-						{/* Har foreløpig kommentert ut logoen da denne bare var forstyrrende */}
+							{/* Har foreløpig kommentert ut logoen da denne bare var forstyrrende */}
 							{/* <Image
 								source={require("../Assets/PhysioFlow.png")}
 								style={frontScreenStyles.logo}

@@ -1,4 +1,4 @@
-import { admin, db } from "../firebase/firebaseAdmin.js";
+import { collection, getDocs } from "firebase/firestore";
 
 export const register = async (req, res) => {
 	const { email, password, username, age, weight, height, gender, birthday } =
@@ -204,22 +204,45 @@ export const saveCompletedExerciseForUser = async (req, res) => {
 	}
 
 	try {
-		const completedExerciseRef = await db
+		await db
 			.collection("users")
 			.doc(userId)
 			.collection("completedExercises")
+			.doc(completedExercise.id)
+			.collection("responses")
 			.add({
 				...completedExercise,
 				completedAt: admin.firestore.FieldValue.serverTimestamp(),
 			});
 		res.status(201).json({
 			message: "Gjennomført øvelse lagret",
-			id: completedExerciseRef.id,
+			id: completedExercise.id,
 		});
 	} catch (error) {
 		console.error("Feil ved lagring av gjennomført øvelse: ", error);
 		res
 			.status(500)
 			.json({ message: "Feil ved lagring av gjennomført øvelse", error });
+	}
+};
+export const getUserResponses = async (userId, exerciseId) => {
+	try {
+		const responsesSnapshot = await getDocs(
+			collection(
+				db,
+				"users",
+				userId,
+				"completedExercises",
+				exerciseId,
+				"responses",
+			),
+		);
+		const responses = responsesSnapshot.docs.map((doc) => ({
+			id: doc.id,
+			...doc.data(),
+		}));
+		return responses;
+	} catch (error) {
+		console.error("Feil ved henting av brukerens svar: ", error);
 	}
 };
