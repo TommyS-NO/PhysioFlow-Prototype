@@ -17,6 +17,7 @@ import {
 } from "../Services/Firebase/FirebaseConfig";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "../Styles/Settings_Style";
+import { signOut } from "firebase/auth";
 import { theme } from "../theme";
 
 type SettingsNavigationProp = StackNavigationProp<
@@ -189,9 +190,19 @@ const SettingsScreen: React.FC = () => {
 		</View>
 	);
 
+	const handleSignOut = async () => {
+		try {
+			await signOut(auth);
+			navigation.navigate("Front");
+		} catch (error) {
+			Alert.alert("Feil", `Noe gikk galt under utlogging.: ${error.message}`);
+		}
+	};
+
 	return (
 		<View style={styles.container}>
 			<View style={{ flex: 1, alignItems: "center", width: "100%" }}>
+		
 				<View style={styles.imageContainer}>
 					<Image
 						source={require("../Assets/Robot_1.png")}
@@ -216,13 +227,19 @@ const SettingsScreen: React.FC = () => {
 					/>
 					<NonEditableField label="Alder:" value={userProfile.age} />
 					<NonEditableField label="Kjønn:" value={userProfile.gender} />
+					
 				</View>
+				<TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
+				<Text style={styles.logoutButtonText}>Logg ut</Text>
+			</TouchableOpacity>
 			</View>
 			<TouchableOpacity
 				style={[styles.menuItem, styles.deleteButton]}
 				onPress={() => navigation.navigate("DeleteUserScreen")}
 			>
+				
 				<Text style={styles.deleteButtonText}>Slett profil</Text>
+				
 			</TouchableOpacity>
 		</View>
 	);

@@ -39,14 +39,14 @@ const ProfileScreen: React.FC = () => {
 		}
 	}, []);
 
-	const handleSignOut = async () => {
-		try {
-			await signOut(auth);
-			navigation.navigate("Front");
-		} catch (error) {
-			Alert.alert("Feil", `Noe gikk galt under utlogging.: ${error.message}`);
-		}
-	};
+	// const handleSignOut = async () => {
+	// 	try {
+	// 		await signOut(auth);
+	// 		navigation.navigate("Front");
+	// 	} catch (error) {
+	// 		Alert.alert("Feil", `Noe gikk galt under utlogging.: ${error.message}`);
+	// 	}
+	// };
 
 	const handleHelp = () => {
 		navigation.navigate("UserGuideScreen");
@@ -107,7 +107,7 @@ const ProfileScreen: React.FC = () => {
 						style={[styles.menuItem, styles.fullWidthButton]}
 						onPress={() => navigation.navigate("SettingsScreen")}
 					>
-						<Text style={styles.menuText}>Profilinnstillinger ⚒️</Text>
+						<Text style={styles.menuText}>Min profil</Text>
 					</TouchableOpacity>
 				</View>
 
@@ -126,9 +126,9 @@ const ProfileScreen: React.FC = () => {
 					<Text style={styles.menuText}>Helsedata</Text>
 				</TouchableOpacity> */}
 			</View>
-			<TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
+			{/* <TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
 				<Text style={styles.logoutButtonText}>Logg ut</Text>
-			</TouchableOpacity>
+			</TouchableOpacity> */}
 		</View>
 	);
 };
