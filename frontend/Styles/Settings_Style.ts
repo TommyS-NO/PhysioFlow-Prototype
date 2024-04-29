@@ -104,7 +104,7 @@ export const styles = StyleSheet.create({
   fieldValue: {
     flex: 1,
     fontSize: 16,
-    color: "#00000", 
+    color: "#000", 
   },
   editingIcons: {
     flexDirection: "row",

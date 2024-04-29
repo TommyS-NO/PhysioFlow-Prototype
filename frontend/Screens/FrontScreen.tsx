@@ -158,10 +158,11 @@ const FrontScreen = () => {
 						</TouchableOpacity>
 
 						<View style={frontScreenStyles.loginContainer}>
-							<Image
+						{/* Har foreløpig kommentert ut logoen da denne bare var forstyrrende */}
+							{/* <Image
 								source={require("../Assets/PhysioFlow.png")}
 								style={frontScreenStyles.logo}
-							/>
+							/> */}
 							<Text style={frontScreenStyles.titleText}>PhysioFlow</Text>
 							<Text style={frontScreenStyles.loginText}>Logg inn</Text>
 
