@@ -1,8 +1,10 @@
-// import { OpenAI } from "openai";
+import { OpenAI } from "openai";
 
-// const openai = new OpenAI({
-// 	apiKey: "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",
-// 	// organization: "org-KqrXXRgN8pcoRj8kMJHtuRw7",
-// });
+console.log("Initializing OpenAI with API key:");
 
-// export default openai;
+const openai = new OpenAI({
+	apiKey: "sk-proj-c24xDyXNf3dsMw5YRVhmT3BlbkFJh3kv6kwWsBm3R2Yu1YTs",
+	// organization: "org-KqrXXRgN8pcoRj8kMJHtuRw7",
+});
+
+export default openai;

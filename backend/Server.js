@@ -4,7 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
-// import AiRoute from "./routes/AiRoute.js";
+import AiRoute from "./routes/AiRoute.js";
 import surveyRoutes from "./routes/surveyRoute.js";
 import exerciseRoutes from "./routes/exerciseRoute.js";
 
@@ -24,7 +24,7 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// app.use("/api/chat", AiRoute);
+app.use("/api/chat", AiRoute);
 app.use("/api/survey", surveyRoutes);
 app.use("/api/exercises", exerciseRoutes);
 
