@@ -79,21 +79,7 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
   },
 
-  logoutButton: {
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 10,
-    backgroundColor: "#26807C",
-    alignSelf: "stretch",
-    marginHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 40,
-  },
-  logoutButtonText: {
-    fontSize: 18,
-    color: "#FFFFFF",
-    textAlign: "center",
-  },
+
   helpButton: {
     position: "absolute",
     right: theme.spacing.medium,
