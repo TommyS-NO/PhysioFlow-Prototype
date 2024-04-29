@@ -69,6 +69,22 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 40,
   },
+
+  logoutButton: {
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+    backgroundColor: "#26807C",
+    alignSelf: "stretch",
+    marginHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 40,
+  },
+  logoutButtonText: {
+    fontSize: 18,
+    color: "#FFFFFF",
+    textAlign: "center",
+  },
   deleteButtonText: {
     color: "#fff",
     fontSize: 18,
@@ -104,7 +120,7 @@ export const styles = StyleSheet.create({
   fieldValue: {
     flex: 1,
     fontSize: 16,
-    color: "#000", 
+    color: "#000",
   },
   editingIcons: {
     flexDirection: "row",
