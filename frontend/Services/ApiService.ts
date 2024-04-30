@@ -110,6 +110,15 @@ submitSurvey: async (userId: string, surveyId: SurveyId, answers: Answers) => {
     console.log('AI chat response received:', chatResponse);
     return chatResponse;
   },
+  getProgressData: async (userId: string, exerciseId: string) => {
+    const url = `${BASE_URL}/api/users/${userId}/completedExercises/${exerciseId}/progress`;
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Failed to fetch progress data for user ID: ${userId} and exercise ID: ${exerciseId}`);
+    }
+    return await response.json();
+},
+
 };
 
 export { apiService };
