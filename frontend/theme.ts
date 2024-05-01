@@ -34,7 +34,7 @@ interface Theme {
 export const theme: Theme = {
   colors: {
     // primary: "#F0F0F0",
-    primary: 'rgba(38, 128, 124, 0.2)',
+    primary: 'rgba(38, 128, 124, 0.1)',
     buttonText: "#ffffff",
     infoText: "#000000",
     button: "#26807C",
