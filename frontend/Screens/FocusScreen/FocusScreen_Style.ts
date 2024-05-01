@@ -6,14 +6,13 @@ export const styles = StyleSheet.create({
   questionContainer: {
     borderBottomWidth: 1,
     borderBottomColor: "#ececec",
-    padding: 10,
-    marginBottom: 20,
     
-
+    marginBottom: 20,
   },
   questionText: {
-    fontSize: 16,
+    fontSize: 15,
     color: "#333",
+
     marginBottom: 10,
   },
 
@@ -24,6 +23,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#dddddd",
     flex: 1,
     marginHorizontal: 10,
+    marginBottom: 10,
   },
 
   selectedOption: {
@@ -36,7 +36,6 @@ export const styles = StyleSheet.create({
   modalView: {
     marginHorizontal: 20,
     marginTop: "10%",
-    marginBottom: "10%",
     paddingHorizontal: 15,
     paddingTop: 15,
     paddingBottom: 20,
@@ -48,7 +47,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     width: "100%",
-    maxHeight: "85%",
+    maxHeight: "90%",
   },
   diagnosisTitle: { fontWeight: "bold", fontSize: 18, marginTop: 20 },
   diagnosisText: { fontSize: 16, marginTop: 10, marginBottom: 20 },
@@ -69,28 +68,28 @@ export const styles = StyleSheet.create({
   },
 
   unansweredQuestion: {
-    borderColor: 'red',
+    borderColor: "red",
     borderWidth: 1,
     borderRadius: 5,
-    backgroundColor: "#fff0f0", 
+    backgroundColor: "#fff0f0",
     marginVertical: 5,
-
   },
 
   modalHeader: {
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: "#ccc",
   },
   modalTitle: {
+    marginBottom: 10,
     fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
   },
   pageInfo: {
     fontSize: 16,
-    textAlign: 'center',
-    color: '#666',
+    textAlign: "center",
+    color: "black",
+    marginBottom: 10,
   },
-  
 });
