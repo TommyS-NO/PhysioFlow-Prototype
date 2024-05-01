@@ -147,6 +147,12 @@ export const styles = StyleSheet.create({
 
     marginTop: 22,
   },
+  modalTitle: {
+    marginBottom: 20,
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   modalText: {
     marginBottom: 15,
     textAlign: "center",
