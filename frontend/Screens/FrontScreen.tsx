@@ -26,7 +26,7 @@ import { FirebaseError } from "@firebase/util";
 import {
 	auth,
 	fetchUserDetailsFromFirestore,
-} from "../Services/Firebase/firebaseConfig";
+} from "../Services/Firebase/FirebaseConfig";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, "Front">;
 

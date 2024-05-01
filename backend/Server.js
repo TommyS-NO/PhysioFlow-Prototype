@@ -7,6 +7,7 @@ import rateLimit from "express-rate-limit";
 import AiRoute from "./routes/AiRoute.js";
 import surveyRoutes from "./routes/surveyRoute.js";
 import exerciseRoutes from "./routes/exerciseRoute.js";
+import { loadData, search } from "./utils/vectorStoreService.js";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ const limiter = rateLimit({
 	max: 100,
 });
 app.use(limiter);
+loadData();
 
 app.use("/api/chat", AiRoute);
 app.use("/api/survey", surveyRoutes);
