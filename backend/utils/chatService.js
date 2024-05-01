@@ -38,17 +38,16 @@ export const sendMessage = async (sessionId, message) => {
 			max_tokens: 150,
 			temperature: 0.7,
 			stop: ["\n"],
+			user: "BobAi",
 		});
 
 		console.log("OpenAI response:", chatCompletion);
 
 		if (!chatCompletion || !chatCompletion.choices) {
-			// Check if the chatCompletion object and the choices array are valid
 			throw new Error("AI completion response is not in the expected format.");
 		}
 
-		// Accessing the first choice's message content directly
-		const aiMessageContent = chatCompletion.choices[0].message.content;
+		const aiMessageContent = `BobAi: ${chatCompletion.choices[0].message.content}`;
 
 		if (aiMessageContent) {
 			console.log(`AI's response: ${aiMessageContent}`);
