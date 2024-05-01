@@ -6,7 +6,7 @@ import React, {
 	useCallback,
 } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../Services/Firebase/FirebaseConfig";
+import { db } from "../Services/Firebase/firebaseConfig";
 
 // Exercise type imported from ExerciseContext
 import { Exercise } from "./ExerciseContext";
