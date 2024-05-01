@@ -45,6 +45,10 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 -Etter gjennomført spørreundersøkelse så må vi endre på oppsettet for videre navigasjon. Skal vi fjerne konktakt behandler? Hvis ikke må det settes opp funksjonalitet for dette. 
 
+-Modalen som er satt opp ifm infoboks på fokusområdet må endres til CustomModal 
+
+-Få satt opp understrek under sidetallene igjen slik at det skiller litt fra spørsmålene
+
 Backend:
 
  - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
