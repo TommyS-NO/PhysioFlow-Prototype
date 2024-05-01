@@ -17,8 +17,7 @@ import SettingsScreen from "../Screens/SettingsScreen";
 import ContactScreen from "../Screens/ContactScreen";
 import ChatScreen from "../Screens/ChatScreen/ChatScreen";
 import ProgressScreen from "../Screens/ProgressScreen/ProgressScreen";
-
-import HealthScreen from "../Screens/HealthScreen/HealthScreen";
+import DiagnoseScreen from "../Screens/DiagnoseScreen/DiagnoseScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -101,11 +100,6 @@ const AppNav = () => (
 				options={{ title: "Trening" }}
 			/> */}
 			<Stack.Screen
-				name="HealthScreen"
-				component={HealthScreen}
-				options={{ title: "Helse" }}
-			/>
-			<Stack.Screen
 				name="ChatScreen"
 				component={ChatScreen}
 				options={{ title: "Chat" }} // Legg til ChatScreen i navigasjonen
@@ -114,6 +108,11 @@ const AppNav = () => (
 				name="ProgressScreen"
 				component={ProgressScreen}
 				options={{ title: "ProgressScreen" }}
+			/>
+					<Stack.Screen
+				name="DiagnoseScreen"
+				component={DiagnoseScreen}
+				options={{ title: "DiagnoseScreen" }}
 			/>
 			{/* <Stack.Screen
 				name="CompletedWorkoutsScreen"
