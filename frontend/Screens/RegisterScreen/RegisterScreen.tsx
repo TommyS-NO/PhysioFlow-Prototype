@@ -21,7 +21,7 @@ import PickerComponent from "./Picker/PickerComponent";
 import {
 	registerUser,
 	saveUserProfile,
-} from "../../Services/Firebase/FirebaseConfig";
+} from "../../Services/Firebase/firebaseConfig";
 import { theme } from "../../theme";
 
 type RegisterScreenNavigationProp = StackNavigationProp<
