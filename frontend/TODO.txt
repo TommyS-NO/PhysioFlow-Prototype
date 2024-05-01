@@ -1,18 +1,11 @@
-Husk! 
-
 Frontend:
-- Follow Up Survey etter gjennomført øvelse
--Flytte "Terms"-tekst ved siden av boks
 
--Sett opp logikk for lagring av informasjon som bruker har lagret ved registrering. Må vises under innstillinger. 
--Endre styling av logoer på "Kontakt oss" siden.
 -Justere designoppsett på Profilsiden. Juster visning. 
--Flytt send-knapp til høyre under tekstfeltet i 
-"kontakt oss".
+
 -Legg til en beskrivelse av hvordan slider fungerer med tanke på nivåer. Skal den inn i FaQ eller som en boks man kan klikke på for å få opp info der og da? 
 -Design:
 
-"Hovedfargen vår, med opacity for å skape kontraster: backgroundColor: 'rgba(38, 128, 124, 0.2)'"
+"Hovedfargen vår, med opacity for å skape kontraster: backgroundColor: 'rgba(38, 128, 124, 0.1)'"
 -Sjekk at det er en rød tråd på alle bakgrunnsfarger, knapper, fonter, størrelser osv.. 
 
 -Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
@@ -32,9 +25,25 @@ HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette..
 -Kontakt oss: Jeg fjernet oppsettet med ikoner for de ulike SoME kanalene ettersom det ikke finnes noe av dette uansett.. Enig?
 Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp noe mer rundt dette.. 
 
-Hvordan løser vi det med en hjemknapp? Skal vi ha en knapp som alltid tar oss til forsiden, eller hvordan løser vi det? 
+-Hvordan løser vi det med en hjemknapp? Skal vi ha en knapp som alltid tar oss til forsiden, eller hvordan løser vi det? 
 
-FirebaseConfit.ts: Sjekk oppsettet med ny kode der for håndtering av async. Det er noe feil i koden, selv om alt fungerer. 
+-FirebaseConfit.ts: Sjekk oppsettet med ny kode der for håndtering av async. Det er noe feil i koden, selv om alt fungerer. 
+
+-Sett opp en side med diagnoser som er foreslått til bruker. Maks en diagnose per fokusområde..
+
+-Husk å markere hvilken side man er på under spørringene til fokusområdet. 
+
+-Style spørreskjemaet slik at alle spørsmål og knapper er på en side.
+
+-Legg til en form for bekreftelse når bruker adder øvelse til treningsprogram
+
+-Sett opp "Tilbake" knapp på spørreskjema til fokusområdet. 
+
+-Sett opp alert når man logger ut "Er du sikker på at du vil logge ut?"
+
+-Sett opp alert/indikasjon når man legger til øvelser. Endre + tegnet til en knapp eller noe annet? 
+
+-Etter gjennomført spørreundersøkelse så må vi endre på oppsettet for videre navigasjon. Skal vi fjerne konktakt behandler? Hvis ikke må det settes opp funksjonalitet for dette. 
 
 Backend:
 
