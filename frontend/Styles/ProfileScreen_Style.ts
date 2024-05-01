@@ -69,11 +69,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 15,
   },
-  bobImage: {
-    width: 30,
-    height: 40,
-    resizeMode: "contain",
-  },
+
   bobText: {
     fontSize: 18,
     marginLeft: 10,
