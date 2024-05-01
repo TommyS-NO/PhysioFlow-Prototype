@@ -29,26 +29,21 @@ const apiService = {
     return await response.json();
   },
 
-submitSurvey: async (userId: string, surveyId: SurveyId, answers: Answers) => {
+
+  submitSurvey: async (surveyId: SurveyId, answers: Answers) => {
     const translatedSurveyId = translateSurveyId(surveyId);
-    const response = await fetch(`${BASE_URL}/api/users/${userId}/completedExercises`, {
+    const response = await fetch(`${BASE_URL}/api/survey/evaluate/${translatedSurveyId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        completedExercise: {
-          id: translatedSurveyId,
-          ...answers
-        }
-      }),
+      body: JSON.stringify(answers),
     });
     if (!response.ok) {
       throw new Error(`Failed to submit answers for survey ID: ${translatedSurveyId}`);
     }
-    const survey = await response.json();
+        const survey = await response.json();
     console.log('Survey received:', survey);
     return survey;
   },
-
   
   getAllExercises: async () => {
     try {
@@ -110,15 +105,6 @@ submitSurvey: async (userId: string, surveyId: SurveyId, answers: Answers) => {
     console.log('AI chat response received:', chatResponse);
     return chatResponse;
   },
-  getProgressData: async (userId: string, exerciseId: string) => {
-    const url = `${BASE_URL}/api/users/${userId}/completedExercises/${exerciseId}/progress`;
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Failed to fetch progress data for user ID: ${userId} and exercise ID: ${exerciseId}`);
-    }
-    return await response.json();
-},
-
 };
 
 export { apiService };

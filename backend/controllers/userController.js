@@ -203,6 +203,22 @@ export const saveCompletedExerciseForUser = async (req, res) => {
 			.json({ message: "completedExercise.id is undefined" });
 	}
 
+	// Få tilgang til øvelsen fra selectedExercises basert på exerciseId
+	const exercise = selectedExercises.find(
+		(ex) => ex.id === completedExercise.id,
+	);
+
+	// Sjekk om øvelsen eksisterer
+	if (!exercise) {
+		console.error(
+			"Error: Exercise not found when trying to complete an exercise.",
+		);
+		return;
+	}
+
+	// Lag en ny ID ved å kombinere øvelsens navn og ID
+	completedExercise.id = `${exercise.name}_${completedExercise.id}`;
+
 	try {
 		await db
 			.collection("users")

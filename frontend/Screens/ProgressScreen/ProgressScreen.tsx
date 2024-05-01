@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
-import { db } from "../../Services/Firebase/firebaseConfig";
-import { QueryDocumentSnapshot } from "@firebase/firestore-types";
+import { apiService } from "../../Services/ApiService";
+import { useRoute } from "@react-navigation/native";
+import { RootStackParamList } from "../../Navigation/navigationTypes";
+import { RouteProp } from "@react-navigation/native";
 
 type Props = {
-	route: {
-		params: {
-			exerciseId: string;
-			userId: string;
-		};
-	};
+	route: RouteProp<RootStackParamList, "ProgressScreen">;
 };
 
 type FollowupAnswers = {
@@ -24,24 +21,37 @@ type FollowupAnswers = {
 const ProgressScreen: React.FC<Props> = ({ route }) => {
 	const { exerciseId, userId } = route.params;
 	const [answers, setAnswers] = useState<FollowupAnswers[]>([]);
+	const [loading, setLoading] = useState(true);
+
+	console.log("Route params:", route.params); // Logge innkommende parametere
 
 	useEffect(() => {
-		const fetchAnswers = async () => {
-			const snapshot = await db
-				.collection("users")
-				.doc(userId)
-				.collection("completedExercises")
-				.doc(exerciseId)
-				.collection("responses")
-				.get();
-			const fetchedAnswers = snapshot.docs.map(
-				(doc: QueryDocumentSnapshot) => doc.data() as FollowupAnswers,
-			);
-			setAnswers(fetchedAnswers);
+		if (!exerciseId || !userId) {
+			console.error("ExerciseId or UserId is undefined");
+			return;
+		}
+		const fetchProgressData = async () => {
+			try {
+				setLoading(true);
+				const fetchedAnswers = await apiService.getProgressData(
+					userId,
+					exerciseId,
+				);
+				setAnswers(fetchedAnswers);
+				console.log("Fetched answers:", fetchedAnswers); // Logg hentede svar
+			} catch (error) {
+				console.error("Failed to fetch progress data:", error);
+			} finally {
+				setLoading(false);
+			}
 		};
 
-		fetchAnswers();
+		fetchProgressData();
 	}, [exerciseId, userId]);
+
+	if (loading) {
+		return <Text>Loading...</Text>;
+	}
 
 	const data = {
 		labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],

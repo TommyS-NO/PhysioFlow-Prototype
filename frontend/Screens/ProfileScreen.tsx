@@ -89,6 +89,12 @@ const ProfileScreen: React.FC = () => {
 					>
 						<Text style={styles.menuText}>Søk etter øvelser</Text>
 					</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.menuItem}
+						onPress={() => navigation.navigate("ProgressScreen")}
+					>
+						<Text style={styles.menuText}>Progress</Text>
+					</TouchableOpacity>
 				</View>
 
 				<TouchableOpacity
