@@ -21,6 +21,10 @@ const ChatScreen = () => {
 				const chatSession = await apiService.startAIChat(state.userId);
 				setSessionId(chatSession.session.sessionId);
 				console.log("AI chat session started:", chatSession);
+				// Send initial greeting from AI
+				const initialGreeting =
+					"Hei, Jeg heter BobAi, hvordan kan jeg hjelpe deg?";
+				setMessages([{ text: initialGreeting, sender: "ai" }]);
 			} catch (error) {
 				console.error("Failed to start AI chat:", error);
 			}
@@ -57,19 +61,30 @@ const ChatScreen = () => {
 		setInput("");
 	};
 
+	const renderMessage = (msg) => {
+		const textStyle =
+			msg.sender === "user" ? styles.userMessage : styles.aiMessage;
+		// Split the message to apply bold to "BobAi"
+		const parts = msg.text.split(": ");
+		if (msg.sender === "ai" && parts.length > 1) {
+			return (
+				<Text key={msg.text} style={textStyle}>
+					<Text style={styles.bold}>{parts[0]}</Text>
+					{": " + parts[1]}
+				</Text>
+			);
+		}
+		return (
+			<Text key={msg.text} style={textStyle}>
+				{msg.text}
+			</Text>
+		);
+	};
+
 	return (
 		<View style={styles.container}>
 			<ScrollView style={styles.messagesContainer}>
-				{messages.map((msg, index) => (
-					<Text
-						key={index}
-						style={
-							msg.sender === "user" ? styles.userMessage : styles.aiMessage
-						}
-					>
-						{msg.text}
-					</Text>
-				))}
+				{messages.map((msg, index) => renderMessage(msg))}
 			</ScrollView>
 			<TextInput
 				style={styles.input}
@@ -89,6 +104,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 10,
 		backgroundColor: "#fff",
+	},
+	bold: {
+		fontWeight: "bold",
 	},
 	messagesContainer: {
 		flex: 1,
