@@ -63,7 +63,7 @@ const ProfileScreen: React.FC = () => {
 
 				<View style={styles.headerContainer}>
 					<Image
-						source={require("../Assets/Robot_1.png")}
+						source={require("../Assets/Profilbilde.png")}
 						style={styles.profileImage}
 					/>
 					<Text style={styles.welcomeText}>Velkommen, {userName}!</Text>
