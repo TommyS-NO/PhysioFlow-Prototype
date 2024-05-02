@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { theme } from "../theme";
+import { theme } from "../../theme";
 
 export const frontScreenStyles = StyleSheet.create({
   container: {
@@ -19,7 +19,7 @@ export const frontScreenStyles = StyleSheet.create({
   logo: {
     height: 80,
     width: 80,
-    // marginTop: 20,
+
   },
   titleText: {
     color: theme.colors.text,

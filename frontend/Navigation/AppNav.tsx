@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import FrontScreen from "../Screens/FrontScreen";
+import FrontScreen from "../Screens/FrontScreen/FrontScreen";
 import RegisterScreen from "../Screens/RegisterScreen/RegisterScreen";
 import TermsScreen from "../Screens/TermsScreen";
 import FocusScreen from "../Screens/FocusScreen/FocusScreen";
@@ -109,7 +109,7 @@ const AppNav = () => (
 				component={ProgressScreen}
 				options={{ title: "ProgressScreen" }}
 			/>
-					<Stack.Screen
+			<Stack.Screen
 				name="DiagnoseScreen"
 				component={DiagnoseScreen}
 				options={{ title: "DiagnoseScreen" }}
