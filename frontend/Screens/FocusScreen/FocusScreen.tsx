@@ -173,53 +173,53 @@ const handleContactProvider = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <BodyChart
-        bodySide={bodySide}
-        onAreaPress={handleAreaPress}
-        toggleBodySide={() => setBodySide(bodySide === "front" ? "back" : "front")}
-      />
-      <CustomModal
-        visible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-        title={selectedFocusArea || "Velg område"}
-        style={styles.modalView}
-      >
-        <Text style={styles.pageInfo}>Side {currentPage + 1} av {Math.ceil(surveyState.questions.length / questionsPerPage)}</Text>
-        <ScrollView>
-          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            {renderQuestionsForPage()}
-          </KeyboardAvoidingView>
-        </ScrollView>
-        <CustomButton
-          title={currentPage === Math.ceil(surveyState.questions.length / questionsPerPage) - 1 ? "Bekreft" : "Neste"}
-          onPress={handleNext}
-        />
-      </CustomModal>
-      {diagnosisResult && (
-        <CustomModal
-          visible={true}
-          onClose={() => setDiagnosisResult(null)}
-          title="Antatt diagnose"
-          style={styles.modalView}
-        >
-          <Text style={styles.diagnosisTitle}>{diagnosisResult.diagnosis}</Text>
-          <Text style={styles.diagnosisText}>
-            {diagnosisResult.description}
-          </Text>
-          <CustomButton
-            title="Kontakt behandler"
-            onPress={handleContactProvider}
-          />
-          <CustomButton
-            title="Vis anbefalte øvelser"
-            onPress={() => navigation.navigate("ExerciseScreen", {
-              recommendedExercises: diagnosisResult.exercises,
-            })}
-          />
-        </CustomModal>
-      )}
-    </View>
+	<View style={styles.container}>
+	  <BodyChart
+		bodySide={bodySide}
+		onAreaPress={handleAreaPress}
+		toggleBodySide={() => setBodySide(bodySide === "front" ? "back" : "front")}
+	  />
+	  <CustomModal
+		visible={isModalVisible}
+		onClose={() => setIsModalVisible(false)}
+		title={selectedFocusArea || "Velg område"}
+		style={styles.modalView}
+	  >
+		<ScrollView>
+		  <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+			{renderQuestionsForPage()}
+		  </KeyboardAvoidingView>
+		</ScrollView>
+		<Text style={styles.pageInfo}>Side {currentPage + 1} av {Math.ceil(surveyState.questions.length / questionsPerPage)}</Text>
+		<CustomButton
+		  title={currentPage === Math.ceil(surveyState.questions.length / questionsPerPage) - 1 ? "Bekreft" : "Neste"}
+		  onPress={handleNext}
+		/>
+	  </CustomModal>
+	  {diagnosisResult && (
+		<CustomModal
+		  visible={true}
+		  onClose={() => setDiagnosisResult(null)}
+		  title="Antatt diagnose"
+		  style={styles.modalView}
+		>
+		  <Text style={styles.diagnosisTitle}>{diagnosisResult.diagnosis}</Text>
+		  <Text style={styles.diagnosisText}>
+			{diagnosisResult.description}
+		  </Text>
+		  <CustomButton
+			title="Kontakt behandler"
+			onPress={handleContactProvider}
+		  />
+		  <CustomButton
+			title="Vis anbefalte øvelser"
+			onPress={() => navigation.navigate("ExerciseScreen", {
+			  recommendedExercises: diagnosisResult.exercises,
+			})}
+		  />
+		</CustomModal>
+	  )}
+	</View>
   );
 };
 
