@@ -9,16 +9,16 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../Navigation/navigationTypes";
+import { RootStackParamList } from "../../Navigation/navigationTypes";
 import {
 	subscribeToUserProfile,
 	updateUserProfile,
 	auth,
-} from "../Services/Firebase/FirebaseConfig";
+} from "../../Services/Firebase/FirebaseConfig";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { styles } from "../Styles/Settings_Style";
+import { styles } from "../../Styles/Settings_Style";
 import { signOut } from "firebase/auth";
-import { theme } from "../theme";
+import { theme } from "../../theme";
 
 type SettingsNavigationProp = StackNavigationProp<
 	RootStackParamList,
@@ -58,7 +58,6 @@ const SettingsScreen: React.FC = () => {
 		return age;
 	};
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const userId = auth.currentUser?.uid;
 		if (userId) {
@@ -197,7 +196,7 @@ const SettingsScreen: React.FC = () => {
 			<View style={{ flex: 1, alignItems: "center", width: "100%" }}>
 				<View style={styles.imageContainer}>
 					<Image
-						source={require("../Assets/Robot_1.png")}
+						source={require("../../Assets/Robot_1.png")}
 						style={styles.profileImage}
 					/>
 				</View>
