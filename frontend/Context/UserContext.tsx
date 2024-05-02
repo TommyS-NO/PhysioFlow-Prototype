@@ -6,10 +6,10 @@ import React, {
 	useCallback,
 } from "react";
 import { collection, addDoc } from "firebase/firestore";
+import { getAuth, deleteUser as firebaseDeleteUser } from "firebase/auth";
 import { db } from "../Services/Firebase/FirebaseConfig";
 
-// Exercise type imported from ExerciseContext
-import { Exercise } from "./ExerciseContext";
+// import { Exercise } from "./ExerciseContext";
 import { apiService } from "../Services/ApiService";
 
 // User profile interface
@@ -56,6 +56,7 @@ type UserAction = {
 		| "LOGOUT"
 		| "REGISTER"
 		| "UPDATE_USER_DETAILS"
+		| "DELETE_USER"
 		| "COMPLETE_EXERCISE";
 	token?: string;
 	userId?: string;
@@ -78,7 +79,6 @@ const initialState: UserState = {
 const userReducer = (state: UserState, action: UserAction): UserState => {
 	switch (action.type) {
 		case "LOGIN":
-			// Ensure all required properties are present before updating state
 			return {
 				...state,
 				isLoggedIn: true,
@@ -90,15 +90,14 @@ const userReducer = (state: UserState, action: UserAction): UserState => {
 				} as UserProfile,
 			};
 		case "LOGOUT":
+		case "DELETE_USER":
 			return initialState;
 		case "REGISTER":
-			// userDetails in REGISTER action is expected to be a complete UserProfile object
 			return {
 				...state,
 				userDetails: action.userDetails ?? state.userDetails,
 			};
 		case "UPDATE_USER_DETAILS":
-			// Update the userDetails only if details are provided
 			return {
 				...state,
 				userDetails: action.userDetails
@@ -106,7 +105,6 @@ const userReducer = (state: UserState, action: UserAction): UserState => {
 					: state.userDetails,
 			};
 		case "COMPLETE_EXERCISE":
-			// Check for exerciseId and answers before adding new completed exercise
 			if (action.exerciseId && action.answers) {
 				const newCompletedExercise: CompletedExercise = {
 					exerciseId: action.exerciseId,
@@ -122,7 +120,6 @@ const userReducer = (state: UserState, action: UserAction): UserState => {
 					lastCompletedExercise: newCompletedExercise,
 				};
 			}
-			// If fields are missing, log error and return the current state
 			console.error(
 				"Error: Missing exerciseId or answers for COMPLETE_EXERCISE action",
 			);
@@ -143,12 +140,14 @@ const UserContext = createContext<{
 	) => Promise<void>;
 	startAIChat: (userId: string) => Promise<void>;
 	sendMessageToAIChat: (chatId: string, message: string) => Promise<void>;
+	deleteUser: (userId: string) => Promise<void>;
 }>({
 	state: initialState,
 	dispatch: () => null,
 	completeExercise: async () => {},
 	startAIChat: async () => {},
 	sendMessageToAIChat: async () => {},
+	deleteUser: async () => {},
 });
 
 export const useUser = () => useContext(UserContext);
@@ -157,6 +156,24 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {
 	const [state, dispatch] = useReducer(userReducer, initialState);
+
+	const deleteUser = useCallback(async (userId: string) => {
+		if (!userId) {
+			console.error("Error: userId is undefined");
+			return;
+		}
+		try {
+			const auth = getAuth();
+			const user = auth.currentUser;
+			if (user) {
+				await firebaseDeleteUser(user);
+				console.log("User deleted from Firebase Auth");
+				dispatch({ type: "DELETE_USER" });
+			}
+		} catch (error) {
+			console.error("Error deleting user from Firebase Auth:", error);
+		}
+	}, []);
 
 	const completeExercise = useCallback(
 		async (userId: string, exerciseId: string, answers: FollowupAnswers) => {
@@ -177,6 +194,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 		},
 		[],
 	);
+
 	const startAIChat = useCallback(async (userId: string) => {
 		try {
 			await apiService.startAIChat(userId);
@@ -204,10 +222,12 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 				completeExercise,
 				startAIChat,
 				sendMessageToAIChat,
+				deleteUser,
 			}}
 		>
 			{children}
 		</UserContext.Provider>
 	);
 };
+
 export default UserContext;
