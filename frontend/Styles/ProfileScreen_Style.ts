@@ -9,17 +9,17 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.colors.primary,
+    // backgroundColor: theme.colors.primary,
   },
   fullWidthContainer: {
-    width: "100%",
+ 
     alignItems: "center",
     marginBottom: spacing,
   },
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "center",
     marginBottom: spacing,
   },
 
@@ -33,6 +33,8 @@ export const styles = StyleSheet.create({
     borderRadius: 60,
     marginTop: 30,
     marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#26807C',
   },
   welcomeText: {
     fontSize: 22,
@@ -45,19 +47,25 @@ export const styles = StyleSheet.create({
   },
   menuItem: {
     backgroundColor: "#fff",
-    paddingVertical: 15, 
+    paddingVertical: 15,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
     marginVertical: spacing / 2,
     marginHorizontal: spacing / 2,
     width: (width - spacing * 5) / 2,
+    shadowColor: "#000", 
+    shadowOffset: { width: 0, height: 2 }, 
+    shadowOpacity: 0.1, 
+    shadowRadius: 5, 
+    elevation: 4, 
   },
   fullWidthButton: {
     width: width - spacing * 4,
   },
   menuText: {
     fontSize: 18,
+  
   },
   bobContainer: {
     flexDirection: "row",
@@ -74,7 +82,6 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 10,
   },
-
 
   helpButton: {
     position: "absolute",
