@@ -54,11 +54,6 @@ const AppNav = () => (
 				component={FocusScreen}
 				options={{ title: "Fokusområde" }}
 			/>
-			{/* <Stack.Screen
-				name="DeleteUserScreen"
-				component={DeleteUserScreen}
-				options={{ title: "Slett profil" }}
-			/> */}
 			<Stack.Screen
 				name="AboutScreen"
 				component={AboutScreen}
@@ -84,25 +79,11 @@ const AppNav = () => (
 				component={ContactScreen}
 				options={{ title: "Kontakt oss" }}
 			/>
-			{/* <Stack.Screen
-				name="RegisterWorkout"
-				component={RegisterWorkout}
-				options={{ title: "Registrer økt" }}
-			/> */}
-			<Stack.Screen
-				name="NewScreen"
-				component={NewScreen}
-				options={{ title: "new" }}
-			/>
-			{/* <Stack.Screen
-				name="ExerciseScreen"
-				component={ExerciseScreen}
-				options={{ title: "Trening" }}
-			/> */}
+
 			<Stack.Screen
 				name="ChatScreen"
 				component={ChatScreen}
-				options={{ title: "Chat" }} // Legg til ChatScreen i navigasjonen
+				options={{ title: "Chat" }}
 			/>
 			<Stack.Screen
 				name="ProgressScreen"
@@ -114,11 +95,6 @@ const AppNav = () => (
 				component={DiagnoseScreen}
 				options={{ title: "DiagnoseScreen" }}
 			/>
-			{/* <Stack.Screen
-				name="CompletedWorkoutsScreen"
-				component={CompletedWorkoutsScreen}
-				options={{ title: "Utførte treningsøkter" }}
-			/> */}
 		</Stack.Navigator>
 	</NavigationContainer>
 );
