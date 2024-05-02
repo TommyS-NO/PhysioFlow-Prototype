@@ -16,9 +16,8 @@ import {
 	auth,
 } from "../../Services/Firebase/FirebaseConfig";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { styles } from "../../Styles/Settings_Style";
+import { styles } from "./Settings_Style";
 import { signOut } from "firebase/auth";
-import { theme } from "../../theme";
 
 type SettingsNavigationProp = StackNavigationProp<
 	RootStackParamList,
