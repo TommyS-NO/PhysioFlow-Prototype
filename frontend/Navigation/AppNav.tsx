@@ -9,11 +9,11 @@ import UserGuideScreen from "../Screens/UserGuideScreen";
 import NewScreen from "../Screens/NewScreen";
 import { RootStackParamList } from "./navigationTypes";
 import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen/ExerciseOverviewScreen";
-import DeleteUserScreen from "../Screens/DeleteUserScreen";
+import DeleteUserScreen from "../Screens/SettingsScreen/DeleteUserComp";
 import AboutScreen from "../Screens/AboutScreen";
 import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
-import SettingsScreen from "../Screens/SettingsScreen";
+import SettingsScreen from "../Screens/SettingsScreen/SettingsScreen";
 import ContactScreen from "../Screens/ContactScreen";
 import ChatScreen from "../Screens/ChatScreen/ChatScreen";
 import ProgressScreen from "../Screens/ProgressScreen/ProgressScreen";
@@ -54,11 +54,11 @@ const AppNav = () => (
 				component={FocusScreen}
 				options={{ title: "Fokusområde" }}
 			/>
-			<Stack.Screen
+			{/* <Stack.Screen
 				name="DeleteUserScreen"
 				component={DeleteUserScreen}
 				options={{ title: "Slett profil" }}
-			/>
+			/> */}
 			<Stack.Screen
 				name="AboutScreen"
 				component={AboutScreen}
