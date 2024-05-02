@@ -1,109 +1,90 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, Text, ScrollView, StyleSheet } from "react-native";
-import CustomButton from "../../Components/CustomButton/CustomButton";
+import { View, TextInput, Text, ScrollView, StyleSheet, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // Sørg for at dette biblioteket er installert
 import { useUser } from "../../Context/UserContext";
 import { apiService } from "../../Services/ApiService";
+import { theme } from "../../Theme";
 
 interface Message {
-	text: string;
-	sender: "user" | "ai";
+  text: string;
+  sender: "user" | "ai";
 }
 
 const ChatScreen = () => {
-	const { state } = useUser();
-	const [messages, setMessages] = useState<Message[]>([]);
-	const [input, setInput] = useState<string>("");
-	const [sessionId, setSessionId] = useState<string | null>(null);
+  const { state } = useUser();
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState<string>("");
+  const [sessionId, setSessionId] = useState<string | null>(null);
 
-	useEffect(() => {
-		const startChat = async () => {
-			try {
-				const chatSession = await apiService.startAIChat(state.userId);
-				setSessionId(chatSession.session.sessionId);
-				console.log("AI chat session started:", chatSession);
-				// Send initial greeting from AI
-				const initialGreeting =
-					"Hei, Jeg heter BobAi, hvordan kan jeg hjelpe deg?";
-				setMessages([{ text: initialGreeting, sender: "ai" }]);
-			} catch (error) {
-				console.error("Failed to start AI chat:", error);
-			}
-		};
+  useEffect(() => {
+    const startChat = async () => {
+      try {
+        const chatSession = await apiService.startAIChat(state.userId);
+        setSessionId(chatSession.session.sessionId);
+        const initialGreeting = "Hei! Jeg heter BobAi, hvordan kan jeg hjelpe deg?";
+        setMessages([{ text: initialGreeting, sender: "ai" }]);
+      } catch (error) {
+        console.error("Failed to start AI chat:", error);
+      }
+    };
 
-		if (state.userId) {
-			startChat();
-		}
-	}, [state.userId]);
+    if (state.userId) {
+      startChat();
+    }
+  }, [state.userId]);
 
-	const sendMessage = async () => {
-		if (input.trim() === "" || !sessionId) return;
+  const sendMessage = async () => {
+    if (input.trim() === "" || !sessionId) return;
+    setMessages(currentMessages => [...currentMessages, { text: input, sender: "user" }]);
+    try {
+      const chatResponse = await apiService.sendMessageToAIChat(sessionId, input);
+      if (chatResponse?.aiResponse) {
+        setMessages(currentMessages => [...currentMessages, { text: chatResponse.aiResponse, sender: "ai" }]);
+      }
+    } catch (error) {
+      console.error("Failed to send message:", error);
+    }
+    setInput("");
+  };
 
-		setMessages((currentMessages) => [
-			...currentMessages,
-			{ text: input, sender: "user" },
-		]);
+  
 
-		try {
-			const chatResponse = await apiService.sendMessageToAIChat(
-				sessionId,
-				input,
-			);
-			if (chatResponse?.aiResponse) {
-				setMessages((currentMessages) => [
-					...currentMessages,
-					{ text: chatResponse.aiResponse, sender: "ai" },
-				]);
-			}
-		} catch (error) {
-			console.error("Failed to send message:", error);
-		}
-
-		setInput("");
-	};
-
-	const renderMessage = (msg) => {
-		const textStyle =
-			msg.sender === "user" ? styles.userMessage : styles.aiMessage;
-		// Split the message to apply bold to "BobAi"
-		const parts = msg.text.split(": ");
-		if (msg.sender === "ai" && parts.length > 1) {
-			return (
-				<Text key={msg.text} style={textStyle}>
-					<Text style={styles.bold}>{parts[0]}</Text>
-					{": " + parts[1]}
-				</Text>
-			);
-		}
-		return (
-			<Text key={msg.text} style={textStyle}>
-				{msg.text}
-			</Text>
-		);
-	};
-
-	return (
-		<View style={styles.container}>
-			<ScrollView style={styles.messagesContainer}>
-				{messages.map((msg, index) => renderMessage(msg))}
-			</ScrollView>
-			<TextInput
-				style={styles.input}
-				value={input}
-				onChangeText={setInput}
-				placeholder="Still et spørsmål..."
-				autoCapitalize="none"
-				autoCorrect={false}
-			/>
-			<CustomButton title="Send" onPress={sendMessage} />
-		</View>
-	);
+  return (
+    <KeyboardAvoidingView 
+      style={styles.container} 
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+    >
+      <ScrollView style={styles.messagesContainer}>
+        {messages.map((msg, index) => (
+          <View key={index} style={msg.sender === "user" ? styles.userMessage : styles.aiMessage}>
+            <Text>{msg.text}</Text>
+          </View>
+        ))}
+      </ScrollView>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          value={input}
+          onChangeText={setInput}
+          placeholder="Still et spørsmål..."
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
+          <Icon name="send" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
+  );
 };
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 10,
-		backgroundColor: "#fff",
+		marginBottom: 20,
+	
 	},
 	bold: {
 		fontWeight: "bold",
@@ -111,32 +92,51 @@ const styles = StyleSheet.create({
 	messagesContainer: {
 		flex: 1,
 		padding: 10,
-		backgroundColor: "#f5f5f5",
+		// backgroundColor: "#f5f5f5",
 		borderRadius: 5,
 		marginBottom: 10,
 	},
-	input: {
-		height: 40,
+	inputContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		padding: 10,
+		marginBottom: 30,
+	  },
+	  input: {
+		flex: 1,
+		height: 50,
 		borderColor: "gray",
 		borderWidth: 1,
-		borderRadius: 5,
+		borderRadius: 15,
+		marginRight: 10,
+		paddingLeft: 10,
+	  },
+	  sendButton: {
 		padding: 10,
-	},
+		backgroundColor: '#26807C',
+		borderRadius: 10,
+	
+		
+	  },
 	userMessage: {
 		alignSelf: "flex-end",
 		margin: 5,
 		padding: 10,
-		backgroundColor: "#0084ff",
+		backgroundColor: "rgba(38, 128, 124, 0.1)",
 		color: "#fff",
-		borderRadius: 5,
+		borderRadius: 20,
 	},
+	userMessageText: {
+		color: "#fff",
+	  },
 	aiMessage: {
 		alignSelf: "flex-start",
 		margin: 5,
 		padding: 10,
 		backgroundColor: "#e5e5ea",
-		borderRadius: 5,
+		borderRadius: 20,
 	},
 });
+
 
 export default ChatScreen;
