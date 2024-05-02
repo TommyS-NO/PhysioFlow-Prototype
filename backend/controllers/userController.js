@@ -1,4 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
+const { Firestore } = require("@google-cloud/firestore");
+const admin = require("firebase-admin");
+const db = new Firestore();
 
 export const register = async (req, res) => {
 	const { email, password, username, age, weight, height, gender, birthday } =
@@ -58,16 +61,35 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
 	const { id } = req.params;
+	const requestingUser = req.user;
+
+	if (requestingUser.uid !== id && !requestingUser.isAdmin) {
+		return res
+			.status(403)
+			.json({ message: "Ikke autorisert til å utføre denne handlingen" });
+	}
+
+	const userDocRef = db.collection("users").doc(id);
 
 	try {
-		await admin.auth().deleteUser(id);
-		await db.collection("users").doc(id).delete();
+		await db.runTransaction(async (transaction) => {
+			// Slett brukerdata fra Firestore
+			const userDoc = await transaction.get(userDocRef);
+			if (!userDoc.exists) {
+				throw new Error("Brukeren finnes ikke i Firestore");
+			}
+			transaction.delete(userDocRef);
+			await admin.auth().deleteUser(id);
+		});
+
 		res
 			.status(200)
-			.json({ message: "Brukeren og deres autentiseringsdata ble slettet." });
+			.json({ message: "Brukeren og alle tilknyttede data ble slettet." });
 	} catch (error) {
 		console.error("Feil under sletting av bruker: ", error);
-		res.status(500).json({ message: "Noe gikk galt ved sletting.", error });
+		res
+			.status(500)
+			.json({ message: "Noe gikk galt ved sletting.", error: error.message });
 	}
 };
 
