@@ -55,7 +55,7 @@ const CustomSlider: React.FC<CustomSliderProps> = ({
 	);
 };
 
-const fullWidth = Dimensions.get("window").width - 40;
+const fullWidth = Dimensions.get("window").width - 55;
 
 const styles = StyleSheet.create({
 	container: {
