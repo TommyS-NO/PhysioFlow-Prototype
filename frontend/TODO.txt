@@ -31,9 +31,6 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 -Sett opp en side med diagnoser som er foreslått til bruker. Maks en diagnose per fokusområde..
 
--Husk å markere hvilken side man er på under spørringene til fokusområdet. 
-
--Style spørreskjemaet slik at alle spørsmål og knapper er på en side.
 
 -Legg til en form for bekreftelse når bruker adder øvelse til treningsprogram
 
@@ -47,7 +44,6 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 -Modalen som er satt opp ifm infoboks på fokusområdet må endres til CustomModal 
 
--Få satt opp understrek under sidetallene igjen slik at det skiller litt fra spørsmålene
 
 Backend:
 
