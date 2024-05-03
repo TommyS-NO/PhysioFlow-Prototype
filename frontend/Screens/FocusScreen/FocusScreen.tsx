@@ -208,15 +208,16 @@ const handleContactProvider = () => {
 			{diagnosisResult.description}
 		  </Text>
 		  <CustomButton
-			title="Kontakt behandler"
-			onPress={handleContactProvider}
-		  />
-		  <CustomButton
 			title="Vis anbefalte øvelser"
 			onPress={() => navigation.navigate("ExerciseScreen", {
 			  recommendedExercises: diagnosisResult.exercises,
 			})}
 		  />
+		  <CustomButton
+			title="Kontakt behandler"
+			onPress={handleContactProvider}
+		  />
+		
 		</CustomModal>
 	  )}
 	</View>
