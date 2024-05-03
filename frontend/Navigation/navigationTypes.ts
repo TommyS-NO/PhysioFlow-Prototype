@@ -5,7 +5,6 @@ export type RootStackParamList = {
   FocusScreen: undefined;
   ExerciseOverviewScreen: undefined;
   UserGuideScreen: undefined;
-  // DeleteUserScreen: undefined;
   AboutScreen: undefined;
   ExerciseScreen: { recommendedExercises?: string[] };
   ProfileScreen: {userName?: string};
