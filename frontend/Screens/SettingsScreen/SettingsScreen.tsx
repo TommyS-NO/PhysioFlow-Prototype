@@ -195,7 +195,7 @@ const SettingsScreen: React.FC = () => {
 			<View style={{ flex: 1, alignItems: "center", width: "100%" }}>
 				<View style={styles.imageContainer}>
 					<Image
-						source={require("../../Assets/Robot_1.png")}
+						source={require("../../Assets/Profilbilde.png")}
 						style={styles.profileImage}
 					/>
 				</View>
