@@ -44,6 +44,9 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 -Modalen som er satt opp ifm infoboks på fokusområdet må endres til CustomModal 
 
+-Sette inn bilde av chatfigur og bruker ved siden av snakkeboble i BobAI
+
+-Har fjernet oppsett for å sende melding til behandler. Trenger vi å ha med det? 
 
 Backend:
 
