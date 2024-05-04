@@ -1,5 +1,7 @@
 import admin from "firebase-admin";
 import dotenv from "dotenv";
+import { CustomError } from "../utils/customError.js";
+
 dotenv.config();
 
 const serviceAccount = {
@@ -7,7 +9,7 @@ const serviceAccount = {
 	project_id: process.env.FIREBASE_PROJECT_ID,
 	private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
 	private_key:
-		process.env.FIREBASE_PRIVATE_KEY.split(String.raw`\n`).join("\n"),
+		process.env.FIREBASE_PRIVATE_KEY?.split(String.raw`\n`).join("\n"),
 	client_email: process.env.FIREBASE_CLIENT_EMAIL,
 	client_id: process.env.FIREBASE_CLIENT_ID,
 	auth_uri: "https://accounts.google.com/o/oauth2/auth",
@@ -21,8 +23,8 @@ try {
 		credential: admin.credential.cert(serviceAccount),
 	});
 } catch (error) {
-	console.error("Firebase initialization failed", error);
-	throw error;
+	console.error("Firebase-initialisering feilet", error);
+	throw new CustomError(500, "Firebase-initialisering feilet", error);
 }
 
 const db = admin.firestore();
