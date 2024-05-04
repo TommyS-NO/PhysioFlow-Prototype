@@ -1,11 +1,5 @@
 import React from "react";
-import {
-	View,
-	Text,
-	Image,
-	TouchableOpacity,
-	ImageErrorEventData,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Exercise } from "../../Context/ExerciseContext";
 import { styles } from "./ExerciseOverviewScreen_Style";
@@ -29,21 +23,19 @@ const formatDate = (isoString: string): string => {
 	}).format(date);
 };
 
-const ExerciseItem: React.FC<ExerciseItemProps> = ({
+const ExerciseItem = ({
 	exercise,
 	onEdit,
 	onComplete,
 	onRemove,
 	isActive,
-}) => {
+}: ExerciseItemProps) => {
 	const isCompleted = exercise.status === "completed";
-	const formattedDate = exercise.completedAt
-		? formatDate(exercise.completedAt)
-		: "";
+
 	const imageUri = exercise.image.replace("localhost", "192.168.10.182");
 
-	const onErrorLoadingImage = (e: ImageErrorEventData) => {
-		console.error(`Error loading image:`);
+	const onErrorLoadingImage = (e) => {
+		e.target.src = "../../Assets/12501301.gif";
 	};
 
 	return (
@@ -57,7 +49,7 @@ const ExerciseItem: React.FC<ExerciseItemProps> = ({
 				{isCompleted && (
 					<View style={styles.completedOverlay}>
 						<Text style={styles.completedText}>
-							Gjennomført {formattedDate}
+							Gjennomført {exercise.completedAt}
 						</Text>
 					</View>
 				)}
