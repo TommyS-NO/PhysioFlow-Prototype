@@ -9,7 +9,7 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // Sørg for at dette biblioteket er installert
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useUser } from "../../Context/UserContext";
 import { apiService } from "../../Services/ApiService";
 import { theme } from "../../Theme";
@@ -80,7 +80,9 @@ const ChatScreen = () => {
               msg.sender === "user" ? styles.userMessage : styles.aiMessage
             }
           >
-            <Text>{msg.text}</Text>
+              <Text style={msg.sender === "user" ? styles.userMessageText :  styles.aiMessageText}>
+            {msg.text}
+          </Text>
           </View>
         ))}
       </ScrollView>
@@ -102,59 +104,63 @@ const ChatScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    marginBottom: 20,
-  },
-  bold: {
-    fontWeight: "bold",
-  },
-  messagesContainer: {
-    flex: 1,
-    padding: 10,
-    // backgroundColor: "#f5f5f5",
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    marginBottom: 30,
-  },
-  input: {
-    flex: 1,
-    height: 50,
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 15,
-    marginRight: 10,
-    paddingLeft: 10,
-  },
-  sendButton: {
-    padding: 10,
-    backgroundColor: "#26807C",
-    borderRadius: 10,
-  },
-  userMessage: {
-    alignSelf: "flex-end",
-    margin: 5,
-    padding: 10,
-    backgroundColor: "rgba(38, 128, 124, 0.1)",
-    color: "#fff",
-    borderRadius: 20,
-  },
-  userMessageText: {
-    color: "#fff",
-  },
-  aiMessage: {
-    alignSelf: "flex-start",
-    margin: 5,
-    padding: 10,
-    backgroundColor: "#e5e5ea",
-    borderRadius: 20,
-  },
-});
+	container: {
+	  flex: 1,
+	  padding: 10,
+	  marginBottom: 20,
+	},
+
+	messagesContainer: {
+	  flex: 1,
+	  padding: 10,
+	  borderRadius: 5,
+	  marginBottom: 10,
+	},
+	inputContainer: {
+	  flexDirection: "row",
+	  alignItems: "center",
+	  padding: 10,
+	  marginBottom: 30,
+	},
+	input: {
+	  flex: 1,
+	  height: 50,
+	  backgroundColor: "#fff", 
+	  borderColor: "gray",
+	  borderWidth: 1,
+	  borderRadius: 18,
+	  marginRight: 10,
+	  paddingLeft: 10,
+	  fontSize: 18,
+	},
+	sendButton: {
+	  padding: 10,
+	  backgroundColor: "#26807C",
+	  borderRadius: 12,
+	},
+	userMessage: {
+	  alignSelf: "flex-end",
+	  margin: 5,
+	  padding: 10,
+	  backgroundColor: "#26807C",
+	  borderRadius: 20,
+	},
+	userMessageText: {
+	  color: "#fff", 
+	  fontSize: 18,
+	},
+	aiMessage: {
+	  alignSelf: "flex-start",
+	  margin: 5,
+	  padding: 10,
+	  backgroundColor: "#fff", 
+	  borderRadius: 20,
+	},
+	aiMessageText: {
+		fontSize: 18,
+	  },
+	
+  });
+  
 
 export default ChatScreen;
