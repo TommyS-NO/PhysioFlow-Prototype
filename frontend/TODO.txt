@@ -48,6 +48,8 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 -Har fjernet oppsett for å sende melding til behandler. Trenger vi å ha med det? 
 
+-BobAI: Legge til avatar ved siden av snakkebobke, og bilde av bruker?
+
 Backend:
 
  - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
