@@ -7,19 +7,17 @@ const spacing = 10;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     // backgroundColor: theme.colors.primary,
   },
-  fullWidthContainer: {
- 
-    alignItems: "center",
-    marginBottom: spacing,
+
+  settingsButton: {
+    position: "absolute",
+    top: 10, 
+    right: 20,
   },
-  gridContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
+
+  fullWidthContainer: {
+    alignItems: "center",
     marginBottom: spacing,
   },
 
@@ -27,18 +25,10 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
   },
-  profileImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    marginTop: 30,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#26807C',
-  },
   welcomeText: {
     fontSize: 22,
     fontWeight: "bold",
+
     // marginBottom: 20,
   },
   menuContainer: {
@@ -54,40 +44,56 @@ export const styles = StyleSheet.create({
     marginVertical: spacing / 2,
     marginHorizontal: spacing / 2,
     width: (width - spacing * 5) / 2,
-    shadowColor: "#000", 
-    shadowOffset: { width: 0, height: 2 }, 
-    shadowOpacity: 0.1, 
-    shadowRadius: 5, 
-    elevation: 4, 
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 4,
   },
   fullWidthButton: {
     width: width - spacing * 4,
   },
   menuText: {
     fontSize: 18,
-  
-  },
-  bobContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 20,
-  },
-  bobButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 15,
   },
 
-  bobText: {
+  profileButton: {
+    width: width - spacing * 4,
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    marginVertical: 10,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+
+  profileButtonText: {
     fontSize: 18,
+    fontWeight: "bold",
     marginLeft: 10,
   },
 
-  helpButton: {
-    position: "absolute",
-    right: theme.spacing.medium,
-    top: theme.spacing.large,
-    padding: theme.spacing.small,
-    zIndex: 1,
+  trainingImage: {
+    width: 150,
+    height: 150,
+    marginLeft: -100,
+  },
+
+  bobaiImage: {
+    width: 150,
+    height: 150,
+    marginLeft: 65,
+  },
+  diagnoseImage: {
+    width: 150,
+    height: 150,
+    marginLeft: 8,
   },
 });
