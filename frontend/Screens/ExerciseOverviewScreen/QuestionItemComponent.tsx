@@ -29,7 +29,7 @@ const QuestionItem = ({ question, onAnswer, answer }: QuestionItemProps) => {
 			)}
 			{question.type === "numericInput" && (
 				<View style={styles.timeInputContainer}>
-					<Text style={styles.timeInputLabel}>{question.title}</Text>
+					<Text style={styles.timeInputLabel}></Text>
 					<TextInput
 						style={styles.textInput}
 						value={String(answer.answer)}
