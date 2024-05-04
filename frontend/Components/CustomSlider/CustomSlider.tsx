@@ -83,10 +83,11 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     justifyContent: "center",
     marginVertical: 10,
+	
   },
   sliderBackground: {
     height: 30,
-    width: fullWidth,
+
     borderRadius: 15,
     backgroundColor: "#ddd",
     justifyContent: "center",
