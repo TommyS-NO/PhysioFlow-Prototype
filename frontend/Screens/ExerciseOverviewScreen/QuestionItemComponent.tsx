@@ -10,11 +10,7 @@ interface QuestionItemProps {
 	answer: Answer;
 }
 
-const QuestionItem: React.FC<QuestionItemProps> = ({
-	question,
-	onAnswer,
-	answer,
-}) => {
+const QuestionItem = ({ question, onAnswer, answer }: QuestionItemProps) => {
 	const handleAnswerChange = (value: string | number) => {
 		onAnswer(question.id, value);
 	};
@@ -25,7 +21,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
 			{question.type === "slider" && (
 				<CustomSlider
 					value={Number(answer.answer) || question.minValue}
-					onValueChange={(value) => handleAnswerChange(value)}
+					onValueChange={handleAnswerChange}
 					maximumValue={question.maxValue}
 					minimumValue={question.minValue}
 					step={1}

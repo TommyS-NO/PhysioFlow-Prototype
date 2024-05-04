@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+	View,
+	Text,
+	Image,
+	TouchableOpacity,
+	ImageErrorEventData,
+} from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Exercise } from "../../Context/ExerciseContext";
 import { styles } from "./ExerciseOverviewScreen_Style";
@@ -9,29 +15,49 @@ interface ExerciseItemProps {
 	onEdit: () => void;
 	onComplete: () => void;
 	onRemove: () => void;
+	isActive: boolean;
 }
+
+const formatDate = (isoString: string): string => {
+	const date = new Date(isoString);
+	return new Intl.DateTimeFormat("nb-NO", {
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+		hour: "2-digit",
+		minute: "2-digit",
+	}).format(date);
+};
 
 const ExerciseItem: React.FC<ExerciseItemProps> = ({
 	exercise,
 	onEdit,
 	onComplete,
 	onRemove,
+	isActive,
 }) => {
 	const isCompleted = exercise.status === "completed";
+	const formattedDate = exercise.completedAt
+		? formatDate(exercise.completedAt)
+		: "";
+	const imageUri = exercise.image.replace("localhost", "192.168.10.182");
+
+	const onErrorLoadingImage = (e: ImageErrorEventData) => {
+		console.error(`Error loading image:`);
+	};
 
 	return (
-		<View style={styles.sessionItem}>
+		<View style={[styles.sessionItem, isActive ? styles.activeItem : null]}>
 			<View style={styles.sessionImageOverlay}>
 				<Image
-					source={{
-						uri: exercise.image.replace("localhost", "192.168.10.182"),
-					}}
+					source={{ uri: imageUri }}
 					style={styles.sessionImage}
+					onError={onErrorLoadingImage}
 				/>
 				{isCompleted && (
 					<View style={styles.completedOverlay}>
 						<Text style={styles.completedText}>
-							Gjennomført {exercise.completedAt}
+							Gjennomført {formattedDate}
 						</Text>
 					</View>
 				)}

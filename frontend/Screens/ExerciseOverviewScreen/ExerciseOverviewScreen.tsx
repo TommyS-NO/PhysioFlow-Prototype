@@ -21,6 +21,12 @@ const ExerciseOverviewScreen = () => {
 	const [isSurveyVisible, setSurveyVisible] = useState(false);
 	const [activeExerciseId, setActiveExerciseId] = useState<string | null>(null);
 
+	const sortedExercises = selectedExercises.sort((a, b) => {
+		if (a.status === "completed" && b.status !== "completed") return 1;
+		if (a.status !== "completed" && b.status === "completed") return -1;
+		return 0;
+	});
+
 	const handleCompleteExercise = async (exercise: Exercise) => {
 		if (!exercise.id) {
 			console.error(
@@ -58,6 +64,7 @@ const ExerciseOverviewScreen = () => {
 					surveyState.answers,
 				);
 				updateExerciseStatus(activeExerciseId, "completed");
+				surveyDispatch({ type: "RESET_SURVEY" });
 				setSurveyVisible(false);
 				setActiveExerciseId(null);
 			} catch (error) {
@@ -115,8 +122,9 @@ const ExerciseOverviewScreen = () => {
 				</ScrollView>
 				<CustomButton title="Bekreft" onPress={handleSubmit} />
 			</CustomModal>
+
 			<FlatList
-				data={selectedExercises}
+				data={sortedExercises}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => (
 					<ExerciseItem

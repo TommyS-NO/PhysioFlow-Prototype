@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { apiService } from "../Services/ApiService";
 
+// Define question types
 export interface SingleChoiceQuestion {
 	id: string;
 	question: string;
@@ -25,6 +26,7 @@ export interface SliderQuestion {
 	sliderMax: number;
 	type: "slider";
 }
+
 export interface NumericInputQuestion {
 	id: string;
 	question: string;
@@ -41,24 +43,28 @@ export interface Answer {
 	answer: string | number;
 }
 
+// Define the initial state shape
 interface SurveyState {
 	surveyId: string;
 	questions: SurveyQuestion[];
 	answers: Record<string, Answer>;
 }
 
+// Define available actions for the reducer
 type SurveyAction =
 	| { type: "LOAD_SURVEY"; surveyId: string; questions: SurveyQuestion[] }
 	| { type: "ANSWER_QUESTION"; questionId: string; answer: Answer }
 	| { type: "RESET_SURVEY" };
 
+// Initial survey state
 const initialState: SurveyState = {
 	surveyId: "",
 	questions: [],
 	answers: {},
 };
 
-const SurveyReducer = (
+// Survey reducer function
+const surveyReducer = (
 	state: SurveyState,
 	action: SurveyAction,
 ): SurveyState => {
@@ -78,26 +84,34 @@ const SurveyReducer = (
 				},
 			};
 		case "RESET_SURVEY":
-			return initialState;
+			return {
+				...state,
+				answers: {}, // Clear only the answers while keeping questions and surveyId
+			};
 		default:
 			return state;
 	}
 };
 
-export const SurveyContext = createContext<{
+// Survey context definition
+interface SurveyContextType {
 	state: SurveyState;
 	dispatch: Dispatch<SurveyAction>;
 	loadSurvey: (surveyId: string) => Promise<void>;
-}>({
+}
+
+const SurveyContext = createContext<SurveyContextType>({
 	state: initialState,
 	dispatch: () => null,
 	loadSurvey: async () => {},
 });
 
+// Custom hook for accessing survey context
 export const useSurvey = () => useContext(SurveyContext);
 
-function SurveyProvider({ children }: PropsWithChildren) {
-	const [state, dispatch] = useReducer(SurveyReducer, initialState);
+// Survey provider component
+const SurveyProvider: React.FC<PropsWithChildren> = ({ children }) => {
+	const [state, dispatch] = useReducer(surveyReducer, initialState);
 
 	const loadSurvey = useCallback(async (surveyId: string) => {
 		try {
@@ -118,7 +132,7 @@ function SurveyProvider({ children }: PropsWithChildren) {
 			{children}
 		</SurveyContext.Provider>
 	);
-}
+};
 
 export default SurveyProvider;
 
