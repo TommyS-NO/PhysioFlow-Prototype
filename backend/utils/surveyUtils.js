@@ -1,4 +1,10 @@
+import { ValidationError } from "./customError.js";
+
 const interpretAnswers = (answers, questions) => {
+	if (!answers || !questions) {
+		throw new ValidationError("Manglende svar eller spørsmål for analyse");
+	}
+
 	const symptoms = [];
 
 	for (const question of questions) {
