@@ -1,10 +1,18 @@
 import { OpenAI } from "openai";
+import dotenv from "dotenv";
+import { ValidationError } from "../utils/customError.js";
 
-console.log("Initializing OpenAI with API key:");
+dotenv.config();
+
+const apiKey = process.env.OPENAI_API_KEY;
+
+if (!apiKey) {
+	throw new ValidationError("API-nøkkel for OpenAI mangler");
+}
 
 const openai = new OpenAI({
-	apiKey: "sk-proj-c24xDyXNf3dsMw5YRVhmT3BlbkFJh3kv6kwWsBm3R2Yu1YTs",
-	// organization: "org-KqrXXRgN8pcoRj8kMJHtuRw7",
+	apiKey,
+	organization: process.env.OPENAI_ORG || undefined,
 });
 
 export default openai;
