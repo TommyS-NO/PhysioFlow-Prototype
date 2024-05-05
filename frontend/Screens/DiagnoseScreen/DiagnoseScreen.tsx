@@ -1,100 +1,74 @@
-// import React from "react";
-// import { View, Text, StyleSheet } from "react-native";
-
-// const DiagnoseScreen: React.FC = () => {
-// 	return (
-// 		<View style={styles.container}>
-// 			<Text style={styles.text}>Her kommer oppsett for mine diagnoser</Text>
-// 		</View>
-// 	);
-// };
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		flex: 1,
-// 		justifyContent: "center",
-// 		alignItems: "center",
-// 	},
-// 	text: {
-// 		fontSize: 20,
-// 	},
-// });
-
-// export default DiagnoseScreen;
-
-import React, { useContext } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { SurveyContext } from '../../Context/SurveyContext';
+import React, { useContext } from "react";
+import { View, Text, ScrollView, TouchableOpacity, Alert } from "react-native";
+import { SurveyContext } from "../../Context/SurveyContext";
+import { styles } from "./DiagnoseScreen_Style";
+import { format } from "date-fns";
 
 const DiagnoseScreen = () => {
-    const { state } = useContext(SurveyContext);
-    const { diagnoses } = state;
+	const { state, dispatch } = useContext(SurveyContext);
+	const { diagnoses } = state;
 
-    return (
-        <ScrollView style={styles.container}>
-            <Text style={styles.title}>Dine diagnoser</Text>
-            {diagnoses && diagnoses.length > 0 ? (
-                diagnoses.map((diag, index) => (
-                    <View key={index} style={styles.diagnosisContainer}>
-                        <Text style={styles.diagnosisTitle}>{diag.title}</Text>
-                        <Text style={styles.description}>{diag.description}</Text>
-                        <Text style={styles.sectionTitle}>Anbefalte Øvelser</Text>
-                        {diag.exercises.map((exercise, idx) => (
-                            <Text key={idx} style={styles.exercise}>{exercise}</Text>
-                        ))}
-                    </View>
-                ))
-            ) : (
-                <Text style={styles.noDiagnosesText}>Ingen diagnoser funnet.</Text>
-            )}
-        </ScrollView>
-    );
+	// Remove diagnosis from the list
+	const handleDelete = (index: number) => {
+		Alert.alert(
+			"Slett diagnose",
+			"Er du sikker på at du vil slette denne diagnosen?",
+			[
+				{
+					text: "Avbryt",
+					style: "cancel",
+				},
+				{
+					text: "Slett",
+					style: "destructive",
+					onPress: () => {
+						const updatedDiagnoses = diagnoses.filter(
+							(_, idx) => idx !== index,
+						);
+						dispatch({ type: "REMOVE_DIAGNOSIS", diagnoses: updatedDiagnoses });
+					},
+				},
+			],
+		);
+	};
+
+	return (
+		<ScrollView style={styles.container}>
+			<Text style={styles.title}>Dine diagnoser</Text>
+			{diagnoses && diagnoses.length > 0 ? (
+				diagnoses
+					.sort(
+						(a, b) =>
+							new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+					)
+					.map((diag, index) => (
+						<View key={index} style={styles.diagnosisContainer}>
+							<View style={styles.header}>
+								<Text style={styles.diagnosisTitle}>{diag.title}</Text>
+								<TouchableOpacity
+									style={styles.deleteButton}
+									onPress={() => handleDelete(index)}
+								>
+									<Text style={styles.deleteText}>Slett</Text>
+								</TouchableOpacity>
+							</View>
+							<Text style={styles.timestamp}>
+								{format(new Date(diag.timestamp), "dd/MM/yyyy HH:mm")}
+							</Text>
+							<Text style={styles.description}>{diag.description}</Text>
+							<Text style={styles.sectionTitle}>Anbefalte Øvelser</Text>
+							{diag.exercises.map((exercise, idx) => (
+								<Text key={idx} style={styles.exercise}>
+									{exercise}
+								</Text>
+							))}
+						</View>
+					))
+			) : (
+				<Text style={styles.noDiagnosesText}>Ingen diagnoser funnet.</Text>
+			)}
+		</ScrollView>
+	);
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 10,
-        backgroundColor: '#f5f5f5',
-    },
-    title: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        color: '#333',
-        padding: 8,
-        textAlign: 'center',
-    },
-    diagnosisContainer: {
-        backgroundColor: '#fff',
-        padding: 10,
-        borderRadius: 8,
-        marginBottom: 10,
-    },
-    diagnosisTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#222',
-    },
-    description: {
-        fontSize: 16,
-        color: '#666',
-        marginTop: 5,
-    },
-    sectionTitle: {
-        fontWeight: 'bold',
-        marginTop: 10,
-    },
-    exercise: {
-        fontSize: 16,
-        color: '#444',
-        marginLeft: 10,
-    },
-    noDiagnosesText: {
-        fontSize: 16,
-        color: '#666',
-        textAlign: 'center',
-        marginTop: 20,
-    },
-});
 
 export default DiagnoseScreen;
