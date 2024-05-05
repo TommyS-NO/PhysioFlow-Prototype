@@ -15,9 +15,8 @@ router.get("/:surveyId", (req, res, next) => {
 
 router.get("/followup", (req, res, next) => {
 	try {
-		getSurveyById(req, res, next);
+		surveyController.getSurveyById(req, res, next);
 	} catch (error) {
-		console.error(`Error in GET /followup: ${error.message}`);
 		next(error);
 	}
 });
