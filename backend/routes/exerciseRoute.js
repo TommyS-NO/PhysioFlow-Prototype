@@ -3,12 +3,12 @@ import {
 	getExerciseDetails,
 	getAllExercises,
 } from "../controllers/exerciseController.js";
+import { deleteExercise } from "../controllers/userController.js";
 
 const router = express.Router();
 
 router.get("/", getAllExercises);
 
-// Henter detaljer for en liste med øvelser
 router.post("/details", (req, res, next) => {
 	try {
 		const details = getExerciseDetails(req.body);
@@ -17,5 +17,6 @@ router.post("/details", (req, res, next) => {
 		next(error);
 	}
 });
+router.delete("/:userId/exercises/:exerciseId", deleteExercise);
 
 export default router;
