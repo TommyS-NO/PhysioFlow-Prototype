@@ -27,30 +27,34 @@ const allExercises = {
 	...addCategoryToExercises(recommendedHipExercises, "Hofte"),
 };
 
-export const getAllExercises = (req, res) => {
+export const getAllExercises = (req, res, next) => {
 	try {
+		if (!Object.keys(allExercises).length) {
+			throw new NotFoundError("Ingen øvelser funnet");
+		}
 		res.json(allExercises);
 	} catch (error) {
-		console.error("Error fetching all exercises:", error);
-		res.status(400).send("Could not fetch all exercises");
+		next(error);
 	}
 };
 
-export const getExerciseDetails = (req, res) => {
+export const getExerciseDetails = (req, res, next) => {
 	try {
 		const { exercises } = req.body;
-		const details = exercises.map((name) => {
-			const exercise = allExercises[name];
-			if (!exercise) {
-				console.error("Exercise not found:", name);
-				return null;
-			}
-			return exercise;
-		});
+
+		if (!Array.isArray(exercises) || exercises.length === 0) {
+			throw new ValidationError("Listen over øvelser er ugyldig eller tom");
+		}
+
+		const details = exercises.map((name) => allExercises[name]).filter(Boolean);
+
+		if (details.length === 0) {
+			throw new NotFoundError("Ingen av øvelsene ble funnet");
+		}
+
 		res.json(details);
 	} catch (error) {
-		console.error("Error fetching exercise details:", error);
-		res.status(400).send("Could not fetch exercise details");
+		next(error);
 	}
 };
 export default allExercises;
