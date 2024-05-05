@@ -1,121 +1,72 @@
-import { ankleSurvey } from "../surveys/ankleSurvey.js";
-import { ankleDiagnoses } from "../diagnoses/ankleDiagnoses.js";
-import { elbowSurvey } from "../surveys/elbowSurvey.js";
-import { elbowDiagnoses } from "../diagnoses/elbowDiagnoses.js";
-import { hipSurvey } from "../surveys/hipSurvey.js";
-import { hipDiagnoses } from "../diagnoses/hipDiagnoses.js";
-import { kneeSurvey } from "../surveys/kneeSurvey.js";
-import { kneeDiagnoses } from "../diagnoses/kneeDiagnoses.js";
-import { lowBackSurvey } from "../surveys/lowBackSurvey.js";
-import { lowBackDiagnoses } from "../diagnoses/lowBackDiagnoses.js";
-import { neckSurvey } from "../surveys/neckSurvey.js";
-import { neckDiagnoses } from "../diagnoses/neckDiagnoses.js";
-import { shoulderSurvey } from "../surveys/shoulderSurvey.js";
-import { shoulderDiagnoses } from "../diagnoses/shoulderDiagnoses.js";
-import { upperBackSurvey } from "../surveys/upperBackSurvey.js";
-import { upperBackDiagnoses } from "../diagnoses/upperBackDiagnoses.js";
-import { wristSurvey } from "../surveys/wristSurvey.js";
-import { wristDiagnoses } from "../diagnoses/wristDiagnoses.js";
+import * as surveysImport from "../surveys/index.js";
+import * as diagnosesMappingImport from "../diagnoses/index.js";
 import { interpretAnswers } from "../utils/surveyUtils.js";
-import { followupSurvey } from "../surveys/followUpSurvey.js";
+import { NotFoundError, ValidationError } from "../utils/customError.js";
 
-const surveyController = {
-	surveys: {
-		ankle: ankleSurvey,
-		elbow: elbowSurvey,
-		hip: hipSurvey,
-		knee: kneeSurvey,
-		lowBack: lowBackSurvey,
-		neck: neckSurvey,
-		shoulder: shoulderSurvey,
-		upperBack: upperBackSurvey,
-		wrist: wristSurvey,
-		followup: followupSurvey,
-	},
+const surveys = surveysImport.default;
+const diagnosesMapping = diagnosesMappingImport.default;
 
-	evaluateDiagnosis: function (answers, surveyId) {
-		console.log(
-			`Evaluating diagnosis for survey ID: ${surveyId} with answers:`,
-			answers,
+const evaluateDiagnosis = (answers, surveyId) => {
+	const survey = surveys[surveyId];
+	if (!survey) {
+		throw new NotFoundError(`Undersøkelse med ID ${surveyId} ble ikke funnet`);
+	}
+
+	const diagnoses = diagnosesMapping[surveyId];
+	if (!diagnoses) {
+		throw new NotFoundError(
+			`Diagnosekartlegging for undersøkelse ${surveyId} ble ikke funnet`,
 		);
+	}
 
-		const survey = this.surveys[surveyId];
-		if (!survey) {
-			throw new Error("Survey not found");
-		}
+	const symptoms = interpretAnswers(answers, survey.questions);
 
-		const diagnosesMapping = {
-			ankle: ankleDiagnoses,
-			elbow: elbowDiagnoses,
-			hip: hipDiagnoses,
-			knee: kneeDiagnoses,
-			lowBack: lowBackDiagnoses,
-			neck: neckDiagnoses,
-			shoulder: shoulderDiagnoses,
-			upperBack: upperBackDiagnoses,
-			wrist: wristDiagnoses,
-		};
+	//  score for diagnoser
+	const diagnosisScores = Object.keys(diagnoses).reduce((acc, diagnosis) => {
+		acc[diagnosis] = 0;
+		return acc;
+	}, {});
 
-		const diagnoses = diagnosesMapping[surveyId];
-		const symptoms = interpretAnswers(answers, survey.questions);
-		console.log("Interpreted symptoms:", symptoms);
-
-		const diagnosisScores = {};
-		for (const diagnosis in diagnoses) {
-			diagnosisScores[diagnosis] = 0;
-		}
-
-		for (const symptom of symptoms) {
-			for (const [diagnosis, { keySymptoms }] of Object.entries(diagnoses)) {
-				if (keySymptoms.includes(symptom)) {
-					diagnosisScores[diagnosis]++;
-					console.log(
-						`Incrementing score for diagnosis ${diagnosis} based on symptom ${symptom}`,
-					);
-				}
+	// Oppdater score basert på symptomer
+	for (const symptom of symptoms) {
+		for (const [diagnosis, { keySymptoms }] of Object.entries(diagnoses)) {
+			if (keySymptoms.includes(symptom)) {
+				diagnosisScores[diagnosis]++;
 			}
 		}
+	}
 
-		console.log("Diagnosis scores:", diagnosisScores);
-		let highestScore = 0;
-		let finalDiagnosis = "No clear diagnosis";
+	let høyesteScore = 0;
+	let endeligDiagnose = "Ingen tydelig diagnose";
 
-		for (const [diagnosis, score] of Object.entries(diagnosisScores)) {
-			if (score > highestScore) {
-				highestScore = score;
-				finalDiagnosis = diagnosis;
-				console.log(
-					`New highest score ${highestScore} for diagnosis ${diagnosis}`,
-				);
-			}
+	for (const [diagnosis, score] of Object.entries(diagnosisScores)) {
+		if (score > høyesteScore) {
+			høyesteScore = score;
+			endeligDiagnose = diagnosis;
 		}
+	}
 
-		if (highestScore >= 2) {
-			console.log(`Final diagnosis: ${diagnoses[finalDiagnosis].name}`);
-			return {
-				diagnosis: diagnoses[finalDiagnosis].name,
-				description: diagnoses[finalDiagnosis].description,
-				exercises: diagnoses[finalDiagnosis].recommendedExercises,
-			};
-		}
-
-		console.log("No clear diagnosis achieved, defaulting to general advice");
+	if (høyesteScore >= 3) {
 		return {
-			diagnosis: "General advice",
-			description: "Please consult a physician for a detailed diagnosis.",
-			exercises: [],
+			diagnose: diagnoses[endeligDiagnose].name,
+			beskrivelse: diagnoses[endeligDiagnose].description,
+			øvelser: diagnoses[endeligDiagnose].recommendedExercises,
 		};
-	},
+	}
 
-	getSurveyById: function (surveyId) {
-		console.log(`Fetching survey with ID: ${surveyId}`);
-		const survey = this.surveys[surveyId];
-		if (!survey) {
-			console.error("Survey not found");
-			throw new Error("Survey not found");
-		}
-		return survey;
-	},
+	return {
+		diagnose: "Generell veiledning",
+		beskrivelse: "Vennligst oppsøk lege for en detaljert diagnose.",
+		øvelser: [],
+	};
 };
 
-export default surveyController;
+const getSurveyById = (surveyId) => {
+	const survey = surveys[surveyId];
+	if (!survey) {
+		throw new NotFoundError(`Undersøkelse med ID ${surveyId} ble ikke funnet`);
+	}
+	return survey;
+};
+
+export default { evaluateDiagnosis, getSurveyById };
