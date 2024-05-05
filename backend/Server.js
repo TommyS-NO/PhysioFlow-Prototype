@@ -5,7 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 import { errorHandler } from "./utils/errorHandler.js";
-import AiRoute from "./routes/AiRoute.js";
+import chatRoute from "./routes/chatRoute.js";
 import surveyRoutes from "./routes/surveyRoute.js";
 import exerciseRoutes from "./routes/exerciseRoute.js";
 
@@ -25,7 +25,7 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-app.use("/api/chat", AiRoute);
+app.use("/api/chat", chatRoute);
 app.use("/api/survey", surveyRoutes);
 app.use("/api/exercises", exerciseRoutes);
 
