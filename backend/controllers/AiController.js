@@ -23,11 +23,7 @@ const interpretUserRequest = async (question) => {
 export const getAIResponseWithLocalData = async (req, res, next) => {
 	const { question } = req.body;
 
-	console.log("Received question:", question);
-
 	const { focusArea, action } = await interpretUserRequest(question);
-
-	console.log("Interpreted user request:", { focusArea, action });
 
 	try {
 		if (focusArea && action) {
@@ -64,7 +60,6 @@ export const getAIResponseWithLocalData = async (req, res, next) => {
 			});
 
 			const aiResponse = completion.data.choices[0].text.trim();
-			console.log("AI response:", aiResponse);
 
 			const responseIsAboutFocusArea = focusAreas.some((area) =>
 				aiResponse.toLowerCase().includes(area.toLowerCase()),
@@ -80,7 +75,6 @@ export const getAIResponseWithLocalData = async (req, res, next) => {
 			}
 		}
 	} catch (error) {
-		console.error("Error processing the AI response with local data:", error);
 		next(error);
 	}
 };
