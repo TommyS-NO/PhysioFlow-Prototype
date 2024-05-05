@@ -5,9 +5,7 @@ import {
 } from "../controllers/diagnosisController.js";
 
 const router = express.Router();
-
-// Hent alle diagnoser
-router.get("/", (res, next) => {
+router.get("/", (req, res, next) => {
 	try {
 		const diagnoses = getDiagnoses();
 		res.json(diagnoses);
@@ -16,7 +14,6 @@ router.get("/", (res, next) => {
 	}
 });
 
-// Legg til en ny diagnose
 router.post("/", (req, res, next) => {
 	try {
 		const newDiagnosis = addDiagnosis(req.body);
