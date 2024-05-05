@@ -7,7 +7,7 @@ import {
 	saveExerciseForUser,
 	saveCompletedExerciseForUser,
 	getAIResponseWithLocalData,
-} from "../controllers";
+} from "../controllers/userController.js";
 
 const router = express.Router();
 
