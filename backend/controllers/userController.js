@@ -1,9 +1,10 @@
-import { collection, getDocs } from "firebase/firestore";
-const { Firestore } = require("@google-cloud/firestore");
-const admin = require("firebase-admin");
+import { Firestore } from "@google-cloud/firestore";
+import admin from "firebase-admin";
+import { ValidationError, NotFoundError } from "../utils/customError.js";
+
 const db = new Firestore();
 
-export const register = async (req, res) => {
+export const register = async (req, res, next) => {
 	const { email, password, username, age, weight, height, gender, birthday } =
 		req.body;
 
@@ -22,78 +23,69 @@ export const register = async (req, res) => {
 		});
 
 		res.status(200).json({
-			message: "Bruker registrert og data lagret i Firestore",
+			message: "User registered and data saved in Firestore",
 			userId,
 		});
 	} catch (error) {
-		console.error("Feil under oppretting av bruker: ", error);
-		res.status(500).json({ message: "Feil under oppretting av bruker", error });
+		next(new ValidationError("Error registering user", error.message));
 	}
 };
 
-export const getUser = async (req, res) => {
+export const getUser = async (req, res, next) => {
 	const { id } = req.params;
 
 	try {
 		const doc = await db.collection("users").doc(id).get();
 		if (!doc.exists) {
-			return res.status(404).json({ message: "Brukeren ble ikke funnet." });
+			throw new NotFoundError("User not found");
 		}
 		res.status(200).json(doc.data());
 	} catch (error) {
-		console.error("Feil under henting av brukerdata: ", error);
-		res.status(500).json({ message: "Noe gikk galt", error });
+		next(new ValidationError("Error fetching user data", error.message));
 	}
 };
 
-export const updateUser = async (req, res) => {
+export const updateUser = async (req, res, next) => {
 	const { id } = req.params;
 	const userData = req.body;
 
 	try {
 		await db.collection("users").doc(id).update(userData);
-		res.status(200).json({ message: "Brukeren ble oppdatert." });
+		res.status(200).json({ message: "User updated successfully" });
 	} catch (error) {
-		console.error("Feil under oppdatering av bruker: ", error);
-		res.status(500).json({ message: "Noe gikk galt ved oppdatering.", error });
+		next(new ValidationError("Error updating user", error.message));
 	}
 };
 
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
 	const { id } = req.params;
 	const requestingUser = req.user;
 
 	if (requestingUser.uid !== id && !requestingUser.isAdmin) {
 		return res
 			.status(403)
-			.json({ message: "Ikke autorisert til å utføre denne handlingen" });
+			.json({ message: "Not authorized to perform this action" });
 	}
 
 	const userDocRef = db.collection("users").doc(id);
 
 	try {
 		await db.runTransaction(async (transaction) => {
-			// Slett brukerdata fra Firestore
 			const userDoc = await transaction.get(userDocRef);
 			if (!userDoc.exists) {
-				throw new Error("Brukeren finnes ikke i Firestore");
+				throw new NotFoundError("User not found in Firestore");
 			}
 			transaction.delete(userDocRef);
 			await admin.auth().deleteUser(id);
 		});
 
-		res
-			.status(200)
-			.json({ message: "Brukeren og alle tilknyttede data ble slettet." });
+		res.status(200).json({ message: "User and all associated data deleted" });
 	} catch (error) {
-		console.error("Feil under sletting av bruker: ", error);
-		res
-			.status(500)
-			.json({ message: "Noe gikk galt ved sletting.", error: error.message });
+		next(new ValidationError("Error deleting user", error.message));
 	}
 };
 
-export const getUserDiagnoses = async (req, res) => {
+export const getUserDiagnoses = async (req, res, next) => {
 	const { userId } = req.params;
 
 	try {
@@ -108,12 +100,11 @@ export const getUserDiagnoses = async (req, res) => {
 		}));
 		res.status(200).json(diagnoses);
 	} catch (error) {
-		console.error("Feil ved henting av diagnoser: ", error);
-		res.status(500).json({ message: "Feil ved henting av diagnoser", error });
+		next(new ValidationError("Error fetching user diagnoses", error.message));
 	}
 };
 
-export const getUserExercises = async (req, res) => {
+export const getUserExercises = async (req, res, next) => {
 	const { userId } = req.params;
 
 	try {
@@ -128,12 +119,11 @@ export const getUserExercises = async (req, res) => {
 		}));
 		res.status(200).json(exercises);
 	} catch (error) {
-		console.error("Feil ved henting av øvelser: ", error);
-		res.status(500).json({ message: "Feil ved henting av øvelser", error });
+		next(new ValidationError("Error fetching user exercises", error.message));
 	}
 };
 
-export const updateCompletedExercise = async (req, res) => {
+export const updateCompletedExercise = async (req, res, next) => {
 	const { userId, completedExerciseId, updateData } = req.body;
 
 	try {
@@ -145,17 +135,15 @@ export const updateCompletedExercise = async (req, res) => {
 			.update(updateData);
 		res
 			.status(200)
-			.json({ message: "Gjennomført øvelse oppdatert suksessfullt." });
+			.json({ message: "Completed exercise updated successfully" });
 	} catch (error) {
-		console.error("Feil ved oppdatering av gjennomført øvelse: ", error);
-		res
-			.status(500)
-			.json({ message: "Feil ved oppdatering av gjennomført øvelse", error });
+		next(
+			new ValidationError("Error updating completed exercise", error.message),
+		);
 	}
 };
 
-// Funksjon for å lagre en ny diagnose for en bruker
-export const saveDiagnosisForUser = async (req, res) => {
+export const saveDiagnosisForUser = async (req, res, next) => {
 	const { userId } = req.params;
 	const { diagnosis } = req.body;
 
@@ -165,15 +153,13 @@ export const saveDiagnosisForUser = async (req, res) => {
 			.doc(userId)
 			.collection("diagnoses")
 			.add(diagnosis);
-		res.status(201).json({ message: "Diagnose lagret", id: diagnosisRef.id });
+		res.status(201).json({ message: "Diagnosis saved", id: diagnosisRef.id });
 	} catch (error) {
-		console.error("Feil ved lagring av diagnose: ", error);
-		res.status(500).json({ message: "Feil ved lagring av diagnose", error });
+		next(new ValidationError("Error saving diagnosis", error.message));
 	}
 };
 
-// Funksjon for å lagre en ny øvelse for en bruker
-export const saveExerciseForUser = async (req, res) => {
+export const saveExerciseForUser = async (req, res, next) => {
 	const { userId } = req.params;
 	const { exercise } = req.body;
 
@@ -183,15 +169,13 @@ export const saveExerciseForUser = async (req, res) => {
 			.doc(userId)
 			.collection("exercises")
 			.add(exercise);
-		res.status(201).json({ message: "Øvelse lagret", id: exerciseRef.id });
+		res.status(201).json({ message: "Exercise saved", id: exerciseRef.id });
 	} catch (error) {
-		console.error("Feil ved lagring av øvelse: ", error);
-		res.status(500).json({ message: "Feil ved lagring av øvelse", error });
+		next(new ValidationError("Error saving exercise", error.message));
 	}
 };
 
-// Funksjon for å hente alle gjennomførte øvelser for en bruker
-export const getCompletedExercisesForUser = async (req, res) => {
+export const getCompletedExercisesForUser = async (req, res, next) => {
 	const { userId } = req.params;
 
 	try {
@@ -206,40 +190,21 @@ export const getCompletedExercisesForUser = async (req, res) => {
 		}));
 		res.status(200).json({ completedExercises });
 	} catch (error) {
-		console.error("Feil ved henting av gjennomførte øvelser: ", error);
-		res
-			.status(500)
-			.json({ message: "Feil ved henting av gjennomførte øvelser", error });
+		next(
+			new ValidationError("Error fetching completed exercises", error.message),
+		);
 	}
 };
 
-// Funksjon for å lagre en gjennomført øvelse for en bruker
-export const saveCompletedExerciseForUser = async (req, res) => {
+export const saveCompletedExerciseForUser = async (req, res, next) => {
 	const { userId } = req.params;
 	const { completedExercise } = req.body;
 
 	if (!completedExercise.id) {
-		console.error("Error: completedExercise.id is undefined");
 		return res
 			.status(400)
 			.json({ message: "completedExercise.id is undefined" });
 	}
-
-	// Få tilgang til øvelsen fra selectedExercises basert på exerciseId
-	const exercise = selectedExercises.find(
-		(ex) => ex.id === completedExercise.id,
-	);
-
-	// Sjekk om øvelsen eksisterer
-	if (!exercise) {
-		console.error(
-			"Error: Exercise not found when trying to complete an exercise.",
-		);
-		return;
-	}
-
-	// Lag en ny ID ved å kombinere øvelsens navn og ID
-	completedExercise.id = `${exercise.name}_${completedExercise.id}`;
 
 	try {
 		await db
@@ -252,35 +217,37 @@ export const saveCompletedExerciseForUser = async (req, res) => {
 				...completedExercise,
 				completedAt: admin.firestore.FieldValue.serverTimestamp(),
 			});
-		res.status(201).json({
-			message: "Gjennomført øvelse lagret",
-			id: completedExercise.id,
-		});
-	} catch (error) {
-		console.error("Feil ved lagring av gjennomført øvelse: ", error);
 		res
-			.status(500)
-			.json({ message: "Feil ved lagring av gjennomført øvelse", error });
+			.status(201)
+			.json({ message: "Completed exercise saved", id: completedExercise.id });
+	} catch (error) {
+		next(new ValidationError("Error saving completed exercise", error.message));
 	}
 };
-export const getUserResponses = async (userId, exerciseId) => {
+export const deleteExercise = async (req, res, next) => {
+	const { userId, exerciseId } = req.params;
+
 	try {
-		const responsesSnapshot = await getDocs(
-			collection(
-				db,
-				"users",
-				userId,
-				"completedExercises",
-				exerciseId,
-				"responses",
-			),
-		);
-		const responses = responsesSnapshot.docs.map((doc) => ({
-			id: doc.id,
-			...doc.data(),
-		}));
-		return responses;
+		const exerciseDoc = await db
+			.collection("users")
+			.doc(userId)
+			.collection("exercises")
+			.doc(exerciseId)
+			.get();
+
+		if (!exerciseDoc.exists) {
+			throw new NotFoundError(`Exercise with ID ${exerciseId} not found`);
+		}
+
+		await db
+			.collection("users")
+			.doc(userId)
+			.collection("exercises")
+			.doc(exerciseId)
+			.delete();
+
+		res.status(200).json({ message: "Exercise deleted successfully" });
 	} catch (error) {
-		console.error("Feil ved henting av brukerens svar: ", error);
+		next(new ValidationError("Error deleting exercise", error.message));
 	}
 };
