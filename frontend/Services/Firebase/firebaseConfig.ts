@@ -31,7 +31,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-// Vær sikker på at ReactNativeAsyncStorage er riktig importert og konfigurert
+
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage)
 });
