@@ -8,6 +8,7 @@ import {
 	Platform,
 	Image,
 	TextInput,
+	Alert,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { styles } from "./ExerciseScreen_Style";
@@ -86,6 +87,10 @@ const ExerciseScreen = () => {
 			image: exercise.image,
 			category: exercise.category,
 		});
+
+		Alert.alert("Øvelse lagt til", "Øvelsen er nå lagt til i din treningsplan.", [
+			{ text: "OK" }
+		]);
 	};
 
 	return (
@@ -117,7 +122,7 @@ const ExerciseScreen = () => {
 							<Text style={styles.sessionDescription}>{item.description}</Text>
 							{routeParams?.recommendedExercises?.includes(item.id) && (
 								<View style={styles.recommendedContainer}>
-									<MaterialIcons name="star" size={24} color="yellow" />
+									<MaterialIcons name="star" size={24} color="green" />
 									<Text style={styles.recommendedLabel}>Anbefalt</Text>
 								</View>
 							)}
