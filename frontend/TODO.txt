@@ -50,6 +50,18 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 -BobAI: Legge til avatar ved siden av snakkebobke, og bilde av bruker?
 
+-Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren
+
+-Slett progresjon
+
+-Flyte mine diagnoser inn i Diagnose 
+
+-KeyboardAvoidingView på chat screen fungerer ikke på Android
+
+-Modal oppfølgingsspørsmål-mindre inputfelt 
+
+-Sett opp en hjemskjerm etter diagnoseforslag
+
 Backend:
 
  - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
