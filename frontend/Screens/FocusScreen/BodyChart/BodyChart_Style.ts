@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
   },
   bodySideText: {
     marginHorizontal: 10,
+  fontWeight: "bold",
     fontSize: 16,
   },
   bodyChart: {
@@ -144,7 +145,6 @@ export const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: "center",
-
     marginTop: 22,
   },
   modalTitle: {
@@ -155,6 +155,7 @@ export const styles = StyleSheet.create({
   },
   modalText: {
     marginBottom: 15,
+    fontSize: 16,
     textAlign: "center",
   },
   infoButton: {
@@ -163,4 +164,16 @@ export const styles = StyleSheet.create({
     right: 10,
     padding: 10,
   },
+  understoodButton: {
+    backgroundColor: '#26807C', 
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 10,
+  },
+  understoodButtonText: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
+  }
 });
