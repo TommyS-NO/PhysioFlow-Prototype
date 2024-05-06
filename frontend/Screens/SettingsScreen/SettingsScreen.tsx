@@ -18,6 +18,8 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./Settings_Style";
 import { signOut } from "firebase/auth";
+import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
+
 
 type SettingsNavigationProp = StackNavigationProp<
 	RootStackParamList,
@@ -227,8 +229,11 @@ const SettingsScreen: React.FC = () => {
 				onPress={() => navigation.navigate("DeleteUserScreen")}
 			>
 				<Text style={styles.deleteButtonText}>Slett profil</Text>
+				
 			</TouchableOpacity>
+			<FooterNavigation />
 		</View>
+		
 	);
 };
 
