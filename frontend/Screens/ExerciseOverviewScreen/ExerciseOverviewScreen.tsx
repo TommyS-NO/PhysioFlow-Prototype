@@ -8,6 +8,7 @@ import CustomModal from "../../Components/CustomModal/CustomModal";
 import CustomButton from "../../Components/CustomButton/CustomButton";
 import ExerciseItem from "./ExerciseItemComponent";
 import QuestionItem from "./QuestionItemComponent";
+import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
 
 const ExerciseOverviewScreen = () => {
 	const { selectedExercises, removeExercise, updateExerciseStatus } =
@@ -128,7 +129,9 @@ const ExerciseOverviewScreen = () => {
 					/>
 				)}
 			/>
+		<FooterNavigation />
 		</View>
+		
 	);
 };
 
