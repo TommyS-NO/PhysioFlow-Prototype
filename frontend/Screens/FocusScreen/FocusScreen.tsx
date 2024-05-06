@@ -18,6 +18,7 @@ import { useSurvey } from "../../Context/SurveyContext";
 import { styles } from "../FocusScreen/FocusScreen_Style";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../Navigation/navigationTypes";
+import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
 
 type Answer = string | number;
 type AnswerMap = Record<string, Answer>;
@@ -257,6 +258,7 @@ const FocusScreen = () => {
 					/>
 				</CustomModal>
 			)}
+			<FooterNavigation />
 		</View>
 	);
 };
