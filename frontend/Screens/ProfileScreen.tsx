@@ -90,12 +90,6 @@ const ProfileScreen: React.FC = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.menuItem, styles.fullWidthButton]}
-                onPress={() => navigation.navigate("ProgressScreen")}
-              >
-                <Text style={styles.menuText}>Progress</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.menuItem, styles.fullWidthButton]}
                 onPress={() => navigation.navigate("DiagnoseScreen")}
               >
                 <Text style={styles.menuText}>Mine diagnoser</Text>
