@@ -2,8 +2,6 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
-
     backgroundColor: "#fff",
     flex: 1,
   },
@@ -42,10 +40,12 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
   },
   sessionTitle: {
+    marginTop: 10,
     fontSize: 18,
     fontWeight: "bold",
   },
   sessionDescription: {
+    marginTop: 10,
     fontSize: 16,
     color: "#666",
   },
@@ -55,12 +55,12 @@ export const styles = StyleSheet.create({
   },
   completeText: {
     fontSize: 16,
-    color: "green",
+    color: "#26807C",
     marginLeft: 5,
   },
   removeText: {
     fontSize: 16,
-    color: "red",
+    color: "#D32F2F",
     marginLeft: 5,
   },
   timeInputContainer: {
@@ -83,8 +83,9 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: "#FFF",
-    width: "80%",
+    width: "30%",
     textAlign: "center",
+    
   },
   questionContainer: {
     marginBottom: 20,
@@ -131,10 +132,12 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   completeButton: {
+    marginTop: 10,
     flexDirection: "row",
     alignItems: "center",
   },
   removeButton: {
+    marginTop: 10,
     flexDirection: "row",
     alignItems: "center",
   },
