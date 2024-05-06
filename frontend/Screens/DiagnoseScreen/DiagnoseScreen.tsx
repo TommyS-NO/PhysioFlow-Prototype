@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { SurveyContext } from "../../Context/SurveyContext";
 import { styles } from "./DiagnoseScreen_Style";
 import { format } from "date-fns";
+import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
 
 const DiagnoseScreen = () => {
 	const { state, dispatch } = useContext(SurveyContext);
@@ -67,6 +68,7 @@ const DiagnoseScreen = () => {
 			) : (
 				<Text style={styles.noDiagnosesText}>Ingen diagnoser funnet.</Text>
 			)}
+						<FooterNavigation />
 		</ScrollView>
 	);
 };
