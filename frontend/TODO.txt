@@ -24,8 +24,7 @@ HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette..
 
 -Kontakt oss: Jeg fjernet oppsettet med ikoner for de ulike SoME kanalene ettersom det ikke finnes noe av dette uansett.. Enig?
 Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp noe mer rundt dette.. 
-
--Hvordan løser vi det med en hjemknapp? Skal vi ha en knapp som alltid tar oss til forsiden, eller hvordan løser vi det? 
+ 
 
 -FirebaseConfit.ts: Sjekk oppsettet med ny kode der for håndtering av async. Det er noe feil i koden, selv om alt fungerer. 
 
@@ -44,11 +43,9 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 -Modalen som er satt opp ifm infoboks på fokusområdet må endres til CustomModal 
 
--Sette inn bilde av chatfigur og bruker ved siden av snakkeboble i BobAI
-
 -Har fjernet oppsett for å sende melding til behandler. Trenger vi å ha med det? 
 
--BobAI: Legge til avatar ved siden av snakkebobke, og bilde av bruker?
+-BobAI: Legge til avatar ved siden av snakkeboble, og bilde av bruker?
 
 -Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren
 
@@ -57,6 +54,12 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 -Modal oppfølgingsspørsmål-mindre inputfelt 
 
 -Sett opp en hjemskjerm etter diagnoseforslag
+
+-Modal: Sjekk at alle modelene har samme animasjonstype: animationType="slide"
+
+-Knapper: Det er jo ikke alltid vil ønsker customButton. Skal vi lage flere størrelser på buttons?
+
+-Fjerne klokkeslett fra "Dine diagnoser"? 
 
 Backend:
 
