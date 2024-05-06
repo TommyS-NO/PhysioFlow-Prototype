@@ -69,7 +69,7 @@ const BodyChart: React.FC<BodyChartProps> = ({
           {bodySide === "front" ? "Forside kropp" : "Bakside kropp"}
         </Text>
         <MaterialCommunityIcons
-          name="arrow-right"
+          name="arrow-right-bold"
           size={30}
           color="#000"
           onPress={toggleBodySide}
