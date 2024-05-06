@@ -6,8 +6,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
 
-    // backgroundColor: "#f0f0f0",
-    backgroundColor: theme.colors.primary,
+
+
   },
   imageContainer: {
     flexDirection: "row",
