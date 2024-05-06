@@ -5,13 +5,12 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-    alignItems: "center",
+
     // backgroundColor: "#f0f0f0",
     backgroundColor: theme.colors.primary,
   },
   imageContainer: {
     flexDirection: "row",
-    alignItems: "center",
     marginTop: 32,
     paddingHorizontal: 24,
   },
@@ -64,8 +63,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 8,
     width: "90%",
-    // alignSelf: 'center', Tror ikke vi trenger disse to, men er usikker på om det trengs til Android?
-    // alignItems: "center",
+    alignSelf: 'center',
+    alignItems: "center",
     justifyContent: "center",
     marginBottom: 40,
   },
@@ -76,6 +75,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#26807C",
     alignSelf: "stretch",
+    
     marginHorizontal: 20,
     marginTop: 20,
     marginBottom: 40,
