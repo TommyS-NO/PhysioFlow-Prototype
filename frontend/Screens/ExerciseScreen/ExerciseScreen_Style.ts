@@ -51,6 +51,7 @@ export const styles = StyleSheet.create({
 	sessionTitle: {
 		fontSize: 18,
 		fontWeight: 'bold',
+		marginBottom: 10,
 	},
 	sessionDescription: {
 		fontSize: 16,
