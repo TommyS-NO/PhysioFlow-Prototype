@@ -52,10 +52,6 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 -Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren
 
--Slett progresjon
-
--Flyte mine diagnoser inn i Diagnose 
-
 -KeyboardAvoidingView på chat screen fungerer ikke på Android
 
 -Modal oppfølgingsspørsmål-mindre inputfelt 
