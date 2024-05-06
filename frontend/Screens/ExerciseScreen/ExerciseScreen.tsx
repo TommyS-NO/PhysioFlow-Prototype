@@ -14,6 +14,7 @@ import { styles } from "./ExerciseScreen_Style";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useExercises } from "../../Context/ExerciseContext";
 import { apiService } from "../../Services/ApiService";
+import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
 
 type ExerciseSession = {
 	id: string;
@@ -130,6 +131,7 @@ const ExerciseScreen = () => {
 					</View>
 				)}
 			/>
+				<FooterNavigation />
 		</KeyboardAvoidingView>
 	);
 };
