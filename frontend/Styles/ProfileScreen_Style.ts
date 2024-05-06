@@ -94,6 +94,6 @@ export const styles = StyleSheet.create({
   diagnoseImage: {
     width: 150,
     height: 150,
-    marginLeft: 8,
+    marginLeft: 60,
   },
 });
