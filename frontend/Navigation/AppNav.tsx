@@ -10,7 +10,7 @@ import { RootStackParamList } from "./navigationTypes";
 import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen/ExerciseOverviewScreen";
 import AboutScreen from "../Screens/AboutScreen";
 import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
-import ProfileScreen from "../Screens/ProfileScreen";
+import ProfileScreen from "../Screens/ProfileScreen/ProfileScreen";
 import SettingsScreen from "../Screens/SettingsScreen/SettingsScreen";
 import ContactScreen from "../Screens/ContactScreen";
 import ChatScreen from "../Screens/ChatScreen/ChatScreen";

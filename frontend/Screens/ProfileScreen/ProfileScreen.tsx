@@ -6,11 +6,11 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import {
   auth,
   subscribeToUserProfile,
-} from "../Services/Firebase/FirebaseConfig";
-import { theme } from "../theme";
-import { styles } from "../Styles/ProfileScreen_Style";
-import { RootStackParamList } from "../Navigation/navigationTypes";
-import FooterNavigation from "../Components/FooterNavigation/FooterNavigation";
+} from "../../Services/Firebase/FirebaseConfig";
+import { theme } from "../../theme";
+import { styles } from "./ProfileScreen_Style";
+import { RootStackParamList } from "../../Navigation/navigationTypes";
+import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -58,7 +58,7 @@ const ProfileScreen: React.FC = () => {
           >
             <Text style={styles.profileButtonText}>Diagnose</Text>
             <Image
-              source={require("../Assets/Welcome.png")}
+              source={require("../../Assets/Welcome.png")}
               style={styles.diagnoseImage}
             />
           </TouchableOpacity>
@@ -68,7 +68,7 @@ const ProfileScreen: React.FC = () => {
             onPress={toggleTrainingMenu}
           >
             <Image
-              source={require("../Assets/StretchMale.png")}
+              source={require("../../Assets/StretchMale.png")}
               style={styles.trainingImage}
             />
             <Text style={styles.profileButtonText}>Trening</Text>
@@ -103,7 +103,7 @@ const ProfileScreen: React.FC = () => {
           >
             <Text style={styles.profileButtonText}>BobAI Chat</Text>
             <Image
-              source={require("../Assets/Robot_1.png")}
+              source={require("../../Assets/Robot_1.png")}
               style={styles.bobaiImage}
             />
           </TouchableOpacity>

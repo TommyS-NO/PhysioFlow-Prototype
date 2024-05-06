@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { theme } from "../theme";
+import { theme } from "../../theme";
 
 const { width } = Dimensions.get("window");
 const spacing = 10;
