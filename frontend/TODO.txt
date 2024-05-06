@@ -1,7 +1,5 @@
 Frontend:
 
--Justere designoppsett på Profilsiden. Juster visning. 
-
 -Legg til en beskrivelse av hvordan slider fungerer med tanke på nivåer. Skal den inn i FaQ eller som en boks man kan klikke på for å få opp info der og da? 
 -Design:
 
@@ -25,19 +23,7 @@ HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette..
 -Kontakt oss: Jeg fjernet oppsettet med ikoner for de ulike SoME kanalene ettersom det ikke finnes noe av dette uansett.. Enig?
 Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp noe mer rundt dette.. 
  
-
--FirebaseConfit.ts: Sjekk oppsettet med ny kode der for håndtering av async. Det er noe feil i koden, selv om alt fungerer. 
-
--Sett opp en side med diagnoser som er foreslått til bruker. Maks en diagnose per fokusområde..
-
-
--Legg til en form for bekreftelse når bruker adder øvelse til treningsprogram
-
 -Sett opp "Tilbake" knapp på spørreskjema til fokusområdet. 
-
--Sett opp alert når man logger ut "Er du sikker på at du vil logge ut?"
-
--Sett opp alert/indikasjon når man legger til øvelser. Endre + tegnet til en knapp eller noe annet? 
 
 -Etter gjennomført spørreundersøkelse så må vi endre på oppsettet for videre navigasjon. Skal vi fjerne konktakt behandler? Hvis ikke må det settes opp funksjonalitet for dette. 
 
