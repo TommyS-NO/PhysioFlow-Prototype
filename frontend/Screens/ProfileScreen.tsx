@@ -8,9 +8,9 @@ import {
   subscribeToUserProfile,
 } from "../Services/Firebase/FirebaseConfig";
 import { theme } from "../theme";
-
 import { styles } from "../Styles/ProfileScreen_Style";
 import { RootStackParamList } from "../Navigation/navigationTypes";
+import FooterNavigation from "../Components/FooterNavigation/FooterNavigation";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -56,7 +56,7 @@ const ProfileScreen: React.FC = () => {
             style={[styles.menuItem, styles.profileButton]}
             onPress={() => navigation.navigate("FocusScreen")}
           >
-            <Text style={styles.profileButtonText}>Finn min diagnose</Text>
+            <Text style={styles.profileButtonText}>Diagnose</Text>
             <Image
               source={require("../Assets/Welcome.png")}
               style={styles.diagnoseImage}
@@ -115,6 +115,7 @@ const ProfileScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+	  <FooterNavigation />
     </View>
   );
 };
