@@ -63,12 +63,12 @@ const ExerciseItem = ({
 							style={styles.completeButton}
 							onPress={onComplete}
 						>
-							<MaterialIcons name="check-circle" size={24} color="green" />
+							<MaterialIcons name="check-circle" size={24} color="#26807C" />
 							<Text style={styles.completeText}>Gjennomfør</Text>
 						</TouchableOpacity>
 					)}
 					<TouchableOpacity style={styles.removeButton} onPress={onRemove}>
-						<MaterialIcons name="remove-circle" size={24} color="red" />
+						<MaterialIcons name="remove-circle" size={24} color="#D32F2F" />
 						<Text style={styles.removeText}>Slett</Text>
 					</TouchableOpacity>
 				</View>
