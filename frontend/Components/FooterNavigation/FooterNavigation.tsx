@@ -31,12 +31,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     paddingVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "#f1f1f1",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.35,
+    shadowRadius: 3.84,
+    elevation: 5, 
   },
   button: {
     alignItems: "center",
     marginBottom: 15,
+    paddingHorizontal: 10, 
   },
 });
+
 
 export default FooterNavigation;
