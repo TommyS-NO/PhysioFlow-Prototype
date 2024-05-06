@@ -14,7 +14,6 @@ import ProfileScreen from "../Screens/ProfileScreen/ProfileScreen";
 import SettingsScreen from "../Screens/SettingsScreen/SettingsScreen";
 import ContactScreen from "../Screens/ContactScreen";
 import ChatScreen from "../Screens/ChatScreen/ChatScreen";
-import ProgressScreen from "../Screens/ProgressScreen/ProgressScreen";
 import DiagnoseScreen from "../Screens/DiagnoseScreen/DiagnoseScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -82,11 +81,6 @@ const AppNav = () => (
         name="ChatScreen"
         component={ChatScreen}
         options={{ title: "Chat" }}
-      />
-      <Stack.Screen
-        name="ProgressScreen"
-        component={ProgressScreen}
-        options={{ title: "ProgressScreen" }}
       />
       <Stack.Screen
         name="DiagnoseScreen"
