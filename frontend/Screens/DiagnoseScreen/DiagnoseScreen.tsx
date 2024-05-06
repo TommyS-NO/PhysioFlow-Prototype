@@ -34,7 +34,8 @@ const DiagnoseScreen = () => {
 	};
 
 	return (
-		<ScrollView style={styles.container}>
+		<View style={styles.container}>
+			     <ScrollView>
 			<Text style={styles.title}>Dine diagnoser</Text>
 			{diagnoses && diagnoses.length > 0 ? (
 				diagnoses
@@ -68,8 +69,10 @@ const DiagnoseScreen = () => {
 			) : (
 				<Text style={styles.noDiagnosesText}>Ingen diagnoser funnet.</Text>
 			)}
-						<FooterNavigation />
+					
 		</ScrollView>
+		<FooterNavigation />
+		</View>
 	);
 };
 
