@@ -82,7 +82,7 @@ const surveyController = {
 			}
 		}
 
-		if (highestScore >= 2) {
+		if (highestScore >= 3) {
 			return {
 				diagnosis: diagnoses[finalDiagnosis].name,
 				description: diagnoses[finalDiagnosis].description,
