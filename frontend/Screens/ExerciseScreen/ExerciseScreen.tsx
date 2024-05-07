@@ -36,6 +36,7 @@ const ExerciseScreen = () => {
 	);
 	const [searchQuery, setSearchQuery] = useState("");
 	const { addExercise } = useExercises();
+	const [addedExercises, setAddedExercises] = useState<{ [key: string]: boolean }>({}); 
 	const route = useRoute();
 	const routeParams = route.params as RouteParams;
 
@@ -88,12 +89,15 @@ const ExerciseScreen = () => {
 			category: exercise.category,
 		});
 
+		setAddedExercises(prev => ({ ...prev, [exercise.id]: true }));
+
 		Alert.alert("Øvelse lagt til", "Øvelsen er nå lagt til i din treningsplan.", [
 			{ text: "OK" }
 		]);
 	};
 
 	return (
+		
 		<KeyboardAvoidingView
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 			style={styles.container}
@@ -131,7 +135,7 @@ const ExerciseScreen = () => {
 							style={styles.addButton}
 							onPress={() => handleAddExercise(item)}
 						>
-							<MaterialIcons name="add" size={24} color="black" />
+						<MaterialIcons name={addedExercises[item.id] ? "check" : "add"} size={24} color={addedExercises[item.id] ? "green" : "black"}  />
 						</TouchableOpacity>
 					</View>
 				)}
