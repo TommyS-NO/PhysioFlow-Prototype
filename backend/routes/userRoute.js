@@ -1,25 +1,24 @@
 import express from "express";
 import {
 	getUserDiagnoses,
-	getUserExercises,
-	getCompletedExercisesForUser,
 	saveDiagnosisForUser,
-	saveExerciseForUser,
+	deleteDiagnosisForUser,
+	getCompletedExercisesForUser,
 	saveCompletedExerciseForUser,
-	getAIResponseWithLocalData,
-} from "../controllers/userController.js";
+	deleteExerciseForUser,
+} from "../controllers/user/userHealthRecords.js";
 
 const router = express.Router();
 
 router.get("/:userId/diagnoses", getUserDiagnoses);
 router.post("/:userId/diagnoses", saveDiagnosisForUser);
+router.delete("/:userId/diagnoses/:diagnosisId", deleteDiagnosisForUser);
 
-router.get("/:userId/exercises", getUserExercises);
-router.post("/:userId/exercises", saveExerciseForUser);
+router.get("/:userId/exercises", getCompletedExercisesForUser);
+router.post("/:userId/exercises", saveCompletedExerciseForUser);
+router.delete("/:userId/exercises/:exerciseId", deleteExerciseForUser);
 
 router.get("/:userId/completedExercises", getCompletedExercisesForUser);
 router.post("/:userId/completedExercises", saveCompletedExerciseForUser);
-
-router.post("/:userId/ai", getAIResponseWithLocalData);
 
 export default router;
