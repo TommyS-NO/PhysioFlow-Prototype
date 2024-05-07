@@ -49,6 +49,8 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 -Diagnostisering: iOS- når man trykker vis anbefalte øvelser så går ikke modalen vekk av seg selv. Det må den gjøre. Den navigerer til riktig side, men modalen blir stående. 
 
+-Skal det være mulig å legge til samme øvelse flere ganger under "Mine øvelser" eller skal vi sette en regel for at øvelsen allerede ligger i programmet.
+
 Backend:
 
  - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
