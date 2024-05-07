@@ -51,6 +51,10 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 
 -Skal det være mulig å legge til samme øvelse flere ganger under "Mine øvelser" eller skal vi sette en regel for at øvelsen allerede ligger i programmet.
 
+-Legg til øvelser: Fjern alert men gi en indikasjon på at øvelse er lagt til uten at bruker må trykke ok.
+
+-Sjekk at det er samme toogle-oppsett på profil og settings screen
+
 Backend:
 
  - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
