@@ -3,16 +3,17 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
 	container: {
 		paddingTop: 20,
-	
-		backgroundColor: '#fff',
+
+		backgroundColor: '#f1f1f1',
 		flex: 1,
 	},
 	searchBar: {
+		backgroundColor: 'white',
 		flexDirection: 'row',
 		borderWidth: 1,
 		borderColor: '#ccc',
 		borderRadius: 10,
-		padding: 10,
+		padding: 15,
 		marginBottom: 10,
 		marginLeft: 20,
 		marginRight: 20,
@@ -59,6 +60,7 @@ export const styles = StyleSheet.create({
 	},
 	addButton: {
 		padding: 10,
+		marginRight: 5,
 	},
 	recommendedContainer: {
 		flexDirection: 'row',
