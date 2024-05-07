@@ -34,7 +34,10 @@ export const sendMessage = async (sessionId, message) => {
 
 	const chatCompletion = await openai.chat.completions.create({
 		model: "gpt-3.5-turbo",
-		messages: session.messages,
+		messages: [
+			...session.messages,
+			{ role: "system", content: "Language: Norwegian" },
+		],
 		max_tokens: 650,
 		temperature: 0.9,
 		stop: ["\n"],
