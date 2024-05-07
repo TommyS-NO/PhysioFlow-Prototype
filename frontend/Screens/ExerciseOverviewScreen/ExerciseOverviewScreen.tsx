@@ -48,9 +48,13 @@ const ExerciseOverviewScreen = () => {
 	};
 
 	const handleSubmit = async () => {
-		if (
-			Object.keys(surveyState.answers).length === surveyState.questions.length
-		) {
+		const allAnswered = surveyState.questions.every((question) => {
+			const answer = surveyState.answers[question.id];
+
+			return answer && (answer.answer !== "" || answer.answer === 0);
+		});
+
+		if (allAnswered) {
 			try {
 				console.log("Submitting answers: ", surveyState.answers);
 				await completeExercise(
@@ -129,9 +133,8 @@ const ExerciseOverviewScreen = () => {
 					/>
 				)}
 			/>
-		<FooterNavigation />
+			<FooterNavigation />
 		</View>
-		
 	);
 };
 
