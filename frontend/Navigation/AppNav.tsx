@@ -11,6 +11,7 @@ import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen/ExerciseOv
 import AboutScreen from "../Screens/AboutScreen";
 import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
 import ProfileScreen from "../Screens/ProfileScreen/ProfileScreen";
+import DeleteUserScreen from "../Screens/SettingsScreen/DeleteUserScreen";
 import SettingsScreen from "../Screens/SettingsScreen/SettingsScreen";
 import ContactScreen from "../Screens/ContactScreen";
 import ChatScreen from "../Screens/ChatScreen/ChatScreen";
@@ -19,76 +20,81 @@ import DiagnoseScreen from "../Screens/DiagnoseScreen/DiagnoseScreen";
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNav = () => (
-  <NavigationContainer>
-    <Stack.Navigator initialRouteName="Front">
-      <Stack.Screen
-        name="Front"
-        component={FrontScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{ title: "Registrer" }}
-      />
-      <Stack.Screen
-        name="TermsScreen"
-        component={TermsScreen}
-        options={{ title: "Vilkår og Betingelser" }}
-      />
-      <Stack.Screen
-        name="UserGuideScreen"
-        component={UserGuideScreen}
-        options={{ title: "Brukerveiledning" }}
-      />
-      <Stack.Screen
-        name="ExerciseOverviewScreen"
-        component={ExerciseOverviewScreen}
-        options={{ title: "Liste" }}
-      />
-      <Stack.Screen
-        name="FocusScreen"
-        component={FocusScreen}
-        options={{ title: "Fokusområde" }}
-      />
-      <Stack.Screen
-        name="AboutScreen"
-        component={AboutScreen}
-        options={{ title: "Om oss" }}
-      />
-      <Stack.Screen
-        name="ExerciseScreen"
-        component={ExerciseScreen}
-        options={{ title: "Søk etter øvelser" }}
-      />
-      <Stack.Screen
-        name="ProfileScreen"
-        component={ProfileScreen}
-        options={{ title: "Min profil" }}
-      />
-      <Stack.Screen
-        name="SettingsScreen"
-        component={SettingsScreen}
-        options={{ title: "Settings" }}
-      /> 
-      <Stack.Screen
-        name="ContactScreen"
-        component={ContactScreen}
-        options={{ title: "Kontakt oss" }}
-      />
+	<NavigationContainer>
+		<Stack.Navigator initialRouteName="Front">
+			<Stack.Screen
+				name="Front"
+				component={FrontScreen}
+				options={{ headerShown: false }}
+			/>
+			<Stack.Screen
+				name="Register"
+				component={RegisterScreen}
+				options={{ title: "Registrer" }}
+			/>
+			<Stack.Screen
+				name="TermsScreen"
+				component={TermsScreen}
+				options={{ title: "Vilkår og Betingelser" }}
+			/>
+			<Stack.Screen
+				name="UserGuideScreen"
+				component={UserGuideScreen}
+				options={{ title: "Brukerveiledning" }}
+			/>
+			<Stack.Screen
+				name="ExerciseOverviewScreen"
+				component={ExerciseOverviewScreen}
+				options={{ title: "Liste" }}
+			/>
+			<Stack.Screen
+				name="FocusScreen"
+				component={FocusScreen}
+				options={{ title: "Fokusområde" }}
+			/>
+			<Stack.Screen
+				name="AboutScreen"
+				component={AboutScreen}
+				options={{ title: "Om oss" }}
+			/>
+			<Stack.Screen
+				name="ExerciseScreen"
+				component={ExerciseScreen}
+				options={{ title: "Søk etter øvelser" }}
+			/>
+			<Stack.Screen
+				name="ProfileScreen"
+				component={ProfileScreen}
+				options={{ title: "Min profil" }}
+			/>
+			<Stack.Screen
+				name="SettingsScreen"
+				component={SettingsScreen}
+				options={{ title: "Settings" }}
+			/>
+			<Stack.Screen
+				name="ContactScreen"
+				component={ContactScreen}
+				options={{ title: "Kontakt oss" }}
+			/>
 
-      <Stack.Screen
-        name="ChatScreen"
-        component={ChatScreen}
-        options={{ title: "Chat" }}
-      />
-      <Stack.Screen
-        name="DiagnoseScreen"
-        component={DiagnoseScreen}
-        options={{ title: "DiagnoseScreen" }}
-      />
-    </Stack.Navigator>
-  </NavigationContainer>
+			<Stack.Screen
+				name="ChatScreen"
+				component={ChatScreen}
+				options={{ title: "Chat" }}
+			/>
+			<Stack.Screen
+				name="DiagnoseScreen"
+				component={DiagnoseScreen}
+				options={{ title: "DiagnoseScreen" }}
+			/>
+			<Stack.Screen
+				name="DeleteUserScreen"
+				component={DeleteUserScreen}
+				options={{ title: "Slett" }}
+			/>
+		</Stack.Navigator>
+	</NavigationContainer>
 );
 
 export default AppNav;

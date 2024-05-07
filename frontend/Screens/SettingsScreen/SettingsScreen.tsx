@@ -19,8 +19,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./Settings_Style";
 import { signOut } from "firebase/auth";
 import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
-import DeleteUserComponent from "../../Screens/SettingsScreen/DeleteUserComp";
-
+import DeleteUserComponent from "./DeleteUserScreen";
 
 type SettingsNavigationProp = StackNavigationProp<
 	RootStackParamList,
@@ -193,7 +192,6 @@ const SettingsScreen: React.FC = () => {
 		</View>
 	);
 
-
 	const handleSignOut = async () => {
 		try {
 			await signOut(auth);
@@ -237,10 +235,9 @@ const SettingsScreen: React.FC = () => {
 			</View>
 			<TouchableOpacity
 				style={[styles.menuItem, styles.deleteButton]}
-				onPress={() => navigation.navigate("DeleteUserComponent")}
+				onPress={() => navigation.navigate("DeleteUserScreen")}
 			>
 				<Text style={styles.deleteButtonText}>Slett profil</Text>
-				
 			</TouchableOpacity>
 			<FooterNavigation />
 		</View>
