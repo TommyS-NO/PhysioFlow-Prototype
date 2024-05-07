@@ -144,9 +144,11 @@ const styles = StyleSheet.create({
   userMessage: {
     alignSelf: "flex-end",
     margin: 5,
-    padding: 10,
+    padding: 15,
     backgroundColor: "#26807C",
     borderRadius: 20,
+    borderColor: "gray",
+    borderWidth: 0.2,
   },
   userMessageText: {
     color: "#fff",
@@ -155,9 +157,11 @@ const styles = StyleSheet.create({
   aiMessage: {
     alignSelf: "flex-start",
     margin: 5,
-    padding: 10,
+    padding: 15,
     backgroundColor: "#fff",
     borderRadius: 20,
+    borderColor: "gray",
+    borderWidth: 0.2,
   },
   aiMessageText: {
     fontSize: 18,
