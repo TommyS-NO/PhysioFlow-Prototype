@@ -6,9 +6,10 @@ import React, {
 	useCallback,
 	PropsWithChildren,
 } from "react";
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { db } from "../Services/Firebase/FirebaseConfig";
 import { apiService } from "../Services/ApiService";
 
-// Define the types for different survey questions
 export interface SingleChoiceQuestion {
 	id: string;
 	question: string;
@@ -33,27 +34,23 @@ export interface NumericInputQuestion {
 	type: "numericInput";
 }
 
-// Combine all question types into one union type
 export type SurveyQuestion =
 	| SingleChoiceQuestion
 	| SliderQuestion
 	| NumericInputQuestion;
 
-// Define the structure of an answer
 export interface Answer {
 	questionId: string;
 	answer: string | number;
 }
 
-// Add the diagnosis structure
 interface Diagnosis {
 	title: string;
 	description: string;
 	exercises: string[];
-	timestamp: string; // ISO 8601 timestamp
+	timestamp: string;
 }
 
-// State structure
 interface SurveyState {
 	surveyId: string;
 	questions: SurveyQuestion[];
@@ -61,15 +58,13 @@ interface SurveyState {
 	diagnoses: Diagnosis[];
 }
 
-// Reducer actions
 type SurveyAction =
 	| { type: "LOAD_SURVEY"; surveyId: string; questions: SurveyQuestion[] }
 	| { type: "ANSWER_QUESTION"; questionId: string; answer: Answer }
 	| { type: "RESET_SURVEY" }
-	| { type: "LOAD_DIAGNOSIS"; diagnosis: Diagnosis }
-	| { type: "REMOVE_DIAGNOSIS"; diagnoses: Diagnosis[] };
+	| { type: "SAVE_DIAGNOSIS"; diagnosis: Diagnosis }
+	| { type: "REMOVE_DIAGNOSIS"; diagnosisId: string };
 
-// Initial state
 const initialState: SurveyState = {
 	surveyId: "",
 	questions: [],
@@ -77,7 +72,6 @@ const initialState: SurveyState = {
 	diagnoses: [],
 };
 
-// Survey reducer function
 const SurveyReducer = (
 	state: SurveyState,
 	action: SurveyAction,
@@ -105,24 +99,18 @@ const SurveyReducer = (
 				answers: {},
 				diagnoses: [],
 			};
+		case "SAVE_DIAGNOSIS":
+			return {
+				...state,
+				diagnoses: [...state.diagnoses, action.diagnosis],
+			};
 		case "REMOVE_DIAGNOSIS":
 			return {
 				...state,
-				diagnoses: action.diagnoses,
+				diagnoses: state.diagnoses.filter(
+					(d) => d.timestamp !== action.diagnosisId,
+				),
 			};
-		case "LOAD_DIAGNOSIS": {
-			const newDiagnosis = {
-				...action.diagnosis,
-				timestamp: new Date().toISOString(),
-			};
-			const updatedDiagnoses = state.diagnoses.filter(
-				(d) => d.title !== newDiagnosis.title,
-			);
-			return {
-				...state,
-				diagnoses: [newDiagnosis, ...updatedDiagnoses],
-			};
-		}
 		default:
 			return state;
 	}
@@ -132,15 +120,19 @@ export const SurveyContext = createContext<{
 	state: SurveyState;
 	dispatch: Dispatch<SurveyAction>;
 	loadSurvey: (surveyId: string) => Promise<void>;
+	saveDiagnosisToFirestore: (diagnosis: Diagnosis) => Promise<void>;
+	deleteDiagnosisFromFirestore: (diagnosisId: string) => Promise<void>;
 }>({
 	state: initialState,
 	dispatch: () => null,
 	loadSurvey: async () => {},
+	saveDiagnosisToFirestore: async () => {},
+	deleteDiagnosisFromFirestore: async () => {},
 });
 
 export const useSurvey = () => useContext(SurveyContext);
 
-function SurveyProvider({ children }: PropsWithChildren) {
+function SurveyProvider({ children }: PropsWithChildren<any>) {
 	const [state, dispatch] = useReducer(SurveyReducer, initialState);
 
 	const loadSurvey = useCallback(async (surveyId: string) => {
@@ -157,8 +149,34 @@ function SurveyProvider({ children }: PropsWithChildren) {
 		}
 	}, []);
 
+	const saveDiagnosisToFirestore = async (diagnosis: Diagnosis) => {
+		try {
+			await addDoc(collection(db, "diagnoses"), diagnosis);
+			dispatch({ type: "SAVE_DIAGNOSIS", diagnosis });
+		} catch (error) {
+			console.error("Error saving diagnosis to Firestore:", error);
+		}
+	};
+
+	const deleteDiagnosisFromFirestore = async (diagnosisId: string) => {
+		try {
+			await deleteDoc(doc(db, "diagnoses", diagnosisId));
+			dispatch({ type: "REMOVE_DIAGNOSIS", diagnosisId });
+		} catch (error) {
+			console.error("Error deleting diagnosis from Firestore:", error);
+		}
+	};
+
 	return (
-		<SurveyContext.Provider value={{ state, dispatch, loadSurvey }}>
+		<SurveyContext.Provider
+			value={{
+				state,
+				dispatch,
+				loadSurvey,
+				saveDiagnosisToFirestore,
+				deleteDiagnosisFromFirestore,
+			}}
+		>
 			{children}
 		</SurveyContext.Provider>
 	);
