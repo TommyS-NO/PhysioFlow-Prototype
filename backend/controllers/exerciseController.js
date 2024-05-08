@@ -1,12 +1,18 @@
+import { Firestore } from "@google-cloud/firestore";
+import { NotFoundError, ValidationError } from "../utils/customError.js";
+
+// Simulerte databaseoppføringer for øvelser
 import { recommendedNeckExercises } from "../exercises/recommendedNeckExercises.js";
 import { recommendedAnkleExercises } from "../exercises/recommendedAnkelExercises.js";
-import { recommendedElbowExercises } from "../exercises/recommendedelbowExercises.js";
+import { recommendedElbowExercises } from "../exercises/recommendedElbowExercises.js";
 import { recommendedKneeExercises } from "../exercises/recommendedKneeExercises.js";
 import { recommendedLowBackExercises } from "../exercises/recommendedLowBackExercise.js";
 import { recommendedUpperBackExercises } from "../exercises/recommendedUpperBackExercises.js";
 import { recommendedWristExercises } from "../exercises/recommendedWristExercises.js";
 import { recommendedShoulderExercises } from "../exercises/recommendedShoulderExercises.js";
 import { recommendedHipExercises } from "../exercises/recommendedHipExercises.js";
+
+const db = new Firestore();
 
 const addCategoryToExercises = (exercises, category) => {
 	return Object.entries(exercises).reduce((result, [id, details]) => {
@@ -57,4 +63,24 @@ export const getExerciseDetails = (req, res, next) => {
 		next(error);
 	}
 };
-export default allExercises;
+
+export const deleteExercise = async (req, res, next) => {
+	const { userId, exerciseId } = req.params;
+
+	try {
+		const exerciseRef = db
+			.collection("users")
+			.doc(userId)
+			.collection("exercises")
+			.doc(exerciseId);
+		const exerciseDoc = await exerciseRef.get();
+		if (!exerciseDoc.exists) {
+			throw new NotFoundError(`Exercise with ID ${exerciseId} not found`);
+		}
+
+		await exerciseRef.delete();
+		res.status(200).json({ message: "Exercise deleted successfully" });
+	} catch (error) {
+		next(new ValidationError("Error deleting exercise", error.message));
+	}
+};
