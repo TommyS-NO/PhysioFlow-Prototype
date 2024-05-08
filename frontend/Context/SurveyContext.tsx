@@ -5,8 +5,15 @@ import React, {
 	Dispatch,
 	useCallback,
 	PropsWithChildren,
+	useEffect,
 } from "react";
-import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
+import {
+	collection,
+	addDoc,
+	deleteDoc,
+	doc,
+	getDocs,
+} from "firebase/firestore";
 import { db } from "../Services/Firebase/FirebaseConfig";
 import { apiService } from "../Services/ApiService";
 
@@ -63,7 +70,8 @@ type SurveyAction =
 	| { type: "ANSWER_QUESTION"; questionId: string; answer: Answer }
 	| { type: "RESET_SURVEY" }
 	| { type: "SAVE_DIAGNOSIS"; diagnosis: Diagnosis }
-	| { type: "REMOVE_DIAGNOSIS"; diagnosisId: string };
+	| { type: "REMOVE_DIAGNOSIS"; diagnosisId: string }
+	| { type: "LOAD_DIAGNOSES"; diagnoses: Diagnosis[] };
 
 const initialState: SurveyState = {
 	surveyId: "",
@@ -92,13 +100,7 @@ const SurveyReducer = (
 				},
 			};
 		case "RESET_SURVEY":
-			return {
-				...state,
-				surveyId: "",
-				questions: [],
-				answers: {},
-				diagnoses: [],
-			};
+			return initialState;
 		case "SAVE_DIAGNOSIS":
 			return {
 				...state,
@@ -110,6 +112,11 @@ const SurveyReducer = (
 				diagnoses: state.diagnoses.filter(
 					(d) => d.timestamp !== action.diagnosisId,
 				),
+			};
+		case "LOAD_DIAGNOSES":
+			return {
+				...state,
+				diagnoses: action.diagnoses,
 			};
 		default:
 			return state;
@@ -135,6 +142,17 @@ export const useSurvey = () => useContext(SurveyContext);
 function SurveyProvider({ children }: PropsWithChildren<any>) {
 	const [state, dispatch] = useReducer(SurveyReducer, initialState);
 
+	useEffect(() => {
+		const fetchDiagnoses = async () => {
+			const querySnapshot = await getDocs(collection(db, "diagnoses"));
+			const diagnoses = querySnapshot.docs.map(
+				(doc) => doc.data() as Diagnosis,
+			);
+			dispatch({ type: "LOAD_DIAGNOSES", diagnoses });
+		};
+		fetchDiagnoses();
+	}, []);
+
 	const loadSurvey = useCallback(async (surveyId: string) => {
 		try {
 			const surveyData = await apiService.getSurvey(surveyId);
@@ -151,8 +169,11 @@ function SurveyProvider({ children }: PropsWithChildren<any>) {
 
 	const saveDiagnosisToFirestore = async (diagnosis: Diagnosis) => {
 		try {
-			await addDoc(collection(db, "diagnoses"), diagnosis);
-			dispatch({ type: "SAVE_DIAGNOSIS", diagnosis });
+			const docRef = await addDoc(collection(db, "diagnoses"), diagnosis);
+			dispatch({
+				type: "SAVE_DIAGNOSIS",
+				diagnosis: { ...diagnosis, timestamp: docRef.id },
+			});
 		} catch (error) {
 			console.error("Error saving diagnosis to Firestore:", error);
 		}

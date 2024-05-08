@@ -1,8 +1,8 @@
-import { recommendedAnkleExercises } from "./recommendedAnkleExercises.js";
-import { recommendedElbowExercises } from "./recommendedelbowExercises.js";
+import { recommendedAnkleExercises } from "./recommendedAnkelExercises.js";
+import { recommendedElbowExercises } from "./recommendedElbowExercises.js";
 import { recommendedHipExercises } from "./recommendedHipExercises.js";
 import { recommendedKneeExercises } from "./recommendedKneeExercises.js";
-import { recommendedLowBackExercises } from "./recommendedLowBackExercises.js";
+import { recommendedLowBackExercises } from "./recommendedLowBackExercise.js";
 import { recommendedNeckExercises } from "./recommendedNeckExercises.js";
 import { recommendedShoulderExercises } from "./recommendedShoulderExercises.js";
 import { recommendedUpperBackExercises } from "./recommendedUpperBackExercises.js";
