@@ -1,3 +1,7 @@
+
+//Denne koden må ryddes opp i! Her er det mye som kan slettes.. 
+
+
 import { StyleSheet } from "react-native";
 import { theme } from "../../theme";
 
@@ -5,8 +9,6 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-
-
 
   },
   imageContainer: {
@@ -58,27 +60,26 @@ export const styles = StyleSheet.create({
   },
   deleteButton: {
     backgroundColor: "#D32F2F",
-    paddingVertical: 16,
-    paddingHorizontal: 24,
+padding: 15,
     borderRadius: 10,
     marginVertical: 8,
     width: "90%",
     alignSelf: 'center',
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 40,
+    marginBottom: 20,
   },
 
   logoutButton: {
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 10,
     backgroundColor: "#26807C",
-    alignSelf: "stretch",
-    
-    marginHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 40,
+    padding: 15,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginBottom: 10
   },
   logoutButtonText: {
     fontSize: 18,
@@ -88,6 +89,7 @@ export const styles = StyleSheet.create({
   deleteButtonText: {
     color: "#fff",
     fontSize: 18,
+     textAlign: "center",
   },
   fieldContainer: {
     flexDirection: "row",
@@ -128,4 +130,40 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginLeft: 10,
   },
+
+  button: {
+    backgroundColor: "#ffffff",
+    padding: 15,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginBottom: 10
+  },
+  buttonText: {
+    textAlign: "center",
+    fontSize: 16,
+    color: "#000"
+  },
+  subMenu: {
+    
+    backgroundColor: "#e6e6e6",
+    borderRadius: 5,
+    marginBottom: 20,
+    
+  },
+  subMenuText: {
+    fontSize: 16,
+  },
+
+  imageStyle: {
+    width: 350, 
+    height: 250, 
+    marginBottom: 5,
+    alignSelf: 'center',
+    resizeMode: 'contain'
+  },
+  
 });
