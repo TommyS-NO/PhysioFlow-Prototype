@@ -8,7 +8,6 @@ import {
   Platform,
   Image,
   TextInput,
-  Alert,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { styles } from "./ExerciseScreen_Style";
@@ -41,6 +40,7 @@ const ExerciseScreen = () => {
   }>({});
   const route = useRoute();
   const routeParams = route.params as RouteParams;
+  const [showFeedback, setShowFeedback] = useState(false);
 
   useEffect(() => {
     const fetchExercises = async () => {
@@ -92,12 +92,8 @@ const ExerciseScreen = () => {
     });
 
     setAddedExercises((prev) => ({ ...prev, [exercise.id]: true }));
-
-    Alert.alert(
-      "Øvelse lagt til",
-      "Øvelsen er nå lagt til i din treningsplan.",
-      [{ text: "OK" }]
-    );
+    setShowFeedback(true);
+    setTimeout(() => setShowFeedback(false), 1000);
   };
 
   return (
@@ -151,6 +147,11 @@ const ExerciseScreen = () => {
           </View>
         )}
       />
+      {showFeedback && (
+        <Text style={styles.feedbackText}>
+          Øvelsen er lagt til i treningsplanen din!
+        </Text>
+      )}
       <FooterNavigation />
     </KeyboardAvoidingView>
   );
