@@ -63,24 +63,3 @@ export const getExerciseDetails = (req, res, next) => {
 		next(error);
 	}
 };
-
-export const deleteExercise = async (req, res, next) => {
-	const { userId, exerciseId } = req.params;
-
-	try {
-		const exerciseRef = db
-			.collection("users")
-			.doc(userId)
-			.collection("exercises")
-			.doc(exerciseId);
-		const exerciseDoc = await exerciseRef.get();
-		if (!exerciseDoc.exists) {
-			throw new NotFoundError(`Exercise with ID ${exerciseId} not found`);
-		}
-
-		await exerciseRef.delete();
-		res.status(200).json({ message: "Exercise deleted successfully" });
-	} catch (error) {
-		next(new ValidationError("Error deleting exercise", error.message));
-	}
-};
