@@ -2,7 +2,6 @@ import express from "express";
 import {
 	getExerciseDetails,
 	getAllExercises,
-	deleteExercise,
 } from "../controllers/exerciseController.js";
 
 const router = express.Router();
@@ -17,7 +16,5 @@ router.post("/details", (req, res, next) => {
 		next(error);
 	}
 });
-
-router.delete("/:userId/exercises/:exerciseId", deleteExercise);
 
 export default router;

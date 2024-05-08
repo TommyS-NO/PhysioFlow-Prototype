@@ -10,15 +10,14 @@ import {
 
 const router = express.Router();
 
+// Routes for diagnoses
 router.get("/:userId/diagnoses", getUserDiagnoses);
 router.post("/:userId/diagnoses", saveDiagnosisForUser);
 router.delete("/:userId/diagnoses/:diagnosisId", deleteDiagnosisForUser);
 
-router.get("/:userId/exercises", getCompletedExercisesForUser);
-router.post("/:userId/exercises", saveCompletedExerciseForUser);
-router.delete("/:userId/exercises/:exerciseId", deleteExerciseForUser);
-
+// Routes for completed exercises
 router.get("/:userId/completedExercises", getCompletedExercisesForUser);
 router.post("/:userId/completedExercises", saveCompletedExerciseForUser);
+router.delete("/:userId/completedExercises/:exerciseId", deleteExerciseForUser);
 
 export default router;

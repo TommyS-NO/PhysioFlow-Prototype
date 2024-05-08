@@ -38,7 +38,7 @@ const registerUser = async (email: string, password: string): Promise<string | n
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const userId = userCredential.user.uid;
-    // Initialize user profile and collections
+
     await initializeUserCollections(userId);
     return userId;
   } catch (error) {
@@ -111,6 +111,32 @@ const deleteUserAccount = async (userId: string): Promise<boolean> => {
     return false;
   }
 };
+// Funksjon for å slette en spesifikk fullført øvelse
+const deleteCompletedExercise = async (userId: string, exerciseId: string): Promise<boolean> => {
+  try {
+    const exerciseRef = doc(db, "users", userId, "completedExercises", exerciseId);
+    await deleteDoc(exerciseRef);
+    console.log("Fullført øvelse slettet.");
+    return true;
+  } catch (error) {
+    console.error("Feil ved sletting av fullført øvelse:", error);
+    return false;
+  }
+};
+
+// Funksjon for å slette en spesifikk diagnose
+const deleteDiagnosis = async (userId: string, diagnosisId: string): Promise<boolean> => {
+  try {
+    const diagnosisRef = doc(db, "users", userId, "diagnoses", diagnosisId);
+    await deleteDoc(diagnosisRef);
+    console.log("Diagnose slettet.");
+    return true;
+  } catch (error) {
+    console.error("Feil ved sletting av diagnose:", error);
+    return false;
+  }
+};
+
 
 export {
   app,
@@ -123,4 +149,6 @@ export {
   fetchUserDetailsFromFirestore,
   subscribeToUserProfile,
   deleteUserAccount,
+  deleteCompletedExercise,
+  deleteDiagnosis
 };
