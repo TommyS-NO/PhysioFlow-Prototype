@@ -37,7 +37,7 @@ const surveyController = {
 	evaluateDiagnosis: function (answers, surveyId) {
 		const survey = this.surveys[surveyId];
 		if (!survey) {
-			throw new NotFoundError(`Survey ${surveyId} not found`);
+			throw new NotFoundError(`Undersøkelse ${surveyId} ikke funnet`);
 		}
 
 		const diagnosesMapping = {
@@ -54,7 +54,7 @@ const surveyController = {
 
 		const diagnoses = diagnosesMapping[surveyId];
 		if (!diagnoses) {
-			throw new NotFoundError(`Diagnoses for ${surveyId} not found`);
+			throw new NotFoundError(`Diagnoser for ${surveyId} ikke funnet`);
 		}
 
 		const symptoms = interpretAnswers(answers, survey.questions);
@@ -73,7 +73,7 @@ const surveyController = {
 		}
 
 		let highestScore = 0;
-		let finalDiagnosis = "No clear diagnosis";
+		let finalDiagnosis = "Ingen klar diagnose";
 
 		for (const [diagnosis, score] of Object.entries(diagnosisScores)) {
 			if (score > highestScore) {
@@ -91,8 +91,8 @@ const surveyController = {
 		}
 
 		return {
-			diagnosis: "General advice",
-			description: "Please consult a physician for a detailed diagnosis.",
+			diagnosis: "Generelt råd",
+			description: "Vennligst konsulter en lege for en detaljert diagnose.",
 			exercises: [],
 		};
 	},
@@ -100,7 +100,7 @@ const surveyController = {
 	getSurveyById: function (surveyId) {
 		const survey = this.surveys[surveyId];
 		if (!survey) {
-			throw new NotFoundError(`Survey ${surveyId} not found`);
+			throw new NotFoundError(`Undersøkelse ${surveyId} ikke funnet`);
 		}
 		return survey;
 	},
