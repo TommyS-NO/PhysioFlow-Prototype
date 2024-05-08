@@ -1,8 +1,11 @@
 import React from "react";
-import { ScrollView, Text, Image, StyleSheet } from "react-native";
+import { ScrollView, Text, Image, StyleSheet, View } from "react-native";
+import FooterNavigation from "../Components/FooterNavigation/FooterNavigation";
+
 
 const AboutScreen: React.FC = () => {
   return (
+    <View style={styles.container}>
     <ScrollView
       style={styles.scrollView}
       contentContainerStyle={styles.contentContainer}
@@ -70,10 +73,16 @@ const AboutScreen: React.FC = () => {
         style={styles.teamImage}
       />
     </ScrollView>
+     <FooterNavigation />
+     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1, 
+    backgroundColor: 'white',
+  },
   scrollView: {
     flex: 1,
   },
