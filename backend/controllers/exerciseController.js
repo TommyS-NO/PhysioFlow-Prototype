@@ -2,15 +2,15 @@ import { Firestore } from "@google-cloud/firestore";
 import { NotFoundError, ValidationError } from "../utils/customError.js";
 
 // Simulerte databaseoppføringer for øvelser
-import { recommendedNeckExercises } from "../exercises/recommendedNeckExercises.js";
-import { recommendedAnkleExercises } from "../exercises/recommendedAnkelExercises.js";
-import { recommendedElbowExercises } from "../exercises/recommendedElbowExercises.js";
-import { recommendedKneeExercises } from "../exercises/recommendedKneeExercises.js";
-import { recommendedLowBackExercises } from "../exercises/recommendedLowBackExercise.js";
-import { recommendedUpperBackExercises } from "../exercises/recommendedUpperBackExercises.js";
-import { recommendedWristExercises } from "../exercises/recommendedWristExercises.js";
-import { recommendedShoulderExercises } from "../exercises/recommendedShoulderExercises.js";
-import { recommendedHipExercises } from "../exercises/recommendedHipExercises.js";
+import { recommendedNeckExercises } from "../recommendedExercises/recommendedNeckExercises.js";
+import { recommendedElbowExercises } from "../recommendedExercises/recommendedElbowExercises.js";
+import { recommendedAnkleExercises } from "../recommendedExercises/recommendedAnkelExercises.js";
+import { recommendedKneeExercises } from "../recommendedExercises/recommendedKneeExercises.js";
+import { recommendedLowBackExercises } from "../recommendedExercises/recommendedLowBackExercise.js";
+import { recommendedUpperBackExercises } from "../recommendedExercises/recommendedUpperBackExercises.js";
+import { recommendedWristExercises } from "../recommendedExercises/recommendedWristExercises.js";
+import { recommendedShoulderExercises } from "../recommendedExercises/recommendedShoulderExercises.js";
+import { recommendedHipExercises } from "../recommendedExercises/recommendedHipExercises.js";
 
 const db = new Firestore();
 
