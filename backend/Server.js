@@ -6,7 +6,6 @@ import rateLimit from "express-rate-limit";
 import chatRoute from "./routes/chatRoute.js";
 import surveyRoutes from "./routes/surveyRoute.js";
 import exerciseRoutes from "./routes/exerciseRoute.js";
-import userRoutes from "./routes/userRoute.js";
 import { errorHandler } from "./utils/errorHandler.js";
 
 dotenv.config();
@@ -21,8 +20,8 @@ app.use(express.json());
 
 // Rate Limiting
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000,
-	max: 100,
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
 
@@ -30,7 +29,6 @@ app.use(limiter);
 app.use("/api/chat", chatRoute);
 app.use("/api/survey", surveyRoutes);
 app.use("/api/exercises", exerciseRoutes);
-app.use("/api/users", userRoutes);
 
 // 404 Middleware
 app.use((req, res) => {
