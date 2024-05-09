@@ -1,27 +1,29 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description":"Backend for FysioFlow, en plattform utviklet for å støtte fysioterapeutiske vurderinger og rehabiliteringsøvelser. Denne serverdelen håndterer logikk relatert til håndtering av undersøkelser (surveys), diagnostiske verktøy, og et bredt spekter av fysioterapiøvelser. Backend bruker Express for å tilrettelegge REST APIer som frontend kan kommunisere med for å hente og evaluere brukerdata. I tillegg integrerer den med OpenAI's GPT for å tilby en chatbot som assisterer brukere med interaktiv veiledning og informasjon om øvelser og helse. Backendens primære funksjon er å prosessere forespørsler, levere øvelsesdetaljer og støtte dynamisk interaksjon gjennom brukerundersøkelser.",
   "main": "Server.js",
   "type": "module",
   "scripts": {
-    "start": "node Server.js",
-    "upload": "node api/controllers/questionController.js"
+    "start": "node Server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "fysioterapi",
+    "healthcare",
+    "AI",
+    "OpenAI",
+    "Firebase",
+    "REST API"
+  ],
+  "author": "Tommy og Mina, Gokstad Akademiet",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.6.8",
-    "colors": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "express-rate-limit": "^7.2.0",
     "firebase-admin": "^12.0.0",
     "helmet": "^7.1.0",
-    "morgan": "^1.10.0",
-    "natural": "^7.0.5",
     "openai": "^4.38.5"
   }
 }
