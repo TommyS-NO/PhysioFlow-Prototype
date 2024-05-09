@@ -254,14 +254,22 @@ const SettingsScreen: React.FC = () => {
           </TouchableOpacity>
           {isAccountVisible && (
             <View style={styles.subMenu}>
-              <NonEditableField label="Funksjon for endring av e-post:" />
-              <NonEditableField label="Funksjon for endring av passord" />
-              <TouchableOpacity
-                style={[styles.menuItem, styles.deleteButton]}
-                onPress={() => navigation.navigate("DeleteUserScreen")}
-              >
-                <Text style={styles.deleteButtonText}>Slett profil</Text>
-              </TouchableOpacity>
+              <View style={styles.menuContainer}>
+                <NonEditableField
+                  label="Endring av e-post:"
+                  value={userProfile.username || "[Brukernavn]"}
+                />
+                <NonEditableField
+                  label="Endring av passord"
+                  value={userProfile.username || "[Brukernavn]"}
+                />
+                <TouchableOpacity
+                  style={[styles.menuItem, styles.deleteButton]}
+                  onPress={() => navigation.navigate("DeleteUserScreen")}
+                >
+                  <Text style={styles.deleteButtonText}>Slett profil</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           )}
           <TouchableOpacity
@@ -293,7 +301,6 @@ const SettingsScreen: React.FC = () => {
 };
 
 export default SettingsScreen;
-
 
 //Original kode som fungerer. Opprinnelig oppsett.
 

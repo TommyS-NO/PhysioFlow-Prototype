@@ -101,7 +101,7 @@ padding: 15,
     marginVertical: 8,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.5,
     shadowRadius: 1.5,
     elevation: 1,
   },
@@ -149,8 +149,9 @@ padding: 15,
   },
   subMenu: {
     
-    backgroundColor: "#e6e6e6",
+    backgroundColor: "white",
     borderRadius: 5,
+    paddingBottom: 20,
     marginBottom: 20,
     
   },
@@ -164,6 +165,7 @@ padding: 15,
     marginBottom: 5,
     alignSelf: 'center',
     resizeMode: 'contain'
-  },
+  }
+
   
 });
