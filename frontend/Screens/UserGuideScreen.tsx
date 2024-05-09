@@ -1,3 +1,5 @@
+//Navigasjonen her er ulik de andre sidene med navigate. Her er det satt opp en Const
+
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
