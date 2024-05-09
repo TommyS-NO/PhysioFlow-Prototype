@@ -4,8 +4,8 @@ import { theme } from "../../theme";
 export const registerScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: theme.colors.primary,
+    padding: 25,
+
   },
   welcomeImage: {
     width: 300,  
@@ -49,6 +49,14 @@ export const registerScreenStyles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 15,
     alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 0, 
+    },
+    shadowOpacity: 0.23, 
+    shadowRadius: 4.65, 
+    elevation: 8,
   },
   checkboxContainer: {
     flexDirection: "row",
@@ -83,70 +91,3 @@ export const registerScreenStyles = StyleSheet.create({
 
   },
 });
-
-// Med modaloppsett..
-//   container: {
-//     flex: 1,
-//     padding: 20,
-//   },
-//   scrollContentContainer: {
-//     flexGrow: 1,
-//     justifyContent: "center",
-//   },
-//   infoTitle: {
-//     fontSize: 24,
-//     fontWeight: "bold",
-//     marginBottom: 10,
-//     textAlign: "center",
-//     color: theme.colors.text,
-//   },
-//   infoContent: {
-//     fontSize: 16,
-//     textAlign: "center",
-//     marginBottom: 20,
-//     color: theme.colors.text,
-//   },
-//   title: {
-//     fontSize: 24,
-//     fontWeight: "bold",
-//     textAlign: "center",
-//     marginTop: 10,
-//   },
-//   subtitle: {
-//     fontSize: 14,
-//     textAlign: "center",
-//     marginBottom: 10,
-//   },
-
-//   buttonContainer: {
-//     flexDirection: "row",
-//     justifyContent: "space-between",
-//     marginTop: 20,
-//   },
-
-//   welcomeTitle: {
-//     fontSize: 22,
-//     fontWeight: "bold",
-//     marginBottom: 10,
-//     textAlign: "center",
-//   },
-
-//   welcomeText: {
-//     fontSize: 16,
-//     textAlign: "center",
-//     marginBottom: 20,
-//   },
-
-//   checkboxContainer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     marginTop: theme.spacing.small,
-//     marginBottom: theme.spacing.small,
-//   },
-//   checkBoxLabel: {
-//     marginLeft: theme.spacing.small,
-//     fontSize: theme.fontSize.regular,
-//     color: theme.colors.text,
-//   },
-
-// });
