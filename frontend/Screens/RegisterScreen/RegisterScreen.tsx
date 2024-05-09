@@ -136,25 +136,25 @@ const RegisterScreen = () => {
 				break;
 			case 3:
 				if (!formData.gender) {
-					Alert.alert("Feil", "Vennligst velg et kjønn.");
+					Alert.alert("Vennligst velg et kjønn.");
 					return false;
 				}
 				break;
 			case 4:
 				if (!formData.birthday) {
-					Alert.alert("Feil", "Vennligst velg en fødselsdato.");
+					Alert.alert("Vennligst registrer en fødselsdato.");
 					return false;
 				}
 				break;
 			case 5:
 				if (!formData.height) {
-					Alert.alert("Feil", "Vennligst velg en høyde.");
+					Alert.alert("Vennligst registrer en høyde.");
 					return false;
 				}
 				break;
 			case 6:
 				if (!formData.weight) {
-					Alert.alert("Feil", "Vennligst velg en vekt.");
+					Alert.alert("Vennligst registrer en vekt.");
 					return false;
 				}
 				break;
@@ -322,6 +322,10 @@ const RegisterScreen = () => {
 								onValueChange={(value) => handleInputChange("height", value)}
 								unit="cm"
 								label="Høyde"
+							/>
+							<Image
+								source={require("../../Assets/Height.png")}
+								style={styles.welcomeImage}
 							/>
 							<View style={styles.buttonContainer}>
 								<CustomButton
