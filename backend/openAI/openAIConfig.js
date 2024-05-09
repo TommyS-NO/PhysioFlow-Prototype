@@ -5,7 +5,6 @@ import { ValidationError } from "../utils/customError.js";
 dotenv.config();
 
 const apiKey = process.env.OPENAI_API_KEY;
-
 if (!apiKey) {
 	throw new ValidationError("API-nøkkel for OpenAI mangler");
 }
