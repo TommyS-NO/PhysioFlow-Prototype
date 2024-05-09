@@ -6,13 +6,11 @@ export const styles = StyleSheet.create({
   questionContainer: {
     borderBottomWidth: 1,
     borderBottomColor: "#ececec",
-    
     marginBottom: 20,
   },
   questionText: {
     fontSize: 15,
     color: "#333",
-
     marginBottom: 10,
   },
 
@@ -91,5 +89,6 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     color: "black",
     marginBottom: 10,
+    marginTop: 10,
   },
 });
