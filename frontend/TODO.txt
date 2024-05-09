@@ -1,19 +1,15 @@
 Frontend:
 
-
 "Hovedfargen vår, med opacity for å skape kontraster: backgroundColor: 'rgba(38, 128, 124, 0.1)'"
 -Sjekk at det er en rød tråd på alle bakgrunnsfarger, knapper, fonter, størrelser osv.. 
 
 -Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
-
 
 -Kan vi sette opp en default på iOS-plattform på CustomModal
 
 -Må customCheckbox være et komponent eller holder det at det står i koden under RegisterScreen? 
 
 HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette.. 
-
- 
 
 -Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren
 
@@ -22,7 +18,6 @@ HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette..
 -Sett opp en hjemskjerm etter diagnoseforslag
 
 -Modal: Sjekk at alle modelene har samme animasjonstype: animationType="slide"
-
 
 -Fjerne klokkeslett fra "Dine diagnoser"? 
 
@@ -43,6 +38,8 @@ HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette..
 -Fjerne ScrollView i registreringsprosessen. 
 
 Høyde og vekt kommer med store forbokstaver. Får vi endret disse til små?
+
+Legge til "Avbryt" underveis i registreringsprosessen. 
 
 Backend:
 
