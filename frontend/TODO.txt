@@ -1,14 +1,11 @@
 Frontend:
 
--Legg til en beskrivelse av hvordan slider fungerer med tanke på nivåer. Skal den inn i FaQ eller som en boks man kan klikke på for å få opp info der og da? 
--Design:
 
 "Hovedfargen vår, med opacity for å skape kontraster: backgroundColor: 'rgba(38, 128, 124, 0.1)'"
 -Sjekk at det er en rød tråd på alle bakgrunnsfarger, knapper, fonter, størrelser osv.. 
 
 -Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
 
--Rød ramme rundt feil 
 
 -Kan vi sette opp en default på iOS-plattform på CustomModal
 
@@ -16,15 +13,7 @@ Frontend:
 
 HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette.. 
 
--Kontakt oss: Jeg fjernet oppsettet med ikoner for de ulike SoME kanalene ettersom det ikke finnes noe av dette uansett.. Enig?
-Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp noe mer rundt dette.. 
  
--Sett opp "Tilbake" knapp på spørreskjema til fokusområdet. 
-
-
--Modalen som er satt opp ifm infoboks på fokusområdet må endres til CustomModal 
-
--Har fjernet oppsett for å sende melding til behandler. Trenger vi å ha med det? 
 
 -Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren
 
@@ -50,6 +39,10 @@ Sammenlign oppsettet med KeyboardAvoidingView på iOS og Andriod. Må sette opp 
 -Fjerne "Vis øvelser" på diagnoseresultater som henviser til behandler? Evt. sette opp alert ved trykk på knapp..
 
 -Endre navn fra "kontakt lege" til "kontakt behandler" under diagnoseforslag. 
+
+-Fjerne ScrollView i registreringsprosessen. 
+
+Høyde og vekt kommer med store forbokstaver. Får vi endret disse til små?
 
 Backend:
 
