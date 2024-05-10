@@ -2,19 +2,20 @@ import React, {
 	createContext,
 	useContext,
 	useReducer,
-	Dispatch,
 	useCallback,
 	PropsWithChildren,
 	useEffect,
+	ReactNode,
+	Dispatch,
 } from "react";
+import { collection, getDocs } from "firebase/firestore";
 import {
-	collection,
-	addDoc,
-	deleteDoc,
-	doc,
-	getDocs,
-} from "firebase/firestore";
-import { db } from "../Services/Firebase/FirebaseConfig";
+	auth,
+	db,
+	addDiagnosis,
+	deleteDiagnosis,
+	fetchUserDetailsFromFirestore,
+} from "../Services/Firebase/FirebaseConfig";
 import { apiService } from "../Services/ApiService";
 
 export interface SingleChoiceQuestion {
@@ -52,6 +53,7 @@ export interface Answer {
 }
 
 interface Diagnosis {
+	id: string;
 	title: string;
 	description: string;
 	exercises: string[];
@@ -109,9 +111,7 @@ const SurveyReducer = (
 		case "REMOVE_DIAGNOSIS":
 			return {
 				...state,
-				diagnoses: state.diagnoses.filter(
-					(d) => d.timestamp !== action.diagnosisId,
-				),
+				diagnoses: state.diagnoses.filter((d) => d.id !== action.diagnosisId),
 			};
 		case "LOAD_DIAGNOSES":
 			return {
@@ -129,34 +129,49 @@ export const SurveyContext = createContext<{
 	loadSurvey: (surveyId: string) => Promise<void>;
 	saveDiagnosisToFirestore: (diagnosis: Diagnosis) => Promise<void>;
 	deleteDiagnosisFromFirestore: (diagnosisId: string) => Promise<void>;
+	fetchDiagnoses: () => Promise<void>;
+	loadUserData: (userId: string) => Promise<void>;
 }>({
 	state: initialState,
 	dispatch: () => null,
 	loadSurvey: async () => {},
 	saveDiagnosisToFirestore: async () => {},
 	deleteDiagnosisFromFirestore: async () => {},
+	fetchDiagnoses: async () => {},
+	loadUserData: async () => {},
 });
 
 export const useSurvey = () => useContext(SurveyContext);
 
-function SurveyProvider({ children }: PropsWithChildren<any>) {
+function SurveyProvider({ children }: PropsWithChildren<ReactNode>) {
 	const [state, dispatch] = useReducer(SurveyReducer, initialState);
 
-	useEffect(() => {
-		const fetchDiagnoses = async () => {
-			const querySnapshot = await getDocs(collection(db, "diagnoses"));
-			const diagnoses = querySnapshot.docs.map(
-				(doc) => doc.data() as Diagnosis,
-			);
-			dispatch({ type: "LOAD_DIAGNOSES", diagnoses });
-		};
-		fetchDiagnoses();
+	const fetchDiagnoses = useCallback(async () => {
+		if (!auth.currentUser) return;
+		const userId = auth.currentUser.uid;
+		const querySnapshot = await getDocs(
+			collection(db, "users", userId, "diagnoses"),
+		);
+		const diagnoses = querySnapshot.docs.map((doc) => {
+			const data = doc.data() as Diagnosis;
+			return {
+				id: doc.id,
+				title: data.title,
+				description: data.description,
+				exercises: data.exercises,
+				timestamp: data.timestamp,
+			};
+		});
+		dispatch({ type: "LOAD_DIAGNOSES", diagnoses });
 	}, []);
+
+	useEffect(() => {
+		fetchDiagnoses();
+	}, [fetchDiagnoses]);
 
 	const loadSurvey = useCallback(async (surveyId: string) => {
 		try {
 			const surveyData = await apiService.getSurvey(surveyId);
-			console.log("Survey data:", surveyData);
 			dispatch({
 				type: "LOAD_SURVEY",
 				surveyId,
@@ -167,26 +182,42 @@ function SurveyProvider({ children }: PropsWithChildren<any>) {
 		}
 	}, []);
 
-	const saveDiagnosisToFirestore = async (diagnosis: Diagnosis) => {
+	const saveDiagnosisToFirestore = useCallback(async (diagnosis: Diagnosis) => {
+		if (!auth.currentUser) return;
+		const userId = auth.currentUser.uid;
 		try {
-			const docRef = await addDoc(collection(db, "diagnoses"), diagnosis);
+			await addDiagnosis(userId, diagnosis);
 			dispatch({
 				type: "SAVE_DIAGNOSIS",
-				diagnosis: { ...diagnosis, timestamp: docRef.id },
+				diagnosis,
 			});
 		} catch (error) {
 			console.error("Error saving diagnosis to Firestore:", error);
 		}
-	};
+	}, []);
 
-	const deleteDiagnosisFromFirestore = async (diagnosisId: string) => {
+	const deleteDiagnosisFromFirestore = useCallback(
+		async (diagnosisId: string) => {
+			if (!auth.currentUser) return;
+			const userId = auth.currentUser.uid;
+			try {
+				await deleteDiagnosis(userId, diagnosisId);
+				dispatch({ type: "REMOVE_DIAGNOSIS", diagnosisId });
+			} catch (error) {
+				console.error("Error deleting diagnosis from Firestore:", error);
+			}
+		},
+		[],
+	);
+	const loadUserData = useCallback(async (userId: string) => {
 		try {
-			await deleteDoc(doc(db, "diagnoses", diagnosisId));
-			dispatch({ type: "REMOVE_DIAGNOSIS", diagnosisId });
+			const userData = await fetchUserDetailsFromFirestore(userId);
+			dispatch({ type: "LOAD_DIAGNOSES", diagnoses: userData.diagnoses });
 		} catch (error) {
-			console.error("Error deleting diagnosis from Firestore:", error);
+			console.error("Feil under lasting av brukerdata: ", error);
+			alert("Kunne ikke laste brukerdata. Vennligst prøv igjen senere.");
 		}
-	};
+	}, []);
 
 	return (
 		<SurveyContext.Provider
@@ -196,6 +227,8 @@ function SurveyProvider({ children }: PropsWithChildren<any>) {
 				loadSurvey,
 				saveDiagnosisToFirestore,
 				deleteDiagnosisFromFirestore,
+				fetchDiagnoses,
+				loadUserData,
 			}}
 		>
 			{children}
