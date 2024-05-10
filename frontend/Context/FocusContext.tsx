@@ -1,4 +1,3 @@
-// FocusContext.tsx
 import React, {
 	createContext,
 	useReducer,
