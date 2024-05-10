@@ -41,6 +41,10 @@ Høyde og vekt kommer med store forbokstaver. Får vi endret disse til små?
 
 Legge til "Avbryt" underveis i registreringsprosessen. 
 
+Sette opp "øye" i inputfelt til passord slik at man kan se hva som er skrevet? 
+
+-Hvis vi skal ha Footer på "Om oss" så må stylingen gjøres om. Det er ikke så logisk at denne da kan navigeres fra hvis vi går via innloggngssiden og man ikke har opprettet bruker. Evt. så må den fjernes fra "Settings" og kun være på forsien. 
+
 Backend:
 
  - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
