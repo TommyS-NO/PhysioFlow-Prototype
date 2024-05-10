@@ -6,7 +6,7 @@ import {
   initializeAuth,
   getReactNativePersistence
 } from 'firebase/auth';
-import { getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot, getDoc, addDoc, collection, getDocs } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID } from '@env';
@@ -19,6 +19,14 @@ interface UserProfile {
   weight?: number;
   birthday?: string;
   profileImageUrl?: string;
+}
+
+interface Diagnosis {
+  id?: string;
+  title: string;
+  description: string;
+  exercises: string[];
+  timestamp: string;
 }
 
 const firebaseConfig = {
@@ -34,109 +42,114 @@ const auth = initializeAuth(app, { persistence: getReactNativePersistence(ReactN
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-const registerUser = async (email: string, password: string): Promise<string | null> => {
+//----------User Management Functions----------//
+
+const subscribeToUserProfile = (userId: string, callback: (profile: UserProfile) => void) => {
+  const docRef = doc(db, "users", userId);
+  return onSnapshot(docRef, (doc) => {
+    if (doc.exists()) {
+      callback(doc.data() as UserProfile);
+    }
+  });
+};
+
+
+
+async function registerUser(email: string, password: string): Promise<string | null> {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const userId = userCredential.user.uid;
-
     await initializeUserCollections(userId);
     return userId;
   } catch (error) {
-    console.error("Registreringsfeil:", error);
+    console.error("Registration Error:", error);
     return null;
   }
-};
+}
 
-const initializeUserCollections = async (userId: string) => {
-  const userProfile = doc(db, "users", userId);
+async function initializeUserCollections(userId: string) {
   try {
-    await setDoc(userProfile, { completedExercises: true, diagnoses: true });
+    const userProfile = doc(db, "users", userId);
+    await setDoc(userProfile, {});
     await setDoc(doc(userProfile, "completedExercises", "initial"), { initialized: true });
     await setDoc(doc(userProfile, "diagnoses", "initial"), { initialized: true });
   } catch (error) {
     console.error("Error initializing user collections:", error);
   }
-};
+}
 
-const saveUserProfile = async (userId: string, profile: UserProfile): Promise<boolean> => {
+async function saveUserProfile(userId: string, profile: UserProfile): Promise<void> {
   try {
-    await setDoc(doc(db, "users", userId), profile);
-    return true;
+    await setDoc(doc(db, "users", userId), profile, { merge: true });
   } catch (error) {
-    console.error("Feil ved lagring av brukerprofil:", error);
-    return false;
+    console.error("Error saving user profile:", error);
   }
-};
+}
 
-const updateUserProfile = async (userId: string, updates: Partial<UserProfile>): Promise<void> => {
+async function updateUserProfile(userId: string, updates: Partial<UserProfile>): Promise<void> {
   try {
     await updateDoc(doc(db, "users", userId), updates);
   } catch (error) {
-    console.error("Feil ved oppdatering av brukerprofil:", error);
+    console.error("Error updating user profile:", error);
   }
-};
+}
 
-const fetchUserDetailsFromFirestore = async (userId: string): Promise<UserProfile | undefined> => {
-  const docRef = doc(db, "users", userId);
-  const docSnap = await getDoc(docRef);
-
-  if (docSnap.exists()) {
-    return docSnap.data() as UserProfile;
-  }
-    console.log("Ingen brukerprofil funnet.");
-    return undefined;
-};
-
-const subscribeToUserProfile = (userId: string, setUserProfile: (profile: UserProfile) => void) => {
-  return onSnapshot(doc(db, "users", userId), (document) => {
-    if (document.exists()) {
-      setUserProfile(document.data() as UserProfile);
+const fetchUserDetailsFromFirestore = async (userId: string) => {
+  try {
+    const userProfileRef = doc(db, "users", userId);
+    const userProfileSnap = await getDoc(userProfileRef);
+    let userProfile = {};
+    if (userProfileSnap.exists()) {
+      userProfile = userProfileSnap.data();
+      console.log("Brukerprofil hentet:", userProfile);
     } else {
-      console.error("Ingen brukerprofil funnet.");
+      console.log("Ingen brukerprofil funnet for ID:", userId);
     }
-  }, (error) => {
-    console.error("Feil ved abonnement på brukerprofil:", error);
-  });
-};
 
-const deleteUserAccount = async (userId: string): Promise<boolean> => {
-  try {
-    await deleteDoc(doc(db, "users", userId));
-    if (auth.currentUser && auth.currentUser.uid === userId) {
-      await firebaseDeleteUser(auth.currentUser);
-    }
-    return true;
+    const diagnosesRef = collection(db, "users", userId, "diagnoses");
+    const diagnosisSnapshot = await getDocs(diagnosesRef);
+    const diagnoses = diagnosisSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    console.log("Diagnoser hentet:", diagnoses);
+
+    const exercisesRef = collection(db, "users", userId, "completedExercises");
+    const exercisesSnapshot = await getDocs(exercisesRef);
+    const completedExercises = exercisesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    console.log("Gjennomførte øvelser hentet:", completedExercises);
+
+    return { userProfile, diagnoses, completedExercises };
   } catch (error) {
-    console.error("Feil ved sletting av brukerkonto:", error);
-    return false;
-  }
-};
-// Funksjon for å slette en spesifikk fullført øvelse
-const deleteCompletedExercise = async (userId: string, exerciseId: string): Promise<boolean> => {
-  try {
-    const exerciseRef = doc(db, "users", userId, "completedExercises", exerciseId);
-    await deleteDoc(exerciseRef);
-    console.log("Fullført øvelse slettet.");
-    return true;
-  } catch (error) {
-    console.error("Feil ved sletting av fullført øvelse:", error);
-    return false;
+    console.error("Feil under henting av brukerdetaljer fra Firestore:", error);
+    return { userProfile: {}, diagnoses: [], completedExercises: [] };
   }
 };
 
-// Funksjon for å slette en spesifikk diagnose
-const deleteDiagnosis = async (userId: string, diagnosisId: string): Promise<boolean> => {
-  try {
-    const diagnosisRef = doc(db, "users", userId, "diagnoses", diagnosisId);
-    await deleteDoc(diagnosisRef);
-    console.log("Diagnose slettet.");
-    return true;
-  } catch (error) {
-    console.error("Feil ved sletting av diagnose:", error);
-    return false;
-  }
-};
 
+async function addDiagnosis(userId: string, diagnosis: Diagnosis): Promise<void> {
+  try {
+    await addDoc(collection(db, "users", userId, "diagnoses"), diagnosis);
+  } catch (error) {
+    console.error("Error adding diagnosis:", error);
+  }
+}
+
+async function deleteDiagnosis(userId: string, diagnosisId: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, "users", userId, "diagnoses", diagnosisId));
+  } catch (error) {
+    console.error("Error deleting diagnosis:", error);
+  }
+}
+
+async function fetchCompletedExercises(userId: string) {
+  try {
+    const exercisesRef = collection(db, "users", userId, "completedExercises");
+    const snapshot = await getDocs(exercisesRef);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error("Error fetching completed exercises:", error);
+    return [];
+  }
+}
 
 export {
   app,
@@ -146,9 +159,9 @@ export {
   registerUser,
   saveUserProfile,
   updateUserProfile,
+  addDiagnosis,
+  deleteDiagnosis,
+  fetchCompletedExercises,
   fetchUserDetailsFromFirestore,
-  subscribeToUserProfile,
-  deleteUserAccount,
-  deleteCompletedExercise,
-  deleteDiagnosis
+  subscribeToUserProfile
 };
