@@ -4,7 +4,7 @@ import { theme } from "../../theme";
 export const registerScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 25,
+    padding: 30,
 
   },
   welcomeImage: {
@@ -14,10 +14,6 @@ export const registerScreenStyles = StyleSheet.create({
     marginTop: 20,
   },
 
-  scrollContentContainer: {
-    // flexGrow: 1, Denne flytter alt i midten av skjermen. Skal vi heller ha den og droppe marginTop i formContainer? 
-    justifyContent: "center",
-  },
   infoTitle: {
     fontSize: 20,
     fontWeight: "bold",
@@ -43,9 +39,8 @@ export const registerScreenStyles = StyleSheet.create({
     marginBottom: 10,
   },
   formContainer: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "white",
     padding: 15,
-    marginTop: 50,
     borderRadius: 8,
     marginBottom: 15,
     alignItems: 'center',
@@ -75,7 +70,7 @@ export const registerScreenStyles = StyleSheet.create({
     paddingHorizontal: theme.spacing.small,
   },
   button: {
-    width: 120,
+    width: 90,
     justifyContent: 'center',
     alignItems: 'center', 
     marginHorizontal: 10,
