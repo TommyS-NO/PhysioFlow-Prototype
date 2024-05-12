@@ -7,22 +7,20 @@ import { FocusAreaProvider } from "./Context/FocusContext";
 import SurveyProvider from "./Context/SurveyContext";
 import { ExerciseProvider } from "./Context/ExerciseContext";
 
-export default function App() {
-	return (
-		<UserProvider>
-			<SurveyProvider>
-				<FocusAreaProvider>
-					<ExerciseProvider>
-						<View style={styles.container}>
-							<AppNav />
-							<StatusBar style="auto" />
-						</View>
-					</ExerciseProvider>
-				</FocusAreaProvider>
-			</SurveyProvider>
-		</UserProvider>
-	);
-}
+const App = () => (
+	<UserProvider>
+		<SurveyProvider>
+			<FocusAreaProvider>
+				<ExerciseProvider>
+					<View style={styles.container}>
+						<AppNav />
+						<StatusBar style="auto" />
+					</View>
+				</ExerciseProvider>
+			</FocusAreaProvider>
+		</SurveyProvider>
+	</UserProvider>
+);
 
 const styles = StyleSheet.create({
 	container: {
@@ -30,3 +28,5 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 	},
 });
+
+export default App;

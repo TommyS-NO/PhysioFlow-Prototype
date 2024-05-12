@@ -65,21 +65,27 @@ const FrontScreen = () => {
 			);
 			const user = userCredential.user;
 			const token = await user.getIdToken();
-			const userDetails = await fetchUserDetailsFromFirestore(user.uid);
-			if (!userDetails) {
+			const { userProfile, diagnoses, exercises } =
+				await fetchUserDetailsFromFirestore(user.uid);
+
+			if (!userProfile) {
 				Alert.alert("Feil", "Kunne ikke hente brukerdetaljer.");
 				return;
 			}
+
 			dispatch({
 				type: "LOGIN",
 				token,
 				userId: user.uid,
-				userDetails,
+				userDetails: userProfile,
+				diagnoses,
+				completedExercises: exercises,
 			});
+
 			setEmail("");
 			setPassword("");
 			navigation.navigate("ProfileScreen", {
-				userName: userDetails.username || "Bruker",
+				userName: userProfile.username || "Bruker",
 			});
 		} catch (error) {
 			if (isFirebaseError(error)) {

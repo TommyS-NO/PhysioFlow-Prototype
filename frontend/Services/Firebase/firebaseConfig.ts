@@ -1,17 +1,23 @@
 import { initializeApp } from 'firebase/app';
 import {
-  getAuth,
   createUserWithEmailAndPassword,
-  deleteUser as firebaseDeleteUser,
   initializeAuth,
   getReactNativePersistence
 } from 'firebase/auth';
-import { getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot, getDoc, addDoc, collection, getDocs } from 'firebase/firestore';
+import {
+  getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot,
+  getDoc, addDoc, collection, getDocs, writeBatch
+} from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID } from '@env';
 
-interface UserProfile {
+interface CommonAttributes {
+  id: string;
+  initialized?: boolean;
+}
+
+interface UserProfile extends CommonAttributes {
   username?: string;
   email: string;
   gender?: 'male' | 'female' | 'unspecified';
@@ -21,39 +27,32 @@ interface UserProfile {
   profileImageUrl?: string;
 }
 
-interface Diagnosis {
-  id?: string;
+interface Diagnosis extends CommonAttributes {
   title: string;
   description: string;
   exercises: string[];
   timestamp: string;
 }
 
-const firebaseConfig = {
-  apiKey: API_KEY,
-  authDomain: AUTH_DOMAIN,
-  projectId: PROJECT_ID,
-  messagingSenderId: MESSAGING_SENDER_ID,
-  appId: APP_ID,
-};
+interface UserExercise extends CommonAttributes {
+  name: string;
+  description: string;
+  image: string;
+  category: string;
+  status?: "pending" | "completed";
+  completedAt?: string;
+}
 
+const firebaseConfig = { apiKey: API_KEY, authDomain: AUTH_DOMAIN, projectId: PROJECT_ID, messagingSenderId: MESSAGING_SENDER_ID, appId: APP_ID };
 const app = initializeApp(firebaseConfig);
 const auth = initializeAuth(app, { persistence: getReactNativePersistence(ReactNativeAsyncStorage) });
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-//----------User Management Functions----------//
-
 const subscribeToUserProfile = (userId: string, callback: (profile: UserProfile) => void) => {
   const docRef = doc(db, "users", userId);
-  return onSnapshot(docRef, (doc) => {
-    if (doc.exists()) {
-      callback(doc.data() as UserProfile);
-    }
-  });
+  return onSnapshot(docRef, doc => { if (doc.exists()) callback(doc.data() as UserProfile); });
 };
-
-
 
 async function registerUser(email: string, password: string): Promise<string | null> {
   try {
@@ -68,100 +67,78 @@ async function registerUser(email: string, password: string): Promise<string | n
 }
 
 async function initializeUserCollections(userId: string) {
-  try {
-    const userProfile = doc(db, "users", userId);
-    await setDoc(userProfile, {});
-    await setDoc(doc(userProfile, "completedExercises", "initial"), { initialized: true });
-    await setDoc(doc(userProfile, "diagnoses", "initial"), { initialized: true });
-  } catch (error) {
-    console.error("Error initializing user collections:", error);
-  }
+    const userProfileRef = doc(db, "users", userId);
+    const batch = writeBatch(db);
+    batch.set(userProfileRef, { profileInitialized: true });
+    batch.set(doc(userProfileRef, "completedExercises", "initial"), { initialized: true });
+    batch.set(doc(userProfileRef, "diagnoses", "initial"), { initialized: true });
+    batch.set(doc(userProfileRef, "userExercises", "initial"), { initialized: true });
+    await batch.commit();
 }
 
+
 async function saveUserProfile(userId: string, profile: UserProfile): Promise<void> {
-  try {
-    await setDoc(doc(db, "users", userId), profile, { merge: true });
-  } catch (error) {
-    console.error("Error saving user profile:", error);
-  }
+  await setDoc(doc(db, "users", userId), profile, { merge: true });
 }
 
 async function updateUserProfile(userId: string, updates: Partial<UserProfile>): Promise<void> {
-  try {
-    await updateDoc(doc(db, "users", userId), updates);
-  } catch (error) {
-    console.error("Error updating user profile:", error);
-  }
+  await updateDoc(doc(db, "users", userId), updates);
 }
 
 const fetchUserDetailsFromFirestore = async (userId: string) => {
-  try {
-    const userProfileRef = doc(db, "users", userId);
-    const userProfileSnap = await getDoc(userProfileRef);
-    let userProfile = {};
-    if (userProfileSnap.exists()) {
-      userProfile = userProfileSnap.data();
-      console.log("Brukerprofil hentet:", userProfile);
-    } else {
-      console.log("Ingen brukerprofil funnet for ID:", userId);
-    }
-
-    const diagnosesRef = collection(db, "users", userId, "diagnoses");
-    const diagnosisSnapshot = await getDocs(diagnosesRef);
-    const diagnoses = diagnosisSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    console.log("Diagnoser hentet:", diagnoses);
-
-    const exercisesRef = collection(db, "users", userId, "completedExercises");
-    const exercisesSnapshot = await getDocs(exercisesRef);
-    const completedExercises = exercisesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    console.log("Gjennomførte øvelser hentet:", completedExercises);
-
-    return { userProfile, diagnoses, completedExercises };
-  } catch (error) {
-    console.error("Feil under henting av brukerdetaljer fra Firestore:", error);
-    return { userProfile: {}, diagnoses: [], completedExercises: [] };
-  }
+  const userProfile = await fetchDocument<UserProfile>("users", userId);
+  const diagnoses = await fetchCollection<Diagnosis>("diagnoses", userId);
+  const completedExercises = await fetchCollection<CommonAttributes>("completedExercises", userId);
+  const userExercises = await fetchCollection<UserExercise>("userExercises", userId);
+  return { userProfile, diagnoses, completedExercises, userExercises };
 };
+
+async function fetchDocument<T extends CommonAttributes>(collectionPath: string, docId: string): Promise<T> {
+  const docRef = doc(db, collectionPath, docId);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? (docSnap.data() as T) : null;
+}
+
+async function fetchCollection<T extends CommonAttributes>(collectionName: string, userId: string): Promise<T[]> {
+  const ref = collection(db, "users", userId, collectionName);
+  const snapshot = await getDocs(ref);
+  return snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as T)).filter(item => !item.initialized);
+}
 
 
 async function addDiagnosis(userId: string, diagnosis: Diagnosis): Promise<void> {
-  try {
-    await addDoc(collection(db, "users", userId, "diagnoses"), diagnosis);
-  } catch (error) {
-    console.error("Error adding diagnosis:", error);
-  }
+  await addDoc(collection(db, "users", userId, "diagnoses"), diagnosis);
 }
 
 async function deleteDiagnosis(userId: string, diagnosisId: string): Promise<void> {
-  try {
-    await deleteDoc(doc(db, "users", userId, "diagnoses", diagnosisId));
-  } catch (error) {
-    console.error("Error deleting diagnosis:", error);
-  }
+  await deleteDoc(doc(db, "users", userId, "diagnoses", diagnosisId));
 }
 
-async function fetchCompletedExercises(userId: string) {
-  try {
-    const exercisesRef = collection(db, "users", userId, "completedExercises");
-    const snapshot = await getDocs(exercisesRef);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  } catch (error) {
-    console.error("Error fetching completed exercises:", error);
-    return [];
-  }
+async function addUserExercise(userId: string, exercise: UserExercise) {
+  await addDoc(collection(db, "users", userId, "userExercises"), exercise);
+}
+
+async function updateUserExerciseStatus(userId: string, exerciseId: string, status: "pending" | "completed"): Promise<void> {
+  await updateDoc(doc(db, "users", userId, "userExercises", exerciseId), { status, completedAt: status === "completed" ? new Date() : null });
+}
+
+async function deleteUserExercise(userId: string, exerciseId: string): Promise<void> {
+  await deleteDoc(doc(db, "users", userId, "userExercises", exerciseId));
 }
 
 export {
-  app,
-  auth,
-  db,
-  storage,
-  registerUser,
-  saveUserProfile,
-  updateUserProfile,
-  addDiagnosis,
-  deleteDiagnosis,
-  fetchCompletedExercises,
-  fetchUserDetailsFromFirestore,
-  subscribeToUserProfile
+	app,
+	auth,
+	db,
+	storage,
+	registerUser,
+	saveUserProfile,
+	updateUserProfile,
+	addDiagnosis,
+	deleteDiagnosis,
+	fetchUserDetailsFromFirestore,
+	subscribeToUserProfile,
+	deleteUserExercise,
+	addUserExercise,
+	updateUserExerciseStatus, fetchCollection
 };

@@ -2,6 +2,14 @@ type SurveyId = string;
 type Answers = Record<string, string | number>;
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+const handleResponse = async (response: Response) => {
+  if (!response.ok) {
+
+    const errorData = await response.json().catch(() => ({ message: "Unable to parse error response" }));
+    throw new Error(errorData.message || 'An unknown error occurred.');
+  }
+  return response.json();
+};
 
 const translateSurveyId = (surveyId: SurveyId): string => {
   const surveyIdMap: Record<SurveyId, string> = {
@@ -23,10 +31,7 @@ const apiService = {
   getSurvey: async (surveyId: SurveyId) => {
     const translatedSurveyId = translateSurveyId(surveyId);
     const response = await fetch(`${BASE_URL}/api/survey/${translatedSurveyId}`);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch survey with ID: ${translatedSurveyId}`);
-    }
-    return response.json();
+    return handleResponse(response);
   },
 
   submitSurvey: async (surveyId: SurveyId, answers: Answers) => {
@@ -36,18 +41,12 @@ const apiService = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(answers),
     });
-    if (!response.ok) {
-      throw new Error(`Failed to submit answers for survey ID: ${translatedSurveyId}`);
-    }
-    return response.json();
+    return handleResponse(response);
   },
 
   getAllExercises: async () => {
     const response = await fetch(`${BASE_URL}/api/exercises`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch all exercises');
-    }
-    return response.json();
+    return handleResponse(response);
   },
 
   getExerciseDetails: async (exerciseNames: string[]) => {
@@ -56,10 +55,7 @@ const apiService = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ exercises: exerciseNames }),
     });
-    if (!response.ok) {
-      throw new Error('Failed to fetch exercise details');
-    }
-    return response.json();
+    return handleResponse(response);
   },
 
   startAIChat: async (userId: string) => {
@@ -68,10 +64,7 @@ const apiService = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId }),
     });
-    if (!response.ok) {
-      throw new Error(`Failed to start AI chat for user ID: ${userId}`);
-    }
-    return response.json();
+    return handleResponse(response);
   },
 
   sendMessageToAIChat: async (chatId: string, message: string) => {
@@ -80,10 +73,7 @@ const apiService = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message }),
     });
-    if (!response.ok) {
-      throw new Error(`Failed to send message to AI chat with chat ID: ${chatId}`);
-    }
-    return response.json();
+    return handleResponse(response);
   },
 };
 

@@ -1,18 +1,21 @@
-import React, { useContext, useState } from "react";
-import { View, FlatList, Alert, ScrollView } from "react-native";
-import { Exercise, ExerciseContext } from "../../Context/ExerciseContext";
+import React, { useState, useEffect } from "react";
+import { View, FlatList, Alert, Text, ScrollView } from "react-native";
+import { useExercises } from "../../Context/ExerciseContext";
 import { useSurvey } from "../../Context/SurveyContext";
 import { useUser } from "../../Context/UserContext";
-import { styles } from "./ExerciseOverviewScreen_Style";
 import CustomModal from "../../Components/CustomModal/CustomModal";
 import CustomButton from "../../Components/CustomButton/CustomButton";
 import ExerciseItem from "./ExerciseItemComponent";
 import QuestionItem from "./QuestionItemComponent";
 import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
+import { styles } from "./ExerciseOverviewScreen_Style";
 
-const ExerciseOverviewScreen = () => {
-	const { selectedExercises, removeExercise, updateExerciseStatus } =
-		useContext(ExerciseContext);
+const ExerciseOverviewScreen: React.FC = () => {
+	const { exercises, fetchExercises, removeExercise, updateExerciseStatus } =
+		useExercises();
+
+	console.log("Exercises from context:", exercises); // Log exercises from context
+
 	const {
 		state: surveyState,
 		dispatch: surveyDispatch,
@@ -22,24 +25,28 @@ const ExerciseOverviewScreen = () => {
 	const [isSurveyVisible, setSurveyVisible] = useState(false);
 	const [activeExerciseId, setActiveExerciseId] = useState<string | null>(null);
 
-	const handleCompleteExercise = async (exercise: Exercise) => {
-		if (!exercise.id) {
-			console.error(
-				"Error: exerciseId is undefined when trying to complete an exercise.",
-			);
-			return;
-		}
+	useEffect(() => {
+		console.log("Fetching exercises..."); // Log before fetching
+		fetchExercises();
+	}, [fetchExercises]);
 
+	useEffect(() => {
+		console.log("Exercises fetched and rendered:", exercises);
+	}, [exercises]);
+
+	const handleCompleteExercise = async (exerciseId: string) => {
+		console.log(`Completing exercise with id ${exerciseId}`); // Log which exercise is being completed
 		try {
 			await loadSurvey("followup");
-			setActiveExerciseId(exercise.id);
+			setActiveExerciseId(exerciseId);
 			setSurveyVisible(true);
 		} catch (error) {
-			console.error("Error loading survey:", error);
+			Alert.alert("Error", `Could not load the survey: ${error.message}`);
 		}
 	};
 
 	const handleAnswerChange = (questionId: string, answer: string | number) => {
+		console.log(`Answering question ${questionId} with answer ${answer}`); // Log question answers
 		surveyDispatch({
 			type: "ANSWER_QUESTION",
 			questionId,
@@ -48,15 +55,16 @@ const ExerciseOverviewScreen = () => {
 	};
 
 	const handleSubmit = async () => {
+		console.log("Submitting survey..."); // Log before submitting
 		const allAnswered = surveyState.questions.every((question) => {
 			const answer = surveyState.answers[question.id];
-
-			return answer && (answer.answer !== "" || answer.answer === 0);
+			return (
+				answer !== undefined && (answer.answer !== "" || answer.answer === 0)
+			);
 		});
 
-		if (allAnswered) {
+		if (allAnswered && activeExerciseId) {
 			try {
-				console.log("Submitting answers: ", surveyState.answers);
 				await completeExercise(
 					userState.userId,
 					activeExerciseId,
@@ -77,11 +85,13 @@ const ExerciseOverviewScreen = () => {
 	};
 
 	const closeSurvey = () => {
+		console.log("Closing survey..."); // Log when closing survey
 		setSurveyVisible(false);
 		setActiveExerciseId(null);
 	};
 
 	const handleRemoveExercise = (exerciseId: string) => {
+		console.log(`Removing exercise with id ${exerciseId}`); // Log which exercise is being removed
 		Alert.alert(
 			"Fjerne øvelse",
 			"Er du sikker på at du vil fjerne denne øvelsen fra listen din?",
@@ -89,8 +99,8 @@ const ExerciseOverviewScreen = () => {
 				{ text: "Avbryt", style: "cancel" },
 				{
 					text: "Fjern",
-					onPress: () => removeExercise(exerciseId),
 					style: "destructive",
+					onPress: () => removeExercise(exerciseId),
 				},
 			],
 		);
@@ -121,13 +131,13 @@ const ExerciseOverviewScreen = () => {
 				<CustomButton title="Bekreft" onPress={handleSubmit} />
 			</CustomModal>
 			<FlatList
-				data={selectedExercises}
+				data={exercises}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => (
 					<ExerciseItem
 						exercise={item}
 						onEdit={() => console.log(`Rediger øvelse ${item.id}`)}
-						onComplete={() => handleCompleteExercise(item)}
+						onComplete={() => handleCompleteExercise(item.id)}
 						onRemove={() => handleRemoveExercise(item.id)}
 						isActive={isSurveyVisible && activeExerciseId === item.id}
 					/>

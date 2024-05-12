@@ -1,15 +1,19 @@
 import React, {
 	createContext,
-	useState,
-	ReactNode,
-	useCallback,
+	useReducer,
 	useContext,
+	useCallback,
 	useEffect,
 } from "react";
-import { apiService } from "../Services/ApiService";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+	auth,
+	addUserExercise,
+	deleteUserExercise,
+	updateUserExerciseStatus,
+	fetchUserDetailsFromFirestore,
+} from "../Services/Firebase/FirebaseConfig";
 
-export type Exercise = {
+interface Exercise {
 	id: string;
 	name: string;
 	description: string;
@@ -17,174 +21,195 @@ export type Exercise = {
 	category: string;
 	status?: "pending" | "completed";
 	completedAt?: string;
+}
+
+interface ExerciseState {
+	exercises: Exercise[];
+	loading: boolean;
+	error: string | null;
+}
+
+interface ExerciseProviderProps {
+	children: React.ReactNode;
+}
+
+type ExerciseAction =
+	| { type: "SET_EXERCISES"; payload: Exercise[] }
+	| { type: "ADD_EXERCISE"; payload: Exercise }
+	| { type: "REMOVE_EXERCISE"; id: string }
+	| {
+			type: "UPDATE_EXERCISE_STATUS";
+			id: string;
+			status: "pending" | "completed";
+	  }
+	| { type: "SET_LOADING"; loading: boolean }
+	| { type: "SET_ERROR"; error: string | null };
+
+const initialState: ExerciseState = {
+	exercises: [],
+	loading: false,
+	error: null,
 };
 
-export interface ExerciseContextType {
-	exercises: Exercise[];
-	selectedExercises: Exercise[];
-	addExercise: (exercise: Exercise) => void;
-	removeExercise: (exerciseId: string) => void;
-	toggleExerciseSelected: (exercise: Exercise) => void;
+const ExerciseContext = createContext<{
+	state: ExerciseState;
+	dispatch: React.Dispatch<ExerciseAction>;
+	addExercise: (exercise: Exercise) => Promise<void>;
+	removeExercise: (exerciseId: string) => Promise<void>;
 	updateExerciseStatus: (
 		exerciseId: string,
 		status: "pending" | "completed",
-	) => void;
-	loading: boolean;
-	error: string | null;
+	) => Promise<void>;
 	fetchExercises: () => Promise<void>;
-}
-
-export type ExerciseApiData = {
-	description: string;
-	image: string;
-	category?: string;
-};
-
-type AllExercisesApiResponse = Record<string, ExerciseApiData>;
-
-const defaultContextValue: ExerciseContextType = {
-	exercises: [],
-	selectedExercises: [],
-	addExercise: () => {},
-	removeExercise: () => {},
-	toggleExerciseSelected: () => {},
-	updateExerciseStatus: () => {},
-	loading: false,
-	error: null,
+}>({
+	state: initialState,
+	dispatch: () => undefined,
+	addExercise: async () => {},
+	removeExercise: async () => {},
+	updateExerciseStatus: async () => {},
 	fetchExercises: async () => {},
+});
+
+const exerciseReducer = (
+	state: ExerciseState,
+	action: ExerciseAction,
+): ExerciseState => {
+	switch (action.type) {
+		case "SET_EXERCISES":
+			return { ...state, exercises: action.payload, loading: false };
+		case "ADD_EXERCISE":
+			return { ...state, exercises: [...state.exercises, action.payload] };
+		case "REMOVE_EXERCISE":
+			return {
+				...state,
+				exercises: state.exercises.filter((ex) => ex.id !== action.id),
+			};
+		case "UPDATE_EXERCISE_STATUS":
+			return {
+				...state,
+				exercises: state.exercises.map((ex) =>
+					ex.id === action.id ? { ...ex, status: action.status } : ex,
+				),
+			};
+		case "SET_LOADING":
+			return { ...state, loading: action.loading };
+		case "SET_ERROR":
+			return { ...state, error: action.error };
+		default:
+			return state;
+	}
 };
-
-export const ExerciseContext =
-	createContext<ExerciseContextType>(defaultContextValue);
-
-export const useExercises = () => useContext(ExerciseContext);
-
-interface ExerciseProviderProps {
-	children: ReactNode;
-}
 
 export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 	children,
 }) => {
-	const [exercises, setExercises] = useState<Exercise[]>([]);
-	const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([]);
-	const [loading, setLoading] = useState<boolean>(false);
-	const [error, setError] = useState<string | null>(null);
-
-	const updateAsyncStorage = useCallback(
-		async (selectedExercises: Exercise[]) => {
-			try {
-				const jsonValue = JSON.stringify(selectedExercises);
-				await AsyncStorage.setItem("selectedExercises", jsonValue);
-			} catch (e) {
-				console.error("Error saving selected exercises:", e);
-			}
-		},
-		[],
-	);
-	useEffect(() => {
-		const loadSelectedExercises = async () => {
-			try {
-				const storedSelectedExercises =
-					await AsyncStorage.getItem("selectedExercises");
-				if (storedSelectedExercises) {
-					setSelectedExercises(JSON.parse(storedSelectedExercises));
-				}
-			} catch (e) {
-				console.error("Error loading selected exercises:", e);
-			}
-		};
-
-		loadSelectedExercises();
-	}, []);
-
-	useEffect(() => {
-		updateAsyncStorage(selectedExercises);
-	}, [selectedExercises, updateAsyncStorage]);
-
-	const addExercise = useCallback((newExercise: Exercise) => {
-		setSelectedExercises((prevExercises) => {
-			const timestamp = Date.now();
-			const newId = `${newExercise.id}_${timestamp}`;
-			const newExerciseWithUniqueId = { ...newExercise, id: newId };
-			return [...prevExercises, newExerciseWithUniqueId];
-		});
-	}, []);
-
-	const removeExercise = useCallback((exerciseId: string) => {
-		setSelectedExercises((prevExercises) =>
-			prevExercises.filter((exercise) => exercise.id !== exerciseId),
-		);
-	}, []);
-
-	const toggleExerciseSelected = useCallback((exercise: Exercise) => {
-		setSelectedExercises((prevExercises) => {
-			if (prevExercises.some((e) => e.id === exercise.id)) {
-				return prevExercises.filter((e) => e.id !== exercise.id);
-			}
-			return [...prevExercises, exercise];
-		});
-	}, []);
-
-	const updateExerciseStatus = useCallback(
-		(exerciseId: string, status: "pending" | "completed") => {
-			setSelectedExercises((prevExercises) =>
-				prevExercises.map((exercise) => {
-					if (exercise.id === exerciseId) {
-						return {
-							...exercise,
-							status: status,
-							completedAt:
-								status === "completed"
-									? new Date().toLocaleDateString()
-									: exercise.completedAt,
-						};
-					}
-					return exercise;
-				}),
-			);
-		},
-		[],
-	);
+	const [state, dispatch] = useReducer(exerciseReducer, initialState);
 
 	const fetchExercises = useCallback(async () => {
-		setLoading(true);
-		setError(null);
-		try {
-			const allExercisesResponse: AllExercisesApiResponse =
-				await apiService.getAllExercises();
-			const exercisesArray: Exercise[] = Object.entries(
-				allExercisesResponse,
-			).map(([name, details]) => ({
-				id: name.toLowerCase().replace(/\s+/g, "_"),
-				name: name,
-				description: details.description,
-				image: details.image,
-				category: details.category ?? "Uncategorized",
-			}));
-			setExercises(exercisesArray);
-		} catch (e) {
-			setError("Could not fetch exercises");
-			console.error(e);
+		dispatch({ type: "SET_LOADING", loading: true });
+		if (!auth.currentUser) {
+			console.log("No authenticated user found.");
+			dispatch({ type: "SET_ERROR", error: "User not authenticated" });
+			return;
 		}
-		setLoading(false);
+		try {
+			const userId = auth.currentUser.uid;
+			console.log("Fetching exercises for user:", userId);
+
+			const details = await fetchUserDetailsFromFirestore(userId);
+			console.log("Details fetched:", details);
+
+			const allExercises = [
+				...details.userExercises,
+				...details.completedExercises.map((ex) => ({
+					...ex,
+					status: "completed",
+				})),
+			];
+			console.log("All exercises compiled:", allExercises);
+
+			dispatch({ type: "SET_EXERCISES", payload: allExercises });
+			dispatch({ type: "SET_LOADING", loading: false });
+		} catch (error) {
+			console.error("Error fetching exercises:", error);
+			dispatch({ type: "SET_ERROR", error: error.message });
+			dispatch({ type: "SET_LOADING", loading: false });
+		}
 	}, []);
+
+	useEffect(() => {
+		fetchExercises();
+	}, [fetchExercises]);
 
 	return (
 		<ExerciseContext.Provider
 			value={{
-				exercises,
-				selectedExercises,
-				addExercise,
-				removeExercise,
-				toggleExerciseSelected,
-				loading,
-				error,
+				state,
+				dispatch,
+				addExercise: async (exercise: Exercise) => {
+					try {
+						const userId = auth.currentUser?.uid;
+						if (userId) {
+							const docRef = await addUserExercise(userId, exercise);
+							dispatch({
+								type: "ADD_EXERCISE",
+								payload: { ...exercise, id: docRef.id },
+							});
+						} else {
+							throw new Error("User not authenticated");
+						}
+					} catch (error) {
+						dispatch({
+							type: "SET_ERROR",
+							error: error.message || "Failed to add exercise",
+						});
+					}
+				},
+				removeExercise: async (exerciseId: string) => {
+					try {
+						const userId = auth.currentUser?.uid;
+						if (userId) {
+							await deleteUserExercise(userId, exerciseId);
+							dispatch({ type: "REMOVE_EXERCISE", id: exerciseId });
+						} else {
+							throw new Error("User not authenticated");
+						}
+					} catch (error) {
+						dispatch({
+							type: "SET_ERROR",
+							error: error.message || "Failed to remove exercise",
+						});
+					}
+				},
+				updateExerciseStatus: async (
+					exerciseId: string,
+					status: "pending" | "completed",
+				) => {
+					try {
+						const userId = auth.currentUser?.uid;
+						if (userId) {
+							await updateUserExerciseStatus(userId, exerciseId, status);
+							dispatch({
+								type: "UPDATE_EXERCISE_STATUS",
+								id: exerciseId,
+								status,
+							});
+						} else {
+							throw new Error("User not authenticated");
+						}
+					} catch (error) {
+						dispatch({
+							type: "SET_ERROR",
+							error: error.message || "Failed to update exercise status",
+						});
+					}
+				},
 				fetchExercises,
-				updateExerciseStatus,
 			}}
 		>
 			{children}
 		</ExerciseContext.Provider>
 	);
 };
+
+export const useExercises = () => useContext(ExerciseContext);
