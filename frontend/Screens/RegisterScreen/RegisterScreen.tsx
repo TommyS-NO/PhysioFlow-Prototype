@@ -23,7 +23,7 @@ import {
 	registerUser,
 	saveUserProfile,
 } from "../../Services/Firebase/FirebaseConfig";
-import { theme } from "../../theme";
+
 import { doc, setDoc } from "firebase/firestore";
 
 type RegisterScreenNavigationProp = StackNavigationProp<

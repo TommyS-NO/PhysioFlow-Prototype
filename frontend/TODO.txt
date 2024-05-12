@@ -3,7 +3,7 @@ Frontend:
 "Hovedfargen vår, med opacity for å skape kontraster: backgroundColor: 'rgba(38, 128, 124, 0.1)'"
 -Sjekk at det er en rød tråd på alle bakgrunnsfarger, knapper, fonter, størrelser osv.. 
 
--Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
+**TO-DO!**Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
 
 -Kan vi sette opp en default på iOS-plattform på CustomModal
 
@@ -19,7 +19,6 @@ HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette..
 
 -Modal: Sjekk at alle modelene har samme animasjonstype: animationType="slide"
 
--Fjerne klokkeslett fra "Dine diagnoser"? 
 
 -Diagnostisering: iOS- når man trykker vis anbefalte øvelser så går ikke modalen vekk av seg selv. Det må den gjøre. Den navigerer til riktig side, men modalen blir stående. 
 
@@ -37,7 +36,6 @@ HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette..
 
 -Fjerne ScrollView i registreringsprosessen. 
 
-Høyde og vekt kommer med store forbokstaver. Får vi endret disse til små?
 
 Legge til "Avbryt" underveis i registreringsprosessen. 
 
@@ -51,7 +49,7 @@ Backend:
  To do, enten før eller etter presentasjon: 
 
  -Endre farge på spørsmålstegn i hjelpeknapp til hvit?
- -Skal hjelpeknappen gå igjen på alle sidene? 
+
  -Endre farge på "front" (tilbakeknapp) til grønn
  -Endre oppsett på "Om oss" og "kontakt oss" på forsiden? Gjør mer synlig.. 
  -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
