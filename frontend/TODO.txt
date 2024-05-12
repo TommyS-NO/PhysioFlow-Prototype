@@ -4,26 +4,17 @@ FIXME: Må customCheckbox være et komponent eller holder det at det står i kod
 FIXME:Sette opp mulighet for å endre e-post og passord under Settings-siden.
 FIXME: Hente diagnoseTITTEL på oversikt over diagnoser.
 FIXME: Fjerne ScrollView i registreringsprosessen. 
-
 FIXME: NESTED CONTAIners BRUKERVEILedning// sjekk hiariket
-
 FIXME: Rydd i package.json FRONTEND og ROOT
-
 FIXME: Legg til alternativ tekst på bildene som er brukt
 FIXME: Endre til custom button på alle knapper. Endre til touchopacity
 FIXME: om oss /kontakt oss til Frontscreen, Slett fra BRUKERVEILedning
 FIXME: Endre konakt oss og om oss til Modal ? hvis mulig og lett.
-
 FIXME: RAPPORT
-
 FIXME: Generelt gjennomgang av styling oppsett!
-
 FIXME: README!!
-
 FIXME: Slett da customCheckbox
-
 FIXME: FIx uniq key error i diagnose!
-
 FIXME: JIRA! JIRA JIRA
 FIXME: Bilde Bodychart!! 
 
@@ -32,26 +23,15 @@ FIXME: Bilde Bodychart!!
 TODO:!!
 
 TODO: Slett CustomButton ? ? ? Benytt touchopacitys?
-
 TODO: Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren
-
 TODO: KeyboardAvoidingView på chat screen fungerer ikke på Android
-
 TODO: Onclose funksjon for tilbake til ProfilScreen
 TODO: Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
-
 TODO: Diagnostisering: iOS- når man trykker vis anbefalte øvelser så går ikke modalen vekk av seg selv. Det må den gjøre. Den navigerer til riktig side, men modalen blir stående. 
-
 TODO: Legge til "Avbryt" underveis i registreringsprosessen. (navigere tilbake til Frontscreen)
-
 TODO: Sjekk at det er samme toogle-oppsett på profil og settings screen
-
 TODO:Endre oppsett på "Om oss" og "kontakt oss" på forsiden? Gjør mer synlig.. 
-
 TODO:Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
-
 TODO: Flytte knapper nederst på siden . Eks. "Neste"
-
 TODO: Kontakt oss- logikk for mottak av epost
-
 TODO: Se på Slider Farger og oppsett
