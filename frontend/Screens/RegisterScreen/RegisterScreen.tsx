@@ -26,7 +26,6 @@ import {
 import { theme } from "../../theme";
 import { doc, setDoc } from "firebase/firestore";
 
-
 type RegisterScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
 	"Register"
@@ -220,7 +219,11 @@ const RegisterScreen = () => {
 							</View>
 						</View>
 						<View>
-							<CustomButton title="Neste" onPress={handleNextStep}  buttonStyle={styles.nextButtonStyle} />
+							<CustomButton
+								title="Neste"
+								onPress={handleNextStep}
+								buttonStyle={styles.nextButtonStyle}
+							/>
 						</View>
 					</View>
 				);
@@ -314,11 +317,11 @@ const RegisterScreen = () => {
 							<Text style={styles.infoTitle}>Hvor høy er du?</Text>
 							{/* <Text style={styles.subtitle}>Trykk på verdien for å endre</Text> */}
 							<NumberSpinner
-								data={Array.from({ length: 121 }, (_, i) => 100 + i)}
+								data={Array.from({ length: 121 }, (_, i) => 150 + i)}
 								selectedValue={formData.height}
 								onValueChange={(value) => handleInputChange("height", value)}
 								unit="cm"
-								label="Høyde"
+								label="høyde"
 							/>
 							<Image
 								source={require("../../Assets/Height.png")}
@@ -347,11 +350,11 @@ const RegisterScreen = () => {
 							<Text style={styles.infoTitle}>Hvor mye veier du?</Text>
 							{/* <Text style={styles.subtitle}>Trykk på verdien for å endre</Text> */}
 							<NumberSpinner
-								data={Array.from({ length: 171 }, (_, i) => 30 + i)}
+								data={Array.from({ length: 171 }, (_, i) => 45 + i)}
 								selectedValue={formData.weight}
 								onValueChange={(value) => handleInputChange("weight", value)}
 								unit="kg"
-								label="Vekt"
+								label="vekt"
 							/>
 							<Image
 								source={require("../../Assets/Weight.png")}
