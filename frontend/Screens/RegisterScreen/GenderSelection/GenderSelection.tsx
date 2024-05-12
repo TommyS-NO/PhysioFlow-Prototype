@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { theme } from "../..theme";
 
 interface GenderSelectionProps {
   selectedGender: "male" | "female" | "unspecified" | undefined;
@@ -16,7 +17,7 @@ const GenderSelection = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Velg kjønn</Text>
+      <Text style={styles.infoTitle}>Velg kjønn:</Text>
       <View style={styles.genderOptionsContainer}>
         <TouchableOpacity
           style={[
@@ -74,10 +75,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  title: {
-    fontSize: 22,
-    marginBottom: 20,
+
+  infoTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 30,
+    textAlign: "center",
   },
+
   genderOptionsContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",

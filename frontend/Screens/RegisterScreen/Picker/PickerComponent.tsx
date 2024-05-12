@@ -90,9 +90,10 @@ const styles = StyleSheet.create({
 		padding: 16,
 	},
 	label: {
-		fontSize: 16,
-		color: "#000",
-		marginBottom: 8,
+		fontSize: 18,
+		color: "#26807C",
+		marginBottom: 10,
+	
 	},
 	valueText: {
 		fontSize: 16,

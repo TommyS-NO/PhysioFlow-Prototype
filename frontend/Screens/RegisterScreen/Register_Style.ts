@@ -4,20 +4,21 @@ import { theme } from "../../theme";
 export const registerScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
+
 
   },
   welcomeImage: {
-    width: 300,  
-    height: 250,  
-    resizeMode: 'contain',  
-    marginTop: 20,
+    width: 280,  
+    height: 200,
+    marginTop:20,  
+borderRadius: 8,
+
   },
 
   infoTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 30,
+marginBottom: 20,
     textAlign: "center",
     color: theme.colors.text,
   },
@@ -31,6 +32,7 @@ export const registerScreenStyles = StyleSheet.create({
 
   infoText: {
     fontSize: 18,
+  
   },
 
   subtitle: {
@@ -39,6 +41,7 @@ export const registerScreenStyles = StyleSheet.create({
     marginBottom: 10,
   },
   formContainer: {
+    margin: 30,
     backgroundColor: "white",
     padding: 15,
     borderRadius: 8,
@@ -62,13 +65,17 @@ export const registerScreenStyles = StyleSheet.create({
   },
 
   input: {
-    height: 50,
+    height: 40,
     width: "100%",
     borderColor: "#cccc",
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: theme.spacing.small,
   },
+
+nextButtonStyle: {
+  width: 120,
+},
   button: {
     width: 90,
     justifyContent: 'center',
