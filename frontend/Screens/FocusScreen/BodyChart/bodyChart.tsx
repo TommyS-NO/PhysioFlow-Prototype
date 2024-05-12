@@ -34,7 +34,7 @@ const BodyChart: React.FC<BodyChartProps> = ({
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>Bodychart Fokusområde</Text>
+            <Text style={styles.modalTitle}>Bodychart fokusområde</Text>
             <Text style={styles.modalText}>
               Trykk på det markerte fokusområdet du har smerter. Du må nå svare
               på noen kartleggingsspørsmål slik at vi kan gi deg antatt diagnose
