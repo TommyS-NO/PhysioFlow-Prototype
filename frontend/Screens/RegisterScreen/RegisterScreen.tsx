@@ -26,6 +26,7 @@ import {
 import { theme } from "../../theme";
 import { doc, setDoc } from "firebase/firestore";
 
+
 type RegisterScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
 	"Register"
@@ -219,14 +220,14 @@ const RegisterScreen = () => {
 							</View>
 						</View>
 						<View>
-							<CustomButton title="Neste" onPress={handleNextStep} />
+							<CustomButton title="Neste" onPress={handleNextStep}  buttonStyle={styles.nextButtonStyle} />
 						</View>
 					</View>
 				);
 			case 2:
 				return (
 					<View style={styles.formContainer}>
-						<Text style={styles.infoTitle}>Velkommen! 👋🏻</Text>
+						<Text style={styles.infoTitle}>Velkommen!</Text>
 
 						<Text style={styles.infoText}>
 							Vi trenger litt mer informasjon for å fullføre registreringen din.
@@ -276,7 +277,7 @@ const RegisterScreen = () => {
 				return (
 					<>
 						<View style={styles.formContainer}>
-							<Text style={styles.title}>Når er du født?</Text>
+							<Text style={styles.infoTitle}>Når er du født?</Text>
 							<PickerComponent
 								mode="date"
 								selectedValue={
@@ -310,7 +311,7 @@ const RegisterScreen = () => {
 				return (
 					<>
 						<View style={styles.formContainer}>
-							<Text style={styles.title}>Hvor høy er du?</Text>
+							<Text style={styles.infoTitle}>Hvor høy er du?</Text>
 							{/* <Text style={styles.subtitle}>Trykk på verdien for å endre</Text> */}
 							<NumberSpinner
 								data={Array.from({ length: 121 }, (_, i) => 100 + i)}
@@ -343,7 +344,7 @@ const RegisterScreen = () => {
 				return (
 					<>
 						<View style={styles.formContainer}>
-							<Text style={styles.title}>Hvor mye veier du?</Text>
+							<Text style={styles.infoTitle}>Hvor mye veier du?</Text>
 							{/* <Text style={styles.subtitle}>Trykk på verdien for å endre</Text> */}
 							<NumberSpinner
 								data={Array.from({ length: 171 }, (_, i) => 30 + i)}
