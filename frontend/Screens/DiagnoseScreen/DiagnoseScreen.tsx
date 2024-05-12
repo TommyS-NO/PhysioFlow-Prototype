@@ -5,7 +5,14 @@ import { styles } from "./DiagnoseScreen_Style";
 import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
 import { auth } from "../../Services/Firebase/FirebaseConfig";
 
-const DiagnoseScreen = () => {
+interface Diagnosis {
+	id: string;
+	title?: string;
+	description: string;
+	exercises: string[];
+}
+
+const DiagnoseScreen: React.FC = () => {
 	const { state, dispatch, deleteDiagnosisFromFirestore, loadUserData } =
 		useContext(SurveyContext);
 	const { diagnoses } = state;
@@ -15,7 +22,7 @@ const DiagnoseScreen = () => {
 	}, [diagnoses]);
 
 	useEffect(() => {
-		const userId = auth.currentUser?.uid; // Ensure auth.currentUser is not undefined
+		const userId = auth.currentUser?.uid;
 		if (userId) {
 			loadUserData(userId).then(() => {
 				console.log("User data loaded");
@@ -23,6 +30,7 @@ const DiagnoseScreen = () => {
 		}
 	}, [loadUserData]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const handleDelete = useCallback(
 		(diagnosisId: string) => {
 			Alert.alert(
@@ -55,7 +63,7 @@ const DiagnoseScreen = () => {
 			<ScrollView>
 				<Text style={styles.title}>Dine diagnoser</Text>
 				{diagnoses && diagnoses.length > 0 ? (
-					diagnoses.map((diagnosis) => (
+					diagnoses.map((diagnosis: Diagnosis) => (
 						<View key={diagnosis.id} style={styles.diagnosisContainer}>
 							<View style={styles.header}>
 								<Text style={styles.diagnosisTitle}>
