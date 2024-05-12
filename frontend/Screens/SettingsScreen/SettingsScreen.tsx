@@ -250,6 +250,7 @@ const SettingsScreen: React.FC = () => {
 						style={styles.button}
 						onPress={() => setIsAccountVisible(!isAccountVisible)}
 					>
+           
 						<Text style={styles.buttonText}>Kontoinnstillinger</Text>
 					</TouchableOpacity>
 					{isAccountVisible && (

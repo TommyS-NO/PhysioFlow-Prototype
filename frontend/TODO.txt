@@ -1,84 +1,57 @@
-Frontend:
+FIXME:! ! 
 
-"Hovedfargen vår, med opacity for å skape kontraster: backgroundColor: 'rgba(38, 128, 124, 0.1)'"
--Sjekk at det er en rød tråd på alle bakgrunnsfarger, knapper, fonter, størrelser osv.. 
+FIXME: Må customCheckbox være et komponent eller holder det at det står i koden under RegisterScreen? 
+FIXME:Sette opp mulighet for å endre e-post og passord under Settings-siden.
+FIXME: Hente diagnoseTITTEL på oversikt over diagnoser.
+FIXME: Fjerne ScrollView i registreringsprosessen. 
 
-**TO-DO!**Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
+FIXME: NESTED CONTAIners BRUKERVEILedning// sjekk hiariket
 
--Kan vi sette opp en default på iOS-plattform på CustomModal
+FIXME: Rydd i package.json FRONTEND og ROOT
 
--Må customCheckbox være et komponent eller holder det at det står i koden under RegisterScreen? 
+FIXME: Legg til alternativ tekst på bildene som er brukt
+FIXME: Endre til custom button på alle knapper. Endre til touchopacity
+FIXME: om oss /kontakt oss til Frontscreen, Slett fra BRUKERVEILedning
+FIXME: Endre konakt oss og om oss til Modal ? hvis mulig og lett.
 
-HUSK prettier på alle sider. Vi har ulikt oppsett, så se nærmere på dette.. 
+FIXME: RAPPORT
 
--Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren
+FIXME: Generelt gjennomgang av styling oppsett!
 
--KeyboardAvoidingView på chat screen fungerer ikke på Android
+FIXME: README!!
 
--Sett opp en hjemskjerm etter diagnoseforslag
+FIXME: Slett da customCheckbox
 
--Modal: Sjekk at alle modelene har samme animasjonstype: animationType="slide"
+FIXME: FIx uniq key error i diagnose!
 
-
--Diagnostisering: iOS- når man trykker vis anbefalte øvelser så går ikke modalen vekk av seg selv. Det må den gjøre. Den navigerer til riktig side, men modalen blir stående. 
-
--Skal det være mulig å legge til samme øvelse flere ganger under "Mine øvelser" eller skal vi sette en regel for at øvelsen allerede ligger i programmet.
-
--Sette opp mulighet for å endre e-post og passord under Settings-siden.
-
--Sjekk at det er samme toogle-oppsett på profil og settings screen
-
--Hente diagnosenavn på oversikt over diagnoser.
-
--Fjerne "Vis øvelser" på diagnoseresultater som henviser til behandler? Evt. sette opp alert ved trykk på knapp..
-
--Endre navn fra "kontakt lege" til "kontakt behandler" under diagnoseforslag. 
-
--Fjerne ScrollView i registreringsprosessen. 
+FIXME: JIRA! JIRA JIRA
+FIXME: Bilde Bodychart!! 
 
 
-Legge til "Avbryt" underveis i registreringsprosessen. 
 
-Sette opp "øye" i inputfelt til passord slik at man kan se hva som er skrevet? 
+TODO:!!
 
--Hvis vi skal ha Footer på "Om oss" så må stylingen gjøres om. Det er ikke så logisk at denne da kan navigeres fra hvis vi går via innloggngssiden og man ikke har opprettet bruker. Evt. så må den fjernes fra "Settings" og kun være på forsien. 
+TODO: Slett CustomButton ? ? ? Benytt touchopacitys?
 
-Backend:
+TODO: Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren
 
- - Warning i backend (GUL varsel) men ser ikke ut som Expo med firebase støtter async uten å Ejecte prosjketet fra expo (hva det vil si? vet ikke.. står vel mer alene med mer konfig)
- To do, enten før eller etter presentasjon: 
+TODO: KeyboardAvoidingView på chat screen fungerer ikke på Android
 
- -Endre farge på spørsmålstegn i hjelpeknapp til hvit?
+TODO: Onclose funksjon for tilbake til ProfilScreen
+TODO: Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
 
- -Endre farge på "front" (tilbakeknapp) til grønn
- -Endre oppsett på "Om oss" og "kontakt oss" på forsiden? Gjør mer synlig.. 
- -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
- -Under "Registrer økt" så må det settes opp mulighet til å krysse ut dersom man trykker feil eller angrer valget sitt. Nå kan man bare legge til øvelse. 
- -Sjekk farger og styling i registreringsprosessen
- -Sjekk avstand mellom "send melding" og BobAI
--Endre oppsettet på Gender selection slik at bakgrunnsfargen endrer seg over hele skjermen
--Fremheve bildet som er trykket på under Gender selection? 
--Gjøre picker til vekt og høyde litt kortere.
--Flytte knapper nederst på siden . Eks. "Neste"
--Endre til custom button på alle knapper.
--Legge til logikk for redigering av profilbilde. Må bruker ha tilgang til kamerarull? Er dette noe vi kan sette opp regler for? 
--Endre skriftfarge under Profilinnstillinger. Må være mer synlig. 
--Flytte hjelpeknappen høyere opp på profilsiden
--Innstallere react-native-vector-icons for ikoner til knappene på profilsiden? 
--Legge til bakgrunnsbilde på logg inn forsiden for å gjøre det litt mer levende? 
--Legge til theme på knappene på profilsiden? 
--Kontakt oss- logikk for mottak av epost
--Legg til alternativ tekst på bildene som er brukt
--"Utførte treningsøkter" kunne fjerne/endre fra denne siden også? 
--Sjekk hvorfor ikke bruker finnes når man prøver å slette ny bruker. Bruker for ID i konsollen?
+TODO: Diagnostisering: iOS- når man trykker vis anbefalte øvelser så går ikke modalen vekk av seg selv. Det må den gjøre. Den navigerer til riktig side, men modalen blir stående. 
 
-Registrer økt: 
--Endre oppsett i modal under "Registrer økt"
--Lage egen styleSheet til registrer økt? 
--Legg til regel og alert dersom bruker trykker registrer økt uten å ha lagt til noen øvelser.
--Sett opp mulighet til å fjerne valgt øvelse dersom bruker har valgt feil øvelse
--Legg til beskrivelse av nivåer på slideren
--Legg til "rediger øveleser" i tillegg til fjern øvelse.. 
--Ta bort done ved registrering av antall sett og reps
--Den legger det automatisk til uten at man trenger å trykke på "Legg til øvelse". Endre det.
--"Skyve" modal opp når tastaturet for å registrere reps og sets kommer opp.  
+TODO: Legge til "Avbryt" underveis i registreringsprosessen. (navigere tilbake til Frontscreen)
+
+TODO: Sjekk at det er samme toogle-oppsett på profil og settings screen
+
+TODO:Endre oppsett på "Om oss" og "kontakt oss" på forsiden? Gjør mer synlig.. 
+
+TODO:Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
+
+TODO: Flytte knapper nederst på siden . Eks. "Neste"
+
+TODO: Kontakt oss- logikk for mottak av epost
+
+TODO: Se på Slider Farger og oppsett
