@@ -9,14 +9,6 @@ import { theme } from "../theme";
 const UserGuideScreen: React.FC = () => {
   const navigation = useNavigation();
 
-  const handleAboutPress = () => {
-    navigation.navigate("AboutScreen");
-  };
-
-  const handleContactPress = () => {
-    navigation.navigate("ContactScreen");
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -69,11 +61,6 @@ const UserGuideScreen: React.FC = () => {
             øvelsesprogram basert på endringer i dine fokusområder eller ut fra
             din helsetilstand.
           </Text>
-
-          <View style={styles.buttonContainer}>
-            <CustomButton onPress={handleAboutPress} title="Om oss" />
-            <CustomButton onPress={handleContactPress} title="Kontakt oss" />
-          </View>
         </ScrollView>
       </View>
     </View>
