@@ -7,19 +7,8 @@ export const frontScreenStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: theme.colors.primary,
-    width: '100%',
-    height: '100%',
-  },
-  topContainer: {
-    position: "absolute",
-    top: theme.spacing.large,
-    alignItems: "center",
     width: "100%",
-  },
-  logo: {
-    height: 80,
-    width: 80,
-
+    height: "100%",
   },
   titleText: {
     color: theme.colors.text,
@@ -28,13 +17,12 @@ export const frontScreenStyles = StyleSheet.create({
     marginVertical: theme.spacing.small,
   },
   helpButton: {
-    marginTop: 50,
+    marginTop: 40,
     position: "absolute",
     right: theme.spacing.medium,
     top: theme.spacing.large,
     padding: theme.spacing.small,
     zIndex: 1,
-
   },
   loginContainer: {
     backgroundColor: "#FFFFFF",
@@ -52,10 +40,7 @@ export const frontScreenStyles = StyleSheet.create({
     marginTop: theme.spacing.medium,
     fontSize: theme.fontSize.regular,
   },
-  errorText: {
-    color: theme.colors.secondary,
-    fontSize: theme.fontSize.regular,
-  },
+
   input: {
     height: 50,
     width: "100%",
@@ -65,49 +50,33 @@ export const frontScreenStyles = StyleSheet.create({
     paddingHorizontal: theme.spacing.medium,
     borderRadius: theme.borderRadius.small,
   },
-  loginButton: {
-    marginTop: 0,
-  },
+
   registerButton: {
     marginTop: theme.spacing.medium,
   },
-  bottomLinksContainer: {
-    position: "absolute",
-    bottom: theme.spacing.large,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    paddingHorizontal: theme.spacing.large,
-  },
-  bottomLinkText: {
-    color: theme.colors.secondary,
-    fontSize: theme.fontSize.regular,
-    padding: theme.spacing.small,
-  },
+
   registerLinkText: {
     color: "black",
     textDecorationLine: "underline",
   },
 
-  linkText: {
+  passwordLinkText: {
     marginTop: 5,
     fontSize: theme.fontSize.regular,
   },
 
+  linkText: {
+    marginTop: 30,
+    fontSize: theme.fontSize.regular,
+color: "#26807C",
 
-//Skal/trenger vi ha med markering av inputfelt hvor det er tastet feil brukernavn eller passord? 
+  },
 
-// errorInputField: {
-//   borderColor: 'red',
-//   borderWidth: 1,
-//   borderRadius: 5,
-//   backgroundColor: "#fff0f0",
-//   marginVertical: 5,
-// },
-// errorText: {
-//   color: 'red',
-//   fontSize: 14,
-//   marginVertical: 5,
-// }
-
+  linkContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    width: '100%',
+ 
+  },
 });
