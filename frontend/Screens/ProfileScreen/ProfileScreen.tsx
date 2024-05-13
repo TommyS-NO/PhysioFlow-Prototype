@@ -73,6 +73,7 @@ const ProfileScreen: React.FC = () => {
             <Image
               source={require("../../Assets/Welcome.png")}
               style={styles.diagnoseImage}
+              accessibilityLabel="Welcoming person"
             />
           </TouchableOpacity>
 
@@ -101,6 +102,7 @@ const ProfileScreen: React.FC = () => {
             <Image
               source={require("../../Assets/StretchMale.png")}
               style={styles.trainingImage}
+              accessibilityLabel="Stretching male"
             />
             <Text style={styles.profileButtonText}>Trening</Text>
           </TouchableOpacity>
@@ -130,6 +132,7 @@ const ProfileScreen: React.FC = () => {
             <Image
               source={require("../../Assets/Robot_1.png")}
               style={styles.bobaiImage}
+              accessibilityLabel="Robot"
             />
           </TouchableOpacity>
         </View>

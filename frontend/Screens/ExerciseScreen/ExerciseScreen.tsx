@@ -114,6 +114,7 @@ const ExerciseScreen = () => {
 						<Image
 							source={require("../../Assets/12501301.gif")}
 							style={styles.sessionImage}
+							accessibilityLabel="A person that works out"
 						/>
 						<View style={styles.sessionInfo}>
 							<Text style={styles.sessionTitle}>{item.title}</Text>

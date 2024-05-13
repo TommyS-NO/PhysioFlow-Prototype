@@ -170,6 +170,7 @@ const [contactModalVisible, setContactModalVisible] = useState(false);
       >
         <ImageBackground
           source={require("../../Assets/Stretch3.png")}
+		  accessibilityLabel="Stretching person"
           style={frontScreenStyles.container}
           resizeMode="cover"
         >
@@ -216,6 +217,8 @@ const [contactModalVisible, setContactModalVisible] = useState(false);
                 <Image
                   source={require("../../Assets/StretchMale.png")}
                   style={frontScreenStyles.modalImage}
+				  accessibilityLabel="Stretching male"
+				
                 />
                 <Text style={frontScreenStyles.heading}>
                   Registrering av treningsøkter
@@ -313,6 +316,7 @@ const [contactModalVisible, setContactModalVisible] = useState(false);
           <Image
             source={require("../../Assets/Robot_1.png")}
             style={frontScreenStyles.modalImage}
+			accessibilityLabel="Robot"
           />
           <Text style={frontScreenStyles.heading}>Vår visjon</Text>
           <Text style={frontScreenStyles.text}>
@@ -343,6 +347,7 @@ const [contactModalVisible, setContactModalVisible] = useState(false);
           <Image
             source={require("../../Assets/StretchOldMale.png")}
             style={frontScreenStyles.modalImage}
+			accessibilityLabel="Stretching male old"
           />
           <Text style={frontScreenStyles.bulletPoints}>Din digitale fysioterapeut:</Text>
           <Text style={frontScreenStyles.text}>
@@ -365,6 +370,7 @@ const [contactModalVisible, setContactModalVisible] = useState(false);
           <Image
             source={require("../../Assets/Our_team.png")}
             style={frontScreenStyles.modalImage}
+			accessibilityLabel="Our team"
           />
 			</ScrollView>
           </CustomModal>
@@ -392,6 +398,7 @@ const [contactModalVisible, setContactModalVisible] = useState(false);
 	<Image
             source={require("../../Assets/Telephone.png")}
             style={frontScreenStyles.modalImage}
+			accessibilityLabel="Person on the phone"
           />
 			</ScrollView>
           </CustomModal>

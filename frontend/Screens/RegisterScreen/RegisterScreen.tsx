@@ -237,6 +237,7 @@ const RegisterScreen = () => {
 						<Image
 							source={require("../../Assets/Welcome.png")}
 							style={styles.welcomeImage}
+							accessibilityLabel="A welcoming person"
 						/>
 						<View style={styles.buttonContainer}>
 							<CustomButton
@@ -325,6 +326,7 @@ const RegisterScreen = () => {
 							<Image
 								source={require("../../Assets/Height.png")}
 								style={styles.welcomeImage}
+								accessibilityLabel="Person that is measured"
 							/>
 							<View style={styles.buttonContainer}>
 								<CustomButton
@@ -358,6 +360,7 @@ const RegisterScreen = () => {
 							<Image
 								source={require("../../Assets/Weight.png")}
 								style={styles.welcomeImage}
+								accessibilityLabel="Person weighting in"
 							/>
 							<View style={styles.buttonContainer}>
 								<CustomButton
@@ -386,6 +389,7 @@ const RegisterScreen = () => {
 							<Image
 								source={require("../../Assets/HighFive.png")}
 								style={styles.welcomeImage}
+								accessibilityLabel="Persons giving high five"
 							/>
 							<View>
 								<View style={styles.buttonContainer}>
