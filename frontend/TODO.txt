@@ -17,6 +17,9 @@ FIXME: Bilde Bodychart!!
 FIXME: FIkse ENdepunkt til Diagnoser/API kall!
 FIXME: Rydde I KODE!! 
 FIXME: Rydd vekk alle "feil" Røde streker" "tomme variabler" etc" kommentarer
+FIXME: Alternativ tekst til bilder som ikke lastes inn ordentlig 
+FIXME: Fjerne all navigering på toppen av sidene slik at det blir likt som på Frontscreen
+
 
 
 TODO:!!
@@ -44,4 +47,4 @@ FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
 /Validation Filene er OK!
 -Endre konakt oss og om oss til Modal ? hvis mulig og lett.
 -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
-
+-Endre navigering og oppsett på Terms-siden
