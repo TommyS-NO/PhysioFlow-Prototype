@@ -1,7 +1,7 @@
 FIXME:! ! 
 
 FIXME: Må customCheckbox være et komponent eller holder det at det står i koden under RegisterScreen? 
-FIXME:Sette opp mulighet for å endre e-post og passord under Settings-siden.
+FIXME: Sette opp mulighet for å endre e-post og passord under Settings-siden.
 FIXME: Hente diagnoseTITTEL på oversikt over diagnoser.
 FIXME: Fjerne ScrollView i registreringsprosessen. 
 FIXME: NESTED CONTAIners BRUKERVEILedning// sjekk hiariket
@@ -30,7 +30,7 @@ TODO: Diagnostisering: iOS- når man trykker vis anbefalte øvelser så går ikk
 TODO: Legge til "Avbryt" underveis i registreringsprosessen. (navigere tilbake til Frontscreen)
 TODO: Sjekk at det er samme toogle-oppsett på profil og settings screen
 
-TODO:Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
+TODO: Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
 TODO: Flytte knapper nederst på siden . Eks. "Neste"
 TODO: Kontakt oss- logikk for mottak av epost
 TODO: Se på Slider Farger og oppsett
