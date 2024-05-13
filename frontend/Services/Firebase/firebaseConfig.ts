@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
   initializeAuth,
-  getReactNativePersistence
+
 } from 'firebase/auth';
 import {
   getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot,
@@ -45,7 +45,7 @@ interface UserExercise extends CommonAttributes {
 
 const firebaseConfig = { apiKey: API_KEY, authDomain: AUTH_DOMAIN, projectId: PROJECT_ID, messagingSenderId: MESSAGING_SENDER_ID, appId: APP_ID };
 const app = initializeApp(firebaseConfig);
-const auth = initializeAuth(app, { persistence: getReactNativePersistence(ReactNativeAsyncStorage) });
+const auth = initializeAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
