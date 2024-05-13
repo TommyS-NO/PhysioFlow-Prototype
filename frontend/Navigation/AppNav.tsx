@@ -5,10 +5,8 @@ import FrontScreen from "../Screens/FrontScreen/FrontScreen";
 import RegisterScreen from "../Screens/RegisterScreen/RegisterScreen";
 import TermsScreen from "../Screens/TermsScreen";
 import FocusScreen from "../Screens/FocusScreen/FocusScreen";
-import UserGuideScreen from "../Screens/UserGuideScreen";
 import { RootStackParamList } from "./navigationTypes";
 import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen/ExerciseOverviewScreen";
-import AboutScreen from "../Screens/AboutScreen";
 import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
 import ProfileScreen from "../Screens/ProfileScreen/ProfileScreen";
 import DeleteUserScreen from "../Screens/SettingsScreen/DeleteUserScreen";
@@ -38,11 +36,6 @@ const AppNav = () => (
 				options={{ title: "Vilkår og Betingelser" }}
 			/>
 			<Stack.Screen
-				name="UserGuideScreen"
-				component={UserGuideScreen}
-				options={{ title: "Brukerveiledning" }}
-			/>
-			<Stack.Screen
 				name="ExerciseOverviewScreen"
 				component={ExerciseOverviewScreen}
 				options={{ title: "Liste" }}
@@ -51,11 +44,6 @@ const AppNav = () => (
 				name="FocusScreen"
 				component={FocusScreen}
 				options={{ title: "Fokusområde" }}
-			/>
-			<Stack.Screen
-				name="AboutScreen"
-				component={AboutScreen}
-				options={{ title: "Om oss" }}
 			/>
 			<Stack.Screen
 				name="ExerciseScreen"
