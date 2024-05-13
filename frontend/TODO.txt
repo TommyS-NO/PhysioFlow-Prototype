@@ -1,6 +1,6 @@
 FIXME:! ! 
 
-FIXME: Må customCheckbox være et komponent eller holder det at det står i koden under RegisterScreen? 
+FIXME: Må customCheckbox være et komponent eller holder det at det står i koden under RegisterScreen? Slett da customCheckbox
 FIXME: Sette opp mulighet for å endre e-post og passord under Settings-siden.
 FIXME: Hente diagnoseTITTEL på oversikt over diagnoser.
 FIXME: Fjerne ScrollView i registreringsprosessen. 
@@ -8,17 +8,13 @@ FIXME: NESTED CONTAIners BRUKERVEILedning// sjekk hiariket
 FIXME: Rydd i package.json FRONTEND og ROOT
 FIXME: Legg til alternativ tekst på bildene som er brukt
 FIXME: Endre til custom button på alle knapper. Endre til touchopacity
-FIXME: Endre konakt oss og om oss til Modal ? hvis mulig og lett.
 FIXME: RAPPORT
 FIXME: Generelt gjennomgang av styling oppsett!
 FIXME: README!!
-FIXME: Slett da customCheckbox
 FIXME: FIx uniq key error i diagnose!
 FIXME: JIRA! JIRA JIRA
 FIXME: Bilde Bodychart!! 
-
 FIXME: FIkse ENdepunkt til Diagnoser/API kall!
-
 FIXME: Rydde I KODE!! 
 FIXME: Rydd vekk alle "feil" Røde streker" "tomme variabler" etc" kommentarer
 
@@ -33,8 +29,6 @@ TODO: Husk å sette opp KeyboardAvoidingView på alle sider der det trengs..
 TODO: Diagnostisering: iOS- når man trykker vis anbefalte øvelser så går ikke modalen vekk av seg selv. Det må den gjøre. Den navigerer til riktig side, men modalen blir stående. 
 TODO: Legge til "Avbryt" underveis i registreringsprosessen. (navigere tilbake til Frontscreen)
 TODO: Sjekk at det er samme toogle-oppsett på profil og settings screen
-
-TODO: Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
 TODO: Flytte knapper nederst på siden . Eks. "Neste"
 TODO: Kontakt oss- logikk for mottak av epost
 TODO: Se på Slider Farger og oppsett
@@ -48,6 +42,6 @@ Backend kode skal være Ferdig.!
 ApiService.ts OK! Uten Kommentarer og uten FEIL!
 FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
 /Validation Filene er OK!
-
-
+-Endre konakt oss og om oss til Modal ? hvis mulig og lett.
+-Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
 
