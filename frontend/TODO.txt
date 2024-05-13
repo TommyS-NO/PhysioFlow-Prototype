@@ -38,3 +38,12 @@ TODO:Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. 
 TODO: Flytte knapper nederst på siden . Eks. "Neste"
 TODO: Kontakt oss- logikk for mottak av epost
 TODO: Se på Slider Farger og oppsett
+
+
+
+DONE:
+
+Backend kode skal være Ferdig.!
+
+ApiService.ts OK! Uten Kommentarer og uten FEIL!
+
