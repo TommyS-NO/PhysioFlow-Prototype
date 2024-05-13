@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import FrontScreen from "../Screens/FrontScreen/FrontScreen";
 import RegisterScreen from "../Screens/RegisterScreen/RegisterScreen";
-import TermsScreen from "../Screens/TermsScreen";
+import TermsScreen from "../Screens/RegisterScreen/TermsScreen";
 import FocusScreen from "../Screens/FocusScreen/FocusScreen";
 import { RootStackParamList } from "./navigationTypes";
 import ExerciseOverviewScreen from "../Screens/ExerciseOverviewScreen/ExerciseOverviewScreen";

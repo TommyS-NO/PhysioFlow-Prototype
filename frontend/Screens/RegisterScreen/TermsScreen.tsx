@@ -8,7 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { theme } from "../theme";
+import { theme } from "../../theme";
 
 const TermsScreen: React.FC = () => {
   const navigation = useNavigation();
