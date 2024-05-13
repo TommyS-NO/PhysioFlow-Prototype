@@ -16,7 +16,6 @@ FIXME: Bilde Bodychart!!
 FIXME: FIkse ENdepunkt til Diagnoser/API kall!
 FIXME: Rydde I KODE!! 
 FIXME: Rydd vekk alle "feil" Røde streker" "tomme variabler" etc" kommentarer
-FIXME: Alternativ tekst til bilder som ikke lastes inn ordentlig 
 FIXME: Fjerne all navigering på toppen av sidene slik at det blir likt som på Frontscreen
 
 
@@ -24,7 +23,7 @@ FIXME: Fjerne all navigering på toppen av sidene slik at det blir likt som på 
 TODO:!!
 
 TODO: Slett CustomButton ? ? ? Benytt touchopacitys?
-TODO: Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren
+TODO: Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren - Mina jobber med
 TODO: KeyboardAvoidingView på chat screen fungerer ikke på Android
 TODO: Onclose funksjon for tilbake til ProfilScreen
 TODO: Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
