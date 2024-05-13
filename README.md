@@ -65,6 +65,21 @@ Velg en forespørsel fra kolleksjonen.
 Klikk på "Send" for å utføre forespørselen.
 Se svar og valider responsdata.
 
+## API-dokumentasjon
+
+Her er en oversikt over tilgjengelige API-endepunkter:
+
+#### /api/exercises
+- Metode: GET
+- Beskrivelse: Henter alle øvelser
+- Parametere: Ingen parametere nødvendig
+
+#### /api/exercises/details
+- Metode: POST
+- Beskrivelse: Henter detaljer for spesifikke øvelser
+- Parametere:
+- exercises - Liste over øvelser
+
 ## Simulator 
 
 For å simulere appen under utvikling, bruk Expo GO:
