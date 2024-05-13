@@ -104,6 +104,56 @@ Hvis du ikke ønsker å bruke Expo GO, kan du bruke en Android Emulator eller iO
 - Åpne Xcode og gå til Xcode > Preferences > Components for å installere en simulator.
 - Start iOS simulatoren og kjør npm start.
 
+## Clearing av chace:
+
+Når du bruker Expo GO til å utvikle og teste React Native-applikasjoner, kan det hende at du støter på problemer som skyldes cache. Cache er en lagringsmekanisme som brukes til å raskt hente tidligere lastede data, men noen ganger kan det føre til at gamle eller feilaktige data blir brukt i stedet for oppdaterte versjoner. Dette kan føre til problemer som:
+
+- #### Utdatert kode:
+  Endringer du har gjort i koden din vises ikke i appen.
+- #### Feil under utvikling:
+  Appen kan oppføre seg uforutsigbart på grunn av konflikter med gamle data.
+- #### Ytelsesproblemer:
+ Akkumulering av cache kan påvirke appens ytelse negativt.
+
+### Hvordan utføre clearing av cache:
+Clearing av cache kan gjøres på flere måter, avhengig av hvilket verktøy eller hvilken metode du bruker. Her er noen vanlige metoder for å tømme cache når du bruker Expo GO:
+
+### 1. Bruke Expo CLI
+Den enkleste måten å tømme cache på er ved å bruke Expo CLI-kommandoen `expo start -c` : Denne kommandoen starter prosjektet ditt på nytt og tømmer cachen samtidig.
+
+
+### 2. Manuelt tømme cache
+Noen ganger kan det være nødvendig å tømme cache manuelt ved å slette spesifikke mapper. Dette inkluderer:
+
+- node_modules katalogen
+- package-lock.json filen
+- Expo cache katalogen (vanligvis .expo)
+
+Her er et eksempel på hvordan du kan gjøre dette:
+
+`rm -rf node_modules`
+`rm package-lock.json`
+`rm -rf .expo`
+`npm install`
+`expo start -c`
+
+
+### 3. Tømme cache i Expo GO appen
+
+Hvis du mistenker at problemet er med cachen i Expo GO appen på din mobile enhet:
+
+- For Android:
+Gå til Innstillinger > Apper > Expo GO > Lagring > Tøm cache.
+
+- For iOS:
+Det er ingen direkte metode for å tømme cache på iOS, men du kan prøve å slette appen og installere den på nytt.
+
+Clearing av cache bør gjøres regelmessig for å sikre at du alltid arbeider med oppdatert og korrekt data. Her er noen retningslinjer:
+
+- Ved store endringer: Etter å ha gjort betydelige endringer i koden eller prosjektets struktur.
+- Ved feil: Når du opplever problemer som virker relatert til utdatert cache.
+- Periodisk: En gang i blant, for eksempel en gang i uken, for å opprettholde god ytelse og stabilitet.
+
 
 ## Manglende arbeid:
 ### AI-interaksjon:
