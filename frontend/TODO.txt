@@ -17,6 +17,10 @@ FIXME: FIx uniq key error i diagnose!
 FIXME: JIRA! JIRA JIRA
 FIXME: Bilde Bodychart!! 
 
+FIXME: FIkse ENdepunkt til Diagnoser/API kall!
+
+FIXME: Rydde I KODE!! 
+FIXME: Rydd vekk alle "feil" Røde streker" "tomme variabler" etc" kommentarer
 
 
 TODO:!!
