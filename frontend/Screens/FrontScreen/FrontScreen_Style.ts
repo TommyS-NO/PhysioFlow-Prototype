@@ -68,15 +68,40 @@ export const frontScreenStyles = StyleSheet.create({
   linkText: {
     marginTop: 30,
     fontSize: theme.fontSize.regular,
-color: "#26807C",
-
+    color: "#26807C",
   },
 
   linkContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 20,
-    width: '100%',
- 
+    width: "100%",
   },
+
+  title: {
+    fontSize: theme.fontSize.title,
+    fontWeight: "bold",
+    marginBottom: theme.spacing.medium,
+    textAlign: "center",
+  },
+  heading: {
+    fontSize: theme.fontSize.regular,
+    fontWeight: "bold",
+    marginTop: theme.spacing.medium,
+    marginBottom: theme.spacing.small,
+  },
+  text: {
+    fontSize: theme.fontSize.regular,
+    color: theme.colors.text,
+  },
+  modalImage:{
+
+    width: '90%',        // Bilde tar opp 90% av modalens bredde
+    height: 200,         // Fast høyde, juster etter behov
+    borderRadius: 10,    // Avrundede hjørner for estetikk
+    resizeMode: 'cover', // Sikrer at bildet dekker tilgjengelig plass uten å miste aspektforhold
+    alignSelf: 'center', // Senterer bildet i modalen
+    marginTop: 20,       // Gir litt plass over bildet
+    marginBottom: 20 
+  }
 });

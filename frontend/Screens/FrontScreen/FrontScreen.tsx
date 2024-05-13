@@ -7,12 +7,15 @@ import {
   KeyboardAvoidingView,
   Platform,
   ImageBackground,
+  ScrollView,
+  Image,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Navigation/navigationTypes";
 import CustomButton from "../../Components/CustomButton/CustomButton";
+import CustomModal from "../../Components/CustomModal/CustomModal";
 import { InputField } from "../../Components/CustomInput/CustomInput";
 import { theme } from "../../theme";
 import { frontScreenStyles } from "./FrontScreen_Style";
@@ -39,6 +42,7 @@ const FrontScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string>("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleLogin = async () => {
     if (!email.trim()) {
@@ -153,7 +157,7 @@ const FrontScreen = () => {
   };
 
   const handleHelp = () => {
-    navigation.navigate("UserGuideScreen");
+    setModalVisible(true);
   };
 
   return (
@@ -178,6 +182,75 @@ const FrontScreen = () => {
                 color={theme.colors.helpButton}
               />
             </TouchableOpacity>
+
+            <CustomModal
+              visible={modalVisible}
+              onClose={() => setModalVisible(false)}
+              title="Velkommen til PhysoFlow!"
+              containerStyle={{ width: 350, height: 600 }}
+            >
+              <ScrollView>
+                <Text style={frontScreenStyles.heading}>
+                  Oppsett av fokusområder
+                </Text>
+                <Text style={frontScreenStyles.text}>
+                  1. Identifiser dine smerteområder: Start med å velge områder
+                  på kroppen hvor du opplever smerte eller ubehag.
+                </Text>
+                <Text style={frontScreenStyles.text}>
+                  2. Tilpasning: Basert på dine valg, tilpasser PhysioFlow et
+                  tøye og rehabiliteringsprogram spesielt utformet for å
+                  målrette dine fokusområder og lindre smerte.
+                </Text>
+
+                <Text style={frontScreenStyles.heading}>
+                  Utføre tøyeøvelser
+                </Text>
+
+                <Text style={frontScreenStyles.text}>
+                  - Instruksjoner og videoer: Sørg for riktig utførelse ved å
+                  følge detaljerte instruksjoner og animasjoner.
+                </Text>
+                <Image
+                  source={require("../../Assets/StretchMale.png")}
+                  style={frontScreenStyles.modalImage}
+                />
+                <Text style={frontScreenStyles.heading}>
+                  Registrering av treningsøkter
+                </Text>
+                <Text style={frontScreenStyles.text}>
+                  - Loggfør økter: Etter hver treningsøkt, kan du registrere
+                  detaljer som øvelser utført, varighet, og personlige notater
+                  om din opplevelse.
+                </Text>
+                <Text style={frontScreenStyles.text}>
+                  - Spor fremgang: Følg med på din treningshistorikk og analyser
+                  din fremgang gjennom intuitive rapporter og analyser.
+                </Text>
+
+                <Text style={frontScreenStyles.heading}>
+                  Kontakt din behandler
+                </Text>
+                <Text style={frontScreenStyles.text}>
+                  - Meldingstjeneste: PhysioFlow sin innebygde meldingstjeneste
+                  lar deg enkelt kommunisere med din behandler for rådgivning
+                  eller veiledning.
+                </Text>
+                <Text style={frontScreenStyles.text}>
+                  - Del din fremgang: Med din tillatelse, kan du dele
+                  treningslogger og fremgangsrapporter med din behandler for
+                  tilpasset veiledning.
+                </Text>
+
+                <Text style={frontScreenStyles.heading}>Ekstra funksjoner</Text>
+
+                <Text style={frontScreenStyles.text}>
+                  - Justering av program: Du kan når som helst justere ditt
+                  øvelsesprogram basert på endringer i dine fokusområder eller
+                  ut fra din helsetilstand.
+                </Text>
+              </ScrollView>
+            </CustomModal>
 
             <View style={frontScreenStyles.loginContainer}>
               <Text style={frontScreenStyles.titleText}>PhysioFlow</Text>
@@ -221,12 +294,14 @@ const FrontScreen = () => {
               <View style={frontScreenStyles.linkContainer}>
                 <Text
                   onPress={handleAboutPress}
-                  style={frontScreenStyles.linkText}>
+                  style={frontScreenStyles.linkText}
+                >
                   Om oss
                 </Text>
                 <Text
                   onPress={handleContactPress}
-                  style={frontScreenStyles.linkText}>
+                  style={frontScreenStyles.linkText}
+                >
                   Kontakt oss
                 </Text>
               </View>
