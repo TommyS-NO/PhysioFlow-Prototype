@@ -29,26 +29,37 @@ Vi har utviklet en app for fysioterapeuter og kiropraktorer som hjelper pasiente
 ## Komme i gang
 Følg disse stegene for å kjøre prosjektet lokalt:
 
+1. Klon repository:
 
+`git clone <repository_url>`
+`cd <repository_folder>`
+
+2. Installer avhengigheter:
+
+`npm install`
+
+3. Start prosjektet:
+
+`npm start`
 
 ## Bruk av Postman for API Testing
 
 Postman kan brukes til å teste API-ene i prosjektet. Følg disse stegene:
 
-### Installer Postman: 
+#### Installer Postman:
 
 - Last ned og installer Postman fra postman.com.
 
-### Importer API-kolleksjonen:
+#### Importer API-kolleksjonen:
 
 - Klikk på "Import" i Postman.
 - Velg API-kolleksjonsfilen (om tilgjengelig) fra prosjektet ditt.
 
-### Konfigurer miljø:
+#### Konfigurer miljø:
 
 - Sett opp miljøvariabler som base URL og API nøkler om nødvendig.
 
-### Send forespørsler:
+#### Send forespørsler:
 
 Velg en forespørsel fra kolleksjonen.
 Klikk på "Send" for å utføre forespørselen.
@@ -56,11 +67,30 @@ Se svar og valider responsdata.
 
 ## Simulator 
 
+For å simulere appen under utvikling, bruk Expo GO:
+
+- Åpne Expo GO: Start Expo GO appen på din mobile enhet.
+- Skann QR-kode: Skann QR-koden som vises i terminalen etter å ha kjørt npm start.
+- Test appen: Appen vil åpnes i Expo GO, hvor du kan teste funksjonaliteten på både Android og iOS.
+
+### Alternativ Metode uten Expo GO
+
+Hvis du ikke ønsker å bruke Expo GO, kan du bruke en Android Emulator eller iOS Simulator:
+
+#### Android Emulator:
+
+- Installer Android Studio fra Android Developer.
+- Følg instruksjonene for å sette opp en virtuell enhet (AVD).
+- Start emulatoren og kjør npm start.
+
+#### iOS Simulator:
+
+- Krever en Mac med Xcode installert fra Mac App Store.
+- Åpne Xcode og gå til Xcode > Preferences > Components for å installere en simulator.
+- Start iOS simulatoren og kjør npm start.
 
 
-
-
-
-## AI-interaksjon:
+## Manglende arbeid:
+### AI-interaksjon:
 - ChatGPT 3.5 er integrert, men fungerer foreløpig ikke som ønsket på grunn av manglende data.
 [OpenAI](https://www.openai.com)
