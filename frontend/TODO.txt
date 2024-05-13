@@ -17,6 +17,10 @@ FIXME: FIx uniq key error i diagnose!
 FIXME: JIRA! JIRA JIRA
 FIXME: Bilde Bodychart!! 
 
+FIXME: FIkse ENdepunkt til Diagnoser/API kall!
+
+FIXME: Rydde I KODE!! 
+FIXME: Rydd vekk alle "feil" Røde streker" "tomme variabler" etc" kommentarer
 
 
 TODO:!!
@@ -34,3 +38,16 @@ TODO: Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks.
 TODO: Flytte knapper nederst på siden . Eks. "Neste"
 TODO: Kontakt oss- logikk for mottak av epost
 TODO: Se på Slider Farger og oppsett
+
+
+
+DONE:
+
+Backend kode skal være Ferdig.!
+
+ApiService.ts OK! Uten Kommentarer og uten FEIL!
+FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
+/Validation Filene er OK!
+
+
+
