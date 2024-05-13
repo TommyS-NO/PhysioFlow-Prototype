@@ -43,6 +43,9 @@ const FrontScreen = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string>("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [aboutModalVisible, setAboutModalVisible] = useState(false);
+const [contactModalVisible, setContactModalVisible] = useState(false);
+
 
   const handleLogin = async () => {
     if (!email.trim()) {
@@ -69,7 +72,7 @@ const FrontScreen = () => {
       );
       const user = userCredential.user;
       const token = await user.getIdToken();
-      const { userProfile, diagnoses, exercises } =
+      const { userProfile} =
         await fetchUserDetailsFromFirestore(user.uid);
 
       if (!userProfile) {
@@ -82,8 +85,7 @@ const FrontScreen = () => {
         token,
         userId: user.uid,
         userDetails: userProfile,
-        diagnoses,
-        completedExercises: exercises,
+     
       });
 
       setEmail("");
@@ -145,11 +147,11 @@ const FrontScreen = () => {
   };
 
   const handleAboutPress = () => {
-    navigation.navigate("AboutScreen");
+	setAboutModalVisible(true);
   };
-
+  
   const handleContactPress = () => {
-    navigation.navigate("ContactScreen");
+	setContactModalVisible(true);
   };
 
   const handleRegister = () => {
@@ -291,6 +293,109 @@ const FrontScreen = () => {
                   Registrer deg her
                 </Text>
               </Text>
+			  <CustomModal
+            visible={aboutModalVisible}
+            onClose={() => setAboutModalVisible(false)}
+            title="Physio Flow"
+			containerStyle={{ width: 350, height: 600 }}
+          >
+			<ScrollView>
+			<Text style={frontScreenStyles.text}>
+            Velkommen til PhysioFlow - din digitale partner for fysioterapi og
+            rehabilitering, når og hvor det passer deg.{" "}
+          </Text>
+          <Text style={frontScreenStyles.text}>
+            Ved å kombinere det nyeste innen kunstig intelligens (AI) med
+            ekspertisen til vårt team av fysioterapeuter, har vi skapt en unik
+            plattform designet for å gi deg personlig tilpasset veiledning og
+            støtte gjennom din rehabiliteringsreise.
+          </Text>
+          <Image
+            source={require("../../Assets/Robot_1.png")}
+            style={frontScreenStyles.modalImage}
+          />
+          <Text style={frontScreenStyles.heading}>Vår visjon</Text>
+          <Text style={frontScreenStyles.text}>
+            I en verden hvor tilgangen til helsehjelp stadig utfordres av både
+            tid og sted, er vår visjon å bringe fysioterapien hjem til deg.
+            PhysioFlow ble grunnlagt med en formening om at alle fortjener
+            tilgang til kvalitetsmessig fysioterapi, uavhengig av hvor de
+            befinner seg.
+          </Text>
+          <Text style={frontScreenStyles.heading}>Hvordan PhysioFlow fungerer</Text>
+          <Text style={frontScreenStyles.bulletPoints}>Personlig tilpasning:</Text>
+          <Text style={frontScreenStyles.text}>
+            Når du laster ned PhysioFlow-appen og oppretter din profil, blir du
+            bedt om å dele informasjon om din fysiske tilstand, dine mål og
+            eventuelle smerter eller skader. Denne informasjonen danner
+            grunnlaget for din personlige rehabiliteringsplan.
+          </Text>
+
+          <Text style={frontScreenStyles.bulletPoints}>
+            Tilgjengelighet og fleksibilitet:
+          </Text>
+          <Text style={frontScreenStyles.text}>
+            Med PhysioFlow i lommen, har du tilgang til fysioterapi døgnet
+            rundt, uten behov for å tilpasse deg tidsskjemaer eller reise til en
+            klinikk. Enten du er hjemme, på jobb, eller på reise, gir vi deg
+            verktøyene du trenger for å jobbe mot bedre helse.
+          </Text>
+          <Image
+            source={require("../../Assets/StretchOldMale.png")}
+            style={frontScreenStyles.modalImage}
+          />
+          <Text style={frontScreenStyles.bulletPoints}>Din digitale fysioterapeut:</Text>
+          <Text style={frontScreenStyles.text}>
+            Gjennom appen vil du motta daglige treningsplaner,
+            instruksjonsvideoer og oppfølgingsverktøy som hjelper deg å holde
+            deg på sporet. AI-teknologien muliggjør også tilpasning av
+            programmet ditt over tid basert på din progresjon og eventuelle
+            tilbakemeldinger du gir.
+          </Text>
+
+          <Text style={frontScreenStyles.heading}>Vårt team</Text>
+          <Text style={frontScreenStyles.text}>
+            Bak PhysioFlow står et dedikert team av fysioterapeuter,
+            dataforskere og teknologientusiaster, alle med et felles mål om å
+            gjøre rehabilitering så tilgjengelig og effektiv som mulig. Vi er
+            stolte av å kunne tilby en tjeneste som ikke bare leder an i
+            teknologisk innovasjon, men som også er dypt forankret i
+            profesjonell fysioterapipraksis.
+          </Text>
+          <Image
+            source={require("../../Assets/Our_team.png")}
+            style={frontScreenStyles.modalImage}
+          />
+			</ScrollView>
+          </CustomModal>
+
+          <CustomModal
+            visible={contactModalVisible}
+            onClose={() => setContactModalVisible(false)}
+            title="Kontakt oss"
+			containerStyle={{ width: 350, height: 600 }}
+          >
+		
+			<ScrollView>
+            <Text style={frontScreenStyles.heading}>Kontakt oss gjerne for ytterligere informasjon:</Text>
+
+			<Text style={frontScreenStyles.bulletPoints}>
+  <Text style={frontScreenStyles.boldText}>Telefon:</Text> 123-456-7890
+</Text>
+<Text style={frontScreenStyles.bulletPoints}>
+  <Text style={frontScreenStyles.boldText}>E-post:</Text> contact@example.com
+</Text>
+<Text style={frontScreenStyles.bulletPoints}>
+  <Text style={frontScreenStyles.boldText}>Adresse:</Text> Eksempelveien 123, 0123 Sted
+</Text>
+
+	<Image
+            source={require("../../Assets/Telephone.png")}
+            style={frontScreenStyles.modalImage}
+          />
+			</ScrollView>
+          </CustomModal>
+
               <View style={frontScreenStyles.linkContainer}>
                 <Text
                   onPress={handleAboutPress}

@@ -95,13 +95,22 @@ export const frontScreenStyles = StyleSheet.create({
     color: theme.colors.text,
   },
   modalImage:{
-
-    width: '90%',        // Bilde tar opp 90% av modalens bredde
-    height: 200,         // Fast høyde, juster etter behov
-    borderRadius: 10,    // Avrundede hjørner for estetikk
-    resizeMode: 'cover', // Sikrer at bildet dekker tilgjengelig plass uten å miste aspektforhold
-    alignSelf: 'center', // Senterer bildet i modalen
-    marginTop: 20,       // Gir litt plass over bildet
+    width: '90%', 
+    height: 250,        
+    borderRadius: 10,   
+    alignSelf: 'center', 
+    marginTop: 20,     
     marginBottom: 20 
-  }
+  
+  },
+
+  bulletPoints: {
+    fontSize: theme.fontSize.regular,
+    marginBottom: theme.spacing.small,
+    marginTop: theme.spacing.medium,
+    color: theme.colors.text,
+  },
+  boldText: {
+    fontWeight: "bold",
+  },
 });
