@@ -6,7 +6,6 @@ FIXME: Hente diagnoseTITTEL på oversikt over diagnoser.
 FIXME: Fjerne ScrollView i registreringsprosessen. 
 FIXME: NESTED CONTAIners BRUKERVEILedning// sjekk hiariket
 FIXME: Rydd i package.json FRONTEND og ROOT
-FIXME: Legg til alternativ tekst på bildene som er brukt
 FIXME: Endre til custom button på alle knapper. Endre til touchopacity
 FIXME: RAPPORT
 FIXME: Generelt gjennomgang av styling oppsett!
@@ -48,3 +47,4 @@ FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
 -Endre konakt oss og om oss til Modal ? hvis mulig og lett.
 -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
 -Endre navigering og oppsett på Terms-siden
+-Legg til alternativ tekst på bildene som er brukt
