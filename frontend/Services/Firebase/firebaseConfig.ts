@@ -9,7 +9,6 @@ import {
   getDoc, addDoc, collection, getDocs, writeBatch
 } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID } from '@env';
 
 interface CommonAttributes {

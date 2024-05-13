@@ -46,4 +46,6 @@ DONE:
 Backend kode skal være Ferdig.!
 
 ApiService.ts OK! Uten Kommentarer og uten FEIL!
+FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
+
 
