@@ -17,6 +17,7 @@ interface CustomModalProps
 	title?: string;
 	children: React.ReactNode;
 	style?: ViewStyle;
+	containerStyle?: ViewStyle;
 }
 
 const CustomModal: React.FC<CustomModalProps> = ({
@@ -25,6 +26,8 @@ const CustomModal: React.FC<CustomModalProps> = ({
 	title,
 	children,
 	style,
+	containerStyle,
+
 }) => (
 	<Modal
 		visible={visible}
@@ -33,7 +36,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
 		onRequestClose={onClose}
 	>
 		<View style={styles.centeredView}>
-			<View style={[styles.modalView, style]}>
+			<View style={[styles.modalView, style, containerStyle]}>
 				<TouchableOpacity style={styles.closeButton} onPress={onClose}>
 					<MaterialCommunityIcons
 						name="close-circle"
@@ -64,6 +67,7 @@ const styles = StyleSheet.create({
 		shadowRadius: 4,
 		elevation: 5,
 		maxWidth: "95%",
+		
 	},
 	closeButton: {
 		position: "absolute",
