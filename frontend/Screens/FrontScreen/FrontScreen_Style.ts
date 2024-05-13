@@ -93,6 +93,7 @@ export const frontScreenStyles = StyleSheet.create({
   text: {
     fontSize: theme.fontSize.regular,
     color: theme.colors.text,
+    marginBottom: theme.spacing.medium,
   },
   modalImage:{
     width: '90%', 
