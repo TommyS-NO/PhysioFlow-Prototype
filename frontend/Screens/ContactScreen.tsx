@@ -142,19 +142,20 @@
 
 // export default ContactScreen;
 
-
 import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Alert,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CustomButton from "../Components/CustomButton/CustomButton";
 import { InputField } from "../Components/CustomInput/CustomInput"; 
 import { theme } from "../theme";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import FooterNavigation from "../Components/FooterNavigation/FooterNavigation";
 
 const ContactScreen = () => {
@@ -167,7 +168,7 @@ const ContactScreen = () => {
 
   const navigation = useNavigation();
 
-  const handleTextChange = (text) => {
+  const handleTextChange = (text: string) => {
     if (text.length <= maxChar) {
       setMessage(text);
       setCharCount(text.length);
@@ -186,16 +187,18 @@ const ContactScreen = () => {
 
     setTimeout(() => {
       navigation.navigate('SettingsScreen');
-    }, 2000); 
+    }, 1000); 
   };
 
   return (
-    <View style={styles.container}>
-      <KeyboardAwareScrollView
-        style={{ }}
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        contentContainerStyle={styles.container}
-        scrollEnabled={true}
+    <KeyboardAvoidingView 
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
       >
         <View style={styles.formContainer}> 
           <Text style={styles.headerText}>Kontakt oss ☎️</Text>
@@ -234,9 +237,9 @@ const ContactScreen = () => {
             iconName="send"
           />
         </View>
-      </KeyboardAwareScrollView>
+      </ScrollView>
       <FooterNavigation />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -284,3 +287,4 @@ const styles = StyleSheet.create({
 });
 
 export default ContactScreen;
+
