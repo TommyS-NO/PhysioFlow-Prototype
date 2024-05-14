@@ -1,6 +1,6 @@
 FIXME:! ! 
 
-FIXME: Må customCheckbox være et komponent eller holder det at det står i koden under RegisterScreen? Slett da customCheckbox
+
 FIXME: Sette opp mulighet for å endre e-post og passord under Settings-siden.
 FIXME: Hente diagnoseTITTEL på oversikt over diagnoser.
 FIXME: Fjerne ScrollView i registreringsprosessen. 
@@ -50,7 +50,7 @@ FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
 -Bilde Bodychart
 -Fjerne kontakt behandler under antatt diagnose.
 -Kontakt oss- logikk for mottak av epost
-
+-CustomCheckbox er endret til checkbox
 
 
 
@@ -95,3 +95,5 @@ Feil med bilde
 
 Generelt:
 TypeScript: Koden fungerer, men det er rød markering på visse steder i koden 
+
+Husk å nevne Niklas i AI-evalueringen
