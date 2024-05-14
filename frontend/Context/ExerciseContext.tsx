@@ -6,14 +6,15 @@ import React, {
 	useEffect,
 } from "react";
 import {
-	auth,
+	db,
 	addUserExercise,
 	deleteUserExercise,
-	updateUserExerciseStatus,
 	fetchUserDetailsFromFirestore,
+	updateUserExerciseStatus,
 } from "../Services/Firebase/FirebaseConfig";
+import { getAuth } from "firebase/auth";
 
-interface Exercise {
+export type Exercise = {
 	id: string;
 	name: string;
 	description: string;
@@ -21,20 +22,18 @@ interface Exercise {
 	category: string;
 	status?: "pending" | "completed";
 	completedAt?: string;
-}
+};
 
 interface ExerciseState {
-	exercises: Exercise[];
+	userExercises: Exercise[];
+	completedExercises: Exercise[];
 	loading: boolean;
 	error: string | null;
 }
 
-interface ExerciseProviderProps {
-	children: React.ReactNode;
-}
-
 type ExerciseAction =
-	| { type: "SET_EXERCISES"; payload: Exercise[] }
+	| { type: "SET_USER_EXERCISES"; payload: Exercise[] }
+	| { type: "SET_COMPLETED_EXERCISES"; payload: Exercise[] }
 	| { type: "ADD_EXERCISE"; payload: Exercise }
 	| { type: "REMOVE_EXERCISE"; id: string }
 	| {
@@ -46,7 +45,8 @@ type ExerciseAction =
 	| { type: "SET_ERROR"; error: string | null };
 
 const initialState: ExerciseState = {
-	exercises: [],
+	userExercises: [],
+	completedExercises: [],
 	loading: false,
 	error: null,
 };
@@ -75,19 +75,24 @@ const exerciseReducer = (
 	action: ExerciseAction,
 ): ExerciseState => {
 	switch (action.type) {
-		case "SET_EXERCISES":
-			return { ...state, exercises: action.payload, loading: false };
+		case "SET_USER_EXERCISES":
+			return { ...state, userExercises: action.payload, loading: false };
+		case "SET_COMPLETED_EXERCISES":
+			return { ...state, completedExercises: action.payload, loading: false };
 		case "ADD_EXERCISE":
-			return { ...state, exercises: [...state.exercises, action.payload] };
+			return {
+				...state,
+				userExercises: [...state.userExercises, action.payload],
+			};
 		case "REMOVE_EXERCISE":
 			return {
 				...state,
-				exercises: state.exercises.filter((ex) => ex.id !== action.id),
+				userExercises: state.userExercises.filter((ex) => ex.id !== action.id),
 			};
 		case "UPDATE_EXERCISE_STATUS":
 			return {
 				...state,
-				exercises: state.exercises.map((ex) =>
+				userExercises: state.userExercises.map((ex) =>
 					ex.id === action.id ? { ...ex, status: action.status } : ex,
 				),
 			};
@@ -100,42 +105,88 @@ const exerciseReducer = (
 	}
 };
 
-export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
-	children,
-}) => {
+export const ExerciseProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(exerciseReducer, initialState);
 
 	const fetchExercises = useCallback(async () => {
 		dispatch({ type: "SET_LOADING", loading: true });
-		if (!auth.currentUser) {
-			console.log("No authenticated user found.");
-			dispatch({ type: "SET_ERROR", error: "User not authenticated" });
-			return;
-		}
 		try {
-			const userId = auth.currentUser.uid;
-			console.log("Fetching exercises for user:", userId);
-
-			const details = await fetchUserDetailsFromFirestore(userId);
-			console.log("Details fetched:", details);
-
-			const allExercises = [
-				...details.userExercises,
-				...details.completedExercises.map((ex) => ({
-					...ex,
-					status: "completed",
-				})),
-			];
-			console.log("All exercises compiled:", allExercises);
-
-			dispatch({ type: "SET_EXERCISES", payload: allExercises });
-			dispatch({ type: "SET_LOADING", loading: false });
+			const userId = getAuth().currentUser?.uid;
+			if (userId) {
+				const { completedExercises, userExercises } =
+					await fetchUserDetailsFromFirestore(userId);
+				dispatch({ type: "SET_USER_EXERCISES", payload: userExercises });
+				dispatch({
+					type: "SET_COMPLETED_EXERCISES",
+					payload: completedExercises,
+				});
+			} else {
+				throw new Error("User not authenticated");
+			}
 		} catch (error) {
-			console.error("Error fetching exercises:", error);
-			dispatch({ type: "SET_ERROR", error: error.message });
-			dispatch({ type: "SET_LOADING", loading: false });
+			dispatch({
+				type: "SET_ERROR",
+				error: error.message || "Failed to fetch exercises",
+			});
 		}
 	}, []);
+
+	const addExercise = useCallback(async (exercise: Exercise) => {
+		try {
+			const userId = getAuth().currentUser?.uid;
+			if (userId) {
+				const docRef = await addUserExercise(userId, exercise);
+				dispatch({
+					type: "ADD_EXERCISE",
+					payload: { ...exercise, id: docRef.id },
+				});
+			} else {
+				throw new Error("User not authenticated");
+			}
+		} catch (error) {
+			dispatch({
+				type: "SET_ERROR",
+				error: error.message || "Failed to add exercise",
+			});
+		}
+	}, []);
+
+	const removeExercise = useCallback(async (exerciseId: string) => {
+		try {
+			const userId = getAuth().currentUser?.uid;
+			if (userId) {
+				await deleteUserExercise(userId, exerciseId);
+				dispatch({ type: "REMOVE_EXERCISE", id: exerciseId });
+			} else {
+				throw new Error("User not authenticated");
+			}
+		} catch (error) {
+			dispatch({
+				type: "SET_ERROR",
+				error: error.message || "Failed to remove exercise",
+			});
+		}
+	}, []);
+
+	const updateExerciseStatus = useCallback(
+		async (exerciseId: string, status: "pending" | "completed") => {
+			try {
+				const userId = getAuth().currentUser?.uid;
+				if (userId) {
+					await updateUserExerciseStatus(userId, exerciseId, status);
+					dispatch({ type: "UPDATE_EXERCISE_STATUS", id: exerciseId, status });
+				} else {
+					throw new Error("User not authenticated");
+				}
+			} catch (error) {
+				dispatch({
+					type: "SET_ERROR",
+					error: error.message || "Failed to update exercise status",
+				});
+			}
+		},
+		[],
+	);
 
 	useEffect(() => {
 		fetchExercises();
@@ -146,64 +197,9 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 			value={{
 				state,
 				dispatch,
-				addExercise: async (exercise: Exercise) => {
-					try {
-						const userId = auth.currentUser?.uid;
-						if (userId) {
-							const docRef = await addUserExercise(userId, exercise);
-							dispatch({
-								type: "ADD_EXERCISE",
-								payload: { ...exercise, id: docRef.id },
-							});
-						} else {
-							throw new Error("User not authenticated");
-						}
-					} catch (error) {
-						dispatch({
-							type: "SET_ERROR",
-							error: error.message || "Failed to add exercise",
-						});
-					}
-				},
-				removeExercise: async (exerciseId: string) => {
-					try {
-						const userId = auth.currentUser?.uid;
-						if (userId) {
-							await deleteUserExercise(userId, exerciseId);
-							dispatch({ type: "REMOVE_EXERCISE", id: exerciseId });
-						} else {
-							throw new Error("User not authenticated");
-						}
-					} catch (error) {
-						dispatch({
-							type: "SET_ERROR",
-							error: error.message || "Failed to remove exercise",
-						});
-					}
-				},
-				updateExerciseStatus: async (
-					exerciseId: string,
-					status: "pending" | "completed",
-				) => {
-					try {
-						const userId = auth.currentUser?.uid;
-						if (userId) {
-							await updateUserExerciseStatus(userId, exerciseId, status);
-							dispatch({
-								type: "UPDATE_EXERCISE_STATUS",
-								id: exerciseId,
-								status,
-							});
-						} else {
-							throw new Error("User not authenticated");
-						}
-					} catch (error) {
-						dispatch({
-							type: "SET_ERROR",
-							error: error.message || "Failed to update exercise status",
-						});
-					}
-				},
+				addExercise,
+				removeExercise,
+				updateExerciseStatus,
 				fetchExercises,
 			}}
 		>

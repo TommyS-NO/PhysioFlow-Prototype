@@ -2,7 +2,6 @@ import { initializeApp } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
   initializeAuth,
-
 } from 'firebase/auth';
 import {
   getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot,
@@ -87,10 +86,11 @@ async function updateUserProfile(userId: string, updates: Partial<UserProfile>):
 const fetchUserDetailsFromFirestore = async (userId: string) => {
   const userProfile = await fetchDocument<UserProfile>("users", userId);
   const diagnoses = await fetchCollection<Diagnosis>("diagnoses", userId);
-  const completedExercises = await fetchCollection<CommonAttributes>("completedExercises", userId);
+  const completedExercises = await fetchCollection<UserExercise>("completedExercises", userId);
   const userExercises = await fetchCollection<UserExercise>("userExercises", userId);
   return { userProfile, diagnoses, completedExercises, userExercises };
 };
+
 
 async function fetchDocument<T extends CommonAttributes>(collectionPath: string, docId: string): Promise<T> {
   const docRef = doc(db, collectionPath, docId);

@@ -11,10 +11,12 @@ import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation
 import { styles } from "./ExerciseOverviewScreen_Style";
 
 const ExerciseOverviewScreen: React.FC = () => {
-	const { exercises, fetchExercises, removeExercise, updateExerciseStatus } =
+	const { state, fetchExercises, removeExercise, updateExerciseStatus } =
 		useExercises();
+	const { userExercises, completedExercises } = state;
 
-	console.log("Exercises from context:", exercises); // Log exercises from context
+	console.log("User Exercises from context:", userExercises); // Log user exercises from context
+	console.log("Completed Exercises from context:", completedExercises); // Log completed exercises from context
 
 	const {
 		state: surveyState,
@@ -30,9 +32,9 @@ const ExerciseOverviewScreen: React.FC = () => {
 		fetchExercises();
 	}, [fetchExercises]);
 
-	useEffect(() => {
-		console.log("Exercises fetched and rendered:", exercises);
-	}, [exercises]);
+	// useEffect(() => {
+	// 	console.log("Exercises fetched and rendered:", userExercises, completedExercises);
+	// }, [userExercises, completedExercises]);
 
 	const handleCompleteExercise = async (exerciseId: string) => {
 		console.log(`Completing exercise with id ${exerciseId}`); // Log which exercise is being completed
@@ -41,7 +43,10 @@ const ExerciseOverviewScreen: React.FC = () => {
 			setActiveExerciseId(exerciseId);
 			setSurveyVisible(true);
 		} catch (error) {
-			Alert.alert("Error", `Could not load the survey: ${error.message}`);
+			Alert.alert(
+				"Error",
+				`Could not load the survey: ${(error as Error).message}`,
+			);
 		}
 	};
 
@@ -131,7 +136,7 @@ const ExerciseOverviewScreen: React.FC = () => {
 				<CustomButton title="Bekreft" onPress={handleSubmit} />
 			</CustomModal>
 			<FlatList
-				data={exercises}
+				data={[...userExercises, ...completedExercises]}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => (
 					<ExerciseItem

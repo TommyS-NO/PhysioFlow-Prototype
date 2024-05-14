@@ -34,22 +34,22 @@ const ExerciseItem = ({
 
 	const imageUri = exercise.image.replace("localhost", "192.168.10.182");
 
-	const onErrorLoadingImage = (e) => {
-		e.target.src = "../../Assets/12501301.gif";
-	};
-
 	return (
 		<View style={[styles.sessionItem, isActive ? styles.activeItem : null]}>
 			<View style={styles.sessionImageOverlay}>
 				<Image
 					source={{ uri: imageUri }}
 					style={styles.sessionImage}
-					onError={onErrorLoadingImage}
+					onError={(e) => {
+						e.currentTarget.src = require("../../Assets/12501301.gif");
+					}}
 				/>
 				{isCompleted && (
 					<View style={styles.completedOverlay}>
 						<Text style={styles.completedText}>
-							Gjennomført {exercise.completedAt}
+							Gjennomført{" "}
+							{/* biome-ignore lint/style/noNonNullAssertion: <explanation> */}
+							{formatDate(exercise.completedAt!)}
 						</Text>
 					</View>
 				)}
