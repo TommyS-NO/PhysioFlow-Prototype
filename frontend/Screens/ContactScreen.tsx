@@ -44,7 +44,7 @@ const ContactScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View></View>
+   
     <KeyboardAwareScrollView
       style={{ }}
       resetScrollToCoords={{ x: 0, y: 0 }}
@@ -89,24 +89,22 @@ const ContactScreen = () => {
         />
         </View>
   
-        
         </KeyboardAwareScrollView>
         <FooterNavigation />
         </View>
+        
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   
-
   },
   headerText: {
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 20,
-    marginTop: 20,
+    marginBottom: 5,
+    marginTop: 5,
     textAlign: "center",
   },
   input: {
@@ -115,7 +113,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#ddd",
-
   },
   textArea: {
     backgroundColor: "#fff",
@@ -124,21 +121,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ddd",
     textAlignVertical: "top", 
-    height: 150, 
+    height: 90, 
   },
   formContainer: {
     backgroundColor: "#FFFFFF",
     padding: 15,
     marginTop: 20,
     borderRadius: 8,
-    marginBottom: 15,
+    margin: 25,
     alignItems: 'center',
+
   },
   charCount: {
     textAlign: 'right',
-    marginBottom: 10,
     fontSize: 12,
     color: theme.colors.secondary,
+    marginBottom: 15,
   },
 });
 
