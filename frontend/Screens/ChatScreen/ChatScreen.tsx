@@ -70,14 +70,10 @@
 //   return (
 //     <KeyboardAvoidingView
 //       style={styles.container}
-//       behavior={Platform.OS === "ios" ? "padding" : "position"}
-//       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 80}
+//       behavior={Platform.OS === "ios" ? "padding" : "height"}
+//       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
 //     >
-//         <ScrollView
-//     style={styles.messagesContainer}
-//     contentContainerStyle={{ flexGrow: 1 }}
-//     keyboardShouldPersistTaps="handled"
-//   >
+//       <ScrollView style={styles.messagesContainer}>
 //         {messages.map((msg, index) => (
 //           <View
 //             key={index}
@@ -173,8 +169,6 @@
 // });
 
 // export default ChatScreen;
-
-//Tester med endring av KeyboardAvoidingView
 
 import React, { useState, useEffect } from "react";
 import {
