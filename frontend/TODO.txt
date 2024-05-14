@@ -12,12 +12,11 @@ FIXME: Generelt gjennomgang av styling oppsett!
 FIXME: README!!
 FIXME: FIx uniq key error i diagnose!
 FIXME: JIRA! JIRA JIRA
-FIXME: Bilde Bodychart!! 
 FIXME: FIkse ENdepunkt til Diagnoser/API kall!
 FIXME: Rydde I KODE!! 
 FIXME: Rydd vekk alle "feil" Røde streker" "tomme variabler" etc" kommentarer
 FIXME: Fjerne all navigering på toppen av sidene slik at det blir likt som på Frontscreen
-
+FIXME: Fjerne navheader og fiks styling etter at den er fjernet
 
 
 TODO:!!
@@ -33,7 +32,9 @@ TODO: Sjekk at det er samme toogle-oppsett på profil og settings screen
 TODO: Flytte knapper nederst på siden . Eks. "Neste"
 TODO: Kontakt oss- logikk for mottak av epost
 TODO: Se på Slider Farger og oppsett
-
+TODO: DatePicker
+TODO: Nedre_rygg
+TODO: Fjerne kontakt behandler under antatt diagnose.
 
 
 DONE:
@@ -43,7 +44,48 @@ Backend kode skal være Ferdig.!
 ApiService.ts OK! Uten Kommentarer og uten FEIL!
 FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
 /Validation Filene er OK!
--Endre konakt oss og om oss til Modal ? hvis mulig og lett.
+-Endre konakt oss og om oss til Modal
 -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
 -Endre navigering og oppsett på Terms-siden
 -Legg til alternativ tekst på bildene som er brukt
+-Bilde Bodychart
+
+
+Til Rapporten:
+
+FrontScreen:
+-Gul error - FrontScreen . Persistance- feil i koden
+ 
+-Om oss= OK Visuelt
+-Hjelpeknapp = OK Visuelt
+-Glemt passord = OK - Mailfunksjon fungerer
+
+-Kontakt oss = Sjekk padding og fjern ScrollView om mulig. Den skal ikke være der, men bildet blir borte om den fjernes. 
+
+
+Registreringsprosess: 
+Fungerer ikke: 
+-KeyboardAvoidingView på "Fyll inn informasjon"
+-DatePicker ? 
+-Linje 421 på RegisterScreen: ScrollView? 
+
+ProfileScreen: 
+-KontoinnstillingerEndre e-post og passord er ikke satt opp. 
+-Kontakt oss: Her er verken styling eller funjsonalitet på plass.
+
+BobAI Chat:
+OK Visuelt
+- Sjekk reply
+
+Diagnoser:
+Finn diagnose:
+Nedre_rygg. Denne ønsker vi å endre, men vi har ikke funnet riktig sted å endre enda. 
+
+
+
+
+ExerciceScreen: 
+Feil med bilde 
+
+Generelt:
+TypeScript: Koden fungerer, men det er rød markering på visse steder i koden 
