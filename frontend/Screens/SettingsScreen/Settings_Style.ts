@@ -1,5 +1,4 @@
-
-//Denne koden må ryddes opp i! Her er det mye som kan slettes.. 
+//Her må vi få satt opp customButtons?
 
 
 import { StyleSheet } from "react-native";
@@ -9,30 +8,6 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-
-  },
-  imageContainer: {
-    flexDirection: "row",
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  profileImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-  },
-
-  editButton: {
-    marginLeft: 5,
-    backgroundColor: "#fff",
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 18,
-    elevation: 2,
-  },
-  editText: {
-    color: "#000",
-    fontSize: 14,
   },
   menuContainer: {
     alignSelf: "stretch",
@@ -162,7 +137,6 @@ padding: 15,
   imageStyle: {
     width: 350, 
     height: 250, 
-    marginBottom: 5,
     alignSelf: 'center',
     resizeMode: 'contain'
   }
