@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect } from "react";
 import { Alert, View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { SurveyContext } from "../../Context/SurveyContext";
 import { styles } from "./DiagnoseScreen_Style";
-import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
+import FooterNavigation from "../../Navigation/FooterNavigation/FooterNavigation";
 import { auth } from "../../Services/Firebase/FirebaseConfig";
 
 interface Diagnosis {

@@ -18,7 +18,7 @@ import { useSurvey } from "../../Context/SurveyContext";
 import { styles } from "./FocusScreen_Style";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../Navigation/navigationTypes";
-import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
+import FooterNavigation from "../../Navigation/FooterNavigation/FooterNavigation";
 import { db } from "../../Services/Firebase/FirebaseConfig";
 import { doc, setDoc, collection } from "firebase/firestore";
 import { apiService } from "../../Services/ApiService";

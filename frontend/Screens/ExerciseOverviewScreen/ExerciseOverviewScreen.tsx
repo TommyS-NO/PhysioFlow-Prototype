@@ -7,7 +7,7 @@ import CustomModal from "../../Components/CustomModal/CustomModal";
 import CustomButton from "../../Components/CustomButton/CustomButton";
 import ExerciseItem from "./components/ExerciseItem";
 import QuestionItem from "./components/QuestionItem";
-import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
+import FooterNavigation from "../../Navigation/FooterNavigation/FooterNavigation";
 import { styles } from "./ExerciseOverviewScreen_Style";
 
 const ExerciseOverviewScreen: React.FC = () => {

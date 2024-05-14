@@ -14,7 +14,7 @@ import { styles } from "./ExerciseScreen_Style";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useExercises } from "../../Context/ExerciseContext";
 import { apiService } from "../../Services/ApiService";
-import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
+import FooterNavigation from "../../Navigation/FooterNavigation/FooterNavigation";
 
 interface ExerciseSession {
 	id: string;
