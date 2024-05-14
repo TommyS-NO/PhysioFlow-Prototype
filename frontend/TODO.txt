@@ -15,8 +15,8 @@ FIXME: JIRA! JIRA JIRA
 FIXME: FIkse ENdepunkt til Diagnoser/API kall!
 FIXME: Rydde I KODE!! 
 FIXME: Rydd vekk alle "feil" Røde streker" "tomme variabler" etc" kommentarer
-FIXME: Fjerne all navigering på toppen av sidene slik at det blir likt som på Frontscreen
-FIXME: Fjerne navheader og fiks styling etter at den er fjernet
+
+
 
 
 TODO:!!
@@ -30,11 +30,10 @@ TODO: Diagnostisering: iOS- når man trykker vis anbefalte øvelser så går ikk
 TODO: Legge til "Avbryt" underveis i registreringsprosessen. (navigere tilbake til Frontscreen)
 TODO: Sjekk at det er samme toogle-oppsett på profil og settings screen
 TODO: Flytte knapper nederst på siden . Eks. "Neste"
-TODO: Kontakt oss- logikk for mottak av epost
 TODO: Se på Slider Farger og oppsett
 TODO: DatePicker
 TODO: Nedre_rygg
-TODO: Fjerne kontakt behandler under antatt diagnose.
+
 
 
 DONE:
@@ -49,6 +48,11 @@ FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
 -Endre navigering og oppsett på Terms-siden
 -Legg til alternativ tekst på bildene som er brukt
 -Bilde Bodychart
+-Fjerne kontakt behandler under antatt diagnose.
+-Kontakt oss- logikk for mottak av epost
+
+
+
 
 
 Til Rapporten:
@@ -81,8 +85,7 @@ Diagnoser:
 Finn diagnose:
 Nedre_rygg. Denne ønsker vi å endre, men vi har ikke funnet riktig sted å endre enda. 
 
-
-
+Kontakt oss: Her må vi forklare hvorfor vi har satt opp navigeringen og alerten som vi har gjort.. 
 
 ExerciceScreen: 
 Feil med bilde 
