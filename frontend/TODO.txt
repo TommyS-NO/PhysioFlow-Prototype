@@ -43,6 +43,9 @@ Backend kode skal være Ferdig.!
 ApiService.ts OK! Uten Kommentarer og uten FEIL!
 FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
 /Validation Filene er OK!
+/Components og tilhørende filer er nå Ferdig Sjekket!
+
+
 -Endre konakt oss og om oss til Modal
 -Sjekk at tekst som går helt i bunnen av en side kommer tydelig frem. Eks. UserGuideScreen. Er dette likt på iOS og Android?
 -Endre navigering og oppsett på Terms-siden
