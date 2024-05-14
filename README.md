@@ -9,7 +9,7 @@
 6. [Bruk av Postman for API-testing](#bruk-av-postman-for-api-testing)
 7. [Simulator](#simulator)
 8. [Mangler og fremtidige arbeid](#mangler-og-fremtidig-arbeid)
-9. [AI og Chat GPT] (#AI-og-Chat-GPT)
+9. [AI og Chat GPT](#ai-og-chat-gpt)
 10. [Kontaktinformasjon](#kontaktinformasjon) (trenger vi dette?)
 
 ## Introduksjon
@@ -46,8 +46,12 @@ Følg disse stegene for å kjøre prosjektet lokalt:
 
 `git clone https://github.com/TommyS-NO/PhysioGO.git`
 
-`cd <repository_folder>` Tommy: Må vu definere noe mer her med tanke på folder og hvordan de skal gå frem? 
-
+`cd <repository_folder>` 
+### ------------
+### Tommy: 
+Må vi definere noe mer her med tanke på folder og hvordan de skal gå frem? 
+Hva med oppsett av .env-filer  Her er jeg veldig usikker på hva vi eventuelt skal skrive....
+### -------------
 2. Installer avhengigheter:
 
 `npm install`
