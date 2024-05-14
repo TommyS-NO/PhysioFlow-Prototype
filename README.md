@@ -4,11 +4,13 @@
 1. [Introduksjon](#introduksjon)
 2. [Funksjoner](#funksjoner)
 3. [Teknologi](#teknologi)
-4. [Komme i gang](#komme-i-gang)
-5. [Bruk av Postman for API-testing](#bruk-av-postman-for-api-testing)
-6. [Simulator](#simulator-bruk)
-7. [Mangler og Fremtidige Arbeider](#mangler-og-fremtidige-arbeider)
-8. [Kontaktinformasjon](#kontaktinformasjon) (trenger vi dette?)
+4. [Forutsetninger](#forutsetninger)
+5. [Komme i gang](#komme-i-gang)
+6. [Bruk av Postman for API-testing](#bruk-av-postman-for-api-testing)
+7. [Simulator](#simulator)
+8. [Mangler og fremtidige arbeid](#mangler-og-fremtidig-arbeid)
+9. [AI og Chat GPT] (#AI-og-Chat-GPT)
+10. [Kontaktinformasjon](#kontaktinformasjon) (trenger vi dette?)
 
 ## Introduksjon
 Vi har utviklet en app for fysioterapeuter og kiropraktorer som hjelper pasienter og brukere med å kunne diagnostiseres og få anbefalte rehabiliteringsølvelser uten å måtte være fysisk til stede hos behandlere. Brukeren registrerer seg og legger inn informasjon som kjønn, vekt, høyde og alde, og etter å ha besvart en rekke spørsmål... TBC 
@@ -17,22 +19,34 @@ Vi har utviklet en app for fysioterapeuter og kiropraktorer som hjelper pasiente
 - **Brukerregistrering:** Registrer brukerdata som kjønn, vekt, høyde og alder.
 - **Diagnose og øvelser:** Få en antatt diagnose og foreslåtte øvelser basert på svar på spørsmål om problemområder.
 - **Progresjonssporing:** Se progresjon og fremdrift fra utførte øvelser. Denne er fortsatt under utvikling 
-- **AI Interaksjon:** Drøft diagnoser og øvelser med ChatGPT 3.5 (under utvikling).
+- **AI Interaksjon:** Drøfte diagnoser og øvelser med ChatGPT 3.5 (Denne er fortsatt under utvikling).
   
 ## Teknologi
+
+Til prosjektet har vi benyttet oss av følgende teknologi: 
+
 - **Frontend:** React Native, Typescript
 - **Backend:** Node.js
 - **Database:** Firestore
 - **Testing:** Expo GO
 - **Plattform:** Android og iOS
 
+- ## Forutsetninger (trenger vi det såpass detaljert?) 
+- **Operativsystem:** Windows, macOS, eller Linux
+- **Programmer:** Node.js, npm, Git
+- **Forhåndsinstallasjoner:** 
+  - [Node.js og npm](https://nodejs.org/)
+  - [Git](https://git-scm.com/)
+
+
 ## Komme i gang
 Følg disse stegene for å kjøre prosjektet lokalt:
 
 1. Klon repository:
 
-`git clone <repository_url>`
-`cd <repository_folder>`
+`git clone https://github.com/TommyS-NO/PhysioGO.git`
+
+`cd <repository_folder>` Tommy: Må vu definere noe mer her med tanke på folder og hvordan de skal gå frem? 
 
 2. Installer avhengigheter:
 
@@ -48,7 +62,7 @@ Postman kan brukes til å teste API-ene i prosjektet. Følg disse stegene:
 
 #### Installer Postman:
 
-- Last ned og installer Postman fra postman.com.
+Last ned og installer [Postman](https://postman.com)
 
 #### Importer API-kolleksjonen:
 
@@ -61,7 +75,7 @@ Postman kan brukes til å teste API-ene i prosjektet. Følg disse stegene:
 
 #### Send forespørsler:
 
-Velg en forespørsel fra kolleksjonen.
+Velg en forespørsel.
 Klikk på "Send" for å utføre forespørselen.
 Se svar og valider responsdata.
 
@@ -118,11 +132,11 @@ Når du bruker Expo GO til å utvikle og teste React Native-applikasjoner, kan d
 ### Hvordan utføre clearing av cache:
 Clearing av cache kan gjøres på flere måter, avhengig av hvilket verktøy eller hvilken metode du bruker. Her er noen vanlige metoder for å tømme cache når du bruker Expo GO:
 
-### 1. Bruke Expo CLI
+#### 1. Bruke Expo CLI
 Den enkleste måten å tømme cache på er ved å bruke Expo CLI-kommandoen `expo start -c` : Denne kommandoen starter prosjektet ditt på nytt og tømmer cachen samtidig.
 
 
-### 2. Manuelt tømme cache
+#### 2. Manuelt tømme cache
 Noen ganger kan det være nødvendig å tømme cache manuelt ved å slette spesifikke mapper. Dette inkluderer:
 
 - node_modules katalogen
@@ -138,7 +152,7 @@ Her er et eksempel på hvordan du kan gjøre dette:
 `expo start -c`
 
 
-### 3. Tømme cache i Expo GO appen
+#### 3. Tømme cache i Expo GO appen
 
 Hvis du mistenker at problemet er med cachen i Expo GO appen på din mobile enhet:
 
