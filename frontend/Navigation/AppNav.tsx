@@ -43,12 +43,12 @@ const AppNav = () => (
 			<Stack.Screen
 				name="FocusScreen"
 				component={FocusScreen}
-				options={{ title: "Fokusområde", headerShown: true }} // ENDRE TIL FALSE
+				options={{ title: "Fokusområde", headerShown: true }}
 			/>
 			<Stack.Screen
 				name="ExerciseScreen"
 				component={ExerciseScreen}
-				options={{ title: "Søk etter øvelser", headerShown: true }} // ENDRE TIL FALSE
+				options={{ title: "Søk etter øvelser", headerShown: true }}
 			/>
 			<Stack.Screen
 				name="ProfileScreen"
@@ -63,7 +63,7 @@ const AppNav = () => (
 			<Stack.Screen
 				name="ContactScreen"
 				component={ContactScreen}
-				options={{ title: "Kontakt oss", headerShown: true }} // ENDRE TIL FALSE
+				options={{ title: "Kontakt oss", headerShown: true }}
 			/>
 
 			<Stack.Screen
