@@ -399,7 +399,7 @@ const RegisterScreen = () => {
 										buttonStyle={styles.button}
 									/>
 									<CustomButton
-										title="Fullfør registrering"
+										title="Registrer"
 										onPress={handleRegistration}
 										buttonStyle={styles.flexibleButton}
 									/>
