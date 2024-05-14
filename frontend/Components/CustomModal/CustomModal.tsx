@@ -27,7 +27,6 @@ const CustomModal: React.FC<CustomModalProps> = ({
 	children,
 	style,
 	containerStyle,
-
 }) => (
 	<Modal
 		visible={visible}
@@ -44,7 +43,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
 						color="#D32F2F"
 					/>
 				</TouchableOpacity>
-				<Text style={styles.modalTitle}>{title}</Text>
+				{title && <Text style={styles.modalTitle}>{title}</Text>}
 				{children}
 			</View>
 		</View>
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
 		shadowRadius: 4,
 		elevation: 5,
 		maxWidth: "95%",
-		
 	},
 	closeButton: {
 		position: "absolute",
