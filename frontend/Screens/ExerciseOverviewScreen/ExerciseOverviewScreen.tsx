@@ -5,8 +5,8 @@ import { useSurvey } from "../../Context/SurveyContext";
 import { useUser } from "../../Context/UserContext";
 import CustomModal from "../../Components/CustomModal/CustomModal";
 import CustomButton from "../../Components/CustomButton/CustomButton";
-import ExerciseItem from "./ExerciseItemComponent";
-import QuestionItem from "./QuestionItemComponent";
+import ExerciseItem from "./components/ExerciseItem";
+import QuestionItem from "./components/QuestionItem";
 import FooterNavigation from "../../Components/FooterNavigation/FooterNavigation";
 import { styles } from "./ExerciseOverviewScreen_Style";
 
@@ -15,9 +15,8 @@ const ExerciseOverviewScreen: React.FC = () => {
 		useExercises();
 	const { userExercises, completedExercises } = state;
 
-	console.log("User Exercises from context:", userExercises); // Log user exercises from context
-	console.log("Completed Exercises from context:", completedExercises); // Log completed exercises from context
-
+	console.log("User Exercises from context:", userExercises);
+	console.log("Completed Exercises from context:", completedExercises);
 	const {
 		state: surveyState,
 		dispatch: surveyDispatch,
@@ -28,14 +27,14 @@ const ExerciseOverviewScreen: React.FC = () => {
 	const [activeExerciseId, setActiveExerciseId] = useState<string | null>(null);
 
 	useEffect(() => {
-		console.log("Fetching exercises..."); // Log before fetching
+		console.log("Fetching exercises...");
 		fetchExercises();
-	}, []); // Empty dependency array ensures this runs only once
+	}, []);
 
 	const handleCompleteExercise = async (exerciseId: string) => {
-		console.log(`Completing exercise with id ${exerciseId}`); // Log which exercise is being completed
+		console.log(`Completing exercise with id ${exerciseId}`);
 		try {
-			surveyDispatch({ type: "CLEAR_SURVEY" }); // Clear survey state
+			surveyDispatch({ type: "CLEAR_SURVEY" });
 			await loadSurvey("followup");
 			setActiveExerciseId(exerciseId);
 			setSurveyVisible(true);
@@ -49,7 +48,7 @@ const ExerciseOverviewScreen: React.FC = () => {
 
 	const handleAnswerChange = useCallback(
 		(questionId: string, answer: string | number) => {
-			console.log(`Answering question ${questionId} with answer ${answer}`); // Log question answers
+			console.log(`Answering question ${questionId} with answer ${answer}`);
 			surveyDispatch({
 				type: "ANSWER_QUESTION",
 				questionId,
@@ -60,7 +59,7 @@ const ExerciseOverviewScreen: React.FC = () => {
 	);
 
 	const handleSubmit = async () => {
-		console.log("Submitting survey..."); // Log before submitting
+		console.log("Submitting survey...");
 		const allAnswered = surveyState.questions.every((question) => {
 			const answer = surveyState.answers[question.id];
 			return (
@@ -90,13 +89,13 @@ const ExerciseOverviewScreen: React.FC = () => {
 	};
 
 	const closeSurvey = () => {
-		console.log("Closing survey..."); // Log when closing survey
+		console.log("Closing survey...");
 		setSurveyVisible(false);
 		setActiveExerciseId(null);
 	};
 
 	const handleRemoveExercise = (exerciseId: string) => {
-		console.log(`Removing exercise with id ${exerciseId}`); // Log which exercise is being removed
+		console.log(`Removing exercise with id ${exerciseId}`);
 		Alert.alert(
 			"Fjerne øvelse",
 			"Er du sikker på at du vil fjerne denne øvelsen fra listen din?",

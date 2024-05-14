@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
-import CustomSlider from "../../Components/CustomSlider/CustomSlider";
-import { SurveyQuestion, Answer } from "../../Context/SurveyContext";
-import { styles } from "./ExerciseOverviewScreen_Style";
+import CustomSlider from "../../../Components/CustomSlider/CustomSlider";
+import { SurveyQuestion, Answer } from "../../../Context/SurveyContext";
+import { styles } from "../ExerciseOverviewScreen_Style";
 
 interface QuestionItemProps {
 	question: SurveyQuestion;
@@ -29,7 +29,7 @@ const QuestionItem = ({ question, onAnswer, answer }: QuestionItemProps) => {
 			)}
 			{question.type === "numericInput" && (
 				<View style={styles.timeInputContainer}>
-					<Text style={styles.timeInputLabel}></Text>
+					<Text style={styles.timeInputLabel} />
 					<TextInput
 						style={styles.textInput}
 						value={String(answer.answer)}

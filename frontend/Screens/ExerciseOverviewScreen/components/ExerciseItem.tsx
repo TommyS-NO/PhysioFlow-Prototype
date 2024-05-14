@@ -8,8 +8,8 @@ import {
 	NativeSyntheticEvent,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { Exercise } from "../../Context/ExerciseContext";
-import { styles } from "./ExerciseOverviewScreen_Style";
+import { Exercise } from "../../../Context/ExerciseContext";
+import { styles } from "../ExerciseOverviewScreen_Style";
 
 interface ExerciseItemProps {
 	exercise: Exercise;
