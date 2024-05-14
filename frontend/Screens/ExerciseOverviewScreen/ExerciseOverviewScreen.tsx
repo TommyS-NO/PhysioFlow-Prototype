@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, FlatList, Alert, Text, ScrollView } from "react-native";
 import { useExercises } from "../../Context/ExerciseContext";
 import { useSurvey } from "../../Context/SurveyContext";
@@ -30,15 +30,12 @@ const ExerciseOverviewScreen: React.FC = () => {
 	useEffect(() => {
 		console.log("Fetching exercises..."); // Log before fetching
 		fetchExercises();
-	}, [fetchExercises]);
-
-	// useEffect(() => {
-	// 	console.log("Exercises fetched and rendered:", userExercises, completedExercises);
-	// }, [userExercises, completedExercises]);
+	}, []); // Empty dependency array ensures this runs only once
 
 	const handleCompleteExercise = async (exerciseId: string) => {
 		console.log(`Completing exercise with id ${exerciseId}`); // Log which exercise is being completed
 		try {
+			surveyDispatch({ type: "CLEAR_SURVEY" }); // Clear survey state
 			await loadSurvey("followup");
 			setActiveExerciseId(exerciseId);
 			setSurveyVisible(true);
@@ -50,14 +47,17 @@ const ExerciseOverviewScreen: React.FC = () => {
 		}
 	};
 
-	const handleAnswerChange = (questionId: string, answer: string | number) => {
-		console.log(`Answering question ${questionId} with answer ${answer}`); // Log question answers
-		surveyDispatch({
-			type: "ANSWER_QUESTION",
-			questionId,
-			answer: { questionId, answer },
-		});
-	};
+	const handleAnswerChange = useCallback(
+		(questionId: string, answer: string | number) => {
+			console.log(`Answering question ${questionId} with answer ${answer}`); // Log question answers
+			surveyDispatch({
+				type: "ANSWER_QUESTION",
+				questionId,
+				answer: { questionId, answer },
+			});
+		},
+		[surveyDispatch],
+	);
 
 	const handleSubmit = async () => {
 		console.log("Submitting survey..."); // Log before submitting

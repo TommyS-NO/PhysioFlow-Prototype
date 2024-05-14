@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+	View,
+	Text,
+	Image,
+	TouchableOpacity,
+	ImageErrorEventData,
+	NativeSyntheticEvent,
+} from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Exercise } from "../../Context/ExerciseContext";
 import { styles } from "./ExerciseOverviewScreen_Style";
@@ -12,8 +19,14 @@ interface ExerciseItemProps {
 	isActive: boolean;
 }
 
-const formatDate = (isoString: string): string => {
+const formatDate = (isoString: string | undefined): string => {
+	if (!isoString) {
+		return "Invalid date";
+	}
 	const date = new Date(isoString);
+	if (Number.isNaN(date.getTime())) {
+		return "Invalid date";
+	}
 	return new Intl.DateTimeFormat("nb-NO", {
 		year: "numeric",
 		month: "2-digit",
@@ -32,7 +45,15 @@ const ExerciseItem = ({
 }: ExerciseItemProps) => {
 	const isCompleted = exercise.status === "completed";
 
-	const imageUri = exercise.image.replace("localhost", "192.168.10.182");
+	const imageUri = exercise.image
+		? exercise.image.replace("localhost", "192.168.10.182")
+		: "http://192.168.10.182/Assets";
+
+	const onErrorLoadingImage = (
+		error: NativeSyntheticEvent<ImageErrorEventData>,
+	) => {
+		console.error("Error loading image", error.nativeEvent);
+	};
 
 	return (
 		<View style={[styles.sessionItem, isActive ? styles.activeItem : null]}>
@@ -40,16 +61,12 @@ const ExerciseItem = ({
 				<Image
 					source={{ uri: imageUri }}
 					style={styles.sessionImage}
-					onError={(e) => {
-						e.currentTarget.src = require("../../Assets/12501301.gif");
-					}}
+					onError={onErrorLoadingImage}
 				/>
 				{isCompleted && (
 					<View style={styles.completedOverlay}>
 						<Text style={styles.completedText}>
-							Gjennomført{" "}
-							{/* biome-ignore lint/style/noNonNullAssertion: <explanation> */}
-							{formatDate(exercise.completedAt!)}
+							Gjennomført {formatDate(exercise.completedAt)}
 						</Text>
 					</View>
 				)}

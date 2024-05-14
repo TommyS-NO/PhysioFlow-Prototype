@@ -6,7 +6,6 @@ import React, {
 	useEffect,
 } from "react";
 import {
-	db,
 	addUserExercise,
 	deleteUserExercise,
 	fetchUserDetailsFromFirestore,
@@ -40,6 +39,7 @@ type ExerciseAction =
 			type: "UPDATE_EXERCISE_STATUS";
 			id: string;
 			status: "pending" | "completed";
+			completedAt?: string;
 	  }
 	| { type: "SET_LOADING"; loading: boolean }
 	| { type: "SET_ERROR"; error: string | null };
@@ -89,13 +89,26 @@ const exerciseReducer = (
 				...state,
 				userExercises: state.userExercises.filter((ex) => ex.id !== action.id),
 			};
-		case "UPDATE_EXERCISE_STATUS":
-			return {
-				...state,
-				userExercises: state.userExercises.map((ex) =>
-					ex.id === action.id ? { ...ex, status: action.status } : ex,
-				),
-			};
+		case "UPDATE_EXERCISE_STATUS": {
+			const updatedUserExercises = state.userExercises.map((ex) =>
+				ex.id === action.id
+					? { ...ex, status: action.status, completedAt: action.completedAt }
+					: ex,
+			);
+			const completedExercise = updatedUserExercises.find(
+				(ex) => ex.id === action.id && action.status === "completed",
+			);
+			if (completedExercise) {
+				return {
+					...state,
+					userExercises: updatedUserExercises.filter(
+						(ex) => ex.id !== action.id,
+					),
+					completedExercises: [...state.completedExercises, completedExercise],
+				};
+			}
+			return { ...state, userExercises: updatedUserExercises };
+		}
 		case "SET_LOADING":
 			return { ...state, loading: action.loading };
 		case "SET_ERROR":
@@ -173,8 +186,15 @@ export const ExerciseProvider = ({ children }) => {
 			try {
 				const userId = getAuth().currentUser?.uid;
 				if (userId) {
+					const completedAt =
+						status === "completed" ? new Date().toISOString() : undefined;
 					await updateUserExerciseStatus(userId, exerciseId, status);
-					dispatch({ type: "UPDATE_EXERCISE_STATUS", id: exerciseId, status });
+					dispatch({
+						type: "UPDATE_EXERCISE_STATUS",
+						id: exerciseId,
+						status,
+						completedAt,
+					});
 				} else {
 					throw new Error("User not authenticated");
 				}
@@ -188,9 +208,9 @@ export const ExerciseProvider = ({ children }) => {
 		[],
 	);
 
-	useEffect(() => {
-		fetchExercises();
-	}, [fetchExercises]);
+	// useEffect(() => {
+	// 	fetchExercises();
+	// }, []); // Fetch exercises only once on mount
 
 	return (
 		<ExerciseContext.Provider
