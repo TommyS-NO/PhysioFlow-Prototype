@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   shoulderArea: {
     position: "absolute",
-    top: "38%",
+    top: "28%",
     left: "62%",
     width: 25,
     height: 25,
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
   },
   wristHandArea: {
     position: "absolute",
-    top: "56%",
+    top: "50%",
     left: "65%",
     width: 25,
     height: 25,
@@ -51,8 +51,8 @@ export const styles = StyleSheet.create({
   },
   hipArea: {
     position: "absolute",
-    top: "49%",
-    left: "56%",
+    top: "47%",
+    left: "33%",
     width: 25,
     height: 25,
     borderRadius: 100,
@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
   },
   kneArea: {
     position: "absolute",
-    top: "72%",
+    top: "75%",
     left: "56%",
     width: 25,
     height: 25,
@@ -84,7 +84,7 @@ export const styles = StyleSheet.create({
   },
   upperBackArea: {
     position: "absolute",
-    top: "30%",
+    top: "26%",
     left: "48%",
     width: 25,
     height: 25,
@@ -95,7 +95,7 @@ export const styles = StyleSheet.create({
   },
   lowerBackArea: {
     position: "absolute",
-    top: "46%",
+    top: "40%",
     left: "48%",
     width: 25,
     height: 25,
@@ -117,8 +117,8 @@ export const styles = StyleSheet.create({
   },
   neckArea: {
     position: "absolute",
-    top: "22%",
-    left: "50%",
+    top: "18%",
+    left: "48%",
     width: 25,
     height: 25,
     borderRadius: 100,
