@@ -130,7 +130,7 @@ const ProfileScreen: React.FC = () => {
           >
             <Text style={styles.profileButtonText}>BobAI Chat</Text>
             <Image
-              source={require("../../Assets/Robot_1.png")}
+              source={require("../../Assets/Robot.png")}
               style={styles.bobaiImage}
               accessibilityLabel="Robot"
             />

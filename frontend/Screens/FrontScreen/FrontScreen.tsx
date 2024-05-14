@@ -314,7 +314,7 @@ const [contactModalVisible, setContactModalVisible] = useState(false);
             støtte gjennom din rehabiliteringsreise.
           </Text>
           <Image
-            source={require("../../Assets/Robot_1.png")}
+            source={require("../../Assets/Robot.png")}
             style={frontScreenStyles.modalImage}
 			accessibilityLabel="Robot"
           />
