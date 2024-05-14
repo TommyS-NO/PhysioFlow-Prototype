@@ -80,10 +80,6 @@ const FocusScreen = () => {
 			answer: { questionId, answer },
 		});
 	};
-	//Trenger vi denne nå? Har lagt til navigasjon til ContactScreen..
-	// const handleContactProvider = () => {
-	// 	console.log("Contact provider action here");
-	// };
 
 	const handleSubmitAnswers = async () => {
 		try {
@@ -94,6 +90,7 @@ const FocusScreen = () => {
 
 			const diagnosisData = {
 				diagnosis: response.diagnosis,
+				title: response.diagnosis,
 				description: response.description,
 				exercises: response.exercises,
 				timestamp: new Date().toISOString(),

@@ -17,10 +17,11 @@ const DiagnoseScreen: React.FC = () => {
 		useContext(SurveyContext);
 	const { diagnoses } = state;
 
-	useEffect(() => {
-		console.log("Diagnoses updated:", diagnoses);
-	}, [diagnoses]);
+	// useEffect(() => {
+	// 	console.log("Diagnoses updated:", diagnoses);
+	// }, [diagnoses]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const userId = auth.currentUser?.uid;
 		if (userId) {
@@ -28,7 +29,7 @@ const DiagnoseScreen: React.FC = () => {
 				console.log("User data loaded");
 			});
 		}
-	}, [loadUserData]);
+	}, [loadUserData, auth.currentUser?.uid]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const handleDelete = useCallback(
@@ -66,9 +67,7 @@ const DiagnoseScreen: React.FC = () => {
 					diagnoses.map((diagnosis: Diagnosis) => (
 						<View key={diagnosis.id} style={styles.diagnosisContainer}>
 							<View style={styles.header}>
-								<Text style={styles.diagnosisTitle}>
-									{diagnosis.title || "Ukjent Diagnose"}
-								</Text>
+								<Text style={styles.diagnosisTitle}>{diagnosis.title}</Text>
 								<TouchableOpacity
 									style={styles.deleteButton}
 									onPress={() => handleDelete(diagnosis.id)}

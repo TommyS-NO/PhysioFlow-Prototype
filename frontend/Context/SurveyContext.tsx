@@ -65,6 +65,7 @@ interface SurveyState {
 	questions: SurveyQuestion[];
 	answers: Record<string, Answer>;
 	diagnoses: Diagnosis[];
+	loading: boolean;
 }
 
 type SurveyAction =
@@ -73,13 +74,15 @@ type SurveyAction =
 	| { type: "RESET_SURVEY" }
 	| { type: "SAVE_DIAGNOSIS"; diagnosis: Diagnosis }
 	| { type: "REMOVE_DIAGNOSIS"; diagnosisId: string }
-	| { type: "LOAD_DIAGNOSES"; diagnoses: Diagnosis[] };
+	| { type: "LOAD_DIAGNOSES"; diagnoses: Diagnosis[] }
+	| { type: "SET_LOADING"; loading: boolean };
 
 const initialState: SurveyState = {
 	surveyId: "",
 	questions: [],
 	answers: {},
 	diagnoses: [],
+	loading: false,
 };
 
 const SurveyReducer = (
@@ -118,6 +121,11 @@ const SurveyReducer = (
 				...state,
 				diagnoses: action.diagnoses,
 			};
+		case "SET_LOADING":
+			return {
+				...state,
+				loading: action.loading,
+			};
 		default:
 			return state;
 	}
@@ -149,25 +157,23 @@ function SurveyProvider({ children }: PropsWithChildren<ReactNode>) {
 	const fetchDiagnoses = useCallback(async () => {
 		if (!auth.currentUser) return;
 		const userId = auth.currentUser.uid;
+		dispatch({ type: "SET_LOADING", loading: true });
 		const querySnapshot = await getDocs(
 			collection(db, "users", userId, "diagnoses"),
 		);
 		const diagnoses = querySnapshot.docs.map((doc) => {
-			const data = doc.data() as Diagnosis;
+			const data = doc.data();
 			return {
 				id: doc.id,
-				title: data.title,
+				title: data.diagnosis || data.title,
 				description: data.description,
 				exercises: data.exercises,
 				timestamp: data.timestamp,
-			};
+			} as Diagnosis;
 		});
 		dispatch({ type: "LOAD_DIAGNOSES", diagnoses });
+		dispatch({ type: "SET_LOADING", loading: false });
 	}, []);
-
-	useEffect(() => {
-		fetchDiagnoses();
-	}, [fetchDiagnoses]);
 
 	const loadSurvey = useCallback(async (surveyId: string) => {
 		try {
@@ -209,10 +215,15 @@ function SurveyProvider({ children }: PropsWithChildren<ReactNode>) {
 		},
 		[],
 	);
+
 	const loadUserData = useCallback(async (userId: string) => {
 		try {
 			const userData = await fetchUserDetailsFromFirestore(userId);
-			dispatch({ type: "LOAD_DIAGNOSES", diagnoses: userData.diagnoses });
+			const diagnoses = userData.diagnoses.map((diagnosis) => ({
+				...diagnosis,
+				title: diagnosis.diagnosis,
+			}));
+			dispatch({ type: "LOAD_DIAGNOSES", diagnoses });
 		} catch (error) {
 			console.error("Feil under lasting av brukerdata: ", error);
 			alert("Kunne ikke laste brukerdata. Vennligst prøv igjen senere.");
