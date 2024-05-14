@@ -283,11 +283,6 @@ const FocusScreen = () => {
 						}
 						size="medium"
 					/>
-					<CustomButton
-						title="Kontakt behandler"
-						onPress={() => navigation.navigate("ContactScreen")}
-						size="medium"
-					/>
 				</CustomModal>
 			)}
 			<FooterNavigation />
