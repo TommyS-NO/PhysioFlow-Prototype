@@ -78,8 +78,8 @@ const BodyChart: React.FC<BodyChartProps> = ({
       <Image
         source={
           bodySide === "front"
-            ? require("../../../Assets/bodyChartPerson.png")
-            : require("../../../Assets/bodyChartBack.png")
+            ? require("../../../Assets/BCfront.png")
+            : require("../../../Assets/BCback.png")
         }
         style={styles.bodyChart}
       />
