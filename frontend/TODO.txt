@@ -23,7 +23,7 @@ TODO:!!
 
 TODO: Slett CustomButton ? ? ? Benytt touchopacitys?
 TODO: Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren - Mina jobber med
-TODO: KeyboardAvoidingView på chat screen fungerer ikke på Android
+TODO: KeyboardAvoidingView på chat screen fungerer ikke på Android-
 TODO: Onclose funksjon for tilbake til ProfilScreen
 TODO: Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
 TODO: Diagnostisering: iOS- når man trykker vis anbefalte øvelser så går ikke modalen vekk av seg selv. Det må den gjøre. Den navigerer til riktig side, men modalen blir stående. 
@@ -76,6 +76,9 @@ Fungerer ikke:
 ProfileScreen: 
 -KontoinnstillingerEndre e-post og passord er ikke satt opp. 
 -Kontakt oss: Her er verken styling eller funjsonalitet på plass.
+
+SettingsScreen:
+-Endre brukernavn og passord er ikke satt opp, men vi ønsket å ha det med.. 
 
 BobAI Chat:
 OK Visuelt
