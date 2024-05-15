@@ -22,8 +22,8 @@ import {
 	registerUser,
 	saveUserProfile,
 } from "../../Services/Firebase/FirebaseConfig";
-import { doc, setDoc } from "firebase/firestore";
 import { CheckBox } from "react-native-elements";
+import { doc, setDoc } from "firebase/firestore";
 
 type RegisterScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
@@ -41,6 +41,7 @@ interface UserFormData {
 	birthday: string;
 	acceptTerms: boolean;
 }
+
 const RegisterScreen = () => {
 	const navigation = useNavigation<RegisterScreenNavigationProp>();
 	const [formData, setFormData] = useState<UserFormData>({
@@ -75,7 +76,6 @@ const RegisterScreen = () => {
 	const navigateToTerms = () => navigation.navigate("TermsScreen");
 
 	const handleRegistration = async () => {
-		console.log("Registreringsdata:", formData);
 		if (formData.password !== formData.confirmPassword) {
 			Alert.alert("Feil", "Passordene matcher ikke.");
 			return;
@@ -94,16 +94,11 @@ const RegisterScreen = () => {
 					birthday: formData.birthday,
 				};
 				await saveUserProfile(userId, userProfile);
-				console.log(
-					"Brukerprofil og samlinger initialisert for bruker-ID: ",
-					userId,
-				);
 				navigation.navigate("ProfileScreen");
 			} else {
 				throw new Error("Kunne ikke registrere bruker.");
 			}
 		} catch (error) {
-			console.error(error);
 			Alert.alert(
 				"Feil under registrering",
 				error instanceof Error ? error.message : "Noe gikk galt",
@@ -111,7 +106,6 @@ const RegisterScreen = () => {
 		}
 	};
 
-	//Skal vi ikke ha case 2?
 	const validateCurrentStep = (): boolean => {
 		switch (currentStep) {
 			case 1:
@@ -172,7 +166,6 @@ const RegisterScreen = () => {
 							<Text style={styles.infoTitle}>
 								Fyll inn din informasjon her:
 							</Text>
-
 							<InputField
 								label="For- og etternavn:"
 								value={formData.username}
@@ -202,7 +195,6 @@ const RegisterScreen = () => {
 								}
 								style={styles.input}
 							/>
-
 							<View style={styles.checkboxContainer}>
 								<CheckBox
 									checked={formData.acceptTerms}
@@ -211,7 +203,6 @@ const RegisterScreen = () => {
 									}
 									title={""}
 								/>
-
 								<Text style={styles.checkBoxLabel} onPress={navigateToTerms}>
 									Aksepter Terms of Service
 								</Text>
@@ -230,7 +221,6 @@ const RegisterScreen = () => {
 				return (
 					<View style={styles.formContainer}>
 						<Text style={styles.infoTitle}>Velkommen!</Text>
-
 						<Text style={styles.infoText}>
 							Vi trenger litt mer informasjon for å fullføre registreringen din.
 						</Text>
@@ -255,158 +245,140 @@ const RegisterScreen = () => {
 				);
 			case 3:
 				return (
-					<>
-						<View style={styles.formContainer}>
-							<GenderSelection
-								selectedGender={formData.gender}
-								onSelectGender={(gender) => handleInputChange("gender", gender)}
+					<View style={styles.formContainer}>
+						<GenderSelection
+							selectedGender={formData.gender}
+							onSelectGender={(gender) => handleInputChange("gender", gender)}
+						/>
+						<View style={styles.buttonContainer}>
+							<CustomButton
+								title="Tilbake"
+								onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+								buttonStyle={styles.button}
 							/>
-							<View style={styles.buttonContainer}>
-								<CustomButton
-									title="Tilbake"
-									onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
-									buttonStyle={styles.button}
-								/>
-								<CustomButton
-									title="Neste"
-									onPress={handleNextStep}
-									buttonStyle={styles.button}
-								/>
-							</View>
+							<CustomButton
+								title="Neste"
+								onPress={handleNextStep}
+								buttonStyle={styles.button}
+							/>
 						</View>
-					</>
+					</View>
 				);
 			case 4:
 				return (
-					<>
-						<View style={styles.formContainer}>
-							<Text style={styles.infoTitle}>Når er du født?</Text>
-							<PickerComponent
-								mode="date"
-								selectedValue={
-									formData.birthday ? new Date(formData.birthday) : new Date()
-								}
-								onValueChange={(date: Date) =>
-									handleInputChange(
-										"birthday",
-										date.toISOString().split("T")[0],
-									)
-								}
-								label="Fødselsdato"
+					<View style={styles.formContainer}>
+						<Text style={styles.infoTitle}>Når er du født?</Text>
+						<PickerComponent
+							mode="date"
+							selectedValue={
+								formData.birthday ? new Date(formData.birthday) : new Date()
+							}
+							onValueChange={(date: Date) =>
+								handleInputChange("birthday", date.toISOString().split("T")[0])
+							}
+							label="Fødselsdato"
+						/>
+						<View style={styles.buttonContainer}>
+							<CustomButton
+								title="Tilbake"
+								onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+								buttonStyle={styles.button}
 							/>
-
-							<View style={styles.buttonContainer}>
-								<CustomButton
-									title="Tilbake"
-									onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
-									buttonStyle={styles.button}
-								/>
-								<CustomButton
-									title="Neste"
-									onPress={handleNextStep}
-									buttonStyle={styles.button}
-								/>
-							</View>
+							<CustomButton
+								title="Neste"
+								onPress={handleNextStep}
+								buttonStyle={styles.button}
+							/>
 						</View>
-					</>
+					</View>
 				);
 			case 5:
 				return (
-					<>
-						<View style={styles.formContainer}>
-							<Text style={styles.infoTitle}>Hvor høy er du?</Text>
-
-							<NumberSpinner
-								data={Array.from({ length: 121 }, (_, i) => 150 + i)}
-								selectedValue={formData.height}
-								onValueChange={(value) => handleInputChange("height", value)}
-								unit="cm"
-								label="høyde"
+					<View style={styles.formContainer}>
+						<Text style={styles.infoTitle}>Hvor høy er du?</Text>
+						<NumberSpinner
+							data={Array.from({ length: 121 }, (_, i) => 150 + i)}
+							selectedValue={formData.height}
+							onValueChange={(value) => handleInputChange("height", value)}
+							unit="cm"
+							label="høyde"
+						/>
+						<Image
+							source={require("../../Assets/Height.png")}
+							style={styles.welcomeImage}
+							accessibilityLabel="Person that is measured"
+						/>
+						<View style={styles.buttonContainer}>
+							<CustomButton
+								title="Tilbake"
+								onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+								buttonStyle={styles.button}
 							/>
-							<Image
-								source={require("../../Assets/Height.png")}
-								style={styles.welcomeImage}
-								accessibilityLabel="Person that is measured"
+							<CustomButton
+								title="Neste"
+								onPress={handleNextStep}
+								buttonStyle={styles.button}
 							/>
-							<View style={styles.buttonContainer}>
-								<CustomButton
-									title="Tilbake"
-									onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
-									buttonStyle={styles.button}
-								/>
-								<CustomButton
-									title="Neste"
-									onPress={handleNextStep}
-									buttonStyle={styles.button}
-								/>
-							</View>
 						</View>
-					</>
+					</View>
 				);
-
 			case 6:
 				return (
-					<>
-						<View style={styles.formContainer}>
-							<Text style={styles.infoTitle}>Hvor mye veier du?</Text>
-
-							<NumberSpinner
-								data={Array.from({ length: 171 }, (_, i) => 45 + i)}
-								selectedValue={formData.weight}
-								onValueChange={(value) => handleInputChange("weight", value)}
-								unit="kg"
-								label="vekt"
+					<View style={styles.formContainer}>
+						<Text style={styles.infoTitle}>Hvor mye veier du?</Text>
+						<NumberSpinner
+							data={Array.from({ length: 171 }, (_, i) => 45 + i)}
+							selectedValue={formData.weight}
+							onValueChange={(value) => handleInputChange("weight", value)}
+							unit="kg"
+							label="vekt"
+						/>
+						<Image
+							source={require("../../Assets/Weight.png")}
+							style={styles.welcomeImage}
+							accessibilityLabel="Person weighting in"
+						/>
+						<View style={styles.buttonContainer}>
+							<CustomButton
+								title="Tilbake"
+								onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+								buttonStyle={styles.button}
 							/>
-							<Image
-								source={require("../../Assets/Weight.png")}
-								style={styles.welcomeImage}
-								accessibilityLabel="Person weighting in"
+							<CustomButton
+								title="Neste"
+								onPress={handleNextStep}
+								buttonStyle={styles.button}
 							/>
-							<View style={styles.buttonContainer}>
-								<CustomButton
-									title="Tilbake"
-									onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
-									buttonStyle={styles.button}
-								/>
-								<CustomButton
-									title="Neste"
-									onPress={handleNextStep}
-									buttonStyle={styles.button}
-								/>
-							</View>
 						</View>
-					</>
+					</View>
 				);
 			case 7:
 				return (
-					<>
-						<View style={styles.formContainer}>
-							<Text style={styles.infoTitle}>Takk for informasjonen!</Text>
-							<Text style={styles.infoText}>
-								Du er nå klar til å begynne å bruke appen.
-							</Text>
-
-							<Image
-								source={require("../../Assets/HighFive.png")}
-								style={styles.welcomeImage}
-								accessibilityLabel="Persons giving high five"
-							/>
-							<View>
-								<View style={styles.buttonContainer}>
-									<CustomButton
-										title="Tilbake"
-										onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
-										buttonStyle={styles.button}
-									/>
-									<CustomButton
-										title="Registrer"
-										onPress={handleRegistration}
-										buttonStyle={styles.flexibleButton}
-									/>
-								</View>
+					<View style={styles.formContainer}>
+						<Text style={styles.infoTitle}>Takk for informasjonen!</Text>
+						<Text style={styles.infoText}>
+							Du er nå klar til å begynne å bruke appen.
+						</Text>
+						<Image
+							source={require("../../Assets/HighFive.png")}
+							style={styles.welcomeImage}
+							accessibilityLabel="Persons giving high five"
+						/>
+						<View>
+							<View style={styles.buttonContainer}>
+								<CustomButton
+									title="Tilbake"
+									onPress={() => setCurrentStep((prevStep) => prevStep - 1)}
+									buttonStyle={styles.button}
+								/>
+								<CustomButton
+									title="Registrer"
+									onPress={handleRegistration}
+									buttonStyle={styles.flexibleButton}
+								/>
 							</View>
 						</View>
-					</>
+					</View>
 				);
 			default:
 				return <Text>Noe gikk galt</Text>;

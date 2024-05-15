@@ -34,7 +34,6 @@ const PickerComponent: React.FC<PickerComponentProps> = ({
 	}, [selectedValue, mode]);
 
 	const togglePicker = () => setShowPicker(!showPicker);
-	//FOrsatt bug med at den dukker opp 2 ganger!
 	const handleDateChange = (
 		event: DateTimePickerEvent,
 		selectedDate?: Date,
@@ -93,7 +92,6 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		color: "#26807C",
 		marginBottom: 10,
-	
 	},
 	valueText: {
 		fontSize: 16,
