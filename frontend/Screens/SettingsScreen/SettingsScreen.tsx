@@ -7,7 +7,6 @@ import {
 	TextInput,
 	Alert,
 	ScrollView,
-	Button,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -21,8 +20,6 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "./Settings_Style";
 import { signOut } from "firebase/auth";
 import FooterNavigation from "../../Navigation/FooterNavigation/FooterNavigation";
-import DeleteUserComponent from "./DeleteUserScreen";
-import CustomButton from "../../Components/CustomButton/CustomButton";
 
 type SettingsNavigationProp = StackNavigationProp<
 	RootStackParamList,
@@ -42,7 +39,6 @@ const SettingsScreen: React.FC = () => {
 	const [isProfileVisible, setIsProfileVisible] = useState(false);
 	const [isAccountVisible, setIsAccountVisible] = useState(false);
 
-	const [isAboutVisible, setIsAboutVisible] = useState(false);
 	const [userProfile, setUserProfile] = useState<UserProfile>({
 		username: "",
 		weight: "",
@@ -187,6 +183,7 @@ const SettingsScreen: React.FC = () => {
 			)}
 		</View>
 	);
+
 	const NonEditableField = ({
 		label,
 		value,
