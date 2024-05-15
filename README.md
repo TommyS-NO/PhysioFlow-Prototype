@@ -29,7 +29,7 @@
 
 ## Introduksjon
 
-Vi har utviklet en app for fysioterapeuter og kiropraktorer som hjelper pasienter og brukere med å kunne diagnostiseres og få anbefalte rehabiliteringsøvelser uten å måtte være fysisk tilstede hos behandlere. Brukeren registrerer seg og legger inn informasjon som kjønn, vekt, høyde og alder, og etter å ha besvart en rekke spørsmål...
+Vi har utviklet en app for fysioterapeuter og kiropraktorer som hjelper pasienter og brukere med å kunne diagnostiseres og få anbefalte rehabiliteringsøvelser uten å måtte være fysisk tilstede hos behandlere. Brukeren registrerer seg og legger inn informasjon som kjønn, vekt, høyde og alder, og etter å ha besvart en rekke spørsmål som skal danne grunnlaget for diagnosen som settes. Deretter får bruker tildelt x-antall øvelser som vedkommende kan legge til i sitt program, eller ved manglende dignostisering- bli henvist til å kontakte behandler. 
 
 ## Funksjoner
 
@@ -92,21 +92,17 @@ Vi har utviklet en app for fysioterapeuter og kiropraktorer som hjelper pasiente
 
 ### Klon repository
 
-
 git clone https://github.com/TommyS-NO/PhysioGO.git
-
 
 ### Installer avhengigheter
 
-
-# Installer avhengigheter for frontend, backend og root
+#### Installer avhengigheter for frontend, backend og root:
 npm install
 
 
 ### Start prosjektet
 
-
-# Start prosjektet fra root-mappen
+##### Start prosjektet fra root-mappen:
 npm start
 
 
@@ -118,7 +114,7 @@ npm start
 
 ### Endepunkter
 
-#### Alle Øvelser
+#### Alle øvelser
 
 **[/api/exercises](http://localhost:3000/api/exercises/)**
 
@@ -126,7 +122,7 @@ npm start
 - Beskrivelse: Henter alle øvelser
 - Parametere: Ingen
 
-#### Øvelser basert på Fokusområde
+#### Øvelser basert på fokusområde
 
 **[/api/exercises/:focusarea](http://localhost:3000/api/survey/neck)**
 
@@ -160,17 +156,17 @@ For å simulere appen under utvikling, bruk Expo GO:
 - Skann QR-kode: Skann QR-koden som vises i terminalen etter å ha kjørt `npm start`.
 - Test appen: Appen vil åpnes i Expo GO, hvor du kan teste funksjonaliteten på både Android og iOS.
 
-### Alternativ Metode uten Expo GO
+### Alternativ metode uten Expo GO
 
 Hvis du ikke ønsker å bruke Expo GO, kan du bruke en Android Emulator eller iOS Simulator:
 
-#### Android Emulator
+#### Android emulator
 
 - Installer Android Studio fra Android Developer.
 - Følg instruksjonene for å sette opp en virtuell enhet (AVD).
 - Start emulatoren og kjør `npm start`.
 
-#### iOS Simulator
+#### iOS simulator
 
 - Krever en Mac med Xcode installert fra Mac App Store.
 - Åpne Xcode og gå til Xcode > Preferences > Components for å installere en simulator.
