@@ -36,15 +36,16 @@ const isFirebaseError = (error: unknown): error is FirebaseError => {
 
 type NavigationProp = StackNavigationProp<RootStackParamList, "Front">;
 
-const FrontScreen = () => {
+const FrontScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>();
 	const { dispatch } = useUser();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 	const [error, setError] = useState<string>("");
-	const [modalVisible, setModalVisible] = useState(false);
-	const [aboutModalVisible, setAboutModalVisible] = useState(false);
-	const [contactModalVisible, setContactModalVisible] = useState(false);
+	const [modalVisible, setModalVisible] = useState<boolean>(false);
+	const [aboutModalVisible, setAboutModalVisible] = useState<boolean>(false);
+	const [contactModalVisible, setContactModalVisible] =
+		useState<boolean>(false);
 
 	const handleLogin = async () => {
 		if (!email.trim()) {

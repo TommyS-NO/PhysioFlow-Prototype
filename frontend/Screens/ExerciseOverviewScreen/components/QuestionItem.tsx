@@ -4,7 +4,7 @@ import CustomSlider from "../../../Components/CustomSlider/CustomSlider";
 import {
 	SurveyQuestion,
 	Answer,
-} from "../../../Context/SurveyContext/SurveyContext";
+} from "../../../Context/SurveyContext/surveyTypes";
 import { styles } from "../ExerciseOverviewScreen_Style";
 
 interface QuestionItemProps {
@@ -13,7 +13,11 @@ interface QuestionItemProps {
 	answer: Answer;
 }
 
-const QuestionItem = ({ question, onAnswer, answer }: QuestionItemProps) => {
+const QuestionItem: React.FC<QuestionItemProps> = ({
+	question,
+	onAnswer,
+	answer,
+}) => {
 	const handleAnswerChange = (value: string | number) => {
 		onAnswer(question.id, value);
 	};

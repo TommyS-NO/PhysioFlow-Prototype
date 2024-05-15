@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, FlatList, Alert, Text, ScrollView } from "react-native";
+import { View, FlatList, Alert, ScrollView } from "react-native";
 import { useExercises } from "../../Context/ExerciseContext/ExerciseContext";
 import { useSurvey } from "../../Context/SurveyContext/SurveyContext";
 import { useUser } from "../../Context/UserContext";
@@ -24,14 +24,12 @@ const ExerciseOverviewScreen: React.FC = () => {
 	const [activeExerciseId, setActiveExerciseId] = useState<string | null>(null);
 
 	useEffect(() => {
-		console.log("Fetching exercises...");
 		fetchExercises();
 	}, [fetchExercises]);
 
 	const handleCompleteExercise = async (exerciseId: string) => {
-		console.log(`Completing exercise with id ${exerciseId}`);
 		try {
-			surveyDispatch({ type: "CLEAR_SURVEY" });
+			surveyDispatch({ type: "RESET_SURVEY" });
 			await loadSurvey("followup");
 			setActiveExerciseId(exerciseId);
 			setSurveyVisible(true);
@@ -45,7 +43,6 @@ const ExerciseOverviewScreen: React.FC = () => {
 
 	const handleAnswerChange = useCallback(
 		(questionId: string, answer: string | number) => {
-			console.log(`Answering question ${questionId} with answer ${answer}`);
 			surveyDispatch({
 				type: "ANSWER_QUESTION",
 				questionId,
@@ -56,7 +53,6 @@ const ExerciseOverviewScreen: React.FC = () => {
 	);
 
 	const handleSubmit = async () => {
-		console.log("Submitting survey...");
 		const allAnswered = surveyState.questions.every((question) => {
 			const answer = surveyState.answers[question.id];
 			return (
@@ -86,14 +82,12 @@ const ExerciseOverviewScreen: React.FC = () => {
 	};
 
 	const closeSurvey = () => {
-		console.log("Closing survey...");
 		setSurveyVisible(false);
 		setActiveExerciseId(null);
 		surveyDispatch({ type: "RESET_SURVEY" });
 	};
 
 	const handleRemoveExercise = (exerciseId: string) => {
-		console.log(`Removing exercise with id ${exerciseId}`);
 		Alert.alert(
 			"Fjerne øvelse",
 			"Er du sikker på at du vil fjerne denne øvelsen fra listen din?",
