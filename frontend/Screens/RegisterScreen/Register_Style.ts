@@ -5,7 +5,6 @@ export const registerScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
 
-
   },
   welcomeImage: {
     width: 280,  
