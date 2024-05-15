@@ -1,8 +1,8 @@
-//Her må vi få satt opp customButtons?
-
-
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { theme } from "../../theme";
+
+const { width } = Dimensions.get("window");
+const spacing = 10;
 
 export const styles = StyleSheet.create({
   container: {
@@ -35,16 +35,15 @@ export const styles = StyleSheet.create({
   },
   deleteButton: {
     backgroundColor: "#D32F2F",
-padding: 15,
+    padding: 15,
     borderRadius: 10,
     marginVertical: 8,
     width: "90%",
-    alignSelf: 'center',
+    alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 20,
   },
-
   logoutButton: {
     backgroundColor: "#26807C",
     padding: 15,
@@ -54,7 +53,7 @@ padding: 15,
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    marginBottom: 10
+    marginBottom: 10,
   },
   logoutButtonText: {
     fontSize: 18,
@@ -64,7 +63,7 @@ padding: 15,
   deleteButtonText: {
     color: "#fff",
     fontSize: 18,
-     textAlign: "center",
+    textAlign: "center",
   },
   fieldContainer: {
     flexDirection: "row",
@@ -91,9 +90,6 @@ padding: 15,
     color: "#000",
     marginRight: 12,
   },
-  fieldIcon: {
-    padding: 10,
-  },
   fieldValue: {
     flex: 1,
     fontSize: 16,
@@ -105,7 +101,6 @@ padding: 15,
     justifyContent: "space-between",
     marginLeft: 10,
   },
-
   button: {
     backgroundColor: "#ffffff",
     padding: 15,
@@ -115,31 +110,26 @@ padding: 15,
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    marginBottom: 10
+    marginBottom: 10,
   },
   buttonText: {
     textAlign: "center",
     fontSize: 16,
-    color: "#000"
+    color: "#000",
   },
   subMenu: {
-    
     backgroundColor: "white",
     borderRadius: 5,
     paddingBottom: 20,
     marginBottom: 20,
-    
   },
   subMenuText: {
     fontSize: 16,
   },
-
   imageStyle: {
-    width: 350, 
-    height: 250, 
-    alignSelf: 'center',
-    resizeMode: 'contain'
-  }
-
-  
+    width: 350,
+    height: 250,
+    alignSelf: "center",
+    resizeMode: "contain",
+  },
 });

@@ -7,7 +7,7 @@ FIXME: Fjerne ScrollView i registreringsprosessen.
 FIXME: NESTED CONTAIners BRUKERVEILedning// sjekk hiariket
 FIXME: Rydd i package.json FRONTEND og ROOT
 FIXME: RAPPORT
-FIXME: Generelt gjennomgang av styling oppsett!
+FIXME: FrontScreen må fikses /Dele opp
 FIXME: README!!
 
 
