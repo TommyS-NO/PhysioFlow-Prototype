@@ -4,6 +4,7 @@ import {
   initializeAuth,
   getReactNativePersistence,
   Auth,
+  deleteUser
 } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -54,7 +55,6 @@ const firebaseConfig = {
   appId: APP_ID
 };
 
-// Initialize Firebase
 const app: FirebaseApp = initializeApp(firebaseConfig);
 const auth: Auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage)
@@ -143,6 +143,42 @@ async function deleteUserExercise(userId: string, exerciseId: string): Promise<v
   await deleteDoc(doc(db, "users", userId, "userExercises", exerciseId));
 }
 
+async function deleteUserAccount(userId: string): Promise<boolean> {
+  try {
+    const batch = writeBatch(db);
+    const userProfileRef = doc(db, "users", userId);
+    
+    const userExercisesSnapshot = await getDocs(collection(db, "users", userId, "userExercises"));
+    for (const doc of userExercisesSnapshot.docs) {
+      batch.delete(doc.ref);
+    }
+
+    const completedExercisesSnapshot = await getDocs(collection(db, "users", userId, "completedExercises"));
+    for (const doc of completedExercisesSnapshot.docs) {
+      batch.delete(doc.ref);
+    }
+
+    const diagnosesSnapshot = await getDocs(collection(db, "users", userId, "diagnoses"));
+    for (const doc of diagnosesSnapshot.docs) {
+      batch.delete(doc.ref);
+    }
+
+    batch.delete(userProfileRef);
+
+    await batch.commit();
+
+    const user = auth.currentUser;
+    if (user) {
+      await deleteUser(user);
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Error deleting user account:", error);
+    return false;
+  }
+}
+
 export {
   app,
   auth,
@@ -158,5 +194,6 @@ export {
   deleteUserExercise,
   addUserExercise,
   updateUserExerciseStatus,
-  fetchCollection
+  fetchCollection,
+  deleteUserAccount
 };
