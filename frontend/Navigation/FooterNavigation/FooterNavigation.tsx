@@ -14,14 +14,14 @@ const FooterNavigation = () => {
 				style={styles.button}
 			>
 				<MaterialCommunityIcons name="home" size={24} color="#26807C" />
-				<Text>Home</Text>
+				<Text>Hjem</Text>
 			</TouchableOpacity>
 			<TouchableOpacity
 				onPress={() => navigation.navigate("SettingsScreen")}
 				style={styles.button}
 			>
 				<MaterialCommunityIcons name="menu" size={24} color="#26807C" />
-				<Text>Settings</Text>
+				<Text>Innstillinger</Text>
 			</TouchableOpacity>
 		</View>
 	);
