@@ -203,6 +203,10 @@ const FocusScreen = () => {
 			</View>
 		));
 	};
+	const buttonWidth = {
+		width: "45%",
+		marginHorizontal: 5,
+	};
 
 	return (
 		<View style={styles.container}>
@@ -236,6 +240,7 @@ const FocusScreen = () => {
 							title="Tilbake"
 							onPress={handlePrevious}
 							size="medium"
+							buttonStyle={buttonWidth}
 						/>
 					)}
 					<CustomButton
@@ -247,6 +252,7 @@ const FocusScreen = () => {
 						}
 						onPress={handleNext}
 						size="medium"
+						buttonStyle={buttonWidth}
 					/>
 				</View>
 			</CustomModal>
