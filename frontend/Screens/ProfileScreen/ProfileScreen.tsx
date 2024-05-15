@@ -55,15 +55,6 @@ const ProfileScreen: React.FC = () => {
 				<View style={styles.headerContainer}>
 					<Text style={styles.welcomeText}>Velkommen, {userName}!</Text>
 				</View>
-				<TouchableOpacity
-					style={styles.settingsButton}
-					onPress={() => {
-						console.log("Navigation object:", navigation);
-						navigation.navigate("SettingsScreen");
-					}}
-				>
-					<Icon name="account-cog" size={24} color={theme.colors.helpButton} />
-				</TouchableOpacity>
 				<View style={styles.fullWidthContainer}>
 					<TouchableOpacity
 						style={[styles.menuItem, styles.profileButton]}
