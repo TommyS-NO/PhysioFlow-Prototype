@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Image, TouchableOpacity, Text, Modal } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import CustomButton from "../../../../Components/CustomButton/CustomButton";
-import { FocusAreaKey } from "../../../../Context/FocusContext";
+
+import { FocusAreaKey } from "../../../Context/FocusAreaContext/focusAreaReducer";
 import { styles } from "./BodyChart_Style";
 
 interface BodyChartProps {

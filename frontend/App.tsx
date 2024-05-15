@@ -2,9 +2,9 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import AppNav from "./Navigation/AppNav";
-import { UserProvider } from "./Context/UserContext";
-import { FocusAreaProvider } from "./Context/FocusContext";
-import SurveyProvider from "./Context/SurveyContext";
+import { UserProvider } from "./Context/UserContext/UserContext";
+import { FocusAreaProvider } from "./Context/FocusAreaContext";
+import { SurveyProvider } from "./Context/SurveyContext";
 import { ExerciseProvider } from "./Context/ExerciseContext";
 
 const App = () => (

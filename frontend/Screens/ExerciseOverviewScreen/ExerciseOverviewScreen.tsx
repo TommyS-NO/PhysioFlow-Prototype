@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, FlatList, Alert, Text, ScrollView } from "react-native";
-import { useExercises } from "../../Context/ExerciseContext";
-import { useSurvey } from "../../Context/SurveyContext";
+import { useExercises } from "../../Context/ExerciseContext/ExerciseContext";
+import { useSurvey } from "../../Context/SurveyContext/SurveyContext";
 import { useUser } from "../../Context/UserContext";
 import CustomModal from "../../Components/CustomModal/CustomModal";
 import CustomButton from "../../Components/CustomButton/CustomButton";
@@ -14,9 +14,6 @@ const ExerciseOverviewScreen: React.FC = () => {
 	const { state, fetchExercises, removeExercise, updateExerciseStatus } =
 		useExercises();
 	const { userExercises, completedExercises } = state;
-
-	console.log("User Exercises from context:", userExercises);
-	console.log("Completed Exercises from context:", completedExercises);
 	const {
 		state: surveyState,
 		dispatch: surveyDispatch,
@@ -29,7 +26,7 @@ const ExerciseOverviewScreen: React.FC = () => {
 	useEffect(() => {
 		console.log("Fetching exercises...");
 		fetchExercises();
-	}, []);
+	}, [fetchExercises]);
 
 	const handleCompleteExercise = async (exerciseId: string) => {
 		console.log(`Completing exercise with id ${exerciseId}`);
@@ -92,6 +89,7 @@ const ExerciseOverviewScreen: React.FC = () => {
 		console.log("Closing survey...");
 		setSurveyVisible(false);
 		setActiveExerciseId(null);
+		surveyDispatch({ type: "RESET_SURVEY" });
 	};
 
 	const handleRemoveExercise = (exerciseId: string) => {

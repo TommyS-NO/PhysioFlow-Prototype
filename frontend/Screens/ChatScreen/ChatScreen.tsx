@@ -4,7 +4,6 @@ import {
 	TextInput,
 	Text,
 	ScrollView,
-	StyleSheet,
 	KeyboardAvoidingView,
 	Platform,
 	TouchableOpacity,
@@ -12,8 +11,8 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useUser } from "../../Context/UserContext";
 import { apiService } from "../../Services/ApiService";
-import { theme } from "../../Theme";
 import FooterNavigation from "../../Navigation/FooterNavigation/FooterNavigation";
+import { styles } from "./ChatScreen_Style";
 
 interface Message {
 	text: string;
@@ -76,6 +75,7 @@ const ChatScreen = () => {
 			<ScrollView style={styles.messagesContainer}>
 				{messages.map((msg, index) => (
 					<View
+						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 						key={index}
 						style={
 							msg.sender === "user" ? styles.userMessage : styles.aiMessage
@@ -110,63 +110,5 @@ const ChatScreen = () => {
 		</KeyboardAvoidingView>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-	messagesContainer: {
-		flex: 1,
-		padding: 10,
-		// borderRadius: 5,
-		marginBottom: 10,
-	},
-	inputContainer: {
-		flexDirection: "row",
-		alignItems: "center",
-		padding: 10,
-	},
-	input: {
-		flex: 1,
-		height: 50,
-		backgroundColor: "white",
-		borderColor: "gray",
-		borderWidth: 0.5,
-		borderRadius: 18,
-		marginRight: 10,
-		paddingLeft: 10,
-		fontSize: 18,
-	},
-	sendButton: {
-		padding: 10,
-		backgroundColor: "#26807C",
-		borderRadius: 12,
-	},
-	userMessage: {
-		alignSelf: "flex-end",
-		margin: 5,
-		padding: 15,
-		backgroundColor: "#26807C",
-		borderRadius: 20,
-		borderColor: "gray",
-		borderWidth: 0.2,
-	},
-	userMessageText: {
-		color: "#fff",
-		fontSize: 18,
-	},
-	aiMessage: {
-		alignSelf: "flex-start",
-		margin: 5,
-		padding: 15,
-		backgroundColor: "#fff",
-		borderRadius: 20,
-		borderColor: "gray",
-		borderWidth: 0.2,
-	},
-	aiMessageText: {
-		fontSize: 18,
-	},
-});
 
 export default ChatScreen;

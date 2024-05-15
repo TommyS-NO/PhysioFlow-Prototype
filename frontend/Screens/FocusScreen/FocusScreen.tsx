@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	View,
 	KeyboardAvoidingView,
@@ -12,9 +12,8 @@ import CustomModal from "../../Components/CustomModal/CustomModal";
 import BodyChart from "./BodyChart/bodyChart";
 import CustomButton from "../../Components/CustomButton/CustomButton";
 import CustomSlider from "../../Components/CustomSlider/CustomSlider";
-import { SurveyContext } from "../../Context/SurveyContext";
-import { useUser } from "../../Context/UserContext";
 import { useSurvey } from "../../Context/SurveyContext";
+import { useUser } from "../../Context/UserContext";
 import { styles } from "./FocusScreen_Style";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../Navigation/navigationTypes";
@@ -22,6 +21,7 @@ import FooterNavigation from "../../Navigation/FooterNavigation/FooterNavigation
 import { db } from "../../Services/Firebase/FirebaseConfig";
 import { doc, setDoc, collection } from "firebase/firestore";
 import { apiService } from "../../Services/ApiService";
+import { SurveyId } from "../../Context/SurveyContext/surveyTypes";
 
 type Answer = string | number;
 type AnswerMap = Record<string, Answer>;
@@ -38,11 +38,10 @@ const FocusScreen = () => {
 	const [currentPage, setCurrentPage] = useState(0);
 	const [selectedAnswers, setSelectedAnswers] = useState<AnswerMap>({});
 	const [bodySide, setBodySide] = useState<"front" | "back">("front");
-	const [selectedFocusArea, setSelectedFocusArea] = useState<string | null>(
+	const [selectedFocusArea, setSelectedFocusArea] = useState<SurveyId | null>(
 		null,
 	);
-	const { state: surveyState, dispatch: surveyDispatch } =
-		useContext(SurveyContext);
+	const { state: surveyState, dispatch: surveyDispatch } = useSurvey();
 	const [diagnosisResult, setDiagnosisResult] =
 		useState<DiagnosisResult | null>(null);
 	const [unansweredHighlight, setUnansweredHighlight] = useState(false);
@@ -62,7 +61,7 @@ const FocusScreen = () => {
 		}
 	}, [selectedFocusArea, surveyDispatch]);
 
-	const handleAreaPress = (area: string) => {
+	const handleAreaPress = (area: SurveyId) => {
 		setSelectedFocusArea(area);
 		setIsModalVisible(true);
 		setCurrentPage(0);
@@ -80,10 +79,6 @@ const FocusScreen = () => {
 			answer: { questionId, answer },
 		});
 	};
-	//Trenger vi denne nå? Har lagt til navigasjon til ContactScreen..
-	// const handleContactProvider = () => {
-	// 	console.log("Contact provider action here");
-	// };
 
 	const handleSubmitAnswers = async () => {
 		try {
@@ -170,7 +165,7 @@ const FocusScreen = () => {
 						style={
 							question.options.length === 2
 								? styles.horizontalOptionsContainer
-								: styles.verticalOptionsContainer
+								: styles.optionButton
 						}
 					>
 						{question.options.map((option) => (
@@ -209,12 +204,6 @@ const FocusScreen = () => {
 		));
 	};
 
-	//Måtte legge til denne for å overstyre bredden på CustomButton. Ok å ha det sånn?
-	const buttonWidth = {
-		width: "45%",
-		marginHorizontal: 5,
-	};
-
 	return (
 		<View style={styles.container}>
 			<BodyChart
@@ -247,7 +236,6 @@ const FocusScreen = () => {
 							title="Tilbake"
 							onPress={handlePrevious}
 							size="medium"
-							buttonStyle={buttonWidth}
 						/>
 					)}
 					<CustomButton
@@ -259,7 +247,6 @@ const FocusScreen = () => {
 						}
 						onPress={handleNext}
 						size="medium"
-						buttonStyle={buttonWidth}
 					/>
 				</View>
 			</CustomModal>

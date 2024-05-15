@@ -2,27 +2,20 @@ FIXME:! !
 
 
 FIXME: Sette opp mulighet for å endre e-post og passord under Settings-siden.
-FIXME: Hente diagnoseTITTEL på oversikt over diagnoser.
+
 FIXME: Fjerne ScrollView i registreringsprosessen. 
 FIXME: NESTED CONTAIners BRUKERVEILedning// sjekk hiariket
 FIXME: Rydd i package.json FRONTEND og ROOT
-FIXME: Endre til custom button på alle knapper. Endre til touchopacity
 FIXME: RAPPORT
 FIXME: Generelt gjennomgang av styling oppsett!
 FIXME: README!!
-FIXME: FIx uniq key error i diagnose!
-FIXME: JIRA! JIRA JIRA
-FIXME: FIkse ENdepunkt til Diagnoser/API kall!
-FIXME: Rydde I KODE!! 
-FIXME: Rydd vekk alle "feil" Røde streker" "tomme variabler" etc" kommentarer
-
 
 
 
 TODO:!!
 
-TODO: Slett CustomButton ? ? ? Benytt touchopacitys?
-TODO: Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren - Mina jobber med
+TODO: Slett CustomButton ? ? ? Benytt touchopacitys?!
+TODO: Husk å sette opp lik "varsling" for manglende info alle inputfelt slik som på diganosefinneren - Mina jobber med!
 TODO: KeyboardAvoidingView på chat screen fungerer ikke på Android-
 TODO: Onclose funksjon for tilbake til ProfilScreen
 TODO: Husk å sette opp KeyboardAvoidingView på alle sider der det trengs.. 
@@ -32,18 +25,26 @@ TODO: Sjekk at det er samme toogle-oppsett på profil og settings screen
 TODO: Flytte knapper nederst på siden . Eks. "Neste"
 TODO: Se på Slider Farger og oppsett
 TODO: DatePicker
-TODO: Nedre_rygg
+TODO: Nedre_rygg 
 
 
 
 DONE:
 
 Backend kode skal være Ferdig.!
+FIler som har blitt ryddet ferdig!
 
-ApiService.ts OK! Uten Kommentarer og uten FEIL!
-FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
-/Validation Filene er OK!
-/Components og tilhørende filer er nå Ferdig Sjekket!
+/Components Ferdig
+/Navigation Ferdig
+/Service Ferdig
+/context Ferdig
+/Chatsceen Ferdig
+/Validation Ferdig
+/Chatscreen Ferdig
+/DiagnoseScreen Ferdig   !!! MEN forsatt GUL Varsel! kun når det blir lagt til ny diagnose
+/ExerciceScreen Ferdig
+/ExerciceOverview er Ferdig men med BUGS!
+
 
 
 -Endre konakt oss og om oss til Modal
@@ -53,7 +54,7 @@ FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
 -Bilde Bodychart
 -Fjerne kontakt behandler under antatt diagnose.
 -Kontakt oss- logikk for mottak av epost
--CustomCheckbox er endret til checkbox
+
 
 
 
@@ -61,7 +62,7 @@ FirebaseConfig.ts OK! Uten Kommentarer og uten FEIL!
 Til Rapporten:
 
 FrontScreen:
--Gul error - FrontScreen . Persistance- feil i koden
+
  
 -Om oss= OK Visuelt
 -Hjelpeknapp = OK Visuelt

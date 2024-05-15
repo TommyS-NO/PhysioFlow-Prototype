@@ -12,6 +12,7 @@ import {
 } from 'firebase/firestore';
 import { getStorage, FirebaseStorage } from 'firebase/storage';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID } from '@env';
+import { Exercise } from '../../Context/ExerciseContext/exerciseTypes';
 
 interface CommonAttributes {
   id: string;
@@ -29,6 +30,7 @@ interface UserProfile extends CommonAttributes {
 }
 
 interface Diagnosis extends CommonAttributes {
+  diagnosis: string;
   title: string;
   description: string;
   exercises: string[];
@@ -125,8 +127,9 @@ async function deleteDiagnosis(userId: string, diagnosisId: string): Promise<voi
   await deleteDoc(doc(db, "users", userId, "diagnoses", diagnosisId));
 }
 
-async function addUserExercise(userId: string, exercise: UserExercise): Promise<void> {
-  await addDoc(collection(db, "users", userId, "userExercises"), exercise);
+async function addUserExercise(userId: string, exercise: Exercise) {
+  const docRef = await addDoc(collection(db, "users", userId, "userExercises"), exercise);
+  return docRef; 
 }
 
 async function updateUserExerciseStatus(userId: string, exerciseId: string, status: "pending" | "completed"): Promise<void> {

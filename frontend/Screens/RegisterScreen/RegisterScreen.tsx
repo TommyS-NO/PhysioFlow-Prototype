@@ -315,7 +315,7 @@ const RegisterScreen = () => {
 					<>
 						<View style={styles.formContainer}>
 							<Text style={styles.infoTitle}>Hvor høy er du?</Text>
-							{/* <Text style={styles.subtitle}>Trykk på verdien for å endre</Text> */}
+
 							<NumberSpinner
 								data={Array.from({ length: 121 }, (_, i) => 150 + i)}
 								selectedValue={formData.height}
@@ -349,7 +349,7 @@ const RegisterScreen = () => {
 					<>
 						<View style={styles.formContainer}>
 							<Text style={styles.infoTitle}>Hvor mye veier du?</Text>
-							{/* <Text style={styles.subtitle}>Trykk på verdien for å endre</Text> */}
+
 							<NumberSpinner
 								data={Array.from({ length: 171 }, (_, i) => 45 + i)}
 								selectedValue={formData.weight}

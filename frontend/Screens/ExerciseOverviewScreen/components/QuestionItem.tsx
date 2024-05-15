@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
 import CustomSlider from "../../../Components/CustomSlider/CustomSlider";
-import { SurveyQuestion, Answer } from "../../../Context/SurveyContext";
+import {
+	SurveyQuestion,
+	Answer,
+} from "../../../Context/SurveyContext/SurveyContext";
 import { styles } from "../ExerciseOverviewScreen_Style";
 
 interface QuestionItemProps {

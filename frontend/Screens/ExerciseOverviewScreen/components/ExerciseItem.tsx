@@ -1,68 +1,34 @@
 import React from "react";
-import {
-	View,
-	Text,
-	Image,
-	TouchableOpacity,
-	ImageErrorEventData,
-	NativeSyntheticEvent,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { Exercise } from "../../../Context/ExerciseContext";
 import { styles } from "../ExerciseOverviewScreen_Style";
-
-interface ExerciseItemProps {
-	exercise: Exercise;
-	onEdit: () => void;
-	onComplete: () => void;
-	onRemove: () => void;
-	isActive: boolean;
-}
 
 const formatDate = (isoString: string | undefined): string => {
 	if (!isoString) {
 		return "Invalid date";
 	}
 	const date = new Date(isoString);
-	if (Number.isNaN(date.getTime())) {
-		return "Invalid date";
-	}
-	return new Intl.DateTimeFormat("nb-NO", {
-		year: "numeric",
-		month: "2-digit",
-		day: "2-digit",
-		hour: "2-digit",
-		minute: "2-digit",
-	}).format(date);
+	return Number.isNaN(date.getTime())
+		? "Invalid date"
+		: new Intl.DateTimeFormat("nb-NO", {
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit",
+				hour: "2-digit",
+				minute: "2-digit",
+		  }).format(date);
 };
 
-const ExerciseItem = ({
-	exercise,
-	onEdit,
-	onComplete,
-	onRemove,
-	isActive,
-}: ExerciseItemProps) => {
+const ExerciseItem = ({ exercise, onEdit, onComplete, onRemove, isActive }) => {
 	const isCompleted = exercise.status === "completed";
-
 	const imageUri = exercise.image
 		? exercise.image.replace("localhost", "192.168.10.182")
 		: "http://192.168.10.182/Assets";
 
-	const onErrorLoadingImage = (
-		error: NativeSyntheticEvent<ImageErrorEventData>,
-	) => {
-		console.error("Error loading image", error.nativeEvent);
-	};
-
 	return (
 		<View style={[styles.sessionItem, isActive ? styles.activeItem : null]}>
 			<View style={styles.sessionImageOverlay}>
-				<Image
-					source={{ uri: imageUri }}
-					style={styles.sessionImage}
-					onError={onErrorLoadingImage}
-				/>
+				<Image source={{ uri: imageUri }} style={styles.sessionImage} />
 				{isCompleted && (
 					<View style={styles.completedOverlay}>
 						<Text style={styles.completedText}>

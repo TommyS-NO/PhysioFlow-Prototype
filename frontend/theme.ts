@@ -33,36 +33,35 @@ interface Theme {
 }
 
 export const theme: Theme = {
-  colors: {
-    // primary: "#F0F0F0",
-    primary: 'rgba(38, 128, 124, 0.2)',
-    primaryButton:"#26807C",
-    buttonText: "#ffffff",
-    infoText: "#000000",
-    button: "#26807C",
-    helpButton: "#1D576C",
-    icon: "#FFF",
-    secondary: "#000000",
-    disabled: "#cccccc",
-    disabledText: "#666666",
-    text: "#000000"
-  },
-  fontSize: {
-    regular: 16,
-    title: 20,
-    h1: 32,
-    h2: 24,
-    h3: 18,
-    h4: 16,
-  },
-  spacing: {
-    small: 8,
-    medium: 16,
-    large: 24,
-  },
-  borderRadius: {
-    small: 4,
-    medium: 8,
-    large: 12,
-  },
+	colors: {
+		primary: "rgba(38, 128, 124, 0.2)",
+		primaryButton: "#26807C",
+		buttonText: "#ffffff",
+		infoText: "#000000",
+		button: "#26807C",
+		helpButton: "#1D576C",
+		icon: "#FFF",
+		secondary: "#000000",
+		disabled: "#cccccc",
+		disabledText: "#666666",
+		text: "#000000",
+	},
+	fontSize: {
+		regular: 16,
+		title: 20,
+		h1: 32,
+		h2: 24,
+		h3: 18,
+		h4: 16,
+	},
+	spacing: {
+		small: 8,
+		medium: 16,
+		large: 24,
+	},
+	borderRadius: {
+		small: 4,
+		medium: 8,
+		large: 12,
+	},
 };

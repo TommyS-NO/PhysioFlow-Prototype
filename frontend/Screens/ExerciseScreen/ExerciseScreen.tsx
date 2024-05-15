@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
 	View,
 	Text,
@@ -8,13 +8,14 @@ import {
 	Platform,
 	Image,
 	TextInput,
+	Alert,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { styles } from "./ExerciseScreen_Style";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useExercises } from "../../Context/ExerciseContext";
 import { apiService } from "../../Services/ApiService";
 import FooterNavigation from "../../Navigation/FooterNavigation/FooterNavigation";
+import { styles } from "./ExerciseScreen_Style";
 
 interface ExerciseSession {
 	id: string;
@@ -24,15 +25,18 @@ interface ExerciseSession {
 	category: string;
 }
 
+interface ExerciseDetails {
+	description: string;
+	image: string;
+	category: string;
+}
+
 interface RouteParams {
 	recommendedExercises?: string[];
 }
 
-const ExerciseScreen = () => {
+const ExerciseScreen: React.FC = () => {
 	const [exercises, setExercises] = useState<ExerciseSession[]>([]);
-	const [filteredExercises, setFilteredExercises] = useState<ExerciseSession[]>(
-		[],
-	);
 	const [searchQuery, setSearchQuery] = useState("");
 	const { addExercise } = useExercises();
 	const [addedExercises, setAddedExercises] = useState<Record<string, boolean>>(
@@ -51,7 +55,7 @@ const ExerciseScreen = () => {
 				).map(([id, details]) => ({
 					id,
 					title: id.replace(/_/g, " "),
-					...details,
+					...(details as ExerciseDetails),
 				}));
 				if (routeParams?.recommendedExercises) {
 					const recommended = exercisesArray.filter((exercise) =>
@@ -65,19 +69,18 @@ const ExerciseScreen = () => {
 				} else {
 					setExercises(exercisesArray);
 				}
-				setFilteredExercises(exercisesArray);
 			} catch (error) {
-				console.error("Error fetching all exercises:", error);
+				console.error("Feil ved henting av øvelser:", error);
+				Alert.alert("Feil", "Kunne ikke hente øvelser. Vennligst prøv igjen.");
 			}
 		};
 		fetchExercises();
 	}, [routeParams?.recommendedExercises]);
 
-	useEffect(() => {
-		const filtered = exercises.filter((exercise) =>
+	const filteredExercises = useMemo(() => {
+		return exercises.filter((exercise) =>
 			exercise.title.toLowerCase().includes(searchQuery.toLowerCase()),
 		);
-		setFilteredExercises(filtered);
 	}, [searchQuery, exercises]);
 
 	const handleAddExercise = (exercise: ExerciseSession) => {

@@ -17,22 +17,15 @@ const DiagnoseScreen: React.FC = () => {
 		useContext(SurveyContext);
 	const { diagnoses } = state;
 
-	// useEffect(() => {
-	// 	console.log("Diagnoses updated:", diagnoses);
-	// }, [diagnoses]);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const userId = auth.currentUser?.uid;
 		if (userId) {
-			loadUserData(userId).then(() => {
-				console.log("User data loaded");
-			});
+			loadUserData(userId);
 		}
-	}, [loadUserData, auth.currentUser?.uid]);
+	}, [loadUserData]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	const handleDelete = useCallback(
+const  handleDelete = useCallback(
 		(diagnosisId: string) => {
 			Alert.alert(
 				"Slett diagnose",
@@ -55,7 +48,10 @@ const DiagnoseScreen: React.FC = () => {
 			await deleteDiagnosisFromFirestore(diagnosisId);
 			dispatch({ type: "REMOVE_DIAGNOSIS", diagnosisId });
 		} catch (error) {
-			console.error("Feil ved sletting av diagnose:", error);
+			Alert.alert(
+				"Feil",
+				"Feil ved sletting av diagnose. Vennligst prøv igjen.",
+			);
 		}
 	};
 
