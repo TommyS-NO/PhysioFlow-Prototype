@@ -11,7 +11,7 @@ import ExerciseScreen from "../Screens/ExerciseScreen/ExerciseScreen";
 import ProfileScreen from "../Screens/ProfileScreen/ProfileScreen";
 import DeleteUserScreen from "../Screens/SettingsScreen/DeleteUserScreen";
 import SettingsScreen from "../Screens/SettingsScreen/SettingsScreen";
-import ContactScreen from "../Screens/ContactScreen";
+import ContactScreen from "../Screens/ProfileScreen/ContactScreen";
 import ChatScreen from "../Screens/ChatScreen/ChatScreen";
 import DiagnoseScreen from "../Screens/DiagnoseScreen/DiagnoseScreen";
 

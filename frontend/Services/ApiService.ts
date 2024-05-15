@@ -10,7 +10,6 @@ const handleResponse = async (response: Response) => {
   }
   const data = await response.json();
   
-  // Format surveyId if present
   if (data.surveyId) {
     data.surveyId = formatSurveyId(data.surveyId);
   }
