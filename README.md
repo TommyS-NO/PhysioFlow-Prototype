@@ -74,6 +74,20 @@ Vi har utviklet en app for fysioterapeuter og kiropraktorer som hjelper pasiente
 - [npm](https://www.npmjs.com/) installert på din maskin.
 - [Expo CLI](https://expo.dev/tools#cli) installert globalt på din maskin: `npm install -g expo-cli`
 
+**Opprette:** en `.env`-fil i rot-mappen for **backend** med følgende miljøvariabler:
+  - `OPENAI_API_KEY`: API-nøkkel for OpenAI GPT-3.5.
+  - `FIREBASE_PROJECT_ID`: Firebase Project ID.
+  - `FIREBASE_PRIVATE_KEY`: Firebase Private Key.
+  - `FIREBASE_CLIENT_EMAIL`: Firebase Client Email.
+
+- **Opprette:** en `.env`-fil i rot-mappen for **frontend** med følgende miljøvariabler:
+  - `API_KEY`: API-nøkkel for autentisering.
+  - `AUTH_DOMAIN`: Autentiseringsdomene.
+  - `PROJECT_ID`: Project ID.
+  - `STORAGE_BUCKET`: Firebase Storage Bucket.
+  - `MESSAGING_SENDER_ID`: Sender ID for meldingstjeneste.
+  - `APP_ID`: App ID for React-appen.
+
 ## Komme i gang
 
 ### Klon repository
@@ -120,12 +134,23 @@ npm start
 - Beskrivelse: Henter øvelser for spesifikk fokusområde (neck, elbow, knee, shoulder, ankle, lowBack, upperBack)
 - Parametere: ingen
 
-#### AI Chat
+#### AI Chat ###
 
 **[/api/chat/start](http://localhost:3000/api/chat/start)**
 
 - Metode: POST
 - Beskrivelse: Start en chat-økt
+- Parametere: 
+  Headers: Content-Type:application/json
+  Body: {"userId: "exampleUserId"}
+
+  **[/api/chat/](http://localhost:3000/api/chat/:sessionId/message)**
+
+- Metode: POST
+- Beskrivelse: Send Melding
+- Parametere: 
+  Headers: Content-Type:application/json
+  Body: {"message: "hello world"}
 
 ## Simulator
 
