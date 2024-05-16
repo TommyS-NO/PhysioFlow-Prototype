@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-	View,
-	Text,
-	Image,
-	Alert,
-	TouchableOpacity,
-	ScrollView,
-} from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import {
 	auth,
 	subscribeToUserProfile,
 } from "../../Services/Firebase/FirebaseConfig";
-import { theme } from "../../theme";
 import { styles } from "./ProfileScreen_Style";
 import { RootStackParamList } from "../../Navigation/navigationTypes";
 import FooterNavigation from "../../Navigation/FooterNavigation/FooterNavigation";
