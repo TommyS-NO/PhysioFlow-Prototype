@@ -115,6 +115,6 @@ expo start -c
 
 # Created By Team Leftovers #
   ## Tommy and Mina ##
-  ![Preview 2](./frontend/Assets/Focus.png)
+![Preview 2](./frontend/Assets/Focus.png)
 ![Preview 3](./frontend/Assets/Exercises.png)
 ![Preview 4](./frontend/Assets/chat.png)
