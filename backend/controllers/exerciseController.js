@@ -1,7 +1,7 @@
 import { Firestore } from "@google-cloud/firestore";
 import { NotFoundError, ValidationError } from "../utils/customError.js";
 
-// Simulerte databaseoppføringer for øvelser
+
 import { recommendedNeckExercises } from "../recommendedExercises/recommendedNeckExercises.js";
 import { recommendedElbowExercises } from "../recommendedExercises/recommendedElbowExercises.js";
 import { recommendedAnkleExercises } from "../recommendedExercises/recommendedAnkelExercises.js";

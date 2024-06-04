@@ -24,7 +24,7 @@ const formatDate = (isoString: string | undefined): string => {
 const ExerciseItem = ({ exercise, onEdit, onComplete, onRemove, isActive }) => {
 	const isCompleted = exercise.status === "completed";
 	const imageUri = exercise.image
-		? { uri: exercise.image.replace("localhost", "192.168.10.182") }
+		? { uri: exercise.image.replace("localhost", "192.xxx.xx.xxx") } //INSERT IP HERE!
 		: localGif;
 
 	return (

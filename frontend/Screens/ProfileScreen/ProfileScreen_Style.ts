@@ -7,7 +7,7 @@ const spacing = 10;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: theme.colors.primary,
+
   },
 
   settingsButton: {
@@ -29,7 +29,6 @@ export const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
 
-    // marginBottom: 20,
   },
   menuContainer: {
     width: "100%",
