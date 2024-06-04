@@ -3,6 +3,8 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { styles } from "../ExerciseOverviewScreen_Style";
 
+const localGif = require("../../../Assets/12501301.gif");
+
 const formatDate = (isoString: string | undefined): string => {
 	if (!isoString) {
 		return "Invalid date";
@@ -22,13 +24,13 @@ const formatDate = (isoString: string | undefined): string => {
 const ExerciseItem = ({ exercise, onEdit, onComplete, onRemove, isActive }) => {
 	const isCompleted = exercise.status === "completed";
 	const imageUri = exercise.image
-		? exercise.image.replace("localhost", "192.168.10.182")
-		: "http://192.168.10.182/Assets";
+		? { uri: exercise.image.replace("localhost", "192.168.10.182") }
+		: localGif;
 
 	return (
 		<View style={[styles.sessionItem, isActive ? styles.activeItem : null]}>
 			<View style={styles.sessionImageOverlay}>
-				<Image source={{ uri: imageUri }} style={styles.sessionImage} />
+				<Image source={imageUri} style={styles.sessionImage} />
 				{isCompleted && (
 					<View style={styles.completedOverlay}>
 						<Text style={styles.completedText}>
@@ -59,5 +61,4 @@ const ExerciseItem = ({ exercise, onEdit, onComplete, onRemove, isActive }) => {
 		</View>
 	);
 };
-
 export default ExerciseItem;
